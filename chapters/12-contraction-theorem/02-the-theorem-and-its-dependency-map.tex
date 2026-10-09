@@ -1,0 +1,24 @@
+\section{The theorem and its dependency map}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{theorem}[Contraction theorem]\label{thm:banach}
+Let $(X,d)$ be a nonempty complete metric space, and let $T:X\to X$ satisfy the contraction inequality with $0\le q<1$. Then $T$ has exactly one fixed point $x_*$. For every initial point $x_0\in X$, the iterates $x_{n+1}=T(x_n)$ converge to $x_*$. If $0<q<1$, they satisfy
+\[
+d(x_n,x_*)\le\frac{q^n}{1-q}\,d(x_1,x_0).
+\tag{12.1}\label{eq:apriori}
+\]
+For every point $z\in X$, whether or not it is an iterate,
+\[
+d(z,x_*)\le\frac{d(z,Tz)}{1-q}.
+\tag{12.2}\label{eq:residual}
+\]
+\end{theorem}
+\end{minipage}\par
+
+
+Before starting, separate the theorem's promises. Existence asks for a point that is unchanged by $T$. Uniqueness asks why two such points cannot differ. Convergence asks whether the sequence produced from \emph{any} initial point approaches that point. The error bounds ask how far a finite approximation can be from it. Proving one of these does not automatically prove the others.
+
+The first bound uses $x_0$ and its first update $x_1$, so it describes the iterated sequence. The second uses an arbitrary $z\in X$, so it can certify an approximation produced by another procedure. In both inequalities, $1-q$ is positive. That positive margin is a hypothesis of the theorem; it is what makes division legitimate and the error bound finite.
+
+Here is the whole proof before its details. The contraction inequality makes successive step lengths decrease geometrically. The geometric-sum bound makes the iterates Cauchy. Completeness supplies a limit in the space. A distance comparison shows that this limit is fixed. Another comparison rules out two fixed points. Finally, the same estimates quantify the error.
+
+Only a few ingredients are needed: induction, the triangle inequality, geometric sums, the definition of Cauchy, and completeness. We do not need calculus or an entire course in analysis. This is what a sufficient background plan looks like when it is tied to an exact proof.

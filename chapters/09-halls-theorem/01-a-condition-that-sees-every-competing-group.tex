@@ -1,0 +1,23 @@
+\section{A condition that sees every competing group}
+The assignment examples suggest the condition
+\[
+|N(S)|\ge |S|\qquad\text{for every subset }S\subseteq L.
+\tag{H}\label{eq:hall}
+\]
+It says that every group of students collectively has at least as many available tasks as students. Checking only one student at a time misses shared bottlenecks. Checking only the entire class misses a smaller group trapped among too few tasks.
+
+For example, let $N(a)=N(b)=\{1\}$ and $N(c)=\{2,3\}$. The whole class has three tasks available and every student has an option. Yet the group $\{a,b\}$ has only one task. The failure is local to a subset, even though the desired assignment is global.
+
+Read condition (H) as a repeated test: choose any group $S$ of students, gather its distinct acceptable tasks into $N(S)$, and compare the two counts. A task accepted by three members of $S$ is still one task in $N(S)$, not three units of capacity.
+
+The empty group has no acceptable tasks to gather, so its test is $0\ge0$. A group consisting of one student tests whether that student has an option. A group consisting of all students tests overall capacity. The intermediate groups test competition that neither of those extreme tests sees. The word ``every'' is what includes all of these sizes.
+
+The theorem below is an \emph{if and only if} statement. One direction says an assignment implies these inequalities. The other says the inequalities imply an assignment. There is no circularity in using the inequalities in the second direction: there they are the hypothesis, not something inferred from a matching we have already assumed exists.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{theorem}[Hall's matching theorem]\label{thm:hall}
+A finite bipartite graph with parts $L,R$ has a matching saturating $L$ if and only if condition \eqref{eq:hall} holds.
+\end{theorem}
+\end{minipage}\par
+
+This classical theorem is a standard bridge from elementary counting to structural combinatorics; the exposition here is self-contained. Further developments appear in the graph and matching material of the MIT text~\cite{mcs}.

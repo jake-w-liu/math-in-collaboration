@@ -1,0 +1,36 @@
+\section{Three reproducible starting experiments}
+Extract the source package and open a terminal in its directory. The command \code{python labs.py} runs the demonstrations; on systems where the interpreter is named \code{python3}, use that name instead. The files require no package installation beyond a compatible Python interpreter.
+
+For assignments, execute:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+from labs import assign
+answer = assign([{0, 1}, {0}, {1, 2}], 3)
+print(answer)
+\end{lstlisting}
+\end{minipage}\par
+
+Student indices $0,1,2$ correspond to $a,b,c$ in Chapter~8. Task indices $0,1,2$ correspond to the book's tasks $1,2,3$. The output pairs use these zero-based names. A true \code{saturates\_left} flag comes with a full assignment. A false flag comes with \code{shortage\_left} and \code{shortage\_neighbors}; check the claimed set of neighbors and its size yourself. The function does not claim to return a maximum-size partial matching when it stops with an impossibility certificate.
+
+For signs, execute:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+from labs import aperiodic, periodic, sign_counts
+print(aperiodic([1, 1, 1, -1], 1))
+print(periodic([1, 1, 1, -1], 1))
+print(sign_counts(4))
+\end{lstlisting}
+\end{minipage}\par
+
+The first two outputs are one and zero. The last output reports counts at each positive length up to four. Counts refer to all labeled sign sequences, with no division by negation, reversal, or rotation symmetries. Increasing the maximum length doubles the number of additional candidates at each next length; choose a finite range deliberately.
+
+For the final investigation, execute:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+from labs import biased_iteration
+for row in biased_iteration(8):
+    print(row)
+\end{lstlisting}
+\end{minipage}\par
+
+Each row contains the index, exact iterate, exact error from one, and the proven upper bound. The strings such as \code{13/50} preserve the exact fractions. Convert to decimals only when preparing a display and retain the exact values in the evidence record.

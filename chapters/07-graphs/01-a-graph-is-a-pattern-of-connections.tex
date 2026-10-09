@@ -1,0 +1,10 @@
+\section{A graph is a pattern of connections}
+A finite simple undirected graph has a finite set $V$ of vertices and a set $E$ of edges. Each edge is an unordered pair of distinct vertices. ``Simple'' excludes loops and repeated edges. Coordinates in a drawing are not part of this definition: moving a vertex on the page does not change which pairs are joined.
+
+Two vertices are neighbors when an edge joins them. The degree $\deg(v)$ is the number of neighbors of $v$. A graph with vertices $a,b,c,d$ and edges $\{a,b\},\{b,c\},\{c,a\},\{c,d\}$ has degrees $2,2,3,1$.
+\begin{center}
+\begin{tikzpicture}[every node/.style={circle,draw=ink,minimum size=6mm,inner sep=1pt},line width=.7pt]
+\node(a)at(0,0){$a$};\node(b)at(2,0){$b$};\node(c)at(1,1.5){$c$};\node(d)at(3,1.5){$d$};
+\draw(a)--(b)--(c)--(a);\draw(c)--(d);
+\end{tikzpicture}
+\end{center}

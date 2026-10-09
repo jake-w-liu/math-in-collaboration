@@ -1,0 +1,8 @@
+\section{A debugging sequence that does not lose the mathematics}
+When a line fails, first freeze the statement. Read the goal and the types of the available facts. Translate both into ordinary mathematics. Decide whether the issue is a false claim, a missing lemma, a mismatch of domains, or merely an expression written in a different form. Only then ask for a tactic repair.
+
+For a syntax issue, a one-line correction may be enough. For a missing theorem, request its exact statement and hypotheses. For a false target, stop trying to automate the proof and construct a counterexample. For a representation mismatch, justify the translation before rewriting. This sequence uses Lean as feedback without letting its error messages dictate an unprincipled search for any statement that will compile.
+
+\begin{lab}{An assumption audit in two columns}
+Take the impossible-context example and the injective-composition theorem. For each, make one column listing explicit parameters and another listing imported or foundational proof dependencies. Ask the assistant why an empty dependency list would not make the first theorem a proof of $0=1$. Then compare the \code{Second} definition with a definition containing only the existential two-step condition. Use the directed triangle from Chapter~7 to explain the semantic difference before discussing formal syntax.
+\end{lab}

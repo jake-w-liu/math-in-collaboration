@@ -1,0 +1,28 @@
+\section{Week 12}
+\sol{12.1}{For $T(x)=(3x+1)/4$, subtraction gives $|T(x)-T(y)|=(3/4)|x-y|$. Thus $q=3/4$ is a contraction factor on the complete space $\RR$. The fixed-point equation gives $4x=3x+1$, so the fixed point is one. Starting at zero, subtract one at each step to get $x_{n+1}-1=(3/4)(x_n-1)$, hence $x_n=1-(3/4)^n$. The formula also verifies the starting value and recurrence directly.}
+\sol{12.2}{The residual certificate is
+\[
+ d(z,x_*)\le\frac{d(z,Tz)}{1-q}
+ \le\frac{0.002}{1-0.75}=0.008.
+\]
+The residual is not itself a bound on the true error unless the factor $1/(1-q)$ is included or another argument justifies a stronger estimate.}
+\sol{12.3}{For $T(x)=(x^2+1)/3$ on $[1/3,2/3]$, the squared input lies in $[1/9,4/9]$, so the image lies in $[10/27,13/27]$. Both endpoints lie between $1/3=9/27$ and $2/3=18/27$, proving the self-map condition. For inputs in this smaller interval,
+\[
+ |T(x)-T(y)|=\frac{|x-y||x+y|}{3}
+ \le\frac49|x-y|.
+\]
+Thus a contraction factor is $4/9$, smaller than $2/3$ on $[0,1]$. Bounds using the smaller factor apply after the approximate point and the required iterations are known to lie in this smaller domain. Merely writing a smaller interval does not prove that membership.}
+\sol{12.4}{For $T(x)=x/2$ on $(0,1)$, the map is a self-map with factor $1/2$, but the space is incomplete and its real fixed point zero lies outside it. For the identity on $\RR$, the factor one is not strictly below one and every point is fixed, so uniqueness fails. For $T(x)=x+1$ on $\RR$, the same factor-one boundary admits no fixed point. For $T(x)=x/2+1$ restricted to $[0,1]$, the contraction estimate holds but the map is not a self-map: $T(1)=3/2$. These examples violate different hypotheses and should not be described as counterexamples to the theorem itself.}
+\sol{12.5}{The fixed-point equation $x=ax+b$ gives $x_*=b/(1-a)$; the denominator is nonzero because $|a|<1$. The map has contraction factor $|a|$ on $\RR$. Subtracting the fixed-point equation from the recurrence yields $x_{n+1}-x_*=a(x_n-x_*)$, hence $x_n-x_*=a^n(x_0-x_*)$. If $a<0$ and the starting error is nonzero, its sign alternates at each step while its magnitude decreases by the factor $|a|$. If the starting error is zero, all iterates are already fixed.}
+\sol{12.6}{The contraction theorem supplies both fixed points, because the two maps are self-maps of the same nonempty complete space and have contraction factors at most $q<1$. Their identities are $T(x_T)=x_T$ and $S(x_S)=x_S$.
+
+We need to compare points obtained from different maps, while the contraction bound compares outputs of the same map. Insert the intermediate point $T(x_S)$ to separate those two issues:
+\begin{align*}
+ d(x_T,x_S)
+ &=d(T(x_T),S(x_S))\\
+ &\le d(T(x_T),T(x_S))+d(T(x_S),S(x_S))\\
+ &\le q\,d(x_T,x_S)+\eta.
+\end{align*}
+The first term uses the contraction property of $T$. The second uses the assumed discrepancy bound at the allowed input $x_S$. Writing $D=d(x_T,x_S)$, the result is $D\le qD+\eta$. Subtract $qD$ to get $(1-q)D\le\eta$, then divide by $1-q>0$. Thus $d(x_T,x_S)\le\eta/(1-q)$.
+
+The proof explains why a uniform comparison of maps can control their fixed points: one inserted point isolates the change of input from the change of map.}

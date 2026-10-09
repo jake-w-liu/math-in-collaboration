@@ -1,0 +1,22 @@
+\section{Well-definedness: does the answer depend on the representative?}
+We would like to add classes by adding representatives:
+\[
+[a]_m+[b]_m=[a+b]_m.
+\]
+But a class has many representatives. We must show that replacing them does not change the resulting class.
+
+Suppose $a'=a+mk$ and $b'=b+m\ell$. Then
+\[
+a'+b'=a+b+m(k+\ell).
+\]
+Thus $a'+b'\equiv a+b\pmod m$, so the two choices give the same class. The operation is \emph{well-defined}: it is genuinely an operation on classes rather than an operation on a hidden choice of their names.
+
+Test this with $[1]_4+[2]_4$. Using representatives one and two gives $[3]_4$. Using five instead of one and $-2$ instead of two gives $[5+(-2)]_4=[3]_4$ again. Choosing five and six gives $[11]_4$, which is the same class as $[3]_4$. The ordinary integer sum may change; the \emph{output class}, which is what the operation promises to produce, does not.
+
+This explains the point of the general calculation. It is not trying to prove $a'+b'=a+b$, which would usually be false. It proves that the two sums differ by a multiple of $m$, exactly the criterion for equal output classes. Always ask what kind of object the output is before asking whether two outputs agree.
+
+Now consider the proposed ordinary-integer output $F([a]_4)=a$. This is not well-defined. The same class can be written $[1]_4=[5]_4$, but the rule would output either $1$ or $5$. We may instead specify the unique representative in $\{0,1,2,3\}$; then the rule is well-defined because a selection convention has been explicitly supplied.
+
+\pauseq{Does the rule $G([a]_4)=[a]_2$ depend on the representative?}{No. If $a'=a+4k$, then $a'-a=2(2k)$, so $a'$ and $a$ determine the same class modulo two. The rule is a legitimate function from classes modulo four to classes modulo two.}
+
+The map in the pause question loses information: $[0]_4$ and $[2]_4$ both become $[0]_2$. Yet it preserves addition. This is a useful distinction. A map can preserve a structure without preserving every distinction between inputs.

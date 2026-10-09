@@ -1,0 +1,37 @@
+\section{Week 9}
+\sol{9.1}{Let $N(a)=N(b)=\{1\}$ and $N(c)=\{2,3\}$. Every student has a neighbor, and the full left set has all three tasks as neighbors. Nevertheless $S=\{a,b\}$ has only one neighbor. No assignment can give both $a$ and $b$ distinct acceptable tasks. Checking only individual students and the whole set misses this intermediate obstruction.}
+\sol{9.2}{The complete check is
+\begin{center}
+\begin{tabular}{@{}lll@{}}\toprule
+$S$ & $N(S)$ & $|N(S)|\ge|S|$\\\midrule
+$\varnothing$ & $\varnothing$ & $0\ge0$\\
+$\{a\}$ & $\{1\}$ & $1\ge1$\\
+$\{b\}$ & $\{1,2\}$ & $2\ge1$\\
+$\{c\}$ & $\{2,3\}$ & $2\ge1$\\
+$\{a,b\}$ & $\{1,2\}$ & $2\ge2$\\
+$\{a,c\}$ & $\{1,2,3\}$ & $3\ge2$\\
+$\{b,c\}$ & $\{1,2,3\}$ & $3\ge2$\\
+$\{a,b,c\}$ & $\{1,2,3\}$ & $3\ge3$\\\bottomrule
+\end{tabular}
+\end{center}
+Both $\{a\}$ and $\{a,b\}$ are nonempty proper tight subsets. A matching is $a$--$1$, $b$--$2$, $c$--$3$. The table verifies the hypothesis; the matching itself is a shorter certificate of feasibility for this particular instance.}
+\sol{9.3}{Every member of $N(S)\cup N(T)$ either belongs to $N(S)$ or belongs to $N(T)$ without belonging to $N(S)$. Thus
+\[
+ N(S)\cup N(T)=N(S)\ \mathbin{\dot\cup}\ (N(T)\setminus N(S)),
+\]
+where the dotted union indicates disjointness. Counting a disjoint union adds its sizes. We did not assume that $N(S)$ and $N(T)$ themselves are disjoint; subtracting the overlap is what creates a disjoint decomposition.}
+\sol{9.4}{The difference $|N(S)|-|S|$ is an integer. If positive, it is at least one, giving $|N(S)|\ge|S|+1$. For arbitrary reals, positivity allows values strictly between zero and one. For example, $1.2>1$ does not imply $1.2\ge2$. The one-unit slack comes from integer counting.}
+\sol{9.5}{We will apply Hall's theorem, so we must establish its condition for an arbitrary set $S$ of students. If $S$ is empty, the condition reads $0\ge0$. The same counting argument below includes that case.
+
+Count the edges with left endpoint in $S$. Each student in $S$ accepts exactly $d$ tasks and therefore contributes exactly $d$ such edges. No edge has two left endpoints, so this counts each edge once. The total is $d|S|$.
+
+Every right endpoint of a counted edge lies in $N(S)$. Each task in that set is acceptable to at most $d$ students in the whole graph, and hence to at most $d$ members of $S$. Counting the same edges by their right endpoints therefore gives at most $d|N(S)|$. Combining the two counts,
+\[
+ d|S|\le d|N(S)|.
+\]
+Divide by the positive number $d$ to obtain $|S|\le|N(S)|$. This holds for every subset of the finite left set. The graph is bipartite by the assignment model, so all the hypotheses of the finite Hall theorem are met. It supplies a matching saturating the students. If $d$ were zero, division and the conclusion would both require reconsideration.}
+\sol{9.6}{A model portfolio can use the feasible graph of Exercise~9.2 with assignment $a$--$1$, $b$--$2$, $c$--$3$. Its comparison graph is the one in Exercise~9.1, with shortage certificate $S=\{a,b\}$ and $N(S)=\{1\}$.
+
+Here is a complete constructive sufficiency proof in the general finite setting. Assume $|N(S)|\ge|S|$ for every $S\subseteq L$ and start from the empty matching. If the current matching leaves a student $u$ unmatched, run the alternating search from $u$. If it reaches an unmatched task, take a simple alternating path to it and flip the path. This increases the matching size by one. Otherwise let $A,B$ be the reached left and right sets. The search rules give $N(A)=B$, as proved in Exercise~8.6. Every right vertex in $B$ is matched, since otherwise the search would have found an augmenting endpoint. Its matched left partner is reached. Conversely, every reached left vertex other than $u$ is reached through its matched partner. These pairings form a bijection between $B$ and $A\setminus\{u\}$, so $|N(A)|=|B|=|A|-1$, contradicting Hall's condition. Therefore a nonsaturating matching always admits an augmentation. Size can increase at most $|L|$ times, so the process ends with all students matched.
+
+Finally, maximality forbids adding one edge while leaving all present choices intact. Maximum size allows earlier choices to be revised. Ada--$1$ in Exercise~8.1 demonstrates the distinction. The portfolio should state which definition is used whenever it calls a matching ``optimal.''}

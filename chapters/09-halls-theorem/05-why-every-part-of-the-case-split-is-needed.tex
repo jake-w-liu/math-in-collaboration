@@ -1,0 +1,11 @@
+\section{Why every part of the case split is needed}
+The adjective \emph{proper} ensures both induced left sets in Case~1 are smaller. The adjective \emph{nonempty} prevents a vacuous split that leaves the original problem unchanged. Tightness is what lets us subtract $|S|$ without losing capacity in the remaining graph. In Case~2, the extra integer unit is exactly what pays for removing one task.
+
+An assistant that says ``split into a subset and its complement and apply induction'' has not yet proved the theorem. It must show that both smaller problems satisfy the condition being used as an induction hypothesis. That verification is the heart of the proof, not a bookkeeping detail.
+
+\pauseq{In Case~1, why not remove only the tasks actually chosen for $S$ instead of all of $N(S)$?}{The matching for $S$ uses $|S|$ distinct tasks, and tightness says $N(S)$ has exactly $|S|$ tasks. It therefore uses all of $N(S)$. Removing that set is both natural and necessary to prevent conflicts.}
+
+\subsection*{Using a theorem requires matching its entire input specification}
+The induction hypothesis is not simply ``smaller graphs have matchings.'' That statement is false. It says \emph{smaller finite bipartite graphs satisfying Hall's condition} have the required matchings. Every application must therefore supply three pieces of information: the smaller left and right sets, a smaller left size, and the inequalities for every subset of that smaller left set.
+
+The neighborhood calculations in the proof supply the third piece. Removing vertices preserves bipartiteness and finiteness, but it does not automatically preserve Hall's condition. This is a general reading habit: when a proof says ``apply the theorem,'' expand its hypotheses and check the correspondence. A matching name is not enough; the mathematical input must fit.

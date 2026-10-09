@@ -1,0 +1,18 @@
+\section{A small theorem with an extremal hypothesis}
+A tournament is an oriented graph in which every pair of distinct vertices has exactly one directed edge between them. Think of each pair having one winner. The outdegree of a vertex counts the vertices it beats.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{proposition}\label{thm:king}
+In a nonempty finite tournament, a vertex of maximum outdegree can reach every other vertex by a directed path of length at most two.
+\end{proposition}
+\end{minipage}\par
+
+\begin{proof}
+Choose a vertex $v$ of maximum outdegree, and let $A$ be its out-neighbors. Consider any other vertex $u$. If $v\to u$, it is reached in one step. If some $a\in A$ satisfies $a\to u$, it is reached by $v\to a\to u$.
+
+Suppose neither happens. The tournament condition then gives $u\to v$, and also $u\to a$ for every $a\in A$, because the alternative $a\to u$ was excluded. Thus $u$ has at least $|A|+1$ out-neighbors, whereas $v$ has exactly $|A|$. This contradicts maximum outdegree. Therefore one of the first two possibilities must occur.
+\end{proof}
+
+This theorem is not the second-neighborhood inequality considered below.
+
+In the tournament proof, maximum outdegree is a comparison with \emph{every} vertex. The assumed failure for a particular $u$ forces it to beat all $|A|$ members of $A$, plus $v$, which is not in $A$ because loops are forbidden. That explains the extra one in $|A|+1$. We need not know how $u$ behaves against any remaining vertices: these already counted neighbors suffice for a contradiction. Reaching all vertices within two steps does not by itself compare the number reached in the first step with the number reached for the first time in the second step. Related vocabulary does not make two claims equivalent.

@@ -1,0 +1,27 @@
+\section{A sequence with small echoes}
+A sign sequence of positive length $n$ is a list $a=(a_0,\ldots,a_{n-1})$ with each entry equal to $1$ or $-1$. Its aperiodic autocorrelation at a shift $s$ with $1\le s<n$ is
+\[
+A_s(a)=\sum_{j=0}^{n-1-s}a_j a_{j+s}.
+\]
+Slide the sequence by $s$ positions, multiply overlapping entries, and add the products. ``Aperiodic'' means entries beyond the endpoints are not wrapped around. At shift zero, the analogous sum is $n$, because every sign has square one.
+
+For $a=(1,1,1,-1)$,
+\begin{align*}
+A_1&=(1)(1)+(1)(1)+(1)(-1)=1,\\
+A_2&=(1)(1)+(1)(-1)=0,\\
+A_3&=(1)(-1)=-1.
+\end{align*}
+A Barker sequence is a sign sequence with $|A_s|\le1$ at every nonzero aperiodic shift. Thus this example qualifies. The definition makes sense at length one as well: there are no nonzero shifts to check, so the condition holds vacuously.
+
+Every $A_s$ is a sum of $n-s$ signs and therefore has the same parity as $n-s$. To see this, if $r$ summands are negative, the sum is $(n-s-r)-r=n-s-2r$. Hence a Barker sequence must have $A_s=0$ when $n-s$ is even, and $A_s=1$ or $-1$ when $n-s$ is odd. The definition has immediately produced an arithmetic restriction.
+
+\subsection*{Decode the summation limits before computing}
+At shift $s$, a term $a_j a_{j+s}$ is available only while both indices belong to $0,1,\ldots,n-1$. Starting at $j=0$, the last allowed $j$ satisfies $j+s=n-1$, or $j=n-1-s$. There are therefore $n-s$ terms, including both endpoints of that index range.
+
+For a length-five sequence and shift two, the sum is
+\[
+ A_2=a_0a_2+a_1a_3+a_2a_4.
+\]
+There is no term $a_3a_5$ in an aperiodic correlation, because $a_5$ is outside the list. At the largest allowed shift $s=n-1$, only $a_0a_{n-1}$ remains. Checking these endpoint cases is an effective way to detect an incorrect summation limit.
+
+The subscript on $A_s$ records the shift, whereas subscripts on $a_j$ record positions. The uppercase quantity is a sum built from the lowercase entries. Keeping these roles distinct helps when several indices appear in one calculation.

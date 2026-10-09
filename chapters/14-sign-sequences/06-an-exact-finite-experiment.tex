@@ -1,0 +1,12 @@
+\section{An exact finite experiment}
+There are $2^n$ labeled sign sequences of length $n$. The companion program enumerates all of them for $1\le n\le13$, using integer arithmetic. It counts Barker sequences and sequences with zero nonzero periodic correlations. No symmetry quotient is taken, so rotations, reversals, and global sign changes are counted separately whenever they produce different lists.
+
+\begin{center}
+\begin{tabular}{@{}r rr@{}}\toprule
+Length & Barker sequences & Zero nonzero periodic correlations\\\midrule
+1&2&2\\2&4&0\\3&4&0\\4&8&8\\5&4&0\\6&0&0\\7&4&0\\8&0&0\\9&0&0\\10&0&0\\11&4&0\\12&0&0\\13&4&0\\\bottomrule
+\end{tabular}
+\end{center}
+The program's enumeration was run for this edition. The table is evidence about exactly this finite range. It cannot rule out a sequence at an untested larger length. The number of possible cases doubles at each increase of length, which also explains why an unqualified instruction to ``test many more cases'' is not a mathematical strategy by itself.
+
+Global sign negation preserves every pair product, as established in Chapter~6. We could restrict the first sign to $1$ and double the counts afterward, because for a nonempty sequence the negated sequence is distinct and has the opposite first sign. The companion's primary enumeration intentionally does not rely on this reduction; it uses the symmetry as a separate cross-check.

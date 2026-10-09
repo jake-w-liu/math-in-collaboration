@@ -1,0 +1,26 @@
+\section{The function-composition proof returns}
+We define injectivity explicitly, rather than assume knowledge of a library name:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+def Inj {A B : Type} (f : A -> B) : Prop :=
+  forall x y : A, f x = f y -> x = y
+
+theorem inj_comp {A B C : Type}
+    (f : A -> B) (g : B -> C)
+    (hf : Inj f) (hg : Inj g) :
+    Inj (fun x => g (f x)) := by
+  intro x y h
+  have hxy : f x = f y := hg (f x) (f y) h
+  exact hf x y hxy
+\end{lstlisting}
+\end{minipage}\par
+
+The word \code{forall} is ASCII notation for the universal quantifier. \code{Type} denotes a type of mathematical objects. Curly braces mark parameters Lean can usually infer from other inputs: if it knows the type of $f$, it can infer its input and output types. The definition \code{Inj} says exactly what the earlier mathematical definition said.
+
+Read its body in order. \code{forall x y : A} means take any two inputs of the domain. The remaining expression \code{f x = f y -> x = y} says that equality of their outputs implies equality of those inputs. Thus the declared hypothesis \code{hg : Inj g} can be applied to two elements of \code{B} and a proof that their \code{g} outputs agree.
+
+In the proof, those two elements are \code{f x} and \code{f y}, not \code{x} and \code{y}. The evidence \code{h} concerns their final outputs. This accounts for all three arguments in \code{hg (f x) (f y) h}. Its result is the intermediate equality that \code{hf} can then use.
+
+The first proof line introduces arbitrary inputs and an equality of final outputs. The expression \code{hg (f x) (f y) h} supplies two inputs of $g$ and the evidence that their outputs agree. It returns equality of the intermediate values. The final application of \code{hf} then returns equality of the original inputs. These are the same two steps as Theorem~\ref{thm:injcomp}.
+
+If Lean rejects the application, inspect the actual types of \code{h}, \code{hf}, and \code{hg}. A common mistake is to apply \code{hf} directly to equality after $g$, skipping the intermediate equality that injectivity of $g$ must establish.

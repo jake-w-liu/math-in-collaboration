@@ -1,0 +1,96 @@
+\section{The one-step estimate}
+Write $e_n=d(y_n,x_*)$. Insert the exact update between the approximate point and the fixed point:
+\begin{align*}
+ e_{n+1}
+ &=d(y_{n+1},x_*)\\
+ &\le d(y_{n+1},T(y_n))+d(T(y_n),x_*)
+ &&\text{triangle inequality}\\
+ &=d(y_{n+1},T(y_n))+d(T(y_n),T(x_*))
+ &&\text{$T(x_*)=x_*$}\\
+ &\le\eps_n+q\,d(y_n,x_*)
+ &&\text{update and contraction bounds}\\
+ &=q e_n+\eps_n.
+\end{align*}
+Every assumption has a visible role. No independence, differentiability, or coordinate representation was used.
+
+\subsection*{Unfold three steps before writing the general sum}
+The one-step estimate does not yet display how old errors persist. Substitute it into itself, remembering that $q>0$ preserves inequalities on multiplication:
+\begin{align*}
+ e_1&\le qe_0+\eps_0,\\
+ e_2&\le qe_1+\eps_1
+       \le q^2e_0+q\eps_0+\eps_1,\\
+ e_3&\le qe_2+\eps_2
+       \le q^3e_0+q^2\eps_0+q\eps_1+\eps_2.
+\end{align*}
+At step three, the initial error has been multiplied by $q$ three times. The error $\eps_0$ introduced in the first update has been multiplied by $q$ twice afterward. The most recent update error $\eps_2$ has not yet been reduced by a later update, so its coefficient is one.
+
+At general step $n$, error $\eps_j$ was introduced while producing $y_{j+1}$. There are $n-(j+1)=n-1-j$ subsequent updates before $y_n$. Its weight is therefore $q^{n-1-j}$. The latest index is $j=n-1$, giving $q^0=1$. The oldest is $j=0$, giving $q^{n-1}$. These endpoint checks explain the summation limits in the next statement.
+
+The theorem separates two error hypotheses. A uniform bound $\eps_j\le\eta$ allows a persistent nonzero disturbance. The condition $\eps_j\to0$ requires the disturbances eventually to become arbitrarily small. The second can imply convergence to the original fixed point even when the accumulated sum of disturbances is not finite. We will prove the conclusions separately rather than interchange these assumptions.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{theorem}\label{thm:inexact}
+Under the preceding assumptions, for every integer $n\ge1$,
+\[
+ e_n\le q^n e_0+\sum_{j=0}^{n-1}q^{n-1-j}\eps_j.
+\]
+If $\eps_j\le\eta$ for every $j$, where $\eta\ge0$, then
+\[
+ e_n\le q^n e_0+\eta\frac{1-q^n}{1-q}.
+\]
+If instead $\eps_n\to0$, then $y_n\to x_*$.
+\end{theorem}
+\end{minipage}\par
+
+\begin{proof}
+For $n=1$, the first inequality is precisely $e_1\le qe_0+\eps_0$. Suppose the formula holds at $n$. The one-step bound gives
+\begin{align*}
+ e_{n+1}
+ &\le q\left(q^n e_0+\sum_{j=0}^{n-1}q^{n-1-j}\eps_j\right)+\eps_n\\
+ &=q^{n+1}e_0+\sum_{j=0}^{n-1}q^{n-j}\eps_j+q^0\eps_n\\
+ &=q^{n+1}e_0+\sum_{j=0}^{n}q^{n-j}\eps_j.
+\end{align*}
+This is the claimed formula with $n+1$ in place of $n$, so induction proves it for all $n\ge1$.
+
+When $\eps_j\le\eta$, all weights are nonnegative. Replace each $\eps_j$ by $\eta$ and reverse the order of the powers:
+\[
+ \sum_{j=0}^{n-1}q^{n-1-j}\eps_j
+ \le\eta\sum_{k=0}^{n-1}q^k
+ =\eta\frac{1-q^n}{1-q}.
+\]
+The last identity was derived in Chapter~11. This proves the uniform-error bound.
+
+\emph{Prepare the convergence argument.} Small later errors and possibly large earlier errors need different treatment. Fix a stage $J$ after which errors are small. The finitely many errors before $J$ have fixed values. Their influence will be reduced by more and more powers of $q$ as $n$ grows. The later errors may be numerous, but each is small and their geometric weights have a bounded sum. This suggests splitting the sum at $J$.
+
+The order of choices is important. First a target tolerance is supplied. Next choose $J$ so later disturbances are sufficiently small. Only after $J$ is fixed do we choose how far out to go to suppress its finite prefix. Choosing a new $J$ for each term in the final comparison would not establish one threshold for an entire tail.
+
+Finally suppose $\eps_n\to0$. Let $\delta>0$ be an arbitrary target tolerance. Choose an integer $J\ge1$ such that
+\[
+ \eps_j<\frac{(1-q)\delta}{2}\qquad(j\ge J).
+\]
+For $n>J$, split the error sum into an early finite part and a later part:
+\begin{align*}
+ e_n
+ &\le q^{n-J}\left(q^J e_0+
+       \sum_{j=0}^{J-1}q^{J-1-j}\eps_j\right)
+       +\sum_{j=J}^{n-1}q^{n-1-j}\eps_j\\
+ &\le q^{n-J}C_J+\frac{(1-q)\delta}{2}
+        \sum_{k=0}^{n-1-J}q^k\\
+ &\le q^{n-J}C_J+\frac\delta2,
+\end{align*}
+where the parentheses define a fixed finite nonnegative number $C_J$.
+
+To check the factoring in the first line, write the early terms before extracting their common power:
+\[
+ q^ne_0+q^{n-1}\eps_0+q^{n-2}\eps_1+\cdots+q^{n-J}\eps_{J-1}.
+\]
+The smallest exponent among them is $n-J$. Factoring $q^{n-J}$ leaves
+\[
+ C_J=q^Je_0+q^{J-1}\eps_0+q^{J-2}\eps_1+\cdots+\eps_{J-1}.
+\]
+Once the tolerance and $J$ have been chosen, this number does not depend on $n$. It is finite because it adds finitely many finite nonnegative real values.
+
+For the late part, $j=J$ through $n-1$ gives powers $q^{n-1-J}$ down to $q^0$. Their sum is at most $1/(1-q)$. Multiplying that bound by the allowed late-error size $(1-q)\delta/2$ leaves $\delta/2$. The other half of the tolerance is reserved for the early part. This is why that particular tolerance was requested of the error sequence. Since $0<q<1$, choose $N>J$ large enough that $q^{n-J}C_J<\delta/2$ for every $n\ge N$; if $C_J=0$, this term already vanishes. Then $e_n<\delta$ for $n\ge N$. This is convergence of $y_n$ to $x_*$.
+\end{proof}
+
+The finite-prefix split is a reusable technique. Early errors can be large because only finitely many occur and their effects are eventually damped. Later errors are controlled uniformly because they have become small. The proof does not require the accumulated error sums $\eps_0+\cdots+\eps_n$ to stay below one finite bound as $n$ grows. It controls the \emph{weighted} influence of errors, not their unweighted total.

@@ -1,0 +1,14 @@
+\section{Week 13}
+\sol{13.1}{The expectation is $0(1/2)+2(1/3)+5(1/6)=2/3+5/6=3/2$. The possible values two and five are each at least $3/2$. The expectation is a weighted average, not necessarily a possible observed value.}
+\sol{13.2}{Two labelings place all three vertices on the same side, giving cut size zero. The other six labelings split one vertex from the other two, giving cut size two. The average over all eight equally likely labelings is $(2\cdot0+6\cdot2)/8=3/2$, half of the three edges. Cut size one or three never occurs for a triangle.}
+\sol{13.3}{Place vertex $1$ on the left by the tie rule. Vertex $2$ has one assigned neighbor on the left, so place it on the right. Vertex $3$ has its assigned neighbor $2$ on the right, so place it on the left. Vertex $4$ has both assigned neighbors, $1$ and $3$, on the left, so place it on the right. Every cycle edge crosses, giving a cut of size four. The general guarantee is only at least two, but the rule can do better on a particular instance.}
+\sol{13.4}{Let $A_1,\ldots,A_4$ be the bad events. Their union is the event that at least one bad event occurs. The union bound gives
+\[
+ \Prob(A_1\cup A_2\cup A_3\cup A_4)
+ \le\sum_{j=1}^{4}\Prob(A_j)\le4(0.2)=0.8.
+\]
+The complementary event, in which all four are avoided, therefore has probability at least $1-0.8=0.2$. Its probability is positive, so it contains at least one outcome. This is an existence proof, not a claim that every outcome avoids the bad events.
+
+With the bound $0.25$ instead, the same calculation only gives avoidance probability at least $1-4(0.25)=0$. Every event already has nonnegative probability, so this supplies no existence information. To show that the conclusion can genuinely fail, use a uniform four-outcome space and let each bad event contain one different outcome. Each has probability $1/4$, but their union is the whole space. No outcome avoids them all.}
+\sol{13.5}{Let $X=0$ with probability $1/2$ and $X=10$ with probability $1/2$. Its expectation is five, but one possible value is zero. For a finite probability space, at least one outcome of positive probability has value at least the expectation. Otherwise every positive-weight term would lie strictly below that average, and their weighted average would also lie strictly below it, a contradiction. The argument ensures existence, not uniform performance.}
+\sol{13.6}{Markov's inequality gives $\Prob(X\ge12)\le\E X/12=1/4$. Equality is attained by $X=12$ with probability $1/4$ and $X=0$ with probability $3/4$. The expectation is three and the event $X\ge12$ has probability exactly $1/4$. Nonnegativity is part of the inequality's hypothesis.}

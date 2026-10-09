@@ -1,0 +1,16 @@
+\section{The Lean companion and its limits}
+The file \code{proofs.lean} contains the complete small examples and exercise solutions from Chapters~15--16, within the namespace \code{MathCourse}. The file \code{lean-toolchain} pins Lean 4.19.0. It does not pin the toolchain of the external research repository; that project must use its own configuration and dependencies.
+
+After installing the official Lean toolchain support, run
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+lean proofs.lean
+python verify.py --lean
+\end{lstlisting}
+\end{minipage}\par
+
+The second command requires Lean execution in addition to the numerical tests. It fails rather than silently reporting a pass when Lean is unavailable. Inspect the produced \code{lean\_check.log} and the theorem dependency output. The intentionally impossible-context theorem remains a conditional statement, not an unconditional contradiction, even if it uses no extra axiom.
+
+\textbf{Execution status of this edition.} The Lean examples have been reviewed against their mathematical arguments and the documented language constructs, but no Lean executable was available in the authoring environment, and a toolchain could not be obtained there. They were therefore \emph{not compiler-checked in this edition}. The companion is supplied for execution with the pinned toolchain; its acceptance is not represented as an already completed test. The full OpenAI research repository was also not built or independently verified for this book.
+
+For additional practice after these lessons, \emph{Mathematics in Lean} provides an interactive textbook and exercises~\cite{mil}. Use it as a continuation once the statement and proof-state ideas in this course are familiar, not as an unexplained prerequisite imposed before the first lesson.

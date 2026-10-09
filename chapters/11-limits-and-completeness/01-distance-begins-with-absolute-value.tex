@@ -1,0 +1,20 @@
+\section{Distance begins with absolute value}
+Recall the magnitude notation from Chapter~2. The absolute value $|x|$ is $x$ when $x\ge0$ and $-x$ when $x<0$. In particular, $|-3|=3$: the minus sign in the definition makes a negative input positive. Distance between real numbers is $|x-y|$. For $x=-2$ and $y=3$, it is $|-5|=5$, the same as $|y-x|$.
+
+We now use this familiar distance to understand a more general idea. The plan is not to learn a new kind of arithmetic. It is to isolate the properties of distance that an argument needs, so the argument can work on objects other than single real numbers.
+
+The triangle inequality is
+\[
+|x+y|\le|x|+|y|.
+\]
+To derive it, note that $-|x|\le x\le|x|$ and $-|y|\le y\le|y|$. Adding gives $-(|x|+|y|)\le x+y\le|x|+|y|$, which is equivalent to the inequality. Replacing $x$ by $a-b$ and $y$ by $b-c$ gives
+\[
+|a-c|\le|a-b|+|b-c|.
+\]
+The sum of the two leg lengths is an upper bound on the direct distance, not generally a lower bound. This is why triangle inequalities appear so often in error estimates: introduce an intermediate quantity that is easier to compare with each endpoint.
+
+If $|x-a|\le\eps$ and $|y-b|\le\delta$, then
+\[
+|(x+y)-(a+b)|\le |x-a|+|y-b|\le\eps+\delta.
+\]
+Errors add in this estimate. We have not assumed they actually point in the same direction, so the bound may be conservative. A valid upper bound need not be attained in every example.

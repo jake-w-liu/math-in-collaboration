@@ -1,0 +1,25 @@
+\section{An implication as a change of goal}
+Suppose $P,Q,R$ are propositions, $h_{PQ}$ proves $P\Rightarrow Q$, and $h_{QR}$ proves $Q\Rightarrow R$. We want $P\Rightarrow R$.
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+theorem implication_chain (P Q R : Prop)
+    (hpq : P -> Q) (hqr : Q -> R) : P -> R := by
+  intro hp
+  have hq : Q := hpq hp
+  exact hqr hq
+\end{lstlisting}
+\end{minipage}\par
+
+Read the proof line by line. Initially the goal is \code{P -> R}. The command \code{intro hp} says: assume $P$, call its proof \code{hp}, and now prove $R$. The command \code{have hq : Q := hpq hp} applies the implication $P\Rightarrow Q$ to the available proof of $P$, producing a proof of $Q$. The last line applies $Q\Rightarrow R$ to that proof and supplies exactly what the goal needs.
+
+The corresponding states are:
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}p{1.3in}XX@{}}\toprule
+After & Available new fact & Remaining goal\\\midrule
+Before the proof & $P\Rightarrow Q$, $Q\Rightarrow R$ & $P\Rightarrow R$\\
+\code{intro hp} & $P$ & $R$\\
+\code{have hq} & $Q$ & $R$\\
+\code{exact hqr hq} & a proof of $R$ & no remaining goal\\\bottomrule
+\end{tabularx}
+\end{center}
+These are instructional descriptions of the states, not a saved compiler transcript. In an editor, inspect Lean's actual state after each line and compare it with this reasoning.

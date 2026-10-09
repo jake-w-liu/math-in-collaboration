@@ -1,0 +1,30 @@
+\section{The smallest amount of Python needed}
+The core proofs can be read without programming. For the computational laboratories, the companion uses Python 3.10 or later and only its standard library. The following vocabulary is sufficient to begin; the official tutorial explains lists and sets in more detail~\cite{pystructures}.
+
+A \emph{list} is an ordered collection written in square brackets. In \code{a = [1, 1, 1, -1]}, the first entry is \code{a[0]}, not \code{a[1]}. Python starts list indices at zero. A \emph{set} records membership without repeated elements; \code{\{0, 1\}} is the set containing zero and one. The empty set is written \code{set()}, because empty braces have a different meaning in Python. The expression \code{len(a)} is the number of entries.
+
+A loop repeats a block for successive values. Indentation identifies the repeated block. For example:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+a = [1, 1, 1, -1]
+value = 0
+for j in range(3):
+    value = value + a[j] * a[j + 1]
+print(value)
+\end{lstlisting}
+\end{minipage}\par
+
+The values of \code{j} are $0,1,2$; the upper endpoint in \code{range(3)} is excluded. The successive additions are $1,1,-1$, so the printed result is one, the aperiodic correlation $A_1$. The expression \code{value = value + ...} updates a stored variable; it is not a mathematical equality asserted for a fixed value on both sides. Python uses \code{==} to test equality.
+
+A function packages a calculation. The following educational example assumes valid indices:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+def correlation(a, shift):
+    value = 0
+    for j in range(len(a) - shift):
+        value = value + a[j] * a[j + shift]
+    return value
+\end{lstlisting}
+\end{minipage}\par
+
+The \code{return} line gives the output. Unlike the teaching fragment, the companion validates its inputs and rejects empty sign sequences or invalid aperiodic shifts. It keeps periodic and aperiodic calculations as different named functions so that their conventions cannot be confused silently.

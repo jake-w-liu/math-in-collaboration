@@ -1,0 +1,22 @@
+\section{Capsule one: small regions that cover the space}
+For a metric space $(X,d)$, a \emph{ball} with center $c\in X$ and radius $r>0$ is
+\[
+ B(c,r)=\set{x\in X:d(x,c)<r}.
+\]
+It need not look round in a drawing. The definition only uses distance. If $x,y$ lie in the same ball, the triangle inequality gives
+\[
+ d(x,y)\le d(x,c)+d(c,y)<r+r=2r.
+\]
+This is the property of balls that the proof will use: one small ball controls distances between all of its points. A bound on all pairwise distances within a set is called a diameter bound.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}
+A metric space is \emph{totally bounded} if, for every $r>0$, finitely many balls of radius $r$, with centers in the space, cover the entire space.
+\end{definition}
+\end{minipage}\par
+
+The centers and their number may depend on $r$. We are not claiming that one finite list works at all resolutions.
+
+For example, $[0,1]$ is totally bounded with ordinary distance. Given $r>0$, choose a positive integer $N$ with $1/N<r$. Use centers $0,1/N,\ldots,1$. Every point between two consecutive centers is within $1/N$ of at least one of them, and hence within $r$. The endpoints are centers themselves. This gives a finite cover explicitly.
+
+A metric space is \emph{bounded} when some fixed finite number is an upper bound for the distance between every pair of its points. This is weaker than total boundedness. On $\NN$, define $d(m,n)=0$ if $m=n$ and $d(m,n)=1$ otherwise. This is a metric: for distinct endpoints, an intermediate point cannot make both distances zero, so their sum is at least one. All distances are at most one, yet a ball of radius $1/2$ contains only its center. Finitely many such balls cannot cover infinitely many natural numbers. Thus this space is bounded but not totally bounded.

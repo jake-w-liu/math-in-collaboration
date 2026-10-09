@@ -1,0 +1,38 @@
+\section{From a few sums to every sum}
+The first odd number is $1$, the first two sum to $4$, and the first three sum to $9$. The pattern suggests
+\[
+1+3+\cdots+(2n-1)=n^2\qquad(n\ge1).
+\]
+The left side grows by the next odd number. The right side changes from $n^2$ to $(n+1)^2$, and
+\[
+(n+1)^2-n^2=n^2+2n+1-n^2=2n+1.
+\]
+Both sides therefore change in the same way. This observation is the mechanism behind an induction proof.
+
+Induction uses a starting case and a transition. To prove a statement $P(n)$ for every natural number $n$, prove $P(0)$ and then show that for an arbitrary $k\ge0$, the assumption $P(k)$ implies $P(k+1)$. The second step is conditional. It does not assume the conclusion for all $n$.
+
+\subsection*{Seeing the transition at one actual index}
+For $n=3$, the formula says $1+3+5=3^2=9$. The next sum adds seven, so it becomes $9+7=16=4^2$. A transition at a general index $k$ does the same thing: it retains the sum of the first $k$ odd numbers and adds the next odd number $2k+1$.
+
+The \emph{induction hypothesis} is the temporary assumption that the formula works at that particular arbitrary index $k$. The \emph{induction step} shows it then works at $k+1$. We separately prove a \emph{base case} from which these transitions begin. If the base is zero, the transition gives one, then two, then three, and so on. For any specified finite index, that chain reaches it after finitely many transitions.
+
+The sum with no terms is assigned the value zero because it changes nothing when added to another sum. Thus starting our formula at $n=0$ is meaningful: there are no odd numbers to add, and the right side $0^2$ is also zero. We have not introduced a mysterious zeroth odd number.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{theorem}\label{thm:odds}
+For every $n\in\NN$, $\sum_{j=1}^{n}(2j-1)=n^2$, where a sum with no terms is defined to be zero.
+\end{theorem}
+\end{minipage}\par
+
+\begin{proof}
+For $n=0$, both sides are zero. Suppose the formula holds for $n=k$. Split the sum for $k+1$ into the first $k$ terms and its final term:
+\begin{align*}
+\sum_{j=1}^{k+1}(2j-1)
+&=\sum_{j=1}^{k}(2j-1)+(2(k+1)-1)\\
+&=k^2+2k+1 &&\text{by the induction hypothesis}\\
+&=(k+1)^2.
+\end{align*}
+This is the formula for $k+1$, completing the induction.
+\end{proof}
+
+The proof preserves the original meaning of $k$ throughout. If you do not understand an induction argument, write out its transition explicitly at $k=2$. Then return to the arbitrary $k$ and identify which part did not depend on that particular value.

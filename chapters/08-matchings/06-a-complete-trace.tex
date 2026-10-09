@@ -1,0 +1,27 @@
+\section{A complete trace}
+Let the acceptable tasks be
+\[
+N(a)=\{1,2\},\qquad N(b)=\{1\},\qquad N(c)=\{2,3\}.
+\]
+A sequence of choices could first match $a$ to $1$ and $c$ to $2$. Student $b$ is unmatched. From $b$ the search reaches task $1$, then its matched student $a$, then task $2$, then its matched student $c$, then the unused task $3$. The augmenting path is
+\[
+b--1--a--2--c--3.
+\]
+
+\begin{center}
+\begin{tikzpicture}[x=0.88in,y=0.5in,every node/.style={font=\small}]
+\foreach \x/\name in {0/b,1/1,2/a,3/2,4/c,5/3}
+ {\node[circle,draw=ink,minimum size=7mm,inner sep=1pt] (v\x) at (\x,0) {$\name$};}
+\draw[accent,dashed,thick] (v0)--(v1) (v2)--(v3) (v4)--(v5);
+\draw[ink,line width=1.2pt] (v1)--(v2) (v3)--(v4);
+\node[align=center] at (2.5,-.8) {Solid: remove the old matched edges.\\Dashed: add the new matched edges.};
+\end{tikzpicture}
+\end{center}
+
+After the flip, the matching is $b$--$1$, $a$--$2$, $c$--$3$. An early choice was not irrevocable; the alternating structure described exactly how to revise it without creating a new conflict.
+
+Now remove task $3$ from $c$'s options. The same search reaches all three students and only tasks $1,2$. It cannot augment, and $A=\{a,b,c\}$ satisfies $|N(A)|=2<3$. This is not merely a bad search order: it certifies that no full assignment exists.
+
+\begin{lab}{Interrogating an algorithmic failure}
+Ask an assistant to solve the three-student instance above greedily, then to explain any failure. Require it to distinguish ``my current matching is stuck'' from ``no full matching exists.'' For a feasible instance, demand an alternating repair path. For the modified infeasible instance, demand a specific set $A$ and the computed set $N(A)$. Verify both certificates by hand before running the companion code.
+\end{lab}

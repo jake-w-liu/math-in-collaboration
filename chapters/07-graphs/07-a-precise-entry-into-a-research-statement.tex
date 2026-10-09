@@ -1,0 +1,12 @@
+\section{A precise entry into a research statement}
+Let $N_1^+(v)$ be the out-neighbors of $v$. Define
+\[
+N_2^+(v)=\{w\ne v:\ w\notin N_1^+(v),\ \text{and some }u\text{ satisfies }v\to u\to w\}.
+\]
+These are vertices at directed distance exactly two, not all endpoints of two-edge walks. They are counted as vertices, not as paths. In the triangle $a\to b\to c$ with $a\to c$, the vertex $c$ is not in $N_2^+(a)$ because it is already a first neighbor.
+
+The statement documented for Family~173 of the OpenAI mathematics repository is that every nonempty finite oriented graph has some $v$ with $|N_2^+(v)|\ge|N_1^+(v)|$, with exactly this exclusion convention and with sinks allowed~\cite{oai173}. Our sink theorem proves this statement for the acyclic subclass: choose a sink, for which both sets are empty. This is a complete special-case proof, not a proof for all oriented graphs. Chapter~17 returns to the distinction between such a bridge result and the repository's full claim.
+
+\begin{lab}{When ``two steps away'' is ambiguous}
+Construct a directed triangle with edges $a\to b$, $b\to c$, and $a\to c$. Ask an assistant to compute both neighborhoods of $a$. If it counts $c$ as a second neighbor, ask whether ``second'' means a two-edge walk exists or the shortest directed distance is exactly two. Then test a directed three-cycle, where each vertex has one first and one second neighbor. Your output should state the definition before giving the counts.
+\end{lab}

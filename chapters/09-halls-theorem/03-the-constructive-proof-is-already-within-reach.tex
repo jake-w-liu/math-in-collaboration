@@ -1,0 +1,6 @@
+\section{The constructive proof is already within reach}
+Start from the empty matching and repeatedly apply the search procedure from Chapter~8. If a student remains unmatched, search from that student. Under condition \eqref{eq:hall}, the search cannot fail: failure would produce a subset $A$ with $|N(A)|<|A|$, contradicting \eqref{eq:hall}. Thus it finds an augmenting path and increases the matching size by one.
+
+At most $|L|$ such increases are possible. The procedure therefore reaches a matching saturating $L$. This proves sufficiency. The case $L=\varnothing$ is covered by the empty matching, and the condition is then true because the only subset is empty.
+
+This argument proves both existence and a method of construction. It also tells us how to distinguish a true impossibility from an unlucky sequence of choices. The algorithm returns either an assignment or a shortage set, each checkable without trusting the search process that found it.

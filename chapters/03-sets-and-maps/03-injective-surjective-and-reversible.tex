@@ -1,0 +1,46 @@
+\section{Injective, surjective, and reversible}
+A function is \emph{injective} when distinct inputs never merge. Its proof-friendly definition is
+\[
+\forall x,y\in A,\qquad f(x)=f(y)\Rightarrow x=y.
+\]
+A function is \emph{surjective} when every element of its codomain is an output:
+\[
+\forall b\in B\ \exists a\in A:\qquad f(a)=b.
+\]
+A function with both properties is \emph{bijective}. An injective function preserves the distinction between inputs. A surjective function reaches every specified target. These are different obligations.
+
+Consider the finite map $f:\{a,b\}\to\{1,2,3\}$ with $f(a)=1$ and $f(b)=2$. Its inputs do not merge, so it is injective. It misses the target three, so it is not surjective. Conversely, the map $g:\{a,b,c\}\to\{1,2\}$ with outputs $1,1,2$ is surjective but not injective. Its two preimages of one prevent a uniquely determined reverse assignment.
+
+Why does bijectivity supply an inverse? Given a target $b$, surjectivity supplies at least one preimage $a$. Injectivity says that two such preimages would have to be equal. We can therefore define $h(b)$ to be that unique preimage. By construction $f(h(b))=b$, and for any input $a$, the unique preimage of $f(a)$ is $a$ itself, giving $h(f(a))=a$. Both inverse identities have now been checked.
+
+The square map on all real inputs is not injective because $f(1)=f(-1)$. Restricted to nonnegative inputs and nonnegative outputs, it is bijective: each nonnegative real has exactly one nonnegative square root. Here we use the usual square-root property of real numbers. Changing the domain removes the collision, and changing the codomain removes unreachable negative targets.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{theorem}\label{thm:injcomp}
+If $f:A\to B$ and $g:B\to C$ are injective, then $g\circ f$ is injective.
+\end{theorem}
+\end{minipage}\par
+
+\noindent\textit{Plan.} Equality at the final output should let us recover equality at the intermediate stage, and then at the input stage.
+\begin{proof}
+Take any $x,y\in A$ and assume $g(f(x))=g(f(y))$. The elements $f(x)$ and $f(y)$ belong to $B$, so injectivity of $g$ applies and gives $f(x)=f(y)$. Injectivity of $f$ then gives $x=y$. This is exactly the implication needed for injectivity of the composition.
+\end{proof}
+
+An assistant may describe the two steps as ``cancel $g$ and then cancel $f$.'' This is acceptable shorthand only after the hypotheses are clear. There is no general rule that arbitrary functions can be canceled.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{proposition}\label{thm:compconverse}
+If $g\circ f$ is injective, then $f$ is injective. The function $g$ need not be injective on all of $B$.
+\end{proposition}
+\end{minipage}\par
+
+\begin{proof}
+Suppose $f(x)=f(y)$. Applying the same function $g$ to equal objects gives $g(f(x))=g(f(y))$. Injectivity of $g\circ f$ then gives $x=y$, so $f$ is injective.
+
+For the second assertion, take $A=\{0,1\}$, $B=\{0,1,2\}$, $C=\{0,1\}$, and define
+\[
+f(0)=0,\quad f(1)=1,\qquad g(0)=0,\quad g(1)=g(2)=1.
+\]
+The composition sends $0$ to $0$ and $1$ to $1$, so it is injective. Yet $g$ is not injective because the distinct inputs $1,2$ have equal output.
+\end{proof}
+The unused input $2$ explains the failure. The composition only tests $g$ on the image $f(A)$, not on the whole set $B$. A counterexample can reveal the exact correction: $g$ is injective when restricted to $f(A)$.

@@ -1,0 +1,15 @@
+\section{An implication is a conditional promise}
+The statement ``If an integer is divisible by four, then it is even'' has a condition and a conclusion. We abbreviate their logical form as $P\Rightarrow Q$, read ``$P$ implies $Q$.'' Here $P$ is divisibility by four and $Q$ is evenness. Divisibility by four means $n=4k$ for an integer $k$. Then $n=2(2k)$, which proves evenness.
+
+The implication makes no promise about a number that is not divisible by four. Such a number may be even, like $6$, or odd, like $7$. A common reading error is to treat the condition as necessary for the conclusion. It is sufficient, but may not be necessary.
+
+The \emph{converse} is $Q\Rightarrow P$. In this example it says every even integer is divisible by four, which is false because $6$ is even but not divisible by four. A single counterexample is enough: it satisfies the proposed assumption and violates the proposed conclusion.
+
+The statement $P\Leftrightarrow Q$, read ``$P$ if and only if $Q$,'' promises both implications. To prove it, check each direction separately. The statement ``$n$ is even if and only if $n^2$ is even'' is one we will prove in Chapter~4. Its two directions require different choices of representation.
+
+\subsection*{A theorem is a rule you must qualify to use}
+To use ``divisible by four implies even'' at $n=20$, first verify the input condition: $20=4\cdot5$, with five an integer. The theorem then gives evenness. There are two distinct pieces here: a general implication already justified and evidence that this particular input satisfies its hypothesis. Merely naming a theorem does not provide the second piece.
+
+``Sufficient'' means enough to obtain the conclusion. Divisibility by four is sufficient for evenness. ``Necessary'' means required whenever the property in question holds. Evenness is necessary for divisibility by four. Neither sentence says the two properties coincide. At six, evenness holds while divisibility by four fails.
+
+To test an implication, look for an input where its hypothesis is true and its conclusion false. An input outside the hypothesis does not refute it. Seven is not a counterexample to ``divisible by four implies even'': it does not satisfy the required input condition. This simple distinction is the difference between asking an AI for random tests and asking it to search for a genuine counterexample.

@@ -1,0 +1,44 @@
+\section{Week 10}
+\sol{10.1}{Matrix multiplication gives
+\[
+ \begin{pmatrix}2&1\\0&3\end{pmatrix}
+ \begin{pmatrix}1\\-2\end{pmatrix}
+ =\begin{pmatrix}2\cdot1+1(-2)\\0\cdot1+3(-2)\end{pmatrix}
+ =\begin{pmatrix}0\\-6\end{pmatrix}.
+\]
+Equivalently, take one copy of the first column $(2,0)$ and minus two copies of the second column $(1,3)$. Their sum is $(0,-6)$. This displays how columns encode the action on basis vectors.}
+\sol{10.2}{The kernel consists of pairs satisfying $x+y=0$. Solving for $y$ gives $(x,y)=(t,-t)$ for arbitrary real $t$. For output five, solve $x+y=5$ to obtain $(t,5-t)$. One solution is $(0,5)$, and every other solution differs from it by $(t,-t)$ in the kernel. The map loses one degree of information: it remembers the sum but not the split between coordinates.}
+\sol{10.3}{For $T(x,y)=(x+y,x-y)$, define $U(a,b)=((a+b)/2,(a-b)/2)$. Then
+\[
+ U(T(x,y))=\left(\frac{x+y+x-y}{2},\frac{x+y-x+y}{2}\right)=(x,y).
+\]
+Conversely,
+\[
+ T(U(a,b))=\left(\frac{a+b+a-b}{2},\frac{a+b-a+b}{2}\right)=(a,b).
+\]
+Both compositions are identities, so $U$ is an inverse, not merely a map that works for one selected input.}
+\sol{10.4}{For $u=(1,2)$ and $v=(2,-1)$, the dot product is $1\cdot2+2(-1)=0$. Both squared lengths are $1+4=5$, so both lengths are $\sqrt5$. Cauchy--Schwarz reads $0\le\sqrt5\sqrt5=5$. Orthogonality does not mean either vector is zero.}
+\sol{10.5}{Start from the squared length because its dot product expands using addition:
+\begin{align*}
+ \norm{u+v}_2^2
+ &=(u+v)\cdot(u+v)\\
+ &=u\cdot u+u\cdot v+v\cdot u+v\cdot v\\
+ &=\norm{u}_2^2+2(u\cdot v)+\norm{v}_2^2\\
+ &\le\norm{u}_2^2+2|u\cdot v|+\norm{v}_2^2\\
+ &\le\norm{u}_2^2+2\norm{u}_2\norm{v}_2+\norm{v}_2^2\\
+ &=(\norm{u}_2+\norm{v}_2)^2.
+\end{align*}
+The first inequality uses that a real number is at most its absolute value. The next applies Cauchy--Schwarz. The final equality recognizes the expansion of a square.
+
+Both $\norm{u+v}_2$ and $\norm{u}_2+\norm{v}_2$ are nonnegative. Taking their nonnegative square roots therefore preserves the comparison and yields $\norm{u+v}_2\le\norm{u}_2+\norm{v}_2$. Without nonnegativity, a comparison of squares would not by itself compare the unsquared quantities in the same order.}
+\sol{10.6}{Assume $a_1u_1+\cdots+a_ku_k=0$. To recover one coefficient, choose its index $j$ and take the dot product of both sides with $u_j$. Linearity gives
+\[
+ a_1(u_1\cdot u_j)+\cdots+a_k(u_k\cdot u_j)=0\cdot u_j=0.
+\]
+For every $i\ne j$, orthogonality means $u_i\cdot u_j=0$. All of those terms disappear. The only remaining equation is
+\[
+ a_j(u_j\cdot u_j)=a_j\norm{u_j}_2^2=0.
+\]
+The vector $u_j$ is nonzero, so its squared length is positive. Division by that squared length gives $a_j=0$. Because $j$ was an arbitrary index, the argument recovers every coefficient. This is linear independence, not just a statement about one particular coefficient choice.
+
+Nonzeroness matters. If one of the vectors were zero, a nonzero coefficient multiplying it could appear in a zero combination. The proof would then fail precisely at the division step.}

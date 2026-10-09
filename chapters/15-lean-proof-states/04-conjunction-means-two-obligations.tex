@@ -1,0 +1,22 @@
+\section{Conjunction means two obligations}
+To prove $Q\land P$ from $P\land Q$, extract the two components and put them in the opposite order:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+theorem and_swap (P Q : Prop) : And P Q -> And Q P := by
+  intro h
+  exact And.intro h.right h.left
+\end{lstlisting}
+\end{minipage}\par
+
+Here \code{And P Q} means the conjunction $P\land Q$. The expressions \code{h.right} and \code{h.left} extract its second and first components. The constructor \code{And.intro} packages two proofs into a conjunction; its argument order must match the desired conclusion. Thus the proof of $Q$ comes first and the proof of $P$ second.
+
+This is the formal counterpart of proving two set containments or two directions of an equivalence. Do not let one completed branch obscure an unfinished second obligation.
+
+\subsection*{Parameters, arrows, and implicit inputs}
+The type \code{A -> B} describes functions taking an input of type \code{A} and returning an output of type \code{B}. The type \code{A -> B -> C} groups as \code{A -> (B -> C)}: after receiving an \code{A}, the function receives a \code{B}, then returns a \code{C}. This lets Lean write multiple inputs by spaces, as in \code{f x y}. Application groups to the left: first \code{f x}, then its result applied to \code{y}.
+
+For a hypothesis saying injectivity holds, the inputs will be two objects and evidence that their outputs agree. Its result will be evidence that the objects agree. Counting these inputs will make the application in the next proof readable.
+
+The word \code{Type} in the next declaration indicates a type of objects rather than a proposition to prove. The notation \code{\{A B : Type\}} introduces types as implicit parameters: Lean normally infers them from the supplied function. Parentheses around a parameter instead request that it be supplied explicitly. The mathematical domains are still present when braces are used; they have not been removed from the statement.
+
+Finally, \code{fun x => g (f x)} is the rule sending $x$ to $g(f(x))$. It names a function without first giving it a separate declaration. In ordinary mathematical notation it is $x\mapsto g(f(x))$.

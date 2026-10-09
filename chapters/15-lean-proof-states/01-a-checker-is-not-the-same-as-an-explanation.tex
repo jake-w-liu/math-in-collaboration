@@ -1,0 +1,13 @@
+\section{A checker is not the same as an explanation}
+Lean is a programming language and proof assistant. A proposition is represented by a type of proofs, and a completed proof is checked against its stated type. Tactics are instructions that construct proof terms; they are not substitutes for the underlying statement. The official introductions explain these ideas in more detail~\cite{leanprop,leantactics}.
+
+Our purpose is not to memorize a catalogue of tactics. It is to make the discipline of Chapter~4 explicit: which objects and hypotheses are available, and what exactly remains to be established? The examples below reproduce mathematics already learned, so that a syntax difficulty can be distinguished from a conceptual difficulty.
+
+The official installation route uses VS Code and the Lean 4 extension, whose setup guide installs the needed toolchain~\cite{leaninstall}. The companion files use only Lean's core and standard library, not Mathlib. The file \code{lean-toolchain} requests version 4.19.0 as a fixed target, not as a claim about the latest release. The reproducibility note records which execution checks were and were not possible for this edition.
+
+\subsection*{From a mathematical sentence to a file}
+A Lean file is an ordinary text file whose name ends in \code{.lean}. It contains declarations: some define objects or meanings, and others state and prove results. In the companion, \code{import Std} makes the standard library available. The line \code{namespace MathCourse} groups our names so they do not collide with names from another file. A closing \code{end MathCourse} ends that group; it does not end a mathematical proof.
+
+Open \code{proofs.lean} as a file, not as text to paste into the terminal. The terminal command \code{lean proofs.lean} asks the Lean executable to check that file. The name after \code{lean} is the filename. A terminal is a text window for issuing commands to installed programs; it does not interpret Lean proof lines as shell commands. The practical appendix explains how to run the separate companions.
+
+You can read the mathematics in this chapter before installing anything. Later, the editor's displayed proof state lets you compare the stated hypotheses and goal after each line with the explanations here. These teaching descriptions are not a claim that this edition's files were compiler-checked; the execution status is stated in Appendix~\ref{app:practical}.

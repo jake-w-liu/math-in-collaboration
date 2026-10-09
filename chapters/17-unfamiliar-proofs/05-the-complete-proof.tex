@@ -1,0 +1,32 @@
+\section{The complete proof}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{theorem}\label{thm:subsequence}
+Let $(X,d)$ be a nonempty, complete, totally bounded metric space. Every sequence $(x_n)_{n\ge0}$ in $X$ has a subsequence converging to a point of $X$.
+\end{theorem}
+\end{minipage}\par
+
+\begin{proof}
+We first construct nested infinite sets of indices. Set $S_0=\NN$. For each integer $k\ge1$, cover $X$ by finitely many balls of radius $2^{-(k+1)}$. The indices in $S_{k-1}$ are infinite in number. By the preceding pigeonhole argument, one of these balls contains $x_n$ for infinitely many $n\in S_{k-1}$. Let $S_k$ be that infinite set of indices. Then
+\[
+ S_k\subseteq S_{k-1},
+ \qquad d(x_i,x_j)<2\cdot2^{-(k+1)}=2^{-k}
+ \quad(i,j\in S_k).
+\]
+The inclusion matters: the selections at later stages retain the distance control obtained at earlier stages.
+
+Choose $n_1\in S_1$. Once $n_{k-1}$ is chosen, choose $n_k\in S_k$ with $n_k>n_{k-1}$. Such an index exists because $S_k$ is infinite. This constructs a subsequence $(x_{n_k})$.
+
+Here $k$ counts the extraction stage, while $n_k$ is an index in the original sequence. For example, the first few chosen indices might be $n_1=4,n_2=9,n_3=15$. The extracted terms would be $x_4,x_9,x_{15}$, in that order. The index values need not follow a simple formula. What matters is that each $n_k$ is chosen from $S_k$ and is strictly larger than the preceding one.
+
+For $\ell\ge k$, nestedness means $S_\ell\subseteq S_k$. Since $n_\ell\in S_\ell$, it follows that $n_\ell\in S_k$. Thus not only the $k$th chosen term but \emph{every later chosen term} obeys the distance control from stage $k$. This is the bridge from one-stage choices to a Cauchy tail.
+
+We show it is Cauchy. Given $\eps>0$, choose $K$ with $2^{-K}<\eps$. For $\ell,m\ge K$, nestedness gives $S_\ell\subseteq S_K$ and $S_m\subseteq S_K$. Thus $n_\ell,n_m\in S_K$, and
+\[
+ d(x_{n_\ell},x_{n_m})<2^{-K}<\eps.
+\]
+This is precisely the Cauchy condition. Completeness now supplies a point $x_*\in X$ to which the subsequence converges. No further extraction is needed.
+
+We did not choose an index belonging to every set $S_k$ at once. There might be no such index: the nested infinite sets $\{k,k+1,k+2,\ldots\}$ have empty intersection. Instead we chose a new later index from each successive set and proved that any sufficiently late pair belongs together to an earlier selected set. That is all the Cauchy definition asks for. Replacing this step by ``take an index in the intersection'' would introduce a false extra claim.
+\end{proof}
+
+\pauseq{Where is each hypothesis used?}{Total boundedness gives a finite cover at every smaller radius. Finiteness lets the pigeonhole argument retain infinitely many indices. Nestedness transfers earlier distance bounds to all later choices. Completeness places the limit inside $X$.}

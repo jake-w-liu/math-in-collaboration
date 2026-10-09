@@ -1,0 +1,8 @@
+\section{Why one acceptable task per person is not enough}
+Two students, Ada and Ben, each accept task $1$. Neither accepts any other task. Individually both have an acceptable choice. Together they cannot receive distinct tasks. The problem is collective competition for the same resource.
+
+Now suppose Ada accepts tasks $1,2$, while Ben accepts only $1$. A solution exists: Ada receives $2$ and Ben receives $1$. But a greedy procedure that gives Ada task $1$ immediately gets stuck. The failure of that procedure is not a proof of impossibility. It only says the current assignment cannot be extended without revising an earlier choice.
+
+A bipartite graph models the problem. Its vertices are split into disjoint sets $L$ and $R$, and every edge joins one vertex in $L$ to one in $R$. Let $L$ be students, $R$ tasks, and an edge indicate acceptability. The word bipartite means that edges never connect two students or two tasks in this model.
+
+A matching is a collection of edges with no shared endpoints. It assigns distinct tasks to the students that it covers. A matching \emph{saturates} $L$ when every student is covered. It need not use every task. This distinction matters when there are more tasks than students.

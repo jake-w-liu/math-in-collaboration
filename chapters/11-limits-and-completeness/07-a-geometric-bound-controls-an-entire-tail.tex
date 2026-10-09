@@ -1,0 +1,46 @@
+\section{A geometric bound controls an entire tail}
+For $0<q<1$, the finite geometric sum satisfies
+\[
+1+q+\cdots+q^{r-1}=\frac{1-q^r}{1-q}.
+\]
+To see the cancellation, first take $r=4$ and give the sum a name, $S=1+q+q^2+q^3$. Then
+\begin{align*}
+ S&=1+q+q^2+q^3,\\
+ qS&=\phantom{1+{}}q+q^2+q^3+q^4,\\
+ S-qS&=1-q^4.
+\end{align*}
+The left side is $(1-q)S$, so $S=(1-q^4)/(1-q)$. For general positive $r$, the common terms are $q$ through $q^{r-1}$ and the unmatched end terms are $1$ and $q^r$. The same subtraction gives $(1-q)S=1-q^r$. Since $1-q>0$, division is permitted. Therefore
+\[
+\sum_{j=n}^{m-1}q^j=q^n\frac{1-q^{m-n}}{1-q}\le\frac{q^n}{1-q}\qquad(m>n).
+\]
+The bound must get small as the starting index $n$ grows. We therefore need to justify $q^n\to0$ for every fixed $0<q<1$, not just for $q=1/2$.
+
+Put $c=1/q-1>0$, so $1/q=1+c$. We prove $(1+c)^n\ge1+nc$ by induction. At $n=0$ both sides are one. If it holds at $n$, multiplication by $1+c>0$ gives
+\[
+ (1+c)^{n+1}\ge(1+nc)(1+c)
+ =1+(n+1)c+nc^2\ge1+(n+1)c.
+\]
+Thus the bound holds for every $n$. Taking reciprocals of positive quantities reverses order, giving
+\[
+ 0<q^n\le\frac1{1+nc}.
+\]
+For a requested tolerance $\eps>0$, choose a positive integer $N>1/(c\eps)$. If $n\ge N$, then $1+nc>nc\ge Nc>1/\eps$, so $q^n<\eps$. This is the required convergence proof. The threshold may depend on the fixed factor $q$ through $c$, and on the requested tolerance.
+
+If a sequence satisfies $d(x_{j+1},x_j)\le Dq^j$, repeated triangle inequalities now give
+\[
+d(x_m,x_n)\le\sum_{j=n}^{m-1}d(x_{j+1},x_j)
+\le\frac{Dq^n}{1-q}.
+\]
+The right side tends to zero independently of how late $m$ is. This proves the Cauchy condition.
+
+There are two thresholds we must not confuse. The integer $n$ is the starting point of a tail comparison, and $m>n$ can be arbitrarily far beyond it. Our bound contains $n$ but not $m$, so one choice of $n$ controls even very long tails.
+
+For $D>0$, a given tolerance $\eps$ asks for $q^n<\eps(1-q)/D$. The preceding geometric-limit argument supplies a threshold $N$ for that positive number. For any two indices at least $N$, put the smaller one in the role of $n$; symmetry handles their order, and equal indices have zero distance. If $D=0$, every step has zero length, so the sequence is constant. This also covers the case where dividing by $D$ would not have been permitted. We have found exactly the stronger control missing from the harmonic-sum example.
+
+\begin{lab}{Asking for the quantifier that failed}
+\noindent\textbf{Deliberately flawed reply.} ``The updates get arbitrarily small, so the iterates converge.''
+
+\noindent\textbf{Learner.} ``Compare consecutive differences with the Cauchy condition. Test the partial sums of $1/j$. Then give a stronger hypothesis that controls every tail, not just one step.''
+
+\noindent\textbf{Model repair.} A geometric bound on successive distances gives the displayed tail estimate. Completeness then supplies a limit in the space. Record these as separate obligations: tail control and existence of an included destination.
+\end{lab}

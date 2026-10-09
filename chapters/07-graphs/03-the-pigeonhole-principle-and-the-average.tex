@@ -1,0 +1,6 @@
+\section{The pigeonhole principle and the average}
+If $n$ objects occupy $m$ boxes and every box contains at most $k$ objects, then $n\le mk$: add the bounds for all boxes. Taking the contrapositive, if $n>mk$, some box contains more than $k$ objects. This is the pigeonhole principle in a quantitative form.
+
+For real numbers $a_1,\ldots,a_n$ with $n>0$, at least one is at least their average $\bar a=(a_1+\cdots+a_n)/n$. Otherwise each would be strictly less than $\bar a$, and adding those strict inequalities would give a total smaller than $n\bar a$, contradicting the definition. Similarly, at least one is at most the average.
+
+The word ``some'' is essential. An average does not control every entry. A graph with $m$ edges and $n>0$ vertices therefore has a vertex of degree at least $2m/n$, but not necessarily all vertices have that degree. Chapter~13 will turn the same observation into a method for proving existence through random choices.

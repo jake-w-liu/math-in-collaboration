@@ -1,0 +1,21 @@
+\section{Week 4}
+\sol{4.1}{Write $a=2k$ and $b=2\ell$ with integer witnesses. Then $ab=4k\ell$. Since $k\ell$ is an integer, the product is divisible by four by definition.}
+\sol{4.2}{The original claim has assumption ``$3n+1$ is even'' and conclusion ``$n$ is odd.'' Its contrapositive assumes the conclusion fails and must prove the original assumption fails.
+
+If the integer $n$ is not odd, the even/odd classification gives $n=2k$ for an integer $k$. Substitute this into the quantity in the original assumption:
+\[
+ 3n+1=3(2k)+1=6k+1=2(3k)+1.
+\]
+Since $3k$ is an integer, this is odd and hence not even. Thus ``$n$ is not odd'' implies ``$3n+1$ is not even,'' proving the contrapositive. By its equivalence to the original implication, the required result follows. The temporary assumption was the negation of the conclusion, not the original hypothesis.}
+\sol{4.3}{Suppose for contradiction that $r+u=s$ is rational. Then $u=s-r$. For rational numbers $s=a/b$ and $r=c/d$ with nonzero integer denominators,
+\[
+ s-r=\frac{ad-bc}{bd}
+\]
+is rational, since its numerator and denominator are integers and $bd\ne0$. Thus $u$ would be rational, contrary to the assumption. Hence $r+u$ is irrational.}
+\sol{4.4}{Existence: $x=2$ satisfies $2=3\cdot2-4$. Uniqueness: any solution satisfies $x=3x-4$, so subtracting $x$ gives $0=2x-4$, then $2x=4$ and $x=2$. Every solution equals the exhibited one. Rearranging to find a candidate is not, by itself, a reason to omit its substitution check.}
+\sol{4.5}{The missing possibility is the negative root. Since $\sqrt2$ denotes the nonnegative square root, the equation $x^2=2$ becomes
+\[
+ (x-\sqrt2)(x+\sqrt2)=0.
+\]
+The zero-product property gives $x=\sqrt2$ or $x=-\sqrt2$, and both square to two. An extra assumption $x\ge0$ would select the first value.}
+\sol{4.6}{Because $2\sqrt2$ is nonnegative and has square $4\cdot2=8$, it equals the nonnegative square root $\sqrt8$. If $\sqrt8$ were rational, division by two would make $\sqrt2$ rational. This contradicts Chapter~4. The reduction is complete because it checks both the identity between the roots and preservation of rationality under division by a nonzero integer.}

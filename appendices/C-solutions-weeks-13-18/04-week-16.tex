@@ -1,0 +1,37 @@
+\section{Week 16}
+\sol{16.1}{After unpacking \code{hg c}, the witness is \code{b : B} and \code{hb} proves \code{g b = c}. After unpacking \code{hf b}, the witness is \code{a : A} and \code{ha} proves \code{f a = b}. The final witness must belong to $A$ because the composition starts there. Rewriting the final expression $g(f(a))$ first by \code{ha} and then by \code{hb} gives $c$.}
+\sol{16.2}{Represent union by disjunction of membership predicates:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+def join {A : Type} (s t : A -> Prop) : A -> Prop :=
+  fun x => Or (s x) (t x)
+
+theorem preimage_join {A B : Type} (f : A -> B)
+    (s t : B -> Prop) (x : A) :
+    Iff (preimage f (join s t) x)
+      (join (preimage f s) (preimage f t) x) := by
+  rfl
+\end{lstlisting}
+\end{minipage}\par
+
+Both sides unfold to the proposition that $s(f(x))$ or $t(f(x))$ holds. This is the membership proof from Exercise~3.4 expressed through definitions.}
+\sol{16.3}{The first and last components of the nested conjunction supply the two claims:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+theorem second_not_self {V : Type}
+    (r : V -> V -> Prop) (v w : V)
+    (h : Second r v w) : Not (w = v) := by
+  exact h.left
+
+theorem second_route {V : Type}
+    (r : V -> V -> Prop) (v w : V)
+    (h : Second r v w) :
+    Exists (fun u : V => And (r v u) (r u w)) := by
+  exact h.right.right
+\end{lstlisting}
+\end{minipage}\par
+
+The projections reflect the grouping in the definition. Changing that grouping requires changing the projections, though not the underlying mathematical meaning.}
+\sol{16.4}{The new theorem assumes an impossible proposition as an additional input. It proves only that the conclusion follows \emph{if} that input were available, using the logical rule that falsehood implies every proposition. It does not provide a proof of the original theorem, whose hypothesis list did not include \code{False}. A statement diff exposes this change even if the proof contains no unfinished placeholder.}
+\sol{16.5}{First compare theorem signatures with the intended mathematical statement, including the types of every variable; this detects a changed domain. Next unfold the definitions used in the conclusion and compare their membership conditions; this detects a missing exclusion such as the first-neighbor condition. Finally run the checker, inspect completion warnings and proof dependencies, and investigate any placeholder axiom; this detects an unfinished proof. All three checks are needed because a correct proof of the wrong definition can have no placeholder.}
+\sol{16.6}{A Python enumeration can check all sign sequences at length four using its particular code and arithmetic. A Lean proof of a finite proposition might establish that a specified four-entry sequence satisfies an encoded correlation condition. A universal Lean theorem might quantify over every natural length and characterize all lengths admitting such a sequence. These are different scopes even when all programs finish without an error. For any of them, the encoded conditions must still match the intended correlation convention. A finite proposition in Lean does not become universal merely because it was formally proved.}

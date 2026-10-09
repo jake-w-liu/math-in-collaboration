@@ -1,0 +1,18 @@
+\section{Completeness excludes missing limits}
+A metric space is complete when every Cauchy sequence in it converges to a point in the same space. We take completeness of the real numbers as a standard starting property of the real-number system. It is not something inferred from a numerical plot.
+
+Completeness is a property of the chosen space, not an extra adjective for one sequence. To use it, first prove the sequence is Cauchy; then the definition guarantees a limit belonging to that space. To show a space is \emph{not} complete, it is enough to give one Cauchy sequence whose only possible destination has been excluded.
+
+We do not prove completeness of the real numbers here. It is an explicit starting fact about the number line, just as the existence of nonnegative square roots was an explicit starting fact earlier. We do prove the particular consequences of completeness that we use. This keeps the foundational boundary visible instead of hiding it behind an unsupported assertion that a limit exists.
+
+The interval $(0,1)$ with ordinary distance is not complete. The sequence $x_n=2^{-(n+1)}$ lies in that interval and is Cauchy: for $m,n\ge N$, both terms lie between zero and $2^{-(N+1)}$, so their distance is at most $2^{-(N+1)}$, which tends to zero. Its real limit is zero, but zero is excluded from $(0,1)$. It cannot converge to a different point of the interval because real limits are unique.
+
+A subset $C$ of a metric space is closed when it contains the limit of every convergent sequence of its points. We use this sequential definition here. If the ambient space is complete and $C$ is closed, then $C$ is complete with the inherited distance: a Cauchy sequence in $C$ converges in the ambient space, and closedness puts its limit back in $C$.
+
+In particular, the interval $[0,1]$ is complete. To check closedness rather than assume it, suppose a sequence of points in $[0,1]$ converges in the real line to a number $L$.
+
+If $L<0$, choose the positive tolerance $-L/2$. For a sufficiently late term, $|x_n-L|<-L/2$, so $x_n<L-L/2=L/2<0$. This contradicts $x_n\in[0,1]$. If $L>1$, instead choose tolerance $(L-1)/2$. A sufficiently late term then satisfies
+\[
+ x_n>L-(L-1)/2=(L+1)/2>1,
+\]
+again contradicting membership. Both excluded cases are impossible, so $0\le L\le1$. The interval is closed in the complete real line, and hence is complete with the same distance.

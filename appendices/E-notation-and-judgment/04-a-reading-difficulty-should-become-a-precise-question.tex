@@ -1,0 +1,8 @@
+\section{A reading difficulty should become a precise question}
+Suppose you understand the theorem statement but not a line of its proof. Do not begin by asking the assistant to rewrite the whole chapter. Copy the exact line, the assumptions currently available, and the last inference you understand. Then ask which definition or earlier fact connects them. An effective answer may be a single expanded calculation or a small example, rather than a new proof technique.
+
+For example: ``I know the two neighborhoods can overlap. Why can their union be counted as $|N(S)|+|N(T)\setminus N(S)|$?'' The needed explanation is a disjoint decomposition, not a general course on graph theory. Or: ``I know each update error gets multiplied by $q$ later. Why is its weight $q^{n-1-j}$?'' The needed explanation is to count the subsequent updates, as in Chapter~18.
+
+After the answer, return to the original proof and restate the repaired inference yourself. Next alter a small feature: allow the sets to be equal, change the first update index, or remove the positivity of a divisor. Explain what changes. This is a test of whether the explanation supports reasoning beyond the exact wording supplied by the assistant.
+
+The same method applies to a definition. Ask first what kinds of objects it concerns, then what requirements an example must meet, then for an example and a near miss. Finally identify whether the proof is unpacking an assumed instance of the definition or trying to establish that a new object satisfies it. Those two directions were already present in the first parity proof.

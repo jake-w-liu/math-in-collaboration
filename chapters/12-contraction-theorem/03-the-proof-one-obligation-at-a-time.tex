@@ -1,0 +1,56 @@
+\section{The proof, one obligation at a time}
+\begin{proof}
+First handle $q=0$. The contraction inequality gives $d(Tx,Ty)=0$ for every pair, so $T$ is constant. Choose $x_0\in X$ and set $c=T(x_0)$. Since $c\in X$, constancy gives $T(c)=T(x_0)=c$. Thus $c$ is fixed, every iterate after the first equals $c$, and no other fixed point is possible. The residual estimate is exact because $d(z,Tz)=d(z,c)$. We now assume $0<q<1$.
+
+\textbf{1. Construct the sequence and control one step.} Choose any $x_0\in X$ and define $x_{n+1}=T(x_n)$. The self-map assumption ensures that every iterate remains in $X$. Set $D=d(x_1,x_0)$. We claim
+\[
+d(x_{n+1},x_n)\le q^nD\qquad(n\ge0).
+\]
+At $n=0$, this is equality. If the bound holds at $n$, the contraction inequality gives
+\[
+d(x_{n+2},x_{n+1})=d(Tx_{n+1},Tx_n)
+\le q\,d(x_{n+1},x_n)\le q^{n+1}D.
+\]
+Induction proves the claim.
+
+\textbf{2. Control every tail.} For $m>n$, apply the triangle inequality through the intermediate iterates and use the geometric-sum estimate from Chapter~11:
+\[
+d(x_m,x_n)\le\sum_{j=n}^{m-1}d(x_{j+1},x_j)
+\le D\sum_{j=n}^{m-1}q^j
+\le\frac{Dq^n}{1-q}.
+\]
+If $D=0$, all iterates are the same and the Cauchy conclusion is immediate. Otherwise, because $q^n\to0$, for each $\eps>0$ there is $N$ with $Dq^N/(1-q)<\eps$. For any $m,n\ge N$, assume $m>n$ by symmetry, or handle $m=n$ with distance zero. The bound gives $d(x_m,x_n)<\eps$. Thus the sequence is Cauchy.
+
+\textbf{3. Obtain a point in the space.} Completeness supplies $x_*\in X$ with $x_n\to x_*$. This is precisely where completeness is used. The preceding bounds alone would not ensure that a limit belongs to an incomplete space.
+
+\textbf{4. Prove that the limit is fixed.} For every $n$,
+\begin{align*}
+d(Tx_*,x_*)&\le d(Tx_*,Tx_n)+d(Tx_n,x_*)\\
+&\le q\,d(x_*,x_n)+d(x_{n+1},x_*).
+\end{align*}
+For any $\eps>0$, choose $n$ so late that both distances on the final line are smaller than $\eps/(q+1)$. This is possible because both the sequence and its one-step shift converge to $x_*$. The displayed bound is then strictly smaller than $\eps$. A nonnegative number smaller than every positive $\eps$ must be zero; otherwise choose $\eps$ equal to that number.
+
+More explicitly, the quantity on the left, $d(Tx_*,x_*)$, does not depend on $n$. We have shown that for \emph{each} positive tolerance we can choose a late enough $n$ making an upper bound smaller than that tolerance. If the left side had some positive value $D$, requesting tolerance $D/2$ would give $D<D/2$, which is impossible. We are not replacing an approximate equality by an exact equality after a finite number of steps. Hence $d(Tx_*,x_*)=0$ and $Tx_*=x_*$.
+
+\textbf{5. Prove uniqueness.} Suppose $y_*$ is another fixed point. Then
+\[
+d(x_*,y_*)=d(Tx_*,Ty_*)\le q\,d(x_*,y_*).
+\]
+Subtracting the rightmost quantity gives $(1-q)d(x_*,y_*)\le0$. Both factors are nonnegative and $1-q>0$, so the distance must be zero. Thus $x_*=y_*$.
+
+\textbf{6. Certify the error.} Fix $n$. For any later $m$,
+\[
+d(x_n,x_*)\le d(x_n,x_m)+d(x_m,x_*)
+\le\frac{Dq^n}{1-q}+d(x_m,x_*).
+\]
+The last term can be made smaller than any positive tolerance. Therefore $d(x_n,x_*)\le Dq^n/(1-q)$: if the left side exceeded that bound, choose a tolerance smaller than the positive excess. This proves \eqref{eq:apriori}.
+
+The logical form is worth recognizing. We have a fixed quantity $A=d(x_n,x_*)$ and a proposed bound $B=Dq^n/(1-q)$. For every $\eta>0$, we can show $A<B+\eta$ by choosing a later $m$. If $A>B$, choose $\eta=(A-B)/2$; then $B+\eta<A$, contradicting that estimate. Therefore $A\le B$. An arbitrarily small leftover error is removed by this argument, not by pretending it was exactly zero at a finite step.
+
+For any $z\in X$, insert $Tz$ as an intermediate point and use $Tx_*=x_*$:
+\[
+d(z,x_*)\le d(z,Tz)+d(Tz,Tx_*)
+\le d(z,Tz)+q\,d(z,x_*).
+\]
+Subtract the final distance term and divide by $1-q>0$ to obtain \eqref{eq:residual}. All conclusions now follow.
+\end{proof}

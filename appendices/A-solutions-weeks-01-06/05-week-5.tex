@@ -1,0 +1,25 @@
+\section{Week 5}
+\sol{5.1}{For $n=0$, the empty sum is zero and $n(n+1)/2=0$. Suppose the formula holds at $k\ge0$. Then
+\begin{align*}
+ \sum_{j=1}^{k+1}j
+ &=\sum_{j=1}^{k}j+(k+1)\\
+ &=\frac{k(k+1)}2+(k+1)\\
+ &=\frac{k(k+1)+2(k+1)}2
+ =\frac{(k+1)(k+2)}2.
+\end{align*}
+This is exactly the formula at $k+1$. The base and transition establish it for every natural number.}
+\sol{5.2}{The proposed formula is $y_n=3\cdot2^n$. At zero it gives three, as required. If it holds at $n$, then $y_{n+1}=2y_n=2(3\cdot2^n)=3\cdot2^{n+1}$. Induction proves the formula. The exponent counts how many doublings have occurred, not the number of terms in a sum.}
+\sol{5.3}{The divisions are
+\[
+ 1071=2\cdot462+147,\qquad
+ 462=3\cdot147+21,\qquad
+ 147=7\cdot21+0.
+\]
+The quotients are $2,3,7$, and the remainders are $147,21,0$. Replacing a pair by its divisor and remainder preserves its common divisors. At the end the common divisors are exactly the divisors of $21$, so the greatest common divisor is $21$. The last nonzero remainder, not the last quotient, gives the answer.}
+\sol{5.4}{Encode plus and minus as $+1$ and $-1$. The initial product is $+1$. Flipping two entries multiplies the product by $(-1)^2=1$, so it remains $+1$. A configuration with exactly three minus signs has product $(-1)^3=-1$. Since the invariant differs, that configuration is unreachable by any number of allowed moves.}
+\sol{5.5}{Subtract the candidate fixed point one:
+\[
+ x_{n+1}-1=\frac{x_n+1}{2}-1=\frac{x_n-1}{2}.
+\]
+Induction gives $x_n-1=2^{-n}(x_0-1)$: it holds at zero, and each update halves the preceding expression. For every finite $n$, $2^{-n}$ is positive and hence nonzero. If $x_0-1\ne0$, their product cannot be zero. Thus approaching one does not mean reaching one after finitely many exact updates.}
+\sol{5.6}{Starting from $P(0)$ and moving by two reaches $0,2,4,\ldots$ only. It gives no information about odd indices. Add the starting case $P(1)$; the same transition then gives $1,3,5,\ldots$. Every natural number lies in one of these two chains, so both starting cases together cover the full domain.}

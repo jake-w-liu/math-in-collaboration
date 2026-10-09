@@ -1,0 +1,22 @@
+\section{The order of choices changes the theorem}
+The symbol $\forall$ means ``for every,'' and $\exists$ means ``there exists.'' Write $x\in\RR$ to say that $x$ belongs to the real numbers. Compare
+\begin{align*}
+&\forall x\in\RR\ \exists y\in\RR:\quad y>x,\tag{A}\\
+&\exists y\in\RR\ \forall x\in\RR:\quad y>x.\tag{B}
+\end{align*}
+In (A), someone supplies $x$ and we may respond with a suitable $y$. Taking $y=x+1$ works. The response depends on the input. In (B), we must first choose one $y$ that exceeds every real number. Once we choose it, the input $x=y+1$ defeats it. The two sentences contain the same inequality but make different promises.
+
+Read a quantified statement as a sequence of choices. A later existential choice may use earlier universally chosen inputs. It cannot secretly depend on a later input when it was required to be fixed beforehand. This is one of the most useful questions to ask when a proof involving constants becomes confusing.
+
+\subsection*{Tolerance and the inequality moves it needs}
+A \emph{tolerance} is a positive amount of error we are prepared to allow. The letter $\eps$, read ``epsilon,'' is often used for it, but it is just a name. It might stand for $1/10$, $1/1000$, or any other positive real number. ``For every positive $\eps$'' includes all of those choices; it does not refer to one unspecified fixed decimal.
+
+Before using fractions in an inequality, check signs. Adding the same number to both sides preserves order. Multiplying or dividing by a positive number preserves order too. Multiplying by a negative number reverses order: from $2<5$ we get $-2>-5$. For $0<a<b$, divide $a<b$ by the positive product $ab$ to obtain $1/b<1/a$. This explains, rather than merely quotes, the rule that reciprocals reverse order for positive inputs.
+
+For example, to make $1/N<1/100$, choosing $N=101$ works, while $N=100$ gives equality and fails the strict inequality. For a general tolerance, we will choose an integer beyond $1/\eps$. Integers are not bounded above on the real number line: there is an integer beyond any prescribed real number. This accepted property is called \emph{Archimedean}; the name is not an extra method to learn.
+
+\begin{example}
+The statement ``For every positive real $\eps$, there is a positive integer $N$ with $1/N<\eps$'' allows $N$ to depend on $\eps$. A smaller requested tolerance generally needs a larger integer. The existence of an integer exceeding any specified real number is the Archimedean property of the usual number systems, which we take as a starting fact. Choose $N>1/\eps$. Because both numbers are positive, reciprocation reverses their order and gives $1/N<\eps$.
+\end{example}
+
+\pauseq{Can one positive integer $N$ satisfy $1/N<\eps$ for every positive $\eps$?}{No. After $N$ is fixed, take $\eps=1/(2N)$. Then $1/N=2\eps>\eps$. The failed claim demands one universal choice instead of a choice adapted to each tolerance.}

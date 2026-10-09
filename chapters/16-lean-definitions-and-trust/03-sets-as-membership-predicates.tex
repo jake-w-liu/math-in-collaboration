@@ -1,0 +1,26 @@
+\section{Sets as membership predicates}
+A subset of a type $A$ can be represented by a predicate \code{s : A -> Prop}, where \code{s x} means $x$ belongs to it.
+
+A \emph{predicate} is a rule producing a proposition from an input. For example, ``$n$ is even'' is a predicate on integers: for each particular integer it gives a statement that can be proved or refuted. The predicate describes the set of inputs for which it holds.
+
+There is no contradiction between representing a set as a collection of members in Chapter~3 and as a membership predicate here. The question ``does $x$ belong?'' connects the two descriptions. A predicate is not necessarily a Boolean program that computes an answer immediately. A proposition may require substantial reasoning to decide or prove. In these examples we use predicates to express meanings, not to promise a fast membership algorithm. Define intersection and preimage using their meanings:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+def meet {A : Type} (s t : A -> Prop) : A -> Prop :=
+  fun x => And (s x) (t x)
+
+def preimage {A B : Type} (f : A -> B)
+    (s : B -> Prop) : A -> Prop :=
+  fun x => s (f x)
+
+theorem preimage_meet {A B : Type} (f : A -> B)
+    (s t : B -> Prop) (x : A) :
+    Iff (preimage f (meet s t) x)
+      (meet (preimage f s) (preimage f t) x) := by
+  rfl
+\end{lstlisting}
+\end{minipage}\par
+
+The expression \code{Iff P Q} means logical equivalence of $P$ and $Q$. Unfolding the left side gives \code{And (s (f x)) (t (f x))}. Unfolding the right side gives the very same expression. The theorem is short because the definitions already encode the reasoning. It is not short because an opaque automation step skipped an unexplained mathematical argument.
+
+This example also shows why definitions deserve close attention. Replacing \code{meet} by a differently defined operation could preserve the theorem name but change the statement. Formal names are handles for expressions, not warranties about their intended meaning.

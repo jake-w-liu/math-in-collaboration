@@ -1,0 +1,38 @@
+\section{Circulant matrices package the same products}
+Form an $n$-by-$n$ matrix by cyclically shifting the sequence in each row:
+\[
+H_{ij}=a_{(j-i)\bmod n},\qquad0\le i,j<n.
+\]
+Such a matrix is circulant. For our length-four example,
+\[
+H=\begin{pmatrix}
+1&1&1&-1\\
+-1&1&1&1\\
+1&-1&1&1\\
+1&1&-1&1
+\end{pmatrix}.
+\]
+Every row has squared length $n$ because its $n$ entries have square one. To compare rows $i$ and $\ell$, write their dot product before changing notation:
+\[
+ \sum_{j=0}^{n-1}a_{(j-i)\bmod n}\,a_{(j-\ell)\bmod n}.
+\]
+Set $k=(j-i)\bmod n$. As $j$ visits all $n$ positions, $k$ does too: subtracting a fixed shift just rotates the index list. Modulo $n$, the second index is
+\[
+ j-\ell=(j-i)+(i-\ell)=k+(i-\ell).
+\]
+Hence the dot product becomes
+\[
+ \sum_{k=0}^{n-1}a_k a_{(k+i-\ell)\bmod n}=C_{(i-\ell)\bmod n}.
+\]
+When $i\ne\ell$ and both row indices lie between zero and $n-1$, their difference is not zero modulo $n$. Distinct rows therefore correspond to nonzero shifts. Conversely, for any nonzero shift $s$, the pair of rows $i=s,\ell=0$ produces that correlation. Both directions are needed to conclude that different rows are orthogonal \emph{exactly when} all nonzero periodic correlations vanish.
+
+A real sign Hadamard matrix is a square matrix with entries $\pm1$ and mutually orthogonal rows. In the matrix language of Chapter~10, the condition is
+\[
+HH^{\mathsf T}=nI.
+\]
+A circulant sign Hadamard matrix therefore exists exactly when a sign sequence has $C_s=0$ for all nonzero periodic shifts. We have changed the language of the same question: sequence correlations became row orthogonality.
+
+\subsection*{Read the matrix identity entry by entry}
+The identity $HH^{\mathsf T}=nI$ contains $n^2$ scalar equalities. At entry $(i,\ell)$, the left side is the dot product of row $i$ with row $\ell$. The right side equals $n$ if $i=\ell$ and zero otherwise. Thus the diagonal equations record row lengths, and the off-diagonal equations record pairwise orthogonality.
+
+For the displayed four-row matrix, the first and second rows have dot product $-1+1+1-1=0$. The first row dotted with itself gives four. The general reindexing argument handles all the remaining pairs together. A matrix formula is useful because it groups related equations, but understanding it requires knowing what one of its entries means.

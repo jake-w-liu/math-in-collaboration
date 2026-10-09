@@ -1,0 +1,22 @@
+\section{Is the constant an artifact of the proof?}
+Take $X=\RR$, $T(x)=qx$, $y_0=0$, and add exactly $\eta$ at each update. The recurrence has the explicit solution
+\[
+ y_n=\eta\sum_{k=0}^{n-1}q^k
+     =\eta\frac{1-q^n}{1-q}.
+\]
+This follows either from induction or by substituting the formula into $y_{n+1}=qy_n+\eta$.
+
+For the induction step, assume $y_n=\eta(1-q^n)/(1-q)$. Then
+\begin{align*}
+ y_{n+1}
+ &=q\,\frac{\eta(1-q^n)}{1-q}+\eta\\
+ &=\frac{\eta(q-q^{n+1})+\eta(1-q)}{1-q}\\
+ &=\frac{\eta(1-q^{n+1})}{1-q}.
+\end{align*}
+At $n=0$ the formula gives zero, as required. The exact formula is therefore established for every finite step; the limiting value follows afterward from $q^n\to0$. We do not infer the formula merely from the appearance of the first few terms. Since $x_*=0$ and $y_n\ge0$, the uniform-error bound is an equality. Thus its limiting factor $1/(1-q)$ cannot be decreased for all systems satisfying these assumptions.
+
+A sharp bound need not predict convergence of every allowed approximate sequence. For example, let $T(x)=0$ and choose $y_n=(-1)^n\eta$ with $\eta>0$. This map satisfies the contraction inequality for any chosen $q\in(0,1)$, and
+\[
+ d(y_{n+1},T(y_n))=\eta.
+\]
+Yet $y_n$ alternates between two different values and does not converge. Bounded errors give a distance estimate, not convergence by themselves. Vanishing errors provide the extra conclusion in Theorem~\ref{thm:inexact}.

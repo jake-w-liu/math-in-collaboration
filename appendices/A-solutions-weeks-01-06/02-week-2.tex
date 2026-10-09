@@ -1,0 +1,14 @@
+\section{Week 2}
+\sol{2.1}{The converse is ``If $x^2=9$, then $x=3$.'' It is false at $x=-3$. The contrapositive is ``If $x^2\ne9$, then $x\ne3$.'' It is true: $x=3$ would force $x^2=9$ and contradict its assumption. The original implication is also true by substitution.}
+\sol{2.2}{Work from the outer promise inward. The original sentence says that \emph{every} integer $n$ has at least one satisfactory response $m$. Its failure requires \emph{some} integer $n$ for which no response works. Thus the first two words of the negation are ``There exists,'' and the response clause must say ``for every integer $m$.''
+
+For a proposed response to work, both $m>n$ and evenness are required. It fails when at least one requirement fails: $m\le n$ or $m$ is not even. Equality belongs to the first failure because the original comparison was strict. The full negation is
+\[
+ \exists n\in\ZZ\ \forall m\in\ZZ:\quad
+ (m\le n)\lor\neg(m\text{ is even}).
+\]
+In words: there is an integer $n$ such that every integer $m$ either is at most $n$ or is not even. The ``or'' is inclusive. An $m$ that fails both conditions is still an unsuccessful response; there is no reason to exclude it. We are describing how the original statement would fail, not asserting that this negation is true.}
+\sol{2.3}{The first statement is true: after receiving $x$, choose $y=-x$. Their sum is zero. The second is false. If a single $y$ worked for every $x$, using $x=0$ would give $y=0$, while using $x=1$ would give $y=-1$. One number cannot satisfy both requirements. Equivalently, after any proposed $y$, choose $x=1-y$, whose sum with $y$ is one.}
+\sol{2.4}{The value $x=-3$ satisfies $x^2=9>4$ but not $x>2$. The corrected conclusion is $x<-2$ or $x>2$, equivalently $|x|>2$. To check the classification, when $-2\le x\le2$ the magnitude of $x$ is at most two, so $x^2\le4$. Outside that interval the magnitude exceeds two, so squaring gives $x^2>4$.}
+\sol{2.5}{Let both students accept only task $1$. Each has an acceptable task, but distinct assignments would require two different tasks drawn from a one-element set. The stronger condition checks groups: the acceptable tasks of every set of students must number at least as many as those students. For this pair it reads $1\ge2$, which fails. Chapter~9 proves this groupwise condition is also sufficient in the finite setting.}
+\sol{2.6}{Choose a positive integer $N>1/\eps$. For any integer $n\ge N$, positivity gives $1/n\le1/N<\eps$. The witness $N$ may depend on the tolerance already supplied. It must work for every later $n\ge N$, so choosing a different $N$ after seeing each $n$ would not establish the stated eventual guarantee.}

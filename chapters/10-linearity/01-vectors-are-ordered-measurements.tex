@@ -1,0 +1,21 @@
+\section{Vectors are ordered measurements}
+Throughout the coordinate examples, $n$ is a positive integer. A vector in $\RR^n$ is an ordered list of $n$ real numbers. For $n=2$, write $x=(x_1,x_2)$. The coordinates might record two resource amounts or the location of a point. Order matters: $(1,3)$ and $(3,1)$ usually describe different data.
+
+Add vectors coordinate by coordinate and multiply them by a real scalar $c$:
+\[
+(x_1,x_2)+(y_1,y_2)=(x_1+y_1,x_2+y_2),\qquad c(x_1,x_2)=(cx_1,cx_2).
+\]
+The zero vector has all coordinates zero. Subtraction is addition of the negative vector. An expression $a_1v_1+\cdots+a_kv_k$ is a linear combination of vectors $v_1,\ldots,v_k$ with scalar coefficients $a_1,\ldots,a_k$.
+
+The vectors $e_1=(1,0)$ and $e_2=(0,1)$ are building blocks for the plane:
+\[
+(x_1,x_2)=x_1e_1+x_2e_2.
+\]
+This expression is unique, since equality of ordered pairs forces equality in each coordinate. A list that expresses every vector uniquely by linear combinations is a basis. The point of a basis is not that its vectors are intrinsically special; it provides a coordinate description that can be transformed or chosen to suit a problem.
+
+\subsection*{Why the two words in ``unique representation'' matter}
+With $e_1=(1,0)$ and $e_2=(0,1)$, the vector $(3,-2)$ is $3e_1-2e_2$. Existence of such a representation for every vector means the building blocks \emph{span} the plane. Uniqueness means the same vector cannot be made from two different coefficient lists.
+
+The single vector $(1,1)$ does not span the plane: every multiple has equal coordinates, so it cannot make $(1,0)$. The list $(1,0),(0,1),(1,1)$ does span it, but does not give unique coefficients. The vector $(1,1)$ can be made as one copy of the third vector or as one copy each of the first two. A basis requires both spanning and uniqueness.
+
+An equivalent test for uniqueness is that a combination equaling zero must have all coefficients zero; this property is called \emph{linear independence}. To see the connection, subtract two representations of the same vector. The differences of their coefficients make a combination equal to zero. If only zero coefficients can do this, the two original coefficient lists agree. Conversely, a nonzero coefficient list making zero would give a second representation of the zero vector besides the all-zero list.

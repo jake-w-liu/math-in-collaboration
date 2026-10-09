@@ -1,0 +1,36 @@
+\section{Week 15}
+The following scripts use the definitions in the companion namespace. They are intended to be read alongside their ordinary mathematical arguments. The reproducibility appendix distinguishes the reviewed source from an actually executed Lean check.
+\sol{15.1}{The expressions $P,Q$ are propositions. The expression $P\to Q$ is the proposition that a proof of $P$ can be transformed into a proof of $Q$. The name $h$ denotes such a transformation. When \code{hp : P}, the application \code{h hp} has type \code{Q}; it supplies a proof of the conclusion from the given proof of the premise.}
+\sol{15.2}{A conjunction already contains a proof of each component:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+theorem and_left (P Q : Prop) : And P Q -> P := by
+  intro h
+  exact h.left
+\end{lstlisting}
+\end{minipage}\par
+
+The only inference is to extract the first component from the assumed pair of proofs. No claim about the truth of $P$ without that hypothesis is made.}
+\sol{15.3}{Supply five and check its property:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+theorem witness_five : Exists (fun n : Nat => n + 2 = 7) := by
+  exact Exists.intro 5 rfl
+\end{lstlisting}
+\end{minipage}\par
+
+The equality reduces to the numerical identity $5+2=7$. The witness's type is natural numbers, not an unspecified real or integer domain.}
+\sol{15.4}{Applying a function to equal objects preserves equality, but equality of outputs need not imply equality of inputs. From \code{h : g x = g y}, applying \code{congrArg g h} would, when the types allow it, give equality of another pair of outputs after applying $g$ again. It would not cancel $g$. The missing property is injectivity of $g$, which explicitly guarantees that equal outputs have equal inputs. A constant map supplies a counterexample to unrestricted cancellation.}
+\sol{15.5}{The mathematical proof applies $g$ to an equality after $f$, then invokes injectivity of the composition:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+theorem inj_of_comp {A B C : Type}
+    (f : A -> B) (g : B -> C)
+    (hcomp : Inj (fun x => g (f x))) : Inj f := by
+  intro x y hxy
+  exact hcomp x y (congrArg g hxy)
+\end{lstlisting}
+\end{minipage}\par
+
+The hypothesis concerns only the composition. There is no need to assume $g$ is injective outside the image of $f$.}
+\sol{15.6}{Natural-number subtraction is truncated at zero, so \code{(7 - 10 : Nat)} computes to zero. Integer subtraction allows negative results, so \code{(7 - 10 : Int)} computes to minus three. A change of domain can change the operations themselves, not just the collection of candidate values. Translating an integer formula into naturals without checking this distinction can change the theorem even when the displayed symbols look similar.}

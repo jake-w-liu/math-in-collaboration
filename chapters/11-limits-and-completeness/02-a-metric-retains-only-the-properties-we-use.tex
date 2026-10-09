@@ -1,0 +1,29 @@
+\section{A metric retains only the properties we use}
+A function on $X\times X$ takes a pair of points as input. We write its output as $d(x,y)$ and want that output to behave as a distance. The following definition specifies what this means.
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}[Metric]\label{def:metric}
+A metric on a set $X$ assigns a real number $d(x,y)$ to every pair $x,y\in X$ and satisfies these requirements for all $x,y,z\in X$:
+\begin{enumerate}
+\item $d(x,y)\ge0$, and $d(x,y)=0$ holds exactly when $x=y$.
+\item $d(x,y)=d(y,x)$.
+\item $d(x,z)\le d(x,y)+d(y,z)$.
+\end{enumerate}
+A set together with a specified metric is called a metric space and is written $(X,d)$.
+\end{definition}
+\end{minipage}\par
+
+The first requirement rules out negative distances and prevents different points from having zero distance. The second says that reversing the comparison does not change its value. The third is the triangle inequality: a detour through $y$ bounds the direct distance from $x$ to $z$.
+
+To \emph{use} a metric already given in a theorem, we may use all three requirements. To \emph{propose} a new metric, we must check all three. These are the two directions of using a definition from Chapter~1. Merely naming a formula ``distance'' does not establish that it meets them.
+
+The real line with $d(x,y)=|x-y|$ is an example. In $\RR^n$, the Euclidean distance is $\norm{x-y}_2$, whose triangle inequality was derived in Chapter~10 and revisited in Exercise~10.5. Another useful choice is
+\[
+d_\infty(x,y)=\max_{1\le j\le n}|x_j-y_j|.
+\]
+It records the worst coordinate error. For every coordinate $j$,
+\[
+|x_j-z_j|\le|x_j-y_j|+|y_j-z_j|\le d_\infty(x,y)+d_\infty(y,z).
+\]
+Taking the maximum over $j$ proves its triangle inequality. This example shows that a distance can be selected to match the question being controlled.
+
+A norm measures the size of a vector, is nonnegative and zero exactly at the zero vector, and satisfies $\norm{cx}=|c|\norm{x}$, and the triangle inequality. It produces a metric by $d(x,y)=\norm{x-y}$. A general metric space need not allow addition of points. Our later proof will be stronger if it uses only distances when vector subtraction is unnecessary.

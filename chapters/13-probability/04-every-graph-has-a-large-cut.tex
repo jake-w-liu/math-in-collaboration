@@ -1,0 +1,23 @@
+\section{Every graph has a large cut}
+A cut of an undirected graph partitions its vertices into two sets. An edge crosses the cut when its endpoints are in different sets. We want many crossing edges.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{theorem}\label{thm:cut}
+Every finite simple undirected graph with $m$ edges has a cut containing at least $m/2$ crossing edges.
+\end{theorem}
+\end{minipage}\par
+
+\noindent\textit{Plan.} Assign each vertex one of two sides independently with equal probabilities. Count crossing edges by indicators, then use the fact that some outcome is at least the average.
+\begin{proof}
+The outcomes are all assignments of the two labels $0,1$ to the vertices, each equally likely. For each edge $e=\{u,v\}$, let $I_e$ indicate that the endpoint labels differ. Because $u,v$ are distinct and their labels are independent, their four ordered label pairs are equally likely. Two pairs differ, so $\E I_e=1/2$.
+
+The total number of crossing edges is $X=\sum_{e\in E}I_e$. Linearity of expectation yields
+\[
+\E X=\sum_{e\in E}\E I_e=\frac m2.
+\]
+Some labeling has $X\ge\E X=m/2$, and its two label classes form the desired cut. If the graph has no edges, any labeling gives zero and the same conclusion holds.
+\end{proof}
+
+The indicators for different edges need not be jointly independent, and the proof does not claim they are. For a triangle, the three crossing indicators cannot all be one, because three vertices cannot each have a label different from the other two. Yet their expectations still add.
+
+When $m$ is odd, the theorem's integer-valued conclusion is at least the next integer above $m/2$. A triangle has $m=3$, so some cut has at least two edges; indeed, putting one vertex on one side and two on the other gives exactly two.

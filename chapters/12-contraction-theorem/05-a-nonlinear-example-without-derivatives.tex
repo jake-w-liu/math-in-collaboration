@@ -1,0 +1,28 @@
+\section{A nonlinear example without derivatives}
+Consider $T(x)=(x^2+1)/3$ on $X=[0,1]$. First check the space and the map, not just the inequality. The interval is complete by Chapter~11. For $x\in[0,1]$, $x^2\in[0,1]$, so $T(x)\in[1/3,2/3]\subseteq X$. Thus $T$ is a self-map.
+
+For $x,y\in[0,1]$,
+\[
+|T(x)-T(y)|=\frac{|x^2-y^2|}{3}
+=\frac{|x-y|\,|x+y|}{3}\le\frac23|x-y|.
+\]
+The factor $q=2/3$ works for all inputs in the interval. The theorem supplies a unique fixed point in $[0,1]$.
+
+Starting at zero gives $x_1=1/3$, $x_2=10/27$, and $x_3=829/2187$. For $z=x_2$, the residual is
+\[
+\left|\frac{10}{27}-\frac{829}{2187}\right|=\frac{19}{2187}.
+\]
+The certified error is at most $3\cdot19/2187=19/729$. This conclusion does not require knowing the exact solution. As a separate algebraic check, the fixed-point equation gives $x^2-3x+1=0$, hence $(2x-3)^2=5$ and $x=(3\pm\sqrt5)/2$. Only the minus sign lies in $[0,1]$.
+
+For the fraction calculation, start from $x_1=1/3$:
+\[
+ x_2=\frac{(1/3)^2+1}{3}
+ =\frac{1/9+9/9}{3}=\frac{10}{27}.
+\]
+The next update squares $10/27$, not its rounded decimal value:
+\[
+ x_3=\frac{100/729+729/729}{3}=\frac{829}{2187}.
+\]
+To subtract $x_2$ from $x_3$, use denominator $2187=27\cdot81$: $x_2=810/2187$. The residual is $(829-810)/2187=19/2187$. Finally $1/(1-q)=1/(1-2/3)=3$, giving the certificate $19/729$.
+
+The algebraic check has a different purpose. Multiplying the fixed-point equation by three gives $x^2-3x+1=0$. Multiply by four and add five to complete the square: $(2x-3)^2=5$. The square-root definition gives $2x-3=\sqrt5$ or $-\sqrt5$. Since $2<\sqrt5<3$, the minus choice produces a value between zero and $1/2$, whereas the plus choice exceeds two. This proves which candidate belongs to the interval without requiring a memorized quadratic formula.

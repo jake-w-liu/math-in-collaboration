@@ -1,0 +1,26 @@
+\section{The sum of all correlations reveals a square}
+Let $r=\sum_{j=0}^{n-1}a_j$ be the row sum. Add every periodic correlation, including shift zero:
+\begin{align*}
+\sum_{s=0}^{n-1}C_s
+&=\sum_{j=0}^{n-1}a_j\left(\sum_{s=0}^{n-1}a_{(j+s)\bmod n}\right)\\
+&=\sum_{j=0}^{n-1}a_j\left(\sum_{k=0}^{n-1}a_k\right)\\
+&=r^2.
+\end{align*}
+In the second line, for each fixed $j$, the indices $(j+s)\bmod n$ run through every position exactly once. This is the specific symmetry that justifies the reindexing.
+
+One way to see the whole count is to use three abstract entries $a_0,a_1,a_2$. The three periodic correlations list these products:
+\begin{align*}
+ C_0&=a_0a_0+a_1a_1+a_2a_2,\\
+ C_1&=a_0a_1+a_1a_2+a_2a_0,\\
+ C_2&=a_0a_2+a_1a_0+a_2a_1.
+\end{align*}
+Together they contain each ordered product $a_j a_k$ once. Expanding $(a_0+a_1+a_2)^2$ gives those same nine ordered products, so the totals agree. For general $n$, each fixed first index $j$ meets every second index exactly once as the shift varies. That is why the total is $(\sum_j a_j)^2$, rather than, for example, $\sum_j a_j^2$.
+
+This identity itself does not require signs; the same finite rearrangement holds for real entries. The restriction to signs is used afterward to identify $C_0=n$ and to make the row sum an integer. Separating those roles tells us which part of the argument might generalize.
+
+If all nonzero $C_s$ vanish, the left side is just $C_0=n$. Hence
+\[
+n=r^2.
+\tag{14.2}\label{eq:squareorder}
+\]
+The integer $r$ is a sum of signs, so the order $n$ must be a square. This is a proved necessary condition, valid for every positive length, not a pattern extrapolated from an experiment.

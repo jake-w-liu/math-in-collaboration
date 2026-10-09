@@ -1,0 +1,27 @@
+\section{Week 3}
+\sol{3.1}{The union is $\{1,2,3,4\}$, the intersection is $\{2,4\}$, and $A\setminus B=\{1\}$. A union lists each member once even if it belongs to both sets. The difference retains members of the first set that do not belong to the second.}
+\sol{3.2}{We must prove surjectivity of $g\circ f$, so start from the \emph{output} end. Let $f:A\to B$ and $g:B\to C$ be surjective, and choose an arbitrary target $c\in C$. The goal is to find $a\in A$ such that $g(f(a))=c$.
+
+Surjectivity of $g$ applies to $c$, because $c$ belongs to its codomain $C$. It supplies some $b\in B$ with $g(b)=c$. Surjectivity of $f$ now applies to this particular $b$, because $b$ belongs to its codomain $B$. It supplies some $a\in A$ with $f(a)=b$. Substitution checks the candidate:
+\[
+ (g\circ f)(a)=g(f(a))=g(b)=c.
+\]
+Every target $c$ can be reached in this way, so the composition is surjective. Witnesses are found in reverse order from function execution. We do not assume either witness is unique; surjectivity promises existence only.}
+\sol{3.3}{If $2m=2n$ for integers $m,n$, division by the nonzero number two gives $m=n$. Thus the map is injective. It is not surjective onto $\ZZ$, because no integer maps to one. Change its codomain to $2\ZZ=\{2k:k\in\ZZ\}$. Every member of this codomain is the image of its defining integer $k$, so the new map is also surjective and hence bijective. Its formula and domain did not change.}
+\sol{3.4}{For every input $x$,
+\begin{align*}
+ x\in f^{-1}(S\cup T)
+ &\Longleftrightarrow f(x)\in S\cup T\\
+ &\Longleftrightarrow f(x)\in S\ \text{or}\ f(x)\in T\\
+ &\Longleftrightarrow x\in f^{-1}(S)\ \text{or}\ x\in f^{-1}(T)\\
+ &\Longleftrightarrow x\in f^{-1}(S)\cup f^{-1}(T).
+\end{align*}
+The two sets have exactly the same members, which proves equality. No injectivity or surjectivity is used.}
+\sol{3.5}{For a left inverse, the given maps are $f:A\to B$ and $h:B\to A$, with $h(f(a))=a$ for every $a\in A$. To prove injectivity, choose $x,y\in A$ and assume $f(x)=f(y)$. Applying the same function $h$ to equal objects preserves equality:
+\[
+ h(f(x))=h(f(y)).
+\]
+Use the left-inverse identity once at $x$ and once at $y$. The displayed equality becomes $x=y$, as required. Applying $h$ was legitimate because both outputs of $f$ belong to its domain $B$.
+
+For a right inverse, the identity is instead $f(h(b))=b$ for every $b\in B$. To prove surjectivity, choose any target $b\in B$. The element $h(b)$ belongs to $A$ and is a candidate preimage. Its output is exactly $f(h(b))=b$, so the candidate works. The first identity permits recovering original inputs; the second permits reaching arbitrary targets. They justify different conclusions.}
+\sol{3.6}{If $z\in f(S\cap T)$, some $x\in S\cap T$ satisfies $f(x)=z$. That same $x$ belongs to both sets, so $z\in f(S)$ and $z\in f(T)$. Therefore $f(S\cap T)\subseteq f(S)\cap f(T)$. For failure of equality, use $f(x)=x^2$, $S=\{1\}$, and $T=\{-1\}$ in the real domain. The intersection of the input sets is empty, so its image is empty; each separate image is $\{1\}$. The reverse direction would have to combine two possibly different preimages into one common preimage, which is not generally possible.}

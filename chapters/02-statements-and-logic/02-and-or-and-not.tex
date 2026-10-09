@@ -1,0 +1,25 @@
+\section{And, or, and not}
+The statement $P\land Q$ means both $P$ and $Q$ hold. The statement $P\lor Q$ means at least one holds; both are allowed. Mathematical ``or'' is inclusive unless the author explicitly says otherwise. The symbol $\neg P$ means $P$ is false.
+
+Consider a number that is even or divisible by three. The number $6$ qualifies for both reasons. To disprove this property, one must show that neither condition holds. Thus
+\[
+\neg(P\lor Q)\quad\Longleftrightarrow\quad (\neg P)\land(\neg Q).
+\]
+By contrast, to disprove ``even and divisible by three,'' it is enough for either condition to fail:
+\[
+\neg(P\land Q)\quad\Longleftrightarrow\quad (\neg P)\lor(\neg Q).
+\]
+These rules are not arbitrary symbol manipulations. They describe exactly what would make the original promises fail.
+
+An implication fails precisely when its assumption holds and its conclusion fails. Therefore
+\[
+\neg(P\Rightarrow Q)\quad\Longleftrightarrow\quad P\land\neg Q.
+\]
+This is the specification of a counterexample to a conditional theorem.
+
+\subsection*{Read the grouping before changing the symbols}
+The letters $P,Q$ stand for whole statements, not numbers. If $P$ is ``$n$ is even'' and $Q$ is ``$n$ is divisible by three,'' then $P\land Q$ is the single statement that both requirements hold. Parentheses say which statements belong together, just as they group numerical operations.
+
+For $n=4$, $P$ is true and $Q$ is false. Thus $P\lor Q$ is true but $P\land Q$ is false. For $n=5$, both are false, so both combinations are false. For $n=6$, both are true. These three checks give concrete meaning to the earlier negation rules. They are not proofs of every logical identity, but they help prevent a symbol from replacing its meaning.
+
+A universal statement such as ``every allowed input has the property'' is not a command to list all inputs. It specifies the coverage a proof must have. An existence statement asks for at least one input with the property; it does not promise only one. We now introduce symbols for these two kinds of coverage.

@@ -1,0 +1,32 @@
+\section{Periodic correlation is a different quantity}
+For periodic correlation, wrap the indices around modulo $n$:
+\[
+C_s(a)=\sum_{j=0}^{n-1}a_j a_{(j+s)\bmod n},\qquad0\le s<n.
+\]
+There are always $n$ summands. For $a=(1,1,1,-1)$, direct multiplication gives $C_0=4$ and $C_1=C_2=C_3=0$.
+
+For $1\le s<n$, the split occurs precisely at $j=n-s$. When $0\le j\le n-1-s$, the index $j+s$ is still below $n$, and the contribution is $A_s$. When $n-s\le j\le n-1$, the index wraps once and becomes $j+s-n$. Thus
+\[
+ C_s=\sum_{j=0}^{n-1-s}a_j a_{j+s}
+     +\sum_{j=n-s}^{n-1}a_j a_{j+s-n}.
+\]
+In the second sum, set $r=j+s-n$. At its first term $j=n-s$, we have $r=0$; at its last term $j=n-1$, we have $r=s-1$. Solving the same equation for $j$ gives $j=r+n-s$. Substitution therefore yields
+\begin{align*}
+ \sum_{j=n-s}^{n-1}a_j a_{j+s-n}
+ &=\sum_{r=0}^{s-1}a_{r+n-s}a_r\\
+ &=\sum_{r=0}^{s-1}a_r a_{r+n-s}\\
+ &=A_{n-s}.
+\end{align*}
+The middle equality commutes the two real factors. The final equality uses the definition of $A_{n-s}$: its last index is $n-1-(n-s)=s-1$. This is a change of indexing, not an approximation.
+
+For a concrete check, take $n=5,s=2$. The periodic sum has five terms:
+\[
+ C_2=\underbrace{a_0a_2+a_1a_3+a_2a_4}_{A_2}
+       +\underbrace{a_3a_0+a_4a_1}_{A_3}.
+\]
+The last two become $a_0a_3+a_1a_4$ on reversing the factors. The example displays exactly the general split. Therefore
+\[
+C_s=A_s+A_{n-s}.
+\tag{14.1}\label{eq:periodaperiod}
+\]
+The two definitions are related but not interchangeable. For $a=(1,1,-1)$, we have $A_1=0$, $A_2=-1$, so it is Barker; yet $C_1=-1$, not zero. A claim about one kind of correlation cannot be transferred to the other without a justified bridge.

@@ -1,0 +1,18 @@
+\section{Order is a different structure}
+A partial order is a relation that is reflexive, antisymmetric, and transitive. Antisymmetry means that $x\le y$ and $y\le x$ together force $x=y$. This differs from the symmetry required for equivalence relations.
+
+Set inclusion is a partial order. It need not compare every pair: neither $\{1\}$ nor $\{2\}$ contains the other. In a finite collection, an element is \emph{maximal} if no strictly larger element of that collection contains it. A \emph{maximum} contains every element of the collection. For the collection $\{\{1\},\{2\}\}$, both members are maximal and there is no maximum. The distinction will reappear when a matching cannot be enlarged by one obvious step but is not of largest possible size.
+
+\begin{principle}{Habit 6: ask what a change of description preserves}
+Before quotienting, normalizing, or identifying objects, specify the relation and the preserved property. Before applying a formula to equivalence classes, check independence of representatives. A short well-definedness check can prevent an entire argument from being about the wrong object.
+\end{principle}
+
+\begin{lab}{A definition that secretly depends on a choice}
+\noindent\textbf{Deliberately flawed proposal.} ``Define the parity of a class modulo three as the parity of any integer representing it.''
+
+\noindent\textbf{Learner.} ``Test two representatives of the same class. Do $0$ and $3$ give the same answer?''
+
+\noindent\textbf{Diagnosis.} They represent the same class modulo three but have different parity. The proposed rule is not well-defined.
+
+\noindent\textbf{Repair options.} Use a fixed representative from $\{0,1,2\}$ and acknowledge that the resulting function depends on that convention; or use classes modulo an even number, for which all representatives have the same parity. These are different mathematical constructions. Ask the assistant which one matches the original purpose rather than accepting either repair automatically.
+\end{lab}

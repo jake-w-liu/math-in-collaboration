@@ -1,0 +1,27 @@
+\section{A numerical experiment with exact arithmetic}
+Choose $T(x)=(3x+1)/4$, whose fixed point is $1$, and use the biased update
+\[
+ y_{n+1}=\frac{3y_n+1}{4}+\frac1{100},\qquad y_0=0.
+\]
+The constants are $q=3/4$ and $\eta=1/100$. The approximate recurrence is affine:
+\[
+ y_{n+1}=\frac34 y_n+\frac{13}{50}.
+\]
+Its own fixed point is $(13/50)/(1/4)=26/25$. Subtracting this value from both sides gives
+\[
+ y_n=\frac{26}{25}\left(1-\left(\frac34\right)^n\right).
+\]
+The theorem's error certificate is
+\[
+ \abs{y_n-1}\le
+ \left(\frac34\right)^n+
+ \frac1{25}\left(1-\left(\frac34\right)^n\right).
+\]
+Notice that the true error can first decrease toward zero and later increase toward $1/25$. A plot that stops near the smallest error would obscure the bias. The formula and bound tell us what a finite plot alone cannot establish.
+
+The companion computes this experiment using rational numbers, checks the exact closed form at every tested index, and compares the exact error with the exact certificate. Decimal output is only for display. Changing the sign pattern of the errors gives a second experiment: compare constant bias, alternating errors, and a sequence of errors tending to zero. The theorem predicts a bound for all three, but convergence to the original fixed point only under the vanishing-error condition.
+
+\subsection*{What ``sharp'' means in this example}
+Suppose someone proposes replacing the eventual error factor $1/(1-q)$ by a smaller constant $K$ that should work for every allowed iteration with this fixed $q$. Choose $\eta>0$ in the constant-bias example. Its actual error tends to $\eta/(1-q)$, which is strictly larger than $K\eta$. Thus sufficiently late errors exceed the proposed smaller bound. One permitted example refutes the universal improvement.
+
+This does not say the original bound is attained in every application. In the biased affine example approaching $26/25$, some early errors cancel, so the certificate is conservative. A bound is sharp over a class when the class contains an example preventing a uniformly stronger bound. For a particular smaller class with additional structure, an improvement may still be possible. That distinction supplies a precise next research question: what extra assumption would rule out the example that obstructs an improved constant?

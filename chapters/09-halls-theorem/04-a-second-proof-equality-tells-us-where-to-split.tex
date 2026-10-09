@@ -1,0 +1,51 @@
+\section{A second proof: equality tells us where to split}
+An inductive proof reveals a different useful idea. A subset $S$ is called tight when $|N(S)|=|S|$. Such a subset has just enough tasks, with no spare capacity. It is a natural block to solve first. If no nonempty proper subset is tight, every such subset has at least one spare task, and that spare capacity lets us make an arbitrary first assignment.
+
+\noindent\textit{Proof plan.} Induct on $|L|$. If a proper tight block exists, solve inside the block and outside it. Otherwise assign one student any acceptable task and show the remaining graph still satisfies Hall's condition.
+
+\subsection*{A concrete tight block before the general proof}
+Let four students have options
+\[
+ N(a)=N(b)=\{1,2\},\qquad N(c)=\{2,3\},\qquad N(d)=\{3,4\}.
+\]
+The group $S=\{a,b\}$ has exactly two available tasks, so it is tight. Assigning all of $S$ must use both tasks $1,2$. The remaining students therefore have options $c:\{3\}$ and $d:\{3,4\}$ after those two tasks are removed. They can use $3$ and $4$ respectively.
+
+Notice what happened to $T=\{c\}$. Originally $N(T)=\{2,3\}$, which overlaps $N(S)=\{1,2\}$. In the remaining problem its neighborhood is $N'(T)=\{3\}$. The prime in $N'$ labels a \emph{new neighborhood function}; it is not differentiation. The combined group $S\cup T$ had three distinct tasks. Subtracting the two tasks committed to $S$ left one for $T$.
+
+The general proof must establish this remaining capacity for every group $T$ outside $S$, not just for a single student. That is why it applies the original condition to $S\cup T$. Applying it to $T$ alone would give no control over how many of $T$'s options disappear when $N(S)$ is removed.
+
+The notation $S\subsetneq L$ means $S\subseteq L$ but $S\ne L$; such a subset is called \emph{proper}. Nonempty and proper ensure $0<|S|<|L|$. Both the block $S$ and the remaining set $L\setminus S$ are then smaller than the original left set, making the induction hypothesis available.
+
+\begin{proof}[Inductive proof of sufficiency]
+We use strong induction on $n=|L|$. For $n=0$, the empty matching works. Assume $n>0$ and the result holds for all smaller left sets. Suppose our graph satisfies \eqref{eq:hall}.
+
+\textbf{Case 1: a nonempty proper tight subset exists.} Choose $S$ with $\varnothing\ne S\subsetneq L$ and $|N(S)|=|S|$. 
+
+\emph{First smaller problem: match the tight block.} Restrict the graph to left part $S$ and right part $N(S)$. For every $U\subseteq S$, all neighbors of $U$ already lie in $N(S)$, so the restricted neighborhood is exactly $N(U)$. The original condition gives $|N(U)|\ge|U|$. Thus the restricted graph satisfies Hall's condition. Since $|S|<n$, induction gives a matching of all students in $S$ into $N(S)$.
+
+\emph{Second smaller problem: keep enough tasks for the other students.} Remove all tasks in $N(S)$ and consider parts $L\setminus S$ and $R\setminus N(S)$. Take any $T\subseteq L\setminus S$. Its available tasks in this remaining graph form
+\[
+N'(T)=N(T)\setminus N(S).
+\]
+Because $S$ and $T$ are disjoint, $|S\cup T|=|S|+|T|$. Applying Hall's condition to $S\cup T$ gives
+\[
+|N(S)\cup N(T)|\ge |S|+|T|.
+\]
+The union on the left is the disjoint union of $N(S)$ and $N(T)\setminus N(S)$. Consequently,
+\[
+|N(S)|+|N'(T)|\ge |S|+|T|.
+\]
+Substitute $|N(S)|=|S|$ and subtract $|S|$ from both sides to obtain $|N'(T)|\ge|T|$. This holds for every $T$, including the empty set. The remaining graph satisfies Hall's condition and has fewer than $n$ students. Induction therefore gives a matching of all remaining students using only tasks outside $N(S)$. \emph{Recombine the two answers.} The first matching uses students in $S$ and tasks in $N(S)$. The second uses students outside $S$ and tasks outside $N(S)$. No student or task can therefore occur in both matchings. Their union is a matching, and every original student belongs to one of the two matched groups. Hence it saturates $L$.
+
+\textbf{Case 2: no nonempty proper subset is tight.} Hall's condition and the integrality of cardinalities imply
+\[
+|N(S)|\ge |S|+1
+\]
+for every nonempty proper subset $S\subsetneq L$. Choose a student $x\in L$. Hall's condition for $\{x\}$ ensures at least one acceptable task $y\in N(\{x\})$. Assign $x$ to $y$, then remove both vertices.
+
+For any nonempty subset $T\subseteq L\setminus\{x\}$, the set $T$ is a proper subset of the original $L$. Before removal it has at least $|T|+1$ neighbors. Removing the single task $y$ deletes at most one of them. Hence its new neighborhood has size at least $|T|$. The empty subset satisfies the condition automatically. Thus the smaller graph satisfies Hall's condition and induction supplies a matching of its students. Adding the edge $x$--$y$ gives a matching saturating $L$.
+
+The added edge cannot conflict with that smaller matching because its two endpoints were removed before the smaller problem was solved. When $n=1$, there are no remaining students. The smaller matching is empty, and the chosen edge alone solves the problem. We have therefore not relied on a nonexistent nonempty remaining group in this boundary case.
+
+The two cases exhaust the possibilities, completing the induction.
+\end{proof}

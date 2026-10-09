@@ -1,0 +1,18 @@
+\section{Negation as the design of a failure}
+To negate a universal statement, find one failing input. To negate an existence statement, rule out every candidate:
+\[
+\neg(\forall x\ P(x))\Longleftrightarrow\exists x\ \neg P(x),
+\qquad
+\neg(\exists x\ P(x))\Longleftrightarrow\forall x\ \neg P(x).
+\]
+For instance, the negation of (A) is
+\[
+\exists x\in\RR\ \forall y\in\RR:\quad y\le x.
+\]
+It claims that some real number is an upper bound for all real numbers. Notice that $y>x$ became $y\le x$, not $y<x$. Equality belongs to the failure of a strict inequality.
+
+Now take a more elaborate statement: ``For every student, there is an acceptable task.'' Its negation is ``There is a student with no acceptable task.'' This says nothing yet about assigning different tasks to different students. Two students might have the same single acceptable task. Thus individually feasible choices need not combine into a globally feasible assignment. This will become our first long theorem.
+
+Here is a slower negation of ``for every integer $n$, there is an even integer $m$ greater than $n$.'' Fixing $n$, the desired response $m$ must satisfy \emph{both} ``$m$ is even'' and ``$m>n$.'' A response fails when at least one requirement fails: it is not even, or it is at most $n$. For the whole promise to fail, there must be one input $n$ for which \emph{every} candidate response fails. Thus the negation is: there exists an integer $n$ such that every integer $m$ is either not even or at most $n$. We reversed the two choices and then described failure of their final test.
+
+This is a useful order of work: negate the plain-language promise first, then write its symbols. Asking an assistant to ``flip the quantifiers'' without explaining what counts as failure can leave a correct-looking but misunderstood sentence.

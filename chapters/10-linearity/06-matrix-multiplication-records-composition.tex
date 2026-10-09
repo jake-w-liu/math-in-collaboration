@@ -1,0 +1,26 @@
+\section{Matrix multiplication records composition}
+If $A$ maps $\RR^n$ to $\RR^m$ and $B$ maps $\RR^m$ to $\RR^k$, their product $BA$ records ``$B$ after $A$.'' Expanding one coordinate gives
+\[
+(B(Ax))_i=\sum_{r=1}^m B_{ir}\sum_{j=1}^n A_{rj}x_j
+=\sum_{j=1}^n\left(\sum_{r=1}^m B_{ir}A_{rj}\right)x_j.
+\]
+The sums are finite, so regrouping is legitimate. This derives $(BA)_{ij}=\sum_rB_{ir}A_{rj}$. Matrix multiplication is not an arbitrary convention; it is forced by composition of the actions.
+
+To inspect the regrouping without nested sums, take both $A$ and $B$ to be two-by-two matrices. The first coordinate after applying $B$ to $Ax$ has the form
+\begin{align*}
+ B_{11}(A_{11}x_1+A_{12}x_2)
+ &+B_{12}(A_{21}x_1+A_{22}x_2)\\
+ &=(B_{11}A_{11}+B_{12}A_{21})x_1\\
+ &\quad +(B_{11}A_{12}+B_{12}A_{22})x_2.
+\end{align*}
+The coefficients multiplying $x_1$ and $x_2$ are the first row of the composed matrix. In the general formula, the index $r$ runs through the intermediate coordinates, while $j$ runs through the original inputs. These are different jobs. The summation notation is a compact record of this same distributive calculation, not a new operation.
+
+The transpose $A^{\mathsf T}$ exchanges rows and columns. Consequently, $(AA^{\mathsf T})_{ij}$ is the dot product of row $i$ with row $j$. A matrix identity $AA^{\mathsf T}=nI$ says its rows have squared length $n$ and different rows are orthogonal. Here $I$ is the identity matrix, with ones on the diagonal and zeros elsewhere. This is the exact identity we will later read in a formalized research statement.
+
+\begin{lab}{Replacing equation counting by a structural test}
+\noindent\textbf{Deliberately flawed reply.} ``There are two linear equations and two unknowns, so the solution is unique.''
+
+\noindent\textbf{Learner.} ``Test the matrix with rows $(1,1)$ and $(2,2)$. Find a nonzero vector it sends to zero. Then state a correct criterion for uniqueness.''
+
+\noindent\textbf{Model answer.} The vector $(1,-1)$ is in the kernel. Any existing solution can be changed by a multiple of this vector without changing the outputs. Uniqueness of solutions, when they exist, follows from a zero kernel; existence for every target is a separate surjectivity claim. Ask the assistant to give one target that has solutions and one that does not for this matrix.
+\end{lab}

@@ -1,0 +1,23 @@
+\section{The geometry of an inner product}
+For vectors $u,v\in\RR^n$, define their dot product by
+\[
+u\cdot v=\sum_{j=1}^n u_jv_j.
+\]
+This dot product is the real coordinate \emph{inner product} used in this chapter. The name describes the same operation, not a second calculation.
+
+Symmetry follows because each product $u_jv_j$ equals $v_ju_j$. The phrase ``linear in each argument'' means that one argument can be held fixed while addition and scaling in the other distribute through the dot product. For example,
+\[
+ (a u+b w)\cdot v
+ =\sum_j(au_j+bw_j)v_j
+ =a\sum_j u_jv_j+b\sum_j w_jv_j
+ =a(u\cdot v)+b(w\cdot v).
+\]
+The same expansion works in the second argument. All sums here contain exactly $n$ terms. The Euclidean length is
+\[
+\norm{u}_2=\sqrt{u\cdot u}=\sqrt{\sum_{j=1}^n u_j^2}.
+\]
+Each square is nonnegative, so the square root is defined. Length is zero exactly when every coordinate is zero.
+
+The subscript $2$ on $\norm{u}_2$ identifies this square-based length. It is not the second coordinate of $u$ and does not restrict the vector to two coordinates. Vectors are orthogonal when their dot product is zero. In the plane this agrees with perpendicularity, but the algebraic definition works in any finite dimension.
+
+For $u=(1,1)$ and $v=(1,-1)$, $u\cdot v=1-1=0$. Orthogonality says the positive and negative contributions cancel. This same cancellation will express zero correlation between sign sequences in Chapter~14.

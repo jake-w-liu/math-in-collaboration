@@ -1,0 +1,34 @@
+\section{Orthogonality also forces divisibility by four}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lemma}\label{thm:hadamardorder}
+If a real sign Hadamard matrix has order $n>2$, then $4$ divides $n$.
+\end{lemma}
+\end{minipage}\par
+
+\begin{proof}
+Multiply each column by the sign in its first row. This makes the first row all $1$'s and preserves every row dot product, because multiplying both factors in a column by the same sign multiplies their product by one.
+
+The second row is orthogonal to the all-ones first row, so its signs sum to zero. It therefore contains equally many plus and minus signs, implying $n$ is even. Permute columns so the second row has its $n/2$ plus signs first and its $n/2$ minus signs last. Column permutations also preserve row dot products.
+
+These two transformations simplify the matrix for the proof; they do not assert that its original first row was already all positive or that its original second row was already sorted. Multiplying a column by $-1$ changes that coordinate in every row, so each term in a row dot product gets two minus signs and is unchanged. Reordering columns applies the same permutation to both factors in every row comparison, merely reordering the sum.
+
+We do not need these transformations to preserve the circulant pattern. The lemma applies to \emph{every} sign Hadamard matrix, so its proof needs only to preserve the sign entries and row orthogonality. Circulant structure is used separately in the square-order identity. Requiring every intermediate representation to retain more structure than the lemma uses would obscure the argument.
+
+Since $n>2$, a third row exists. Let $x$ be the sum of its entries in the first half of the columns and $y$ the sum in the second half. Orthogonality with the first row gives $x+y=0$. Orthogonality with the second row gives $x-y=0$. Adding and subtracting yield $x=y=0$.
+
+In detail, adding the equations gives $2x=0$, hence $x=0$. Substituting into $x+y=0$ gives $y=0$. Let $h=n/2$ be the number of entries in the first half, and suppose exactly $p$ of those entries are positive. The other $h-p$ are negative, so their sum is $p-(h-p)=2p-h$. Since this sum is $x=0$, we obtain $h=2p$, proving that the half-length is even. This explains the second divisibility-by-two step rather than merely repeating the whole-row argument.
+
+The first half of the third row therefore consists of $n/2$ signs summing to zero. It has equally many plus and minus entries, so $n/2$ is even. Thus $n$ is divisible by four.
+\end{proof}
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{proposition}\label{thm:circulantnecessary}
+A real circulant sign Hadamard matrix of positive order has $n=1$ or $n=4u^2$ for some positive integer $u$.
+\end{proposition}
+\end{minipage}\par
+
+\begin{proof}
+Equation~\eqref{eq:squareorder} gives $n=r^2$ for an integer $r$. If $n>1$, it is not $2$, because $2$ is not an integer square. Hence $n>2$, and the lemma gives $4\mid n$. The integer $r$ must then be even: an odd square is odd. Write $|r|=2u$ with $u>0$. It follows that $n=4u^2$.
+\end{proof}
+
+This leaves candidate orders $4,16,36,\ldots$. It does not construct matrices at those orders and does not rule them out. Necessary conditions define a research boundary: the argument has eliminated many cases and has stated exactly what remains.

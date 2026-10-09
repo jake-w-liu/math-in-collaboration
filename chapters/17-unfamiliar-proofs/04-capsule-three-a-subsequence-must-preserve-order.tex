@@ -1,0 +1,18 @@
+\section{Capsule three: a subsequence must preserve order}
+A \emph{subsequence} is a sequence of the form
+\[
+ x_{n_1},x_{n_2},x_{n_3},\ldots,
+ \qquad n_1<n_2<n_3<\cdots.
+\]
+We may skip terms but may not reorder them or reuse a single index indefinitely. Every infinite subset of $\NN$ contains an index larger than any specified integer $M$: otherwise it would be contained in the finite set $\set{0,\ldots,M}$.
+
+Consequently, if an infinite set of permissible indices is available at each stage, we can choose a new index larger than the previous one. This small fact is exactly what turns nested infinite selections into a subsequence rather than an unordered collection of points.
+
+\subsection*{Plan the construction with three distinct kinds of object}
+There will be points of the metric space, balls containing points, and sets of sequence indices. They are not interchangeable. A ball contains values such as $x_7$. A selected index set contains the natural number seven because its value $x_7$ lies in the selected ball. Repeated equal values can therefore contribute many different indices.
+
+Start with every index permissible. At the first stage, cover the space by finitely many balls of radius $1/4$ and keep the indices whose points lie in one ball containing infinitely many of them. Any two retained values are within $1/2$ of one another. At the second stage, cover the space by balls of radius $1/8$, but consider only indices retained at the first stage. Keep infinitely many of those inside a single new ball. Their values are now within $1/4$ of one another.
+
+Continuing, the radii at stage $k$ are $2^{-(k+1)}$, so twice a radius is $2^{-k}$. The factor of two comes from the two-leg distance estimate within a ball. We shrink the radius by an extra factor of two precisely to get this convenient bound.
+
+The \emph{sets of indices} are nested because each stage discards some previously permissible indices and introduces none. The chosen balls themselves need not be nested as subsets of the space. We only need all later chosen values to retain the earlier distance guarantees. The proof will use nestedness of the index sets to establish that fact.

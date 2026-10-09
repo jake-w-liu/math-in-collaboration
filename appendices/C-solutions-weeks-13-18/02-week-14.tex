@@ -1,0 +1,27 @@
+\section{Week 14}
+\sol{14.1}{For $a=(1,1,-1)$, the nonzero aperiodic shifts give
+\[
+ A_1=1\cdot1+1(-1)=0,\qquad A_2=1(-1)=-1.
+\]
+The nonzero periodic correlations are
+\[
+ C_1=1\cdot1+1(-1)+(-1)1=-1,
+ \qquad C_2=1(-1)+1\cdot1+(-1)1=-1.
+\]
+Both also follow from $C_1=A_1+A_2$ and $C_2=A_2+A_1$. The zero periodic correlation is three, although it was not among the requested nonzero shifts.}
+\sol{14.2}{Every correlation summand is a product of two entries. Negating all entries changes $a_j a_k$ to $(-a_j)(-a_k)=a_j a_k$. Each summand is unchanged, with or without wrapped indices, so the entire aperiodic and periodic correlations are unchanged. This symmetry preserves the conditions and can justify identifying paired examples, provided counts are then explicitly reported modulo that symmetry.}
+\sol{14.3}{With the convention $H_{ij}=a_{j-i\bmod4}$, the first two rows are $(1,1,1,-1)$ and $(-1,1,1,1)$. Their dot product is $-1+1+1-1=0$, an off-diagonal entry of $HH^{\mathsf T}$. The dot product of the first row with itself is $1+1+1+1=4$, a diagonal entry. These two checks illustrate the construction; the periodic-correlation argument in the chapter establishes all entries together.}
+\sol{14.4}{Let $1\le s<n$. Periodic indexing reduces indices modulo $n$, so a shift of $n-s$ is the same as a shift of $-s$. Consequently,
+\[
+ C_{n-s}=\sum_{j=0}^{n-1}a_j a_{(j-s)\bmod n}.
+\]
+Set $k=(j-s)\bmod n$. As $j$ runs through every residue, so does $k$, and conversely $j=(k+s)\bmod n$. Substitute both occurrences of the old index:
+\begin{align*}
+ C_{n-s}
+ &=\sum_{k=0}^{n-1}a_{(k+s)\bmod n}a_k\\
+ &=\sum_{k=0}^{n-1}a_k a_{(k+s)\bmod n}\\
+ &=C_s.
+\end{align*}
+The first equality reindexes all terms without losing any; the second reverses the real factors in each product; the last recognizes the definition. The index range is empty when $n=1$, so there is then no nonzero-shift assertion to check. Real multiplication is relevant: a correlation defined using complex conjugation would require checking its own convention rather than copying the final equality blindly.}
+\sol{14.5}{The order must be a square, and if it exceeds two it must be divisible by four. Eight is not a square. Nine and twenty-five are squares but not divisible by four. Sixteen and thirty-six satisfy both necessary conditions and remain candidates. Neither condition constructs a matrix at these orders. In particular, surviving a necessary-condition test is not evidence of existence on its own.}
+\sol{14.6}{One sequence with all required correlations verified is a certificate of existence at its length. A correctly implemented exhaustive search of all $2^n$ sign sequences, with no qualifying result, establishes nonexistence at that fixed length, subject to the correctness of the search and arithmetic. It says nothing by itself about an untested length. A conclusion for all lengths requires a proof applying to arbitrary $n$, or a proved reduction showing that every possible example would occur among the finitely many cases searched.}

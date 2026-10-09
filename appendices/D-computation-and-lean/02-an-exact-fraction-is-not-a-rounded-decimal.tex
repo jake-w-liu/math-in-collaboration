@@ -1,0 +1,23 @@
+\section{An exact fraction is not a rounded decimal}
+Use \code{Fraction} when the intended inputs are rational. It stores a numerator and denominator and performs rational arithmetic rather than immediately converting to a floating-point approximation~\cite{pyfractions}.
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+from fractions import Fraction
+x = Fraction(1, 3)
+y = (x * x + 1) / 3
+print(y)
+\end{lstlisting}
+\end{minipage}\par
+
+This prints \code{10/27}. Use \code{Fraction(1, 10)} for the exact rational one tenth. Passing a floating-point value such as \code{0.1} first represents that floating-point input, not an intention to supply the exact decimal fraction.
+
+The numerical tables in the sign laboratory use integer arithmetic. The iteration checks use fractions. This removes one source of roundoff uncertainty, but does not prove that a loop enumerates the intended objects or that the mathematical assumptions hold. Exact arithmetic and correct modeling are separate requirements.
+
+\subsection*{Running a command is different from entering a calculation}
+The archive contains source files. Extract it into one folder before running them. A \emph{working directory} is the folder in which a terminal command currently looks for files. Open a terminal in the extracted folder, or change to it with a command such as \code{cd path/to/extracted/folder}, replacing that example path by the actual location.
+
+Check the installed Python interpreter with \code{python --version} or \code{python3 --version}. Use whichever command names the compatible interpreter on your system. A command such as \code{python labs.py} runs the entire saved file. By contrast, the examples beginning \code{from labs import ...} are Python statements: put them in a small \code{.py} file in the same folder and run that file, or enter them at Python's interactive prompt after starting the interpreter.
+
+The interactive prompt is usually displayed as \code{>>>}. It indicates where Python expects a statement; do not copy the prompt characters into a source file. A terminal's shell prompt expects commands for programs, whereas Python's prompt expects Python expressions and statements. An error caused by pasting into the wrong prompt says nothing about the mathematical claim being tested.
+
+The saved \code{labs.py} and \code{verify.py} files contain the full examples and checks. A short teaching fragment illustrates a language feature; it should not be mistaken for a second complete replacement of those programs.

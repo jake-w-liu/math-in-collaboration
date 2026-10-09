@@ -1,0 +1,20 @@
+\section{Definition, example, claim, theorem, proof}
+Before reading a numbered result, distinguish five jobs that mathematical sentences can do.
+
+\emph{A definition sets the meaning.} ``Odd means one more than twice an integer'' supplies a rule for using a word. There is no pattern to verify before adopting the rule. However, showing that a particular object meets the rule may require work.
+
+\emph{An example shows the meaning in one instance.} The equation $7=2\cdot3+1$ shows how the definition applies. A \emph{nonexample} does not meet the definition. For instance, $4$ is not odd: if $4=2k+1$, solving gives $k=3/2$, not an integer. Both kinds of example help us understand the boundary of a definition.
+
+\emph{A claim says something that may need justification.} ``Adding two odd integers always gives an even integer'' is not part of the definitions. We must establish that the output has the required form whenever the inputs have their required forms. Until this is done, agreeing with a few examples is not enough.
+
+\emph{A theorem is a claim supplied with a proof.} The labels \emph{proposition} and \emph{lemma} use the same standard of justification. As a heading, \emph{Proposition} labels an assertion presented with a proof; a lemma is an assertion used to support another result. A theorem is usually a result the author wishes to emphasize. These are organizational labels, not increasing levels of truth or permissions to skip steps. A \emph{corollary} is a result deduced from an earlier result. A \emph{conjecture} is a proposed statement not yet established in the discussion.
+
+There is a second use of the word \emph{proposition} that we will meet in logic and Lean: it can mean any statement that can be true or false, whether or not we have proved it. Thus calling an expression a proposition does not assert its truth. The numbered heading in a textbook and the general word for a logical statement have different roles.
+
+\emph{A proof supplies the justification.} It starts from the allowed inputs and facts, makes justified deductions, and arrives at exactly the promised conclusion. Its purpose is not to reassure us that the author is confident. Its purpose is to let us see why no allowed case has been omitted. The small square at the end of a proof means ``the argument ends here''; it is not an operation to perform.
+
+A \emph{hypothesis}, also called an assumption or premise, is a condition under which a result is asserted. In our first proposition, the hypotheses are that the two inputs are integers and are odd. The \emph{conclusion} is that their sum is even. We may use the hypotheses during the proof. We may not simply assume the conclusion to obtain it.
+
+Some facts are accepted as the starting rules of a theory; these are called \emph{axioms}. In this course we also explicitly accept familiar arithmetic facts without rebuilding their foundations. That does not permit us to declare a difficult claim true whenever a proof is missing. We distinguish a stated starting fact from something the argument is meant to establish.
+
+\pauseq{Classify these sentences: ``Even means twice an integer''; ``Six is even because $6=2\cdot3$''; ``The sum of two odd integers is even.''}{The first is a definition, the second verifies an example, and the third is a general claim. The third becomes an established result in this book when the proof below has been completed.}

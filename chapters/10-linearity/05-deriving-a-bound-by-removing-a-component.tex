@@ -1,0 +1,68 @@
+\section{Deriving a bound by removing a component}
+We want to compare the size of a dot product with the lengths of its two inputs. For $u=(3,1)$ and $v=(1,1)$, the dot product is four and their squared lengths are ten and two. The proposed bound becomes $4\le\sqrt{10}\sqrt2$, or, after squaring nonnegative quantities, $16\le20$.
+
+How could we find a general reason? Subtract a multiple $t v$ from $u$. Its squared length cannot be negative, no matter which real number $t$ we choose. The useful choice will remove the component that has a nonzero dot product with $v$. Solve the equation
+\[
+ (u-tv)\cdot v=0.
+\]
+Distribution gives $u\cdot v-t(v\cdot v)=0$. When $v\ne0$, its squared length $v\cdot v$ is positive, so solving for $t$ gives
+\[
+ t=\frac{u\cdot v}{v\cdot v}.
+\]
+This explains the coefficient that appears in the proof: it is the solution of a simple equation, not an unexplained guess. In our example $t=4/2=2$, so $u-tv=(1,-1)$, whose dot product with $(1,1)$ is indeed zero.
+
+The residual vector $u-tv$ is what remains after subtracting the chosen multiple. Its squared length is two in the example. The proof below turns the nonnegativity of this residual into the desired bound. Absolute value around $u\cdot v$ is needed because a dot product can be negative, whereas the product of two lengths is nonnegative.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{theorem}[Cauchy--Schwarz inequality]\label{thm:cs}
+For all $u,v\in\RR^n$, $|u\cdot v|\le\norm{u}_2\norm{v}_2$.
+\end{theorem}
+\end{minipage}\par
+
+\noindent\textit{Plan.} The squared length of $u-tv$ is nonnegative for every real $t$. Choose $t$ to remove as much of the component along $v$ as possible.
+\begin{proof}
+If $v=0$, both sides involving the dot product are zero and the inequality holds. Assume $v\ne0$, so $v\cdot v>0$. For any real $t$, expand one argument at a time:
+\begin{align*}
+ (u-tv)\cdot(u-tv)
+ &=u\cdot(u-tv)-t\,v\cdot(u-tv)\\
+ &=u\cdot u-t(u\cdot v)-t(v\cdot u)+t^2(v\cdot v)\\
+ &=u\cdot u-2t(u\cdot v)+t^2(v\cdot v).
+\end{align*}
+The last step uses symmetry of the dot product. The left side is a squared length, so the resulting expression is nonnegative.
+Choose $t=(u\cdot v)/(v\cdot v)$, which is defined because the denominator is positive. Substitution yields
+\begin{align*}
+0&\le u\cdot u-2\frac{(u\cdot v)^2}{v\cdot v}
+ +\frac{(u\cdot v)^2}{v\cdot v}\\
+&=u\cdot u-\frac{(u\cdot v)^2}{v\cdot v}.
+\end{align*}
+Move the fraction to the left and multiply by the positive quantity $v\cdot v$:
+\[
+(u\cdot v)^2\le(u\cdot u)(v\cdot v).
+\]
+Both sides are nonnegative. Taking nonnegative square roots gives the stated inequality, because $\sqrt{(u\cdot v)^2}=|u\cdot v|$.
+\end{proof}
+
+For $v\ne0$, equality holds exactly when the chosen vector $u-tv$ has zero length, that is, when $u$ is a scalar multiple of $v$.
+
+Indeed, after choosing $t$, the difference between the squared bound's right and left sides is
+\[
+ (u\cdot u)(v\cdot v)-(u\cdot v)^2
+ =(v\cdot v)\,\norm{u-tv}_2^2.
+\]
+Since $v\cdot v>0$, the difference vanishes exactly when the residual vector is zero. This is the equality case, not an additional assumption imposed to prove the inequality. If $v=0$, equality holds for every $u$, as the proof's separate first case already showed. This equality condition explains when the bound loses no information. It is often worth studying equality before trying to improve a bound.
+
+\subsection*{From the dot-product bound to a distance bound}
+The next chapter needs the fact that traveling through an intermediate vector cannot be shorter in total than the direct route. We establish its algebraic form here rather than leave a prerequisite hidden in an exercise. Expand
+\begin{align*}
+ \norm{u+v}_2^2
+ &=(u+v)\cdot(u+v)\\
+ &=\norm{u}_2^2+2(u\cdot v)+\norm{v}_2^2\\
+ &\le\norm{u}_2^2+2|u\cdot v|+\norm{v}_2^2\\
+ &\le\norm{u}_2^2+2\norm{u}_2\norm{v}_2+\norm{v}_2^2\\
+ &=(\norm{u}_2+\norm{v}_2)^2.
+\end{align*}
+The first inequality uses $a\le|a|$ for a real number; the second uses Cauchy--Schwarz. Both lengths in the final comparison are nonnegative, so taking square roots preserves the inequality. We obtain the \emph{triangle inequality}
+\[
+ \norm{u+v}_2\le\norm{u}_2+\norm{v}_2.
+\]
+Exercise~10.5 asks you to reconstruct this argument, not to supply an unexplained prerequisite before you can continue.

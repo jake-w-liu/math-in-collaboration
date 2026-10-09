@@ -1,0 +1,14 @@
+\section{Residues: a small model of a large idea}
+Fix a positive integer $m$. Say $a\equiv b\pmod m$ when $m$ divides $a-b$. This means that $a$ and $b$ differ by a whole number of periods of length $m$. For $m=4$, we have $1\equiv5\equiv-3\pmod4$.
+
+This is an equivalence relation. Reflexivity follows because $a-a=0=m\cdot0$. If $a-b=mk$, then $b-a=m(-k)$, proving symmetry. If $a-b=mk$ and $b-c=m\ell$, then $a-c=m(k+\ell)$, proving transitivity.
+
+The equivalence class $[a]_m$ consists of all integers equivalent to $a$. Division with remainder shows that every class has one representative among $0,1,\ldots,m-1$. These $m$ classes form the set $\ZZ/m\ZZ$. The notation can initially be read simply as ``integers with differences by multiples of $m$ ignored.'' We do not need the general theory of quotient objects to use this example correctly.
+
+For modulus four, the class $[1]_4$ is the entire set
+\[
+ \{\ldots,-7,-3,1,5,9,\ldots\}.
+\]
+The integer one is a \emph{representative}: one member used to name that set. Five is another representative, so $[1]_4=[5]_4$, even though $1\ne5$. Three levels must stay separate: the integer, the set of integers equivalent to it, and the collection of all such sets.
+
+Why do these classes form nonoverlapping groups? If a number $z$ belonged both to the class of $a$ and to the class of $b$, symmetry and transitivity would give $a\sim z\sim b$, hence $a\sim b$. Any number related to $a$ would then be related to $b$, and conversely. The two classes would be identical. Thus classes can be equal or disjoint, but cannot overlap only partially. Reflexivity ensures every number belongs to its own class, so none is omitted.

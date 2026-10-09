@@ -1,0 +1,11 @@
+\section{Maximal does not mean maximum}
+A matching is maximal if no single new edge can be added without creating a shared endpoint. It is maximum if no matching in the graph has more edges. The greedy choice Ada--$1$ above is maximal: both remaining edges touch an already used vertex. But it is not maximum, because the matching Ada--$2$, Ben--$1$ has two edges.
+
+Inclusion-maximal uses the partial order from Chapter~6: no strictly larger matching contains the current one. In matching terminology, however, \emph{maximum} means largest \emph{number of edges}, not a matching that contains every other matching. Two maximum matchings can have different edges and neither need contain the other. Searching for maximum size may therefore require replacing earlier choices. A proof using an extremal object must specify which comparison is intended.
+
+\subsection*{Read a matching as both a list and a function}
+For the current matching Ada--$1$, the list of selected edges has one member. It determines a partial assignment: Ada has a task, Ben does not. Adding Ben--$1$ would give task $1$ two owners. Adding Ada--$2$ would give Ada two tasks. Either addition violates the definition of matching.
+
+A full assignment would be an injective function from students to tasks, with the additional requirement that each assigned pair is an edge. This connects the graph problem to Chapter~3. Injectivity prevents two students from receiving the same task. Acceptability is a separate restriction; an injective function using unacceptable tasks would not solve this problem.
+
+The graph's edge set lists \emph{allowed} assignments. The matching lists \emph{currently chosen} assignments. Confusing these two sets would make the repair operation difficult to follow: changing the matching does not change which tasks are acceptable.

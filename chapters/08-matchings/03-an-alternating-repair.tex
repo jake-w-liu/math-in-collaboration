@@ -1,0 +1,26 @@
+\section{An alternating repair}
+Relative to a current matching $M$, an alternating path alternates between edges outside $M$ and edges inside $M$. An augmenting path begins and ends at unmatched vertices and starts and ends with edges outside $M$. In a bipartite assignment problem, it begins at an unmatched student and ends at an unused task.
+
+For Ada and Ben, start with $M=\{\text{Ada--}1\}$. The path
+\[
+\text{Ben}\;--\;1\;--\;\text{Ada}\;--\;2
+\]
+uses an unmatched edge, a matched edge, then an unmatched edge. Replace the matching edges along the path by the previously unmatched ones. Ben receives $1$, and Ada moves to $2$.
+
+Write the change as a small ledger. Ben initially has no task and finally has task $1$. Ada initially has task $1$ and finally has task $2$. Task $1$ changes owner rather than being assigned twice. Task $2$ changes from unused to used. Thus one more student is matched without leaving a previously matched student unmatched.
+
+For a longer path, the same exchange repeats along a chain. Internal students each move to the next task; internal tasks each change owner. The unmatched student at the start gains a task, and the unused task at the end makes the chain possible. The following lemma checks this description at every kind of vertex. It is called a lemma because the algorithm will use its conclusion as a supporting fact.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lemma}\label{thm:augment}
+Flipping the membership of every edge along an augmenting path produces a matching with one more edge.
+\end{lemma}
+\end{minipage}\par
+
+\begin{proof}
+An augmenting path has distinct vertices. Each internal vertex has two path edges, exactly one originally in the matching. After the flip, exactly the other path edge belongs to the new matching, so that vertex still has one assigned edge. Each endpoint was unmatched and gains its single incident path edge. Vertices outside the path are unchanged. No internal vertex can have another matching edge outside the path, because it already had a matching edge on the path. Hence no vertex receives two matching edges.
+
+The alternating path starts and ends with edges outside $M$, so it contains one more outside edge than inside edge. The flip adds the outside edges and removes the inside edges. The total matching size therefore increases by one.
+\end{proof}
+
+The argument has both an invariant and progress. The invariant is ``the selected edges form a matching.'' The progress measure is the number of selected edges. Since it can never exceed $|L|$, there can be at most $|L|$ augmentations.

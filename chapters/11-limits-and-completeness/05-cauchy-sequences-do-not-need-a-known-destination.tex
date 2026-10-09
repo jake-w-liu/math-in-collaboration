@@ -1,0 +1,24 @@
+\section{Cauchy sequences do not need a known destination}
+A sequence is Cauchy when its sufficiently late terms are mutually close:
+\[
+\forall\eps>0\ \exists N\ \forall m,n\ge N:\quad d(x_m,x_n)<\eps.
+\]
+The destination does not appear. This is useful when we are trying to prove that an iterative construction has a limit rather than starting with a known candidate.
+
+Every convergent sequence is Cauchy. Here is the argument with both late indices visible. Given $\eps>0$, ask convergence for the smaller tolerance $\eps/2$. It supplies one threshold $N$ such that every term with index at least $N$ is within $\eps/2$ of $x_*$. Now choose any $m,n\ge N$. Both comparisons are available, so
+\[
+ d(x_m,x_n)\le d(x_m,x_*)+d(x_*,x_n)
+ <\frac\eps2+\frac\eps2=\eps.
+\]
+The same threshold works for \emph{every pair} of later terms, proving the Cauchy condition. We split the tolerance in half because the triangle inequality will add two errors. The converse requires an additional property of the space: mutual closeness does not by itself put a destination inside the allowed set.
+
+Small consecutive changes alone do not imply the Cauchy condition. Let $s_n=\sum_{j=1}^n1/j$, with $s_0=0$. Then $s_{n+1}-s_n=1/(n+1)\to0$. But for $n\ge1$,
+\[
+s_{2n}-s_n=\sum_{j=n+1}^{2n}\frac1j\ge n\frac1{2n}=\frac12.
+\]
+There are $n$ terms, each at least $1/(2n)$. No threshold can make all tail differences smaller than $1/4$. Thus the sequence is not Cauchy. We need control of accumulated changes, not just individual steps.
+
+\subsection*{One step versus any two late steps}
+For the harmonic sums, inspect $n=4$: the difference $s_8-s_4$ contains the four terms $1/5,1/6,1/7,1/8$, each at least $1/8$, so the difference is at least $1/2$. A single step after index four is smaller, but many small steps accumulate.
+
+To refute the Cauchy condition, fix the tolerance $1/4$ once and for all. For \emph{any} proposed threshold $N$, choose an integer $n\ge\max\{N,1\}$ and set $m=2n$. Both indices are at least $N$, yet their distance is at least $1/2$, not below $1/4$. This is the exact negation of eventual control over every late pair. We did not need to prove a formula for the infinite sum or even discuss such a sum.

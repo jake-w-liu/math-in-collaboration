@@ -1,0 +1,4 @@
+\section{Why induction is not circular}
+Imagine a counterexample existed. Choose the smallest natural number $m$ for which $P(m)$ fails. The starting case shows $m\ne0$, so $m-1$ is a smaller natural number. Minimality gives $P(m-1)$, and the transition gives $P(m)$, a contradiction. This is the \emph{minimal-counterexample} view of induction.
+
+Sometimes a step needs all smaller cases, not just the immediately preceding one. Strong induction allows us to assume $P(0),\ldots,P(k)$ when proving $P(k+1)$. The same smallest-counterexample argument justifies it: every smaller case is true by minimality. In Chapter~9, a graph may split into two parts whose sizes are not predetermined, so we will need this form of induction.

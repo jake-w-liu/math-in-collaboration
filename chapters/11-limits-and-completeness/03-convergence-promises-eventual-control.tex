@@ -1,0 +1,20 @@
+\section{Convergence promises eventual control}
+A sequence is a list $x_0,x_1,x_2,\ldots$ indexed by natural numbers. It converges to $x_*$ when, for every tolerance $\eps>0$, all sufficiently late terms lie within that tolerance:
+\[
+\forall\eps>0\ \exists N\in\NN\ \forall n\ge N:\quad d(x_n,x_*)<\eps.
+\]
+The threshold $N$ may depend on $\eps$. It must work for every later $n$, not just for one convenient term.
+
+Read the order as a challenge and response. First someone asks for a positive tolerance, such as $0.01$. We must produce a threshold $N$. Then they may choose \emph{any} index at or beyond $N$, and its distance from the same proposed limit must be below $0.01$. They may later ask for a smaller tolerance; we may then choose a larger threshold.
+
+The point $x_*$ is fixed before these tolerance requests. The star is a label for the proposed destination, not multiplication and not a special numerical value. The notation $x_n\to x_*$ records convergence. It does not say the sequence ever equals its limit. For $x_n=1/(n+1)$, every term is positive even though the limit is zero.
+
+Choosing one late term near the destination is not enough. The sequence $0,1,0,1,\ldots$ repeatedly returns to zero, but has no tail in which \emph{every} term is within $1/4$ of zero. The quantifier ``every $n\ge N$'' rules out that behavior.
+
+For $x_n=1/(n+1)$ on the real line, take a positive integer $N>1/\eps$. Then for $n\ge N$,
+\[
+0<x_n=\frac1{n+1}\le\frac1{N+1}<\eps.
+\]
+This proves $x_n\to0$. A finite prefix, however irregular, does not affect the limit because the definition only controls sufficiently late terms.
+
+For $x_n=1-2^{-n}$, the error relative to $1$ is $2^{-n}$. To show it tends to zero without logarithms, observe by induction that $2^n\ge n+1$. Hence $2^{-n}\le1/(n+1)$, and the previous tolerance argument applies.

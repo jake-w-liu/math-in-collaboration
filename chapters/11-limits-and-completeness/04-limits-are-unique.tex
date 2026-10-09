@@ -1,0 +1,16 @@
+\section{Limits are unique}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{proposition}\label{thm:limitunique}
+A sequence in a metric space has at most one limit.
+\end{proposition}
+\end{minipage}\par
+
+\begin{proof}
+Suppose $x_n\to a$ and $x_n\to b$, and assume $a\ne b$. Set $D=d(a,b)>0$ and choose the tolerance $D/3$. The first convergence supplies an index beyond which $d(x_n,a)<D/3$; the second supplies an index beyond which $d(x_n,b)<D/3$. Take $n$ beyond both indices. By symmetry and the triangle inequality,
+\[
+D=d(a,b)\le d(a,x_n)+d(x_n,b)<2D/3.
+\]
+This contradicts $D>0$. Therefore $a=b$.
+\end{proof}
+
+Notice why we used one index beyond both thresholds. Two separate late terms would not give the same two-step path from $a$ through $x_n$ to $b$. Quantifier control is doing mathematical work here.

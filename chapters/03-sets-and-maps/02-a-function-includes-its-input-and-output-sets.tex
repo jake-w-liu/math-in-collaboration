@@ -1,0 +1,27 @@
+\section{A function includes its input and output sets}
+A function $f:A\to B$ assigns exactly one output $f(x)\in B$ to each input $x\in A$. The set $A$ is the domain; $B$ is the codomain. Not every element of $B$ needs to occur as an output. The outputs that actually occur form the image
+\[
+f(A)=\{f(x):x\in A\}.
+\]
+For $f:\RR\to\RR$ given by $f(x)=x^2$, the image is the nonnegative real numbers, written $[0,\infty)$. Its codomain is all real numbers. We could define a different function with the same rule but codomain $[0,\infty)$; that distinction changes whether every target is attained.
+
+The identity map $\id_A:A\to A$ sends $x$ to itself. If $f:A\to B$ and $g:B\to C$, their composition $g\circ f:A\to C$ applies $f$ first and $g$ second:
+\[
+(g\circ f)(x)=g(f(x)).
+\]
+The order is easy to reverse when reading notation. Say ``$g$ after $f$'' aloud until the direction is familiar.
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,node distance=1.65in]
+\node (a) {$A$};\node[right=of a] (b) {$B$};\node[right=of b] (c) {$C$};
+\draw[->] (a)--node[above]{$f$}(b);\draw[->](b)--node[above]{$g$}(c);
+\draw[->,bend right=22](a)to node[below]{$g\circ f$}(c);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Follow two concrete maps before composing general ones}
+Let $f(x)=x+1$ and $g(y)=2y$, with all inputs and outputs real. Starting at three, $f$ first gives four and $g$ then gives eight. Thus $(g\circ f)(3)=8$. Starting instead with $g$ gives six, and then $f$ gives seven, so $(f\circ g)(3)=7$. The two orders need not agree.
+
+The general formulas are $(g\circ f)(x)=2(x+1)$ and $(f\circ g)(x)=2x+1$. This connects composition to the bracket calculation from Chapter~1. In $g(f(x))$, evaluate the inner parentheses first. Before any evaluation, check that the output of the inner function is an allowed input of the outer one.
+
+To call a map \emph{reversible}, we mean that a second map can undo it in both directions. More precisely, an inverse of $f:A\to B$ is a map $h:B\to A$ with $h(f(a))=a$ for every $a\in A$ and $f(h(b))=b$ for every $b\in B$. For $f(x)=x+1$, the map $h(y)=y-1$ works: $(x+1)-1=x$ and $(y-1)+1=y$. A recipe that undoes one selected input is not yet an inverse for a whole function.

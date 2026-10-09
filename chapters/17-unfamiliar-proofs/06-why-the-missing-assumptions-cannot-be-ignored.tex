@@ -1,0 +1,13 @@
+\section{Why the missing assumptions cannot be ignored}
+In the discrete metric on $\NN$, the sequence $0,1,2,\ldots$ has no Cauchy subsequence: distinct chosen terms stay distance one apart. The space is complete. To see why, apply the Cauchy condition with tolerance $1/2$. Any two terms beyond the resulting threshold must have distance less than $1/2$. Their distance can only be zero or one, so it must be zero: all those late terms are equal. An eventually constant sequence converges to that constant member of $\NN$. However, the space is not totally bounded. Completeness alone does not force a convergent subsequence.
+
+The interval $(0,1)$ is totally bounded. Given $r>0$, partition $[0,1]$ into $N$ equal pieces with $1/(2N)<r$, and use the midpoints of these pieces as centers. All centers belong to $(0,1)$, and every point of $(0,1)$ is within $1/(2N)$ of a center. However, the sequence $x_n=1/(n+2)$ has no subsequence converging inside $(0,1)$: every subsequence still converges to zero in $\RR$, and limits are unique. This space lacks completeness.
+
+These counterexamples do more than decorate the theorem. They identify two different mechanisms: having enough small finite descriptions and having a place for Cauchy limits to reside. A useful question about a new hypothesis is therefore not only ``What does it mean?'' but ``Which mechanism fails without it?''
+
+\subsection*{Check what was learned, not only what was named}
+For a new concept, first state the problem it solves. Total boundedness gives a finite list of small regions at any requested scale. Then give the definition with its quantifiers. The list and its length may change when the requested radius changes, but for one radius the same list must cover every point.
+
+Next test the boundary. The discrete metric shows that an overall bound on distances does not provide those finite small-scale descriptions. The open interval shows that finite small-scale descriptions alone do not supply all missing limits. Finally return to the exact proof line where the concept is used. If you can name the definition but cannot explain that line, the prerequisite has not yet been learned sufficiently for this purpose.
+
+For an unfamiliar research proof, an assistant's first prerequisite list is only a proposal. Discovering a further missing step is not a failure of the method. Add that step, learn it, and return to the argument. The list should become sufficient for the chosen proof through inspection and reconstruction; it should not be treated as automatically minimal or complete because an AI generated it.

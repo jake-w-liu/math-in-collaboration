@@ -1,0 +1,27 @@
+\section{A failed search exposes a shortage}
+For $S\subseteq L$, let $N(S)$ be the tasks acceptable to at least one student in $S$. Suppose a complete alternating search from an unmatched student $x$ reaches no unused task. Let $A$ be the reached students, including $x$, and let $B$ be the reached tasks.
+
+Before the general counting argument, consider three students $a,b,c$ who can all use only tasks $1,2$. Suppose $a$ is matched to $1$ and $b$ to $2$, with root $x=c$. The search reaches both tasks and then their owners $a,b$. It finds no unused task. Thus $A=\{c,a,b\}$ and $B=\{1,2\}$.
+
+The existing matching pairs task $1$ with $a$ and task $2$ with $b$. Every reached student \emph{except the unmatched root} appears in exactly one such pair. There is no pair for $c$, which is precisely the shortage. We now show that this one-extra-student pattern holds whenever a complete search fails, not just in this example.
+
+Every task in $B$ is matched; otherwise the search would have succeeded. Its matched student is reached by the search rule and lies in $A\setminus\{x\}$. Conversely, every reached student other than $x$ was reached from a matched task. Because matching partners are unique, the matching pairs give a bijection between $B$ and $A\setminus\{x\}$. Therefore
+\[
+|A|=|B|+1.
+\]
+
+A bijection here is not an abstract new object that we must discover. It is the existing partner rule: send each task in $B$ to its owner. Two tasks cannot have the same owner because $M$ is a matching. Every student in $A\setminus\{x\}$ is an owner of a reached task because that is the only rule that can reach a new student. Thus the partner rule is injective and surjective onto that set. Equal finite sizes follow, and adding back the single root gives the displayed equation.
+
+The separate identity $N(A)=B$ is needed because the shortage condition counts \emph{all acceptable tasks} of $A$, not merely whichever tasks the search happened to record. A proof that reached tasks are too few would be inconclusive if some acceptable tasks had been missed. The next two-containment argument rules that out.
+
+We also have $N(A)=B$. Every reached task was entered from a reached student, so $B\subseteq N(A)$. For the reverse containment, take a task neighboring a reached student. If their connecting edge is unmatched, the exploration follows it, so the task lies in $B$. If their edge is matched, the student is not the unmatched root $x$, and its matched task is the task from which it was reached; that task already lies in $B$. Thus all neighbors lie in $B$.
+
+Combining the two identities gives
+\[
+|N(A)|=|B|=|A|-1<|A|.
+\]
+There are fewer available tasks than students in $A$. No assignment can give all those students distinct acceptable tasks. The search has produced an independently checkable certificate of impossibility.
+
+\begin{principle}{Habit 7: make failure informative}
+A failed attempt is not automatically a counterexample. Ask whether the failure can be turned into a concrete object that violates a necessary condition. In this problem, the object is a set of students competing for too few tasks. In another problem it may be two distinct inputs with the same output, refuting a claim of injectivity, or a particular value violating a required inequality.
+\end{principle}

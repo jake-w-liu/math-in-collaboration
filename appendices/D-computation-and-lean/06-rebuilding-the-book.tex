@@ -1,0 +1,6 @@
+\section{Rebuilding the book}
+The consolidated source is \code{math\_ai.tex}; it contains the chapters, exercises, solutions, bibliography, and TikZ drawings without external image files. A TeX distribution must provide the packages declared in its preamble, including AMS mathematics, New TX fonts, TikZ, \code{tcolorbox}, and \code{listings}. Font binaries are not part of the source package; use those provided by the TeX distribution.
+
+Run \code{python build.py} to compile the document and run the Python verification suite. This script requires \code{pdflatex}. It compiles multiple times to resolve the table of contents and cross-references, rejects missing references and overfull layout boxes, and stops on a failed test. Use \code{python build.py --lean} to require the additional Lean check. The PDF can also be built manually with repeated \code{pdflatex -halt-on-error math\_ai.tex} commands until references stabilize.
+
+The source has no network dependency during compilation. Public research references are hyperlinks for reading, not files fetched during the build. A source archive is useful only if its extracted copy rebuilds; that clean-extraction check is part of the release procedure for this edition.

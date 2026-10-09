@@ -1,0 +1,20 @@
+\section{The small algebra moves we will use}
+An expression such as $2k+1$ is built from operations you already know. To evaluate it at $k=3$, replace every occurrence of $k$ by $3$: $2k+1$ becomes $2\cdot3+1=7$. This replacement is called \emph{substitution}. Substitution does not say that $k$ always equals three; it checks one chosen input.
+
+Sometimes we give the rule itself a name. Writing $f(n)=n+1$ means that the rule named $f$ adds one to its input $n$; for example, $f(3)=4$. Read $f(n)$ as ``the output of $f$ at input $n$,'' not as $f$ multiplied by $n$. Chapter~3 develops functions fully. For now this notation lets us refer to a formula and its values without rewriting the formula each time.
+
+To rewrite an expression without changing its value, use an arithmetic rule in either direction. Distributing gives $2(k+1)=2k+2$. Reading that equality in reverse gives $2k+2=2(k+1)$; this is called \emph{factoring}. In a proof, factoring is often useful because it reveals a common multiplier.
+
+For a slightly longer example, apply distribution one bracket at a time:
+\begin{align*}
+ (2k+1)(2\ell+1)
+ &=2k(2\ell+1)+1(2\ell+1)\\
+ &=4k\ell+2k+2\ell+1.
+\end{align*}
+The first line gives each term of the first bracket a copy of the second bracket. The second line multiplies out those two copies. The letter $\ell$, read ``ell,'' is a different name from $k$, not the digit one. We need two names because the inputs may differ.
+
+There is also a difference between an identity and an equation to solve. The equality $2(k+1)=2k+2$ holds for every integer $k$; it is an \emph{identity}. The equation $2k+1=7$ asks which values of $k$ make it true. Subtracting one from both sides gives $2k=6$; dividing by two gives $k=3$. Substitution into the original equation checks that $2\cdot3+1=7$.
+
+A power records repeated multiplication: $2^3=2\cdot2\cdot2=8$. The exponent three counts the factors, not additions. We use $a^0=1$ for $a\ne0$, and $a^{-n}=1/a^n$ for positive integers $n$ and nonzero $a$. In particular, $2^{-3}=1/8$. Joining a row of $n$ factors and a row of $m$ factors gives $a^{n+m}=a^na^m$. For nonzero $a$, canceling $m$ factors gives $a^n/a^m=a^{n-m}$. We will revisit these rules with actual numbers whenever they carry a new argument.
+
+\pauseq{Why is $(a+b)^2$ not generally $a^2+b^2$?}{The square means $(a+b)(a+b)$. Distribution gives $a^2+ab+ba+b^2=a^2+2ab+b^2$. For $a=1,b=2$, the two proposed values are nine and five. The missing cross terms account for the difference.}

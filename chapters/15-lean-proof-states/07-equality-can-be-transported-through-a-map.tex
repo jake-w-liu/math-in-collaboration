@@ -1,0 +1,22 @@
+\section{Equality can be transported through a map}
+If $h$ proves $x=y$, then \code{congrArg f h} proves $f(x)=f(y)$. This is not injectivity: it applies the same function to equal inputs. Injectivity goes in the opposite direction and needs an extra hypothesis.
+
+The command \code{rw [h]} rewrites an occurrence of one side of an equality using the other. A \code{calc} block organizes a chain of equalities, with a justification for each link~\cite{leanquant}. For instance:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+theorem left_inverse_inj {A B : Type}
+    (f : A -> B) (g : B -> A)
+    (h : forall x, g (f x) = x) : Inj f := by
+  intro x y hxy
+  calc
+    x = g (f x) := (h x).symm
+    _ = g (f y) := congrArg g hxy
+    _ = y := h y
+\end{lstlisting}
+\end{minipage}\par
+
+The first step reverses the identity $g(f(x))=x$; \code{.symm} reverses an equality proof. The middle step applies $g$ to the assumed equality $f(x)=f(y)$. The final step uses the inverse identity at $y$. The underscores reuse the previous expression, keeping the chain readable.
+
+\begin{lab}{One repair at a time}
+Give the assistant the composition theorem with the middle \code{have} line removed. Ask for the missing mathematical fact first, not a replacement script. Then request exactly one Lean line expressing that fact. After inserting it, inspect the remaining goal yourself. Finally change the theorem to the false converse from Chapter~3. Before requesting tactics, supply the finite counterexample and explain why no sound proof of that unrestricted statement should exist.
+\end{lab}

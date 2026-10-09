@@ -1,0 +1,20 @@
+\section{From solving an equation to repeating a map}
+A fixed point of a map $T:X\to X$ is a point $x_*$ satisfying $T(x_*)=x_*$. It is unchanged by the update. The equation $x=(x+1)/2$ from Chapter~4 is a fixed-point equation. Starting from $x_0=0$ and repeatedly applying the right side gives a sequence approaching its solution.
+
+This suggests an algorithm, but not yet a theorem. Some update rules oscillate or diverge. Some have several fixed points, and some approach a point excluded from the domain. We need assumptions that explain why the iteration works, rather than evidence from one favorable plot.
+
+A map is a contraction with factor $q$ when $0\le q<1$ and
+\[
+d(Tx,Ty)\le q\,d(x,y)\qquad\text{for every }x,y\in X.
+\]
+It uniformly reduces the distance between any two inputs. The word uniformly is encoded by one fixed factor $q$ that works for all pairs. The factor cannot secretly vary toward one as the inputs change unless another argument supplies the needed control.
+
+\subsection*{Read the two inputs in the contraction inequality}
+The inputs $x$ and $y$ are arbitrary points of the space. They are not assumed to be successive iterates and not assumed to be close to the fixed point. The same $q$ must work before either input is chosen. For $T(x)=(x+1)/2$,
+\[
+ |T(x)-T(y)|=\left|\frac{x+1-y-1}{2}\right|
+ =\frac12|x-y|,
+\]
+so $q=1/2$ works for all real pairs. The constant terms cancel when two outputs are compared.
+
+The notation $T:X\to X$ is a \emph{self-map} requirement: each output is a permitted input for the next application. It is not automatic from an algebraic formula. Restricting the input set may improve an inequality while causing outputs to leave that set. We must check both the domain condition and the distance inequality.

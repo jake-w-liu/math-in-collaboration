@@ -1,0 +1,10 @@
+\section{A dialogue that changes the claim, not the evidence}
+\textbf{Reader:} I expect small update errors still to give convergence to $x_*$. Try to disprove this before proving it.
+
+\textbf{Assistant:} A constant bias can move the limiting value. For $T(x)=qx$ on $\RR$, the update $y_{n+1}=qy_n+\eta$ tends toward $\eta/(1-q)$, not zero, when $\eta>0$.
+
+\textbf{Reader:} Then the target should be an error bound. Can the same idea also distinguish bounded errors from errors that tend to zero?
+
+\textbf{Assistant:} First bound the distance at the next step by $q$ times the present distance plus the update error. Then unfold the recurrence.
+
+The assistant has proposed a mechanism. We now derive it independently, prove the unfolded form, and test whether its constant can be improved. The revised question is more informative than the initial conjecture: it separates stability, convergence, and bias.

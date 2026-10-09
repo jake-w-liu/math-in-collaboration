@@ -1,0 +1,15 @@
+\section{Placeholders and axiom dependencies}
+Lean permits unfinished developments containing \code{sorry}, which uses a placeholder axiom. An accepted declaration that depends on such a placeholder is not a completed proof. The command \code{\#print axioms theoremName} displays axiom dependencies and is useful for detecting this situation. Standard foundational axioms and evaluation-related trust assumptions must also be interpreted rather than treated as interchangeable errors~\cite{leanaxioms}.
+
+For the companion, inspect commands such as
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+#print axioms MathCourse.inj_comp
+#print axioms MathCourse.surj_comp
+#print axioms MathCourse.preimage_meet
+\end{lstlisting}
+\end{minipage}\par
+
+An axiom list is not a substitute for the theorem signature. The impossible-context theorem can have no additional axiom dependency while still assuming \code{False} as a parameter. Conversely, a theorem may use ordinary foundational principles without assuming its desired conclusion. Both the assumptions in the signature and the dependencies of the proof must be understood.
+
+The command-line check \code{lean proofs.lean} should be run from the companion directory with its pinned toolchain. Check the process result, warnings, and requested dependency output. Do not interpret absence of visible editor errors before checking has finished as a completed verification. Larger or untrusted projects call for the stronger validation procedures described in the official documentation~\cite{leanvalidate}.

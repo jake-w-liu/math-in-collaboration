@@ -1,0 +1,13 @@
+\section{Two directions of attention}
+A proof has a target and a supply of facts. Working backward asks what would be sufficient to establish the target. Working forward asks what follows from the available facts. A useful intermediate claim connects the two directions.
+
+To prove an integer is even, the target tells us to find a representation $2k$. To prove a function is injective, the target tells us to start with two inputs having equal outputs. To prove existence, we need either a candidate or an argument excluding the possibility that no candidate exists. Much of proof construction is recognizing what the conclusion asks us to produce.
+
+For example, to prove $n^2$ is even when $n$ is even, the hypothesis gives $n=2k$. Squaring gives $n^2=4k^2=2(2k^2)$. The witness required by the target is $2k^2$. The proof works forward from the definition and backward from the desired form at the same time.
+
+\subsection*{A proof state on paper}
+We can record a short argument using two columns: facts already available and what still has to be shown. For ``if $n$ is even then $n^2$ is even,'' the starting fact is ``$n$ is an even integer.'' The target is not another fact; it is ``find an integer $w$ such that $n^2=2w$.'' The name $w$ is new because we have not yet found the witness.
+
+Unpacking the hypothesis supplies $n=2k$ with $k$ an integer. Squaring gives $n^2=4k^2$. Factoring gives $n^2=2(2k^2)$. We can now choose $w=2k^2$. It is an integer, and the required equality holds. Only at this point does the target become an established fact.
+
+This distinction prevents a circular argument such as ``since $n^2$ is even, write $n^2=2w$.'' That sentence assumes the very conclusion being sought. Working backward is allowed during exploration---we can ask what would be enough---but the final proof must justify how the needed condition was actually obtained.

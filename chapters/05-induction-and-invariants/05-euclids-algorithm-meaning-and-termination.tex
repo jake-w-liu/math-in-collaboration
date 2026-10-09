@@ -1,0 +1,50 @@
+\section{Euclid's algorithm: meaning and termination}
+A positive integer $d$ divides an integer $a$ if $a=dk$ for some integer $k$. Write $d\mid a$. For nonnegative integers $a,b$ not both zero, their greatest common divisor, $\gcd(a,b)$, is the largest positive integer dividing both. The set of common positive divisors is nonempty because it contains $1$, and finite because at least one of $a,b$ is positive and bounds its divisors.
+
+For $b>0$, integer division gives unique integers $q,r$ with
+\[
+a=qb+r,\qquad 0\le r<b.
+\]
+The integer $r$ is the remainder, also written $a\bmod b$. Here $q$ counts the whole copies of $b$ removed from $a$; $r$ is what remains. For example, $17=3\cdot5+2$, so the quotient is three and the remainder is two. The condition $0\le r<b$ identifies the permitted remainder; $17=2\cdot5+7$ is a true equality but not division with its remainder in the required range.
+
+To show that the replacement preserves common divisors, let $d$ divide $a$ and $b$. Then $a=ds$ and $b=dt$ for some integers $s,t$. Substitution gives
+\[
+ r=a-qb=ds-qdt=d(s-qt).
+\]
+The bracket is an integer, so $d$ divides $r$. Thus every common divisor of $a,b$ is a common divisor of $b,r$.
+
+For the reverse direction, suppose $b=dt$ and $r=du$. Then
+\[
+ a=qb+r=qdt+du=d(qt+u),
+\]
+so $d$ divides $a$ as well. Both directions are needed: only then do we know that the two pairs have \emph{exactly} the same common divisors. Their greatest common divisors consequently agree, giving
+\[
+\gcd(a,b)=\gcd(b,r).
+\]
+This is the invariant behind the algorithm. Repeatedly replace $(a,b)$ by $(b,a\bmod b)$ while $b>0$.
+
+For $(a,b)=(84,30)$, the divisions are
+\[
+84=2\cdot30+24,\qquad30=1\cdot24+6,\qquad24=4\cdot6+0.
+\]
+The successive pairs are $(84,30)$, $(30,24)$, $(24,6)$, $(6,0)$. At the last pair, the greatest common divisor is $6$, because the positive divisors common to $6$ and $0$ are exactly the divisors of $6$.
+
+Why must the process stop? Its second coordinate is a nonnegative integer and strictly decreases at every step that occurs. There cannot be an infinite strictly decreasing sequence of nonnegative integers. Once the second coordinate is zero, the algorithm stops and returns the first coordinate. The invariant proves the answer is right; the decreasing integer proves an answer is eventually returned.
+
+\begin{principle}{Habit 5: separate preservation from progress}
+For an iterative construction, ask two different questions. What property remains true after a step? What quantity forces progress or controls the accumulated error? A preserved quantity may prove correctness without proving termination. A decreasing real quantity may converge without ever reaching zero.
+\end{principle}
+
+\pauseq{Does a strictly decreasing nonnegative real quantity prove that a process stops?}{No. The values $1,1/2,1/4,\ldots$ decrease forever and remain positive. The Euclidean termination proof depends on the decreasing quantity being an integer, not merely a real number.}
+
+\begin{lab}{Finding the right induction statement}
+\noindent\textbf{Learner.} ``The iterates $x_{n+1}=(x_n+1)/2$ look as though they approach $1$. Instead of asserting convergence, help me find an exact error formula.''
+
+\noindent\textbf{Useful reply.} Subtract the proposed limit from both sides:
+\[
+x_{n+1}-1=\frac{x_n-1}{2}.
+\]
+Thus the error is halved each time. Induction gives $x_n-1=2^{-n}(x_0-1)$ for any starting real value $x_0$.
+
+\noindent\textbf{Your check.} Verify the base case and the multiplication step. Then recover the earlier formula when $x_0=0$. The more general error statement explains more and is no harder to prove. This is an example of strengthening a statement to make its structure simpler.
+\end{lab}

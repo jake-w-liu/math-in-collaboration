@@ -1,0 +1,20 @@
+\section{A recursively defined process}
+A recurrence defines the next value from earlier values. Let $x_0=0$ and
+\[
+x_{n+1}=\frac{x_n+1}{2}.
+\]
+Then $x_1=1/2$, $x_2=3/4$, and $x_3=7/8$. The formula
+\[
+x_n=1-2^{-n}
+\]
+fits the examples. Here $2^{-n}=1/2^n$. Prove it by induction: it holds at $n=0$ because $1-1=0$. If it holds at $n$, substitute the proposed formula into the update:
+\begin{align*}
+ x_{n+1}
+ &=\frac{x_n+1}{2} &&\text{definition of the next term}\\
+ &=\frac{(1-2^{-n})+1}{2} &&\text{induction hypothesis}\\
+ &=\frac{2-2^{-n}}2\\
+ &=1-\frac{2^{-n}}2\\
+ &=1-2^{-(n+1)}.
+\end{align*}
+The last equality uses $2^{-n}/2=1/(2^n\cdot2)=1/2^{n+1}$. Notice that $x_{n+1}$ is the name of the next term, whereas $x_n+1$ means one added to the current term.
+This proves the exact formula for every finite step. It also identifies the error relative to $1$ as $2^{-n}$. A pattern in the outputs has become an explanation of their behavior.

@@ -1,0 +1,18 @@
+\section{Existence is not uniqueness}
+The equation $x^2=1$ has solutions, but not a unique real solution. It has exactly two: $1$ and $-1$. ``There is a unique solution'' makes two claims. First, at least one candidate satisfies the specification. Second, any two candidates satisfying it must agree.
+
+Consider the equation $x=(x+1)/2$ over the real numbers. Existence follows by checking $x=1$. For uniqueness, suppose both $x$ and $y$ satisfy the equation. Subtracting their equations gives
+\[
+x-y=\frac{x-y}{2}.
+\]
+Multiplying by two and subtracting $x-y$ gives $x-y=0$, so $x=y$. We did not need to discover the solution again. We compared two hypothetical solutions and proved they could not differ. Chapter~12 will generalize this comparison into a theorem about iterative methods.
+
+The two-candidate argument proves \emph{at most one} solution. It would also be valid in a problem with no solutions at all: there would be no two different solutions to compare. That is why the earlier substitution of $x=1$ is indispensable for ``exactly one.'' In general, ``exactly one'' combines ``at least one'' from existence and ``at most one'' from uniqueness.
+
+At the subtraction step, write both equations before combining them:
+\[
+ x=\frac{x+1}{2},\qquad y=\frac{y+1}{2}.
+\]
+Subtract the second from the first. On the right the numerators become $(x+1)-(y+1)=x-y$, because the two constant terms cancel. This explains why comparing solutions can be simpler than solving again: shared terms disappear.
+
+When a proof says ``let $x$ be the solution,'' check that existence has already been established or is being used only conditionally. Otherwise the wording may smuggle the main difficulty into an opening sentence.

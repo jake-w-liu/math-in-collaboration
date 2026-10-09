@@ -1,0 +1,23 @@
+\section{Searching while preserving a trace}
+Choose an unmatched student $x$. Explore from a student to a task along an edge not currently matched; from a matched task, continue to the unique student occupying it. If an unused task is reached, the recorded predecessor links give an augmenting path. Repeated vertices need not be explored again. Since there are finitely many vertices, this exploration terminates.
+
+One may use breadth-first search, which explores by increasing path length, but the proof only needs a complete search of the reachable vertices under these alternating rules. Keeping predecessor links is essential for reconstruction: a statement that ``a task was reached'' is less useful than a path showing how assignments can be repaired.
+
+A beginner's pseudocode is:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+Start with the empty matching.
+Choose a student who is still unmatched.
+Explore alternating paths from that student.
+If an unused task is reached, flip along the path.
+If no unused task is reachable, return an obstruction.
+Repeat until every student is matched.
+\end{lstlisting}
+\end{minipage}\par
+
+The last line of the failure branch is deliberately stronger than ``return failure.'' We now derive the promised obstruction.
+
+\subsection*{What ``the search is complete'' means}
+Reachability is defined by the allowed search moves, not by a guess about a promising path. From the root student, inspect every unmatched acceptable edge. For each reached occupied task, record its owner and inspect that owner's unmatched acceptable edges. Continue until an unused task is found or there is nothing newly reachable to inspect. Do not ignore an available branch merely because another branch looks more promising.
+
+Recording a predecessor means remembering which earlier vertex first led to each new vertex. Following these records backward reconstructs the route. A vertex already recorded need not be recorded again; this prevents endless exploration around a cycle. There are finitely many vertices to record. If no unused task is found after all recorded vertices have been inspected, no allowed search move has been left unexplored. The proof of impossibility below needs this last fact, not merely the fact that one attempted route stopped.

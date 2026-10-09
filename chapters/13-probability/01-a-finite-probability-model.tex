@@ -1,0 +1,19 @@
+\section{A finite probability model}
+A finite sample space $\Omega$ is a set of possible outcomes. Assign each outcome $\omega$ a probability $p(\omega)\ge0$ with $\sum_{\omega\in\Omega}p(\omega)=1$. For an event $A\subseteq\Omega$, its probability is
+\[
+\Prob(A)=\sum_{\omega\in A}p(\omega).
+\]
+In a uniform model, all outcomes have equal probability $1/|\Omega|$, so probability is simply the fraction of outcomes in the event. A probability model describes a stipulated mathematical experiment. It is not automatically a justified model of real-world uncertainty.
+
+For two independently labeled coins, the outcomes $00,01,10,11$ are equally likely. The event that the labels differ has probability $2/4=1/2$. Independence means the joint probability factors into the individual probabilities; here each ordered pair has probability $(1/2)(1/2)$. We will use independent labels to construct a graph partition, not assume independence of every event arising from that partition.
+
+\subsection*{The outcomes must be specified before they are counted}
+For two labeled coins, $01$ and $10$ are different outcomes: in one, the first coin is zero and the second is one; in the other their values are reversed. Calling both outcomes ``one of each'' would merge two equally likely possibilities into one description. A uniform probability assignment on the three descriptions ``two zeros,'' ``one of each,'' and ``two ones'' would therefore describe a different experiment.
+
+An event is a set of outcomes. The complement of $A$ is the set of outcomes not in $A$, written $\Omega\setminus A$. The two sets are disjoint and together contain every outcome, so
+\[
+ \Prob(A)+\Prob(\Omega\setminus A)=\sum_{\omega\in\Omega}p(\omega)=1.
+\]
+Consequently, if $\Prob(A)<1$, the complementary event has positive probability. In a finite model a positive-probability event contains at least one outcome: an empty event would have probability zero. We will use exactly this implication in an existence argument below.
+
+The symbol $\Omega$, read ``capital omega,'' is just a name for the sample space. A lowercase $\omega$ names one of its members. No further meaning should be inferred from the Greek letters.

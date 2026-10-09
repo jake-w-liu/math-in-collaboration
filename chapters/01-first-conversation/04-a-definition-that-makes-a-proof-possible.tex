@@ -1,0 +1,17 @@
+\section{A definition that makes a proof possible}
+A \emph{definition} gives an exact meaning to a word or symbol. It is an agreement about how that word will be used, not a claim that a pattern has been discovered. We need a meaning precise enough to decide which numbers qualify.
+
+Here is our agreement. An integer is \emph{even} when it is twice an integer. It is \emph{odd} when it is one more than twice an integer. Thus $8$ is even because $8=2\cdot4$, and $7$ is odd because $7=2\cdot3+1$. Negative integers are allowed: $-3=2(-2)+1$ is odd. Zero is even because $0=2\cdot0$.
+
+When a definition is displayed with a label, it has the same role as this explanation. The number on the label is only a location: Definition~1.1 is the first numbered item in Chapter~1. It does not indicate difficulty or a new mathematical operation:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}[Even and odd integers]\label{def:parity}
+An integer $a$ is even if it can be written as $a=2k$ for an integer $k$. It is odd if it can be written as $a=2k+1$ for an integer $k$.
+\end{definition}
+\end{minipage}\par
+
+The phrase ``for an integer $k$'' is essential. Without requiring $k$ to be an integer, every integer $a$ would have the form $2k$, simply by choosing $k=a/2$. The definition is not merely asking whether a number can be divided by two. It asks whether the result is an integer.
+
+A particular value showing that a definition's requirement is met is called a \emph{witness}. For the odd integer $7$, the witness is $k=3$. It is not the number $7$ itself: it is the auxiliary integer that makes $7=2k+1$ true. For $-3$, the witness is $-2$. Different inputs may need different witnesses.
+
+A definition can be used in two directions. If someone tells us $a$ is odd, we may introduce an integer $k$ with $a=2k+1$. Conversely, if we produce such an integer and equality, we have shown $a$ is odd. The first direction unpacks information; the second recognizes when the required information has been supplied. These are the two uses that our first proof will combine.

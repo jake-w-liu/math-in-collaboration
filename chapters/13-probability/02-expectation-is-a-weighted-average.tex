@@ -1,0 +1,28 @@
+\section{Expectation is a weighted average}
+A random variable $X$ is simply a real-valued function on $\Omega$. Its expectation is
+\[
+\E X=\sum_{\omega\in\Omega}p(\omega)X(\omega).
+\]
+The word random describes how an input outcome is chosen; once the outcome is specified, $X(\omega)$ is an ordinary number.
+
+For the two-coin experiment, let $X$ count how many labels are one. Its values are $X(00)=0$, $X(01)=1$, $X(10)=1$, and $X(11)=2$. The expectation is
+\[
+ \E X=\tfrac14\cdot0+\tfrac14\cdot1+\tfrac14\cdot1+\tfrac14\cdot2=1.
+\]
+This is the average of values, not an additional outcome. To see that the average need not itself occur, take one fair coin and a variable that is zero for label zero and two for label one. Its expectation is still one, although it never takes value one.
+
+The sum $X+Y$ of two random variables means the function whose value at an outcome $\omega$ is $X(\omega)+Y(\omega)$. The same outcome is used for both evaluations. In the expectation calculation that follows, distributing the sum of these two ordinary values is therefore legitimate even when the variables are dependent.
+
+For random variables $X,Y$, finite-sum algebra gives
+\begin{align*}
+\E(X+Y)&=\sum_\omega p(\omega)(X(\omega)+Y(\omega))\\
+&=\sum_\omega p(\omega)X(\omega)+\sum_\omega p(\omega)Y(\omega)\\
+&=\E X+\E Y.
+\end{align*}
+Likewise $\E(cX)=c\E X$. These identities require no independence between $X$ and $Y$. Their values may be tightly related; distributing a finite sum is still valid.
+
+There is one more property of finite averages that we need. If $X(\omega)\le Y(\omega)$ for every outcome, then $\E X\le\E Y$. Each weight $p(\omega)$ is nonnegative, so multiplying the pointwise inequality by that weight preserves its direction. Adding all these inequalities gives the expectation comparison. This is called \emph{monotonicity of expectation}. It is the justification whenever we take expectations of an inequality.
+
+The word \emph{pointwise} means ``for each fixed input outcome separately.'' It does not mean only on average. A pointwise inequality implies an average inequality by this argument, but the reverse implication is generally false.
+
+At least one outcome with positive probability has $X(\omega)\ge\E X$. Otherwise every positive-probability value would be smaller than the expectation, and their weighted average would also be smaller than it, a contradiction. This is the same average argument used for graph degrees, now with weights.

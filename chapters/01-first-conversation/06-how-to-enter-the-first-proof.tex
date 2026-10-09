@@ -1,0 +1,33 @@
+\section{How to enter the first proof}
+A mathematical writer often begins with ``let'' or ``take.'' Here ``let $a$ and $b$ be any odd integers'' means: give names to arbitrary allowed inputs. It does not mean choose your favorite two examples. We must use only their stated properties so that the argument works whichever odd integers were supplied.
+
+The word ``some'' has a different job. Once $a$ is given and is known to be odd, \emph{some} integer $k$ makes $a=2k+1$ true. We need not know its numerical value to use its existence. ``By the definition'' tells us where that information came from. ``Hence'' or ``therefore'' announces a deduction; the reason for the deduction must still be available.
+
+Read the next result in three passes. First identify the input conditions and the promised output. Then read the plan to see why a particular representation is being chosen. Finally follow the proof, checking both the arithmetic and the last return to the definition. The plan explains how we might find the proof; the proof is the argument that actually establishes the claim.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{proposition}\label{thm:odd-sum}
+The sum of any two odd integers is even.
+\end{proposition}
+\end{minipage}\par
+
+\noindent\textit{Plan.} Represent each input so that oddness is visible. Rearrange their sum until the definition of evenness is visible.
+\begin{proof}
+Let the two odd integers be $a$ and $b$. By the definition of oddness, there are integers $k$ and $\ell$ with $a=2k+1$ and $b=2\ell+1$. The letters $k$ and $\ell$ need not denote the same integer. Substituting gives
+\begin{align*}
+a+b&=(2k+1)+(2\ell+1) &&\text{use the two representations}\\
+&=2k+2\ell+2 &&\text{regroup the four terms}\\
+&=2(k+\ell+1) &&\text{factor out }2.
+\end{align*}
+The quantity $k+\ell+1$ is an integer because sums of integers are integers. Hence $a+b$ is twice an integer. This is exactly the definition of evenness.
+\end{proof}
+
+The final sentence matters. It connects the expression to the property we promised. A proof should not end simply because the algebra looks tidy. It should end because the required conclusion has been reached.
+
+To see how one general line covers many examples, return to $a=7$ and $b=-3$. Their witnesses are $k=3$ and $\ell=-2$. The proof constructs the evenness witness $k+\ell+1=2$, and indeed $7+(-3)=4=2\cdot2$. The numerical check is not a second proof. It lets us inspect what each symbol in the general proof was doing.
+
+The proof does not say that every sum is even. Its conclusion is conditional on \emph{both} inputs being odd. If one input is not odd, this particular result makes no promise. Learning to keep the assumptions attached to a result is as important as remembering the result itself.
+
+\begin{principle}{Habit 1: choose a representation that exposes the target}
+If the goal is evenness, try to display a factor of two. If the goal is an assignment, display who receives what. If the goal is an error bound, display the difference between the approximation and the target. Ask an assistant why a proposed representation helps before letting it continue a calculation.
+\end{principle}

@@ -1,0 +1,11 @@
+\section{The statement must be right before the proof can help}
+A formal proof establishes the encoded proposition from its assumptions. It does not, by itself, establish that this proposition matches a sentence in a manuscript, a user's intention, or a physical model. This distinction is part of formal-proof validation, not a criticism of the proof assistant~\cite{leanvalidate}.
+
+Consider the difference between ``an endpoint of a two-edge walk'' and ``a vertex at shortest directed distance exactly two.'' Both can be defined precisely and used in accepted proofs. Only one matches the second-neighborhood convention in Chapter~7. Formalization makes the distinction explicit, but a reader must still inspect it.
+
+Before looking at tactics, make a correspondence table: each mathematical object and assumption on one side, its formal representation on the other. Check domains, strict inequalities, nonemptiness, and excluded cases. Then check that the theorem's conclusion has the intended quantifier order.
+
+\subsection*{What to inspect when the result is unfamiliar}
+First locate the entire theorem declaration. Its parameters contain objects and hypotheses; its final proposition contains the conclusion. Then follow definitions appearing in that proposition. A definition may contain conditions that a short English name does not reveal. Only after the statement is understood should you inspect how the proof constructs its evidence.
+
+For example, the name \code{Second} below cannot tell us whether first neighbors are excluded. The definition body can. Similarly, the name \code{Surj} cannot by itself tell us its domain, codomain, or order of witnesses. A two-column translation makes these visible before any tactics are used.

@@ -1,0 +1,53 @@
+\section{Week 18}
+\sol{18.1}{The first three bounds are
+\begin{align*}
+ e_1&\le qe_0+\eps_0,\\
+ e_2&\le q^2e_0+q\eps_0+\eps_1,\\
+ e_3&\le q^3e_0+q^2\eps_0+q\eps_1+\eps_2.
+\end{align*}
+At step $n$, the earliest error $\eps_0$ has weight $q^{n-1}$ and the most recent error $\eps_{n-1}$ has weight one. Earlier errors have passed through more contraction steps. Writing out these cases is a practical check on the exponent $n-1-j$ in the general formula.}
+\sol{18.2}{At $n=0$, the formula $y_n=\eta(1-q^n)/(1-q)$ gives zero. If it holds at $n$, then
+\[
+ y_{n+1}=q\eta\frac{1-q^n}{1-q}+\eta
+ =\eta\frac{q-q^{n+1}+1-q}{1-q}
+ =\eta\frac{1-q^{n+1}}{1-q}.
+\]
+Induction proves it. Since $q^n\to0$, the distance from the true fixed point zero tends to $\eta/(1-q)$. For $\eta>0$, any universally smaller multiplicative factor would fail on this example for sufficiently large $n$. Thus the asymptotic factor is sharp under these assumptions.}
+\sol{18.3}{The space $\RR$ is nonempty and complete, and $T(x)=0$ is a self-map. It satisfies $|T(x)-T(y)|=0\le q|x-y|$ for any chosen $q\in(0,1)$. The fixed point is zero. For $y_n=(-1)^n\eta$ with $\eta>0$, the update discrepancy is $|y_{n+1}-T(y_n)|=\eta$, so the uniform-error hypothesis holds. Nevertheless even-index terms equal $\eta$ and odd-index terms equal $-\eta$. Their distance is $2\eta$, so the sequence is not Cauchy and cannot converge. A bound on all distances to the fixed point does not force those distances, or the sequence itself, to converge.}
+\sol{18.4}{Every weight in the error sum is positive. Substitute the upper bound $\eps_j\le aq^j$ term by term:
+\begin{align*}
+ \sum_{j=0}^{n-1}q^{n-1-j}\eps_j
+ &\le\sum_{j=0}^{n-1}a q^{n-1-j}q^j\\
+ &=\sum_{j=0}^{n-1}a q^{n-1}\\
+ &=a n q^{n-1}.
+\end{align*}
+The exponent becomes $n-1-j+j=n-1$ in every term, and there are $n$ terms. The theorem therefore gives $e_n\le q^n e_0+a n q^{n-1}$.
+
+We still must show that the factor $n$ does not prevent convergence to zero. It is not enough to say that $q^{n-1}$ tends to zero, because it is being multiplied by a growing quantity. Choose $r=(q+1)/2$, so $q<r<1$, and set $t=q/r$, so $0<t<1$. For each positive integer $n$, every one of $1,t,\ldots,t^{n-1}$ is at least $t^{n-1}$. Hence
+\[
+ n t^{n-1}\le1+t+\cdots+t^{n-1}\le\frac1{1-t}.
+\]
+Multiply by $r^{n-1}$ and use $q=rt$:
+\[
+ 0\le n q^{n-1}=r^{n-1}n t^{n-1}
+ \le\frac{r^{n-1}}{1-t}.
+\]
+The denominator is a fixed positive number and $r^{n-1}\to0$, so the upper bound tends to zero by the geometric-limit argument. The initial term $q^n e_0$ also tends to zero. For any requested tolerance, make each of these two terms smaller than half the tolerance; one threshold beyond both suffices. Thus the full error bound tends to zero.}
+\sol{18.5}{A task of capacity two can serve two students, while a task of capacity zero serves none. The desired assignment is no longer an injective function into task names; several students may use the same task within its capacity. We translate the problem into an ordinary matching by distinguishing its individual slots.
+
+\emph{Necessity.} Suppose a valid assignment exists, and choose any student set $S$. Every student in $S$ uses one unit of a task in $N(S)$. Task $r$ can contribute at most $c_r$ units, so the total available to the group is at most $\sum_{r\in N(S)}c_r$. Serving $|S|$ students therefore requires
+\[
+ |S|\le\sum_{r\in N(S)}c_r.
+\]
+This is a statement about every group, not just the entire class.
+
+\emph{Sufficiency.} Replace task $r$ by distinct vertices $(r,1),\ldots,(r,c_r)$. For example, a capacity-two task $p$ and capacity-one task $q$ become three slots $(p,1),(p,2),(q,1)$. A student accepting $p$ is connected to both $p$ slots. No slot is created for a zero-capacity task.
+
+For general capacities, the resulting bipartite graph is finite. A student set $S$ has as neighboring slots precisely all slots belonging to tasks in $N(S)$. Slots of different tasks have different first coordinates, so their sets are disjoint. The number of these neighbors is therefore exactly $\sum_{r\in N(S)}c_r$. The assumed inequality is Hall's condition for this expanded graph.
+
+Hall's theorem gives each student a distinct acceptable slot. Discard the slot's second coordinate and assign the student to its task. At most $c_r$ students can be assigned to $r$, because that task has only $c_r$ distinct slots. Every student is served acceptably, proving sufficiency. The translation preserves both acceptability and capacity, which is why solving the expanded problem solves the original one.}
+\sol{18.6}{The exact question is whether bounded additive update errors preserve convergence to the fixed point of $T(x)=(3x+1)/4$, and what bound replaces that false claim. The prerequisites are real arithmetic, metric distance, the contraction theorem, induction, and finite geometric sums. The proof skeleton is: insert the exact update; obtain $e_{n+1}\le qe_n+\eps_n$; unfold by induction; sum the nonnegative geometric weights; then test a constant bias.
+
+With bias $1/100$, the recurrence has limit $26/25$, not the original fixed point one, refuting the initial claim. At $n=1$, the exact iterate is $13/50$, the true error is $37/50$, and the general certificate is $3/4+1/100=19/25$. Thus $37/50\le38/50$, an exact check. The full formula $y_n=(26/25)(1-(3/4)^n)$ is proved in the chapter, not inferred from that one check.
+
+The permitted novelty statement is that the project reconstructs and studies a standard contraction perturbation bound with reproducible examples; it does not establish a new theorem relative to the literature. One further question is whether a specified noncontractive map admits a comparable estimate under a different stability hypothesis. The present proof does not answer it because its tail bounds require a factor strictly below one.}

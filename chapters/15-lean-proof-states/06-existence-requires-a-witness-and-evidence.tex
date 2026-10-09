@@ -1,0 +1,17 @@
+\section{Existence requires a witness and evidence}
+To prove $\exists n\in\NN:n+1=4$, supply the candidate $3$ and evidence that it satisfies the property:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+theorem a_witness : Exists (fun n : Nat => n + 1 = 4) := by
+  exact Exists.intro 3 rfl
+\end{lstlisting}
+\end{minipage}\par
+
+The expression \code{Exists (fun n : Nat => n + 1 = 4)} states that some natural number has the displayed property. This is the typed form of the existential quantifier. \code{Exists.intro} packages a witness with its proof. The equality is computational in this case, so \code{rfl} suffices. For a more difficult witness, the second argument would be a substantive proof.
+
+Conversely, using an existential hypothesis requires unpacking both components. Knowing merely that ``something exists'' is not enough to apply a formula to it without introducing a name and its guaranteed property. Chapter~16 uses this operation in a complete surjectivity proof.
+
+\subsection*{The type of a number changes available operations}
+A natural number has no negative values. Lean's natural-number subtraction is truncated at zero: \code{(7 - 10 : Nat)} is zero. Integer subtraction is different: \code{(7 - 10 : Int)} is minus three. The type annotation inside the parentheses specifies which operation is meant.
+
+In ordinary mathematics we also need this distinction, although informal notation sometimes leaves the domain implicit. An argument that subtracts a larger integer from a smaller one and then treats the result as a negative number cannot be translated unchanged into natural-number subtraction. Before asking an assistant to repair a formal proof, check whether it has silently changed the kind of number being used.

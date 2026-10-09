@@ -1,0 +1,29 @@
+\section{A complete contradiction proof}
+A rational number is a fraction $a/b$ of integers with $b\ne0$. A real number that is not rational is irrational. The positive square root of two, written $\sqrt2$, is the positive real number whose square is two. Its existence belongs to the usual real-number system. We will prove that it is not a rational number.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{theorem}\label{thm:sqrt2}
+The number $\sqrt2$ is irrational.
+\end{theorem}
+\end{minipage}\par
+
+\noindent\textit{Plan.} If a fraction represented $\sqrt2$, squaring would force both its numerator and denominator to be even. That would allow a smaller positive denominator, contradicting a minimal choice.
+\begin{proof}
+Suppose $\sqrt2$ were rational. Then it could be written as $a/b$ with integers $a,b$ and $b>0$. Among all such representations, choose one with the smallest positive denominator $b$. This choice is possible because every nonempty set of positive integers has a least element; this is the well-ordering property of the integers.
+
+The choice does not assume there are only finitely many fractions representing the number. Start from any one candidate denominator $b_0$. Among the finite list $1,2,\ldots,b_0$, at least $b_0$ occurs as a denominator. Select the first member of that list that occurs. A still smaller denominator would also be on the list, so this selected one is smallest among all candidates. If the initial representation had a negative denominator, multiplying numerator and denominator by $-1$ would first make it positive without changing the fraction.
+
+Squaring $\sqrt2=a/b$ and multiplying by $b^2$ gives $a^2=2b^2$. Hence $a^2$ is even. By the parity result just proved, $a$ is even, so $a=2c$ for some integer $c$. Substitution gives
+\[
+(2c)^2=2b^2,\qquad 4c^2=2b^2,\qquad b^2=2c^2.
+\]
+Thus $b^2$ is even, and the same parity result shows that $b$ is even. Write $b=2d$. Since $b>0$, the integer $d=b/2$ is positive and smaller than $b$. But
+\[
+\sqrt2=\frac{a}{b}=\frac{2c}{2d}=\frac{c}{d}.
+\]
+This is a representation with a smaller positive denominator, contradicting the choice of $b$. The assumed rational representation therefore does not exist.
+\end{proof}
+
+There are two separate ideas: a local arithmetic fact about parity, and a global choice of the smallest denominator. The contradiction is not simply that numerator and denominator are even; fractions with both even certainly exist. The contradiction is that a representation chosen with minimal denominator could be reduced further.
+
+\pauseq{Where was positivity of the denominator used?}{It made the set of candidate denominators a nonempty set of positive integers with a least member, and it ensured $b/2$ was still positive and strictly smaller. Minimality would not have the same meaning over unrestricted negative denominators.}

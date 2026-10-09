@@ -1,0 +1,64 @@
+\usepackage[paperwidth=7.5in,paperheight=10in,top=0.78in,bottom=0.78in,left=0.82in,right=0.82in,headheight=15pt,headsep=0.22in]{geometry}
+\ifdefined\pdfinfoomitdate\pdfinfoomitdate=1\fi
+\ifdefined\pdftrailerid\pdftrailerid{}\fi
+\ifdefined\pdfsuppressptexinfo\pdfsuppressptexinfo=15\fi
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsthm,mathtools}
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumitem,booktabs,tabularx,longtable,array}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,decorations.pathreplacing}
+\usepackage[most]{tcolorbox}
+\usepackage{listings,fancyhdr,titlesec,needspace}
+\usepackage[unicode,hidelinks]{hyperref}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17364A}
+\definecolor{accent}{HTML}{336F74}
+\definecolor{papergray}{HTML}{F2F5F5}
+\hypersetup{pdftitle={Mathematics in Collaboration: A One-Semester Course},pdfauthor={Mathematics in Collaboration},pdfsubject={Proof literacy, mathematical structures, AI collaboration, and research apprenticeship}}
+\setlength{\parindent}{1em}
+\setlength{\parskip}{3pt}
+\setlength{\emergencystretch}{2em}
+\linespread{1.035}
+\raggedbottom
+\setlist{topsep=5pt,itemsep=3pt,parsep=1pt,leftmargin=1.65em}
+\setcounter{tocdepth}{1}
+\setcounter{secnumdepth}{1}
+\newcommand{\chapterkind}{CHAPTER}
+\titleformat{\chapter}[display]{\color{ink}\normalfont\Large\bfseries\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000}{\large \chapterkind\ \thechapter}{8pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-14pt}{22pt}
+\titleformat{\section}{\large\bfseries\color{ink}}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.7em}{}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small\nouppercase{\leftmark}}
+\fancyfoot[L]{\small Mathematics in Collaboration}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter\enspace #1}{}}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[L]{\small Mathematics in Collaboration}\fancyfoot[R]{\thepage}\renewcommand{\headrulewidth}{0pt}}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[chapter]
+\newtcolorbox{principle}[1]{enhanced,colback=papergray,colframe=accent,boxrule=0pt,borderline west={2pt}{0pt}{accent},arc=0pt,left=9pt,right=8pt,top=7pt,bottom=7pt,title={#1},coltitle=ink,fonttitle=\bfseries,attach title to upper={\par\smallskip}}
+\newenvironment{lab}[1]{\section*{AI laboratory: #1}\addcontentsline{toc}{subsection}{AI laboratory: #1}}{}
+\newcommand{\pauseq}[2]{\par\medskip\noindent\textbf{Pause and decide.} #1\par\smallskip\noindent\textit{Check.} #2\par\medskip}
+\newcommand{\goal}[1]{\begin{principle}{This week}#1\end{principle}}
+\newcommand{\exref}[1]{Exercise~\ref{#1}}
+\newcommand{\sol}[1]{\subsection*{Solution to Exercise #1}\phantomsection\label{sol:#1}}
+\newcommand{\NN}{\mathbb N}\newcommand{\ZZ}{\mathbb Z}\newcommand{\QQ}{\mathbb Q}\newcommand{\RR}{\mathbb R}
+\newcommand{\abs}[1]{\left|#1\right|}\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\eps}{\varepsilon}
+\DeclareMathOperator{\im}{im}\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\dist}{dist}\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\E}{\mathbb E}\DeclareMathOperator{\Prob}{\mathbb P}
+\lstset{basicstyle=\ttfamily\small,columns=fullflexible,keepspaces=true,breaklines=true,showstringspaces=false,frame=lines,rulecolor=\color{accent},aboveskip=9pt,belowskip=9pt,xleftmargin=3pt,upquote=true,keywordstyle=\bfseries,commentstyle=\itshape}
+\newcommand{\code}[1]{\texttt{#1}}

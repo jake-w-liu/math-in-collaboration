@@ -1,0 +1,20 @@
+\section{Double counting begins with one precise collection}
+Let us first count the displayed graph in a deliberately redundant way. Edge $ab$ contributes the two records $(a,ab)$ and $(b,ab)$. Edge $bc$ contributes $(b,bc)$ and $(c,bc)$. Edges $ca$ and $cd$ contribute two records each as well. There are eight records altogether.
+
+Now reorganize those same records by their vertex. There are two beginning with $a$, two with $b$, three with $c$, and one with $d$. Their total is $2+2+3+1=8$. Nothing has been counted differently; the records have only been grouped differently. The general theorem names this common collection explicitly so that we can check there are neither omissions nor duplicate records within either grouping.
+
+The notation $\sum_{v\in V}$ means add one term for every vertex in $V$, rather than for a consecutive integer index. Finite sums may be grouped and reordered by the arithmetic rules from Chapter~1.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{theorem}\label{thm:handshake}
+In a finite simple undirected graph, $\sum_{v\in V}\deg(v)=2|E|$, where $|E|$ is the number of edges.
+\end{theorem}
+\end{minipage}\par
+
+\begin{proof}
+Count pairs $(v,e)$ in which $v$ is an endpoint of the edge $e$. Fixing a vertex $v$ gives $\deg(v)$ such pairs, so counting by vertices gives the sum on the left. Fixing an edge gives exactly two pairs, one for each endpoint, so counting by edges gives $2|E|$. Both counts refer to the same collection, so they are equal.
+\end{proof}
+
+As a consequence, the number of vertices of odd degree is even. Split the degree sum into its even terms and odd terms. The even terms sum to an even integer. The entire sum is even, so the sum of the odd terms is even. A sum of $k$ odd integers has the same parity as $k$, because it can be written as twice an integer plus $k$. Hence $k$ is even.
+
+This is more informative than a numerical observation about one drawing. No rearrangement of the graph can produce exactly one odd-degree vertex under the stated rules.

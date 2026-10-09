@@ -1,0 +1,16 @@
+\section{Indicators convert events into quantities}
+For an event $A$, define its indicator $I_A$ to be $1$ on $A$ and $0$ outside. Then
+\[
+\E I_A=\sum_{\omega\in A}p(\omega)=\Prob(A).
+\]
+If $A_1,\ldots,A_m$ are events, the variable $I_{A_1}+\cdots+I_{A_m}$ counts how many occur. Its expectation is $\sum_j\Prob(A_j)$, even if the events overlap.
+
+For example, in the two-coin experiment let $A$ say the first label is one and let $B$ say the second label is one. At outcome $11$, both indicators are one, so $I_A+I_B=2$. The indicator of their union is only one: it records whether at least one event occurs, not how many occur. At $00$, all three quantities are zero. At $01$ or $10$, the sum and union indicator are both one. Thus the union indicator is no larger than the sum at every outcome. For several events the same reasoning gives the next inequality.
+
+Pointwise, $I_{A_1\cup\cdots\cup A_m}\le\sum_j I_{A_j}$: if no event occurs both sides are zero, and if at least one occurs the right side is at least one. Taking expectations gives the union bound
+\[
+\Prob(A_1\cup\cdots\cup A_m)\le\sum_{j=1}^m\Prob(A_j).
+\]
+If the sum on the right is strictly less than one, the union does not include every positive-probability outcome. Thus some outcome avoids every event. Thinking of the $A_j$ as bad events turns an upper bound into an existence theorem.
+
+\pauseq{Does a sum of bad-event probabilities equal to one guarantee an outcome avoiding them all?}{No. For a fair bit, the events ``the bit is zero'' and ``the bit is one'' each have probability $1/2$, but their union is the entire sample space. The strict inequality supplies the spare probability needed by the argument.}

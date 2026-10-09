@@ -1,0 +1,22 @@
+\section{When the contrapositive reveals a usable representation}
+Now reverse the statement: if $n^2$ is even, must $n$ be even? The equation $n^2=2k$ is less convenient because it does not directly express $n$ as twice an integer. A different approach is to suppose $n$ is not even.
+
+Every integer is either even or odd, but not both. This follows from division by two with remainder $0$ or $1$, a basic integer-arithmetic fact. Thus the contrapositive says: if $n$ is odd, then $n^2$ is odd. Write $n=2k+1$ and calculate
+\begin{align*}
+n^2&=(2k+1)(2k+1)\\
+&=4k^2+4k+1\\
+&=2(2k^2+2k)+1.
+\end{align*}
+The final expression is odd. Therefore $n^2$ cannot be even when $n$ is odd. Combining this with the first direction proves
+\[
+n\text{ is even}\quad\Longleftrightarrow\quad n^2\text{ is even}.
+\]
+
+The strategic lesson is specific: the negation of the desired conclusion supplied a more useful representation than the original hypothesis did. Contraposition is not a ritual to apply whenever a proof feels difficult.
+
+\subsection*{What a contradiction permits, and what it does not}
+To prove a claim by contradiction, temporarily suppose the claim is false. Retain the original hypotheses. If their consequences force a statement and its denial, the temporary supposition cannot hold. We then conclude the claim is true. This is ordinary classical reasoning, the setting of this book.
+
+For example, suppose an integer were both even and odd. Then $2k=2\ell+1$ for integers $k,\ell$, and subtraction would give $2(k-\ell)=1$. Division gives $k-\ell=1/2$, impossible because the left side is an integer. The contradiction is that the same number would be an integer and equal to a noninteger. Saying merely ``that looks unlikely'' would not finish the proof.
+
+In the next argument the contradiction is not a false numerical equality. It is a conflict with a deliberately chosen \emph{smallest} denominator. We will explain why that choice exists before using it. A contradiction can violate a selection property just as decisively as it can violate arithmetic.

@@ -1,0 +1,12 @@
+\section{A successful proof can still be irrelevant}
+The following theorem is logically valid:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+theorem impossible_context (h : False) : (0 : Nat) = 1 := by
+  exact False.elim h
+\end{lstlisting}
+\end{minipage}\par
+
+It does not establish that zero equals one unconditionally. It says that from the impossible assumption \code{False}, any conclusion follows. The assumption is part of the statement. A reader who looks only at the conclusion would misunderstand what was proved.
+
+This matters when an assistant ``repairs'' a failing proof by adding a hypothesis. Adding injectivity may make a false cancellation theorem true. Adding existence of the desired solution may trivialize an existence theorem. The code may then check, but the mathematical task has changed. Review the statement difference before reviewing the proof difference.

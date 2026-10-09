@@ -1,0 +1,52 @@
+\section{A complete existence proof in Lean}
+Recall that surjectivity means every target has a preimage. Define it explicitly:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+def Surj {A B : Type} (f : A -> B) : Prop :=
+  forall y : B, Exists (fun x : A => f x = y)
+
+theorem surj_comp {A B C : Type}
+    (f : A -> B) (g : B -> C)
+    (hf : Surj f) (hg : Surj g) :
+    Surj (fun x => g (f x)) := by
+  intro c
+  cases hg c with
+  | intro b hb =>
+    cases hf b with
+    | intro a ha =>
+      exact Exists.intro a (by rw [ha, hb])
+\end{lstlisting}
+\end{minipage}\par
+
+Start with an arbitrary target $c$.
+
+At this point the goal is an existence statement: find some $a$ in the input type $A$ with $g(f(a))=c$. We do not yet know which $a$ to use. First use the hypothesis about $g$, because it is the map whose output has type $C$ and can reach our target $c$.
+
+The proof of existence supplied by \code{hg c} contains a witness and a property. The lines
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+ cases hg c with
+ | intro b hb =>
+\end{lstlisting}
+\end{minipage}\par
+
+mean: unpack that existence evidence, name the witness \code{b}, name its property \code{hb}, and continue inside the indented branch. Here \code{intro} following the vertical bar names the constructor case of an existential proof; it is not the earlier standalone tactic for assuming a premise. Both uses are related to introducing information, but their positions in the syntax differ.
+
+The second unpacking does the same with \code{hf b}. Inside its branch, the available information is
+\[
+ b\in B,\quad g(b)=c,\qquad a\in A,\quad f(a)=b.
+\]
+The target still asks for an input to the composition. We now have the candidate $a$. It remains to verify its property, which follows by substituting $f(a)=b$ and then $g(b)=c$. The command \code{rw [ha, hb]} performs these two substitutions in that order, establishing $g(f(a))=c$.
+
+The witnesses are chosen in reverse order from function execution: first find an input to $g$ that reaches the final target, then find an input to $f$ that reaches that intermediate value. This is the same dependency logic from Chapter~2, now visible in a formal script.
+
+\subsection*{An ordinary proof beside the syntax}
+The surjectivity argument can be written without Lean as a three-line dependency chain:
+\[
+ c\ \longleftarrow\ g(b)=c,\qquad
+ b\ \longleftarrow\ f(a)=b,\qquad
+ g(f(a))=g(b)=c.
+\]
+The first two statements use hypotheses to obtain witnesses. The last checks the proposed final witness. Lean's \code{Exists.intro a} packages that witness with its evidence. The small nested \code{by} expression supplies only the equality proof needed for that package; it does not start a new theorem with different assumptions.
+
+Indentation records which named witnesses are in scope. A witness unpacked inside a branch is available in that branch. The proof does not get to use an unnamed existential object as though its value had already been chosen. This is the formal version of the distinction between ``there is a solution'' and ``let this named object be a solution'' from Chapter~4.

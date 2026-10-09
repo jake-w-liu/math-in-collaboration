@@ -1,0 +1,10 @@
+\section{Walks, paths, and shortest objects}
+A walk is a sequence of vertices in which consecutive vertices are joined by edges. It may repeat vertices. A path is a walk with no repeated vertices. Its length is the number of edges used, one less than the number of listed vertices.
+
+If any walk joins two vertices, a shortest walk between them has no repeated vertex. Indeed, if the same vertex occurs twice, delete the part of the walk between those occurrences. The remaining sequence is still a walk with the same endpoints and has fewer edges, contradicting shortestness. Thus connected vertices admit a path.
+
+For a concrete deletion in the displayed graph, consider the walk $a,c,b,c,d$. The vertex $c$ appears twice. Remove the segment that goes from the first $c$ through $b$ back to the second $c$, and retain $a,c,d$. The edge from $c$ to $d$ was already present after the second visit, so the shortened walk is legitimate.
+
+In a general walk, equal visits at positions $i<j$ permit the same deletion. The edge that followed position $j$ can now follow position $i$ because those two vertices are identical. If position $j$ was the endpoint, simply stop at position $i$. In either case the endpoints are unchanged and at least one edge is removed. A shortest walk cannot admit this operation. This explains both why a repeated vertex is the obstruction and why removing it preserves the required kind of object.
+
+The distance between two connected vertices is the length of a shortest path. The shortest choice is useful not because short objects are aesthetically preferable, but because a removable detour would contradict that choice. This is a recurring way in which an extremal object supplies additional structure for free.

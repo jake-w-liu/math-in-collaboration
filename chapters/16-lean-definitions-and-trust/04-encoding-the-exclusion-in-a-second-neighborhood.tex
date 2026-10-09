@@ -1,0 +1,35 @@
+\section{Encoding the exclusion in a second neighborhood}
+We can represent an oriented edge relation by \code{r : V -> V -> Prop}; the proposition \code{r v w} means $v\to w$. The local membership condition for a genuine second neighbor can be written
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+def Second {V : Type} (r : V -> V -> Prop)
+    (v w : V) : Prop :=
+  And (Not (w = v)) (And (Not (r v w))
+    (Exists (fun u : V => And (r v u) (r u w))))
+\end{lstlisting}
+\end{minipage}\par
+
+The three components say the endpoint is not the initial vertex, it is not already a first neighbor, and a two-edge route exists. Here \code{Not P} means logical negation, so \code{Not (w = v)} expresses $w\ne v$. The explicit \code{And} and \code{Exists} names make the grouping visible and avoid confusing propositional inequality with a Boolean comparison.
+
+To read the nesting, temporarily give the three conditions names:
+\[
+ P:\ w\ne v,\qquad Q:\ \text{not }v\to w,\qquad
+ R:\ \text{some }u\text{ gives }v\to u\to w.
+\]
+Then the definition has the shape \code{And P (And Q R)}. A proof of it contains a proof of $P$ and, as its second component, a pair containing proofs of $Q$ and $R$. Accordingly, \code{h.left} returns $P$, \code{h.right.left} returns $Q$, and \code{h.right.right} returns $R$.
+
+The existential statement inside $R$ does not require the intermediate vertex to be unique. It supplies at least one valid two-edge route. Multiple choices of $u$ still describe membership of the \emph{same endpoint} $w$ in a neighborhood, rather than several copies of that endpoint.
+
+A small but useful consequence is that a second neighbor is not a first neighbor:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+theorem second_not_first {V : Type}
+    (r : V -> V -> Prop) (v w : V)
+    (h : Second r v w) : Not (r v w) := by
+  exact h.right.left
+\end{lstlisting}
+\end{minipage}\par
+
+The nested conjunction is grouped to the right. Thus \code{h.right} contains the last two conditions, and its \code{left} component is the required exclusion. Reading this projection correctly is more important than memorizing its name.
+
+The full repository theorem also needs a finite vertex type, nonemptiness, and an oriented relation, and counts the relevant finite sets. Our local definition does not formalize that whole theorem. It isolates a piece of statement meaning that can be checked before studying a large proof.

@@ -1,0 +1,10 @@
+\section{What the two error estimates are for}
+The a priori estimate predicts how many steps may be needed before computing all of them. For $T(x)=(x+1)/2$, $x_0=0$, we have $q=1/2$ and $D=1/2$, so the bound is $2^{-n}$. At $n=10$, it is $1/1024<0.001$. The exact formula from Chapter~5 shows that this bound is attained.
+
+The residual $d(z,Tz)$ measures failure to satisfy the fixed-point equation. The residual estimate can certify a point obtained by any method, not just the prescribed iteration. It is especially useful when the exact solution is unknown but one update can be evaluated reliably. A small residual is meaningful only together with the stability factor $1/(1-q)$. As $q$ approaches one, the same residual permits a larger solution error.
+
+For an iterate $x_n$ with $n\ge1$, one also has
+\[
+d(x_n,x_*)\le\frac{q}{1-q}\,d(x_n,x_{n-1}).
+\]
+Indeed, its residual is $d(x_n,x_{n+1})\le qd(x_{n-1},x_n)$, and then \eqref{eq:residual} applies. This is an a posteriori estimate: it uses the observed size of the latest step.
