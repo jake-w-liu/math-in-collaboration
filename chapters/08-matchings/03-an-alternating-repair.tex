@@ -20,7 +20,13 @@ Flipping the membership of every edge along an augmenting path produces a matchi
 \begin{proof}
 An augmenting path has distinct vertices. Each internal vertex has two path edges, exactly one originally in the matching. After the flip, exactly the other path edge belongs to the new matching, so that vertex still has one assigned edge. Each endpoint was unmatched and gains its single incident path edge. Vertices outside the path are unchanged. No internal vertex can have another matching edge outside the path, because it already had a matching edge on the path. Hence no vertex receives two matching edges.
 
-The alternating path starts and ends with edges outside $M$, so it contains one more outside edge than inside edge. The flip adds the outside edges and removes the inside edges. The total matching size therefore increases by one.
+Now count edges. Write the path as $v_0,v_1,\ldots,v_k$. Its edges alternate outside, inside, outside, \ldots, and the first and last edges are outside $M$. A list that alternates and begins and ends with ``outside'' looks like
+\[
+\text{out},\ \text{in},\ \text{out},\ \text{in},\ \ldots,\ \text{in},\ \text{out},
+\]
+so if it contains $r$ inside edges, it contains $r+1$ outside edges. The flip adds the $r+1$ outside edges to the matching and removes the $r$ inside edges. The total matching size therefore increases by exactly one.
 \end{proof}
+
+Check the proof on the path $b$--$1$--$a$--$2$--$c$--$3$ that we will meet in Section~\ref{sec:matching-trace}. Before the flip, $a$ holds task $1$ and $c$ holds task $2$; afterwards $b$ holds $1$, $a$ holds $2$, and $c$ holds $3$. The internal vertices $1,a,2,c$ each trade one matching edge for another, the endpoint $b$ gains a task, and the endpoint $3$ gains an owner. The path has three outside edges and two inside edges, so the matching grows from two edges to three. The proof needs the vertices of the path to be distinct: if a vertex appeared twice, it could lie on two outside edges that both get added, and it would then receive two partners (see Exercise~\ref{ex:8.4}).
 
 The argument has both an invariant and progress. The invariant is ``the selected edges form a matching.'' The progress measure is the number of selected edges. Since it can never exceed $|L|$, there can be at most $|L|$ augmentations.

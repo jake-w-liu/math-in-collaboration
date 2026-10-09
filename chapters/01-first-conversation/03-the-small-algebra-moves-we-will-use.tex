@@ -15,6 +15,14 @@ The first line gives each term of the first bracket a copy of the second bracket
 
 There is also a difference between an identity and an equation to solve. The equality $2(k+1)=2k+2$ holds for every integer $k$; it is an \emph{identity}. The equation $2k+1=7$ asks which values of $k$ make it true. Subtracting one from both sides gives $2k=6$; dividing by two gives $k=3$. Substitution into the original equation checks that $2\cdot3+1=7$.
 
-A power records repeated multiplication: $2^3=2\cdot2\cdot2=8$. The exponent three counts the factors, not additions. We use $a^0=1$ for $a\ne0$, and $a^{-n}=1/a^n$ for positive integers $n$ and nonzero $a$. In particular, $2^{-3}=1/8$. Joining a row of $n$ factors and a row of $m$ factors gives $a^{n+m}=a^na^m$. For nonzero $a$, canceling $m$ factors gives $a^n/a^m=a^{n-m}$. We will revisit these rules with actual numbers whenever they carry a new argument.
+A power records repeated multiplication: $2^3=2\cdot2\cdot2=8$. The exponent three counts how many factors are multiplied; it does not count additions, so $2^3$ is not $2+2+2$.
+
+Two rules follow directly from counting factors. If we write a row of two factors of $2$ next to a row of three, we get a row of five:
+\[
+2^2\cdot2^3=(2\cdot2)(2\cdot2\cdot2)=2^5.
+\]
+In general $a^na^m=a^{n+m}$ for positive integers $n,m$. Division cancels factors instead: $2^5/2^2=(2\cdot2\cdot2\cdot2\cdot2)/(2\cdot2)=2^3$. In general $a^n/a^m=a^{n-m}$ when $n>m$ and $a\ne0$.
+
+We extend the notation to the exponents zero and negative integers so that these two rules keep working. Dividing $a^n$ by itself gives $1$, and the subtraction rule would give $a^{n-n}=a^0$; so we agree that $a^0=1$ whenever $a\ne0$. Similarly, $a^0/a^n$ should be $a^{0-n}=a^{-n}$, so we agree that $a^{-n}=1/a^n$ for a positive integer $n$ and nonzero $a$. For example, $2^{-3}=1/2^3=1/8$. With these agreements, $a^na^m=a^{n+m}$ and $a^n/a^m=a^{n-m}$ hold for all integers $n,m$ whenever $a\ne0$. We will use these rules with actual numbers, especially powers such as $2^{-n}$, from Chapter~5 onward.
 
 \pauseq{Why is $(a+b)^2$ not generally $a^2+b^2$?}{The square means $(a+b)(a+b)$. Distribution gives $a^2+ab+ba+b^2=a^2+2ab+b^2$. For $a=1,b=2$, the two proposed values are nine and five. The missing cross terms account for the difference.}

@@ -9,15 +9,11 @@ print(y)
 \end{lstlisting}
 \end{minipage}\par
 
-This prints \code{10/27}. Use \code{Fraction(1, 10)} for the exact rational one tenth. Passing a floating-point value such as \code{0.1} first represents that floating-point input, not an intention to supply the exact decimal fraction.
+This prints \code{10/27}, the iterate $x_2$ from Chapter~12. Write \code{Fraction(1, 10)} for the exact rational number one tenth. Writing \code{0.1} instead gives Python's floating-point approximation of one tenth, which is not exactly equal to it; \code{Fraction(0.1)} would faithfully record that slightly different number.
 
-The numerical tables in the sign laboratory use integer arithmetic. The iteration checks use fractions. This removes one source of roundoff uncertainty, but does not prove that a loop enumerates the intended objects or that the mathematical assumptions hold. Exact arithmetic and correct modeling are separate requirements.
+The sign-sequence counts below use integer arithmetic, and the iteration checks use fractions, so no rounding occurs anywhere. Exact arithmetic removes one source of doubt, but not all of them: it does not prove that a loop examines exactly the intended objects, or that the mathematical assumptions behind the experiment hold. Exact arithmetic and a correct model are separate requirements.
 
-\subsection*{Running a command is different from entering a calculation}
-The archive contains source files. Extract it into one folder before running them. A \emph{working directory} is the folder in which a terminal command currently looks for files. Open a terminal in the extracted folder, or change to it with a command such as \code{cd path/to/extracted/folder}, replacing that example path by the actual location.
+\subsection*{Running a program}
+Save a program in a plain text file whose name ends in \code{.py}, for example \code{signs.py}. Open a terminal, move to the folder containing the file (for example with \code{cd path/to/folder}, using the actual location), and run the file with \code{python3 signs.py}; on some systems the command is \code{python} instead. You can check which interpreter is installed with \code{python3 --version}.
 
-Check the installed Python interpreter with \code{python --version} or \code{python3 --version}. Use whichever command names the compatible interpreter on your system. A command such as \code{python labs.py} runs the entire saved file. By contrast, the examples beginning \code{from labs import ...} are Python statements: put them in a small \code{.py} file in the same folder and run that file, or enter them at Python's interactive prompt after starting the interpreter.
-
-The interactive prompt is usually displayed as \code{>>>}. It indicates where Python expects a statement; do not copy the prompt characters into a source file. A terminal's shell prompt expects commands for programs, whereas Python's prompt expects Python expressions and statements. An error caused by pasting into the wrong prompt says nothing about the mathematical claim being tested.
-
-The saved \code{labs.py} and \code{verify.py} files contain the full examples and checks. A short teaching fragment illustrates a language feature; it should not be mistaken for a second complete replacement of those programs.
+Short calculations can also be typed at Python's interactive prompt, which appears after you type \code{python3} with no file name. The prompt is usually displayed as \code{>>>}. Type only the text after the prompt, and do not copy the prompt characters into a file. The terminal's own prompt expects commands that start programs, while Python's prompt expects Python statements; an error caused by typing into the wrong one says nothing about the mathematics being tested.

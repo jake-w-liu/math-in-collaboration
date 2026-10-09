@@ -1,5 +1,5 @@
 \section{Week 15}
-The following scripts use the definitions in the companion namespace. They are intended to be read alongside their ordinary mathematical arguments. The reproducibility appendix distinguishes the reviewed source from an actually executed Lean check.
+The Lean solutions below assume the definitions from Chapters~15 and~16, such as \code{Inj}, \code{preimage}, and \code{Second}, placed in the same file inside \code{namespace MathCourse}. All of them have been checked with Lean~4.19.0. Read each one alongside its ordinary mathematical argument.
 \sol{15.1}{The expressions $P,Q$ are propositions. The expression $P\to Q$ is the proposition that a proof of $P$ can be transformed into a proof of $Q$. The name $h$ denotes such a transformation. When \code{hp : P}, the application \code{h hp} has type \code{Q}; it supplies a proof of the conclusion from the given proof of the premise.}
 \sol{15.2}{A conjunction already contains a proof of each component:
 \par\noindent\begin{minipage}{\linewidth}
@@ -32,5 +32,5 @@ theorem inj_of_comp {A B C : Type}
 \end{lstlisting}
 \end{minipage}\par
 
-The hypothesis concerns only the composition. There is no need to assume $g$ is injective outside the image of $f$.}
+The hypothesis concerns only the composition. No injectivity hypothesis on $g$ is used at all, and none could be required: in the counterexample of Chapter~3, $g$ merges two points, one of which lies outside the image of $f$, and yet $f$ is injective.}
 \sol{15.6}{Natural-number subtraction is truncated at zero, so \code{(7 - 10 : Nat)} computes to zero. Integer subtraction allows negative results, so \code{(7 - 10 : Int)} computes to minus three. A change of domain can change the operations themselves, not just the collection of candidate values. Translating an integer formula into naturals without checking this distinction can change the theorem even when the displayed symbols look similar.}

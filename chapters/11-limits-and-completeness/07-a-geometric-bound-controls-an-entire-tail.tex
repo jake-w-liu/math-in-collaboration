@@ -26,7 +26,11 @@ Thus the bound holds for every $n$. Taking reciprocals of positive quantities re
 \]
 For a requested tolerance $\eps>0$, choose a positive integer $N>1/(c\eps)$. If $n\ge N$, then $1+nc>nc\ge Nc>1/\eps$, so $q^n<\eps$. This is the required convergence proof. The threshold may depend on the fixed factor $q$ through $c$, and on the requested tolerance.
 
-If a sequence satisfies $d(x_{j+1},x_j)\le Dq^j$, repeated triangle inequalities now give
+Now suppose a sequence satisfies $d(x_{j+1},x_j)\le Dq^j$ for every $j$, where $D\ge0$ is a fixed number. To compare two terms $x_n$ and $x_m$ with $m>n$, travel from $x_n$ to $x_m$ one step at a time. For instance, if $m=n+3$, two uses of the triangle inequality give
+\[
+d(x_{n+3},x_n)\le d(x_{n+3},x_{n+2})+d(x_{n+2},x_{n+1})+d(x_{n+1},x_n).
+\]
+In general, induction on $m-n$ shows that the distance from $x_n$ to $x_m$ is at most the sum of the $m-n$ single steps between them. Combining this with the step bounds and the geometric sum gives
 \[
 d(x_m,x_n)\le\sum_{j=n}^{m-1}d(x_{j+1},x_j)
 \le\frac{Dq^n}{1-q}.
@@ -36,11 +40,3 @@ The right side tends to zero independently of how late $m$ is. This proves the C
 There are two thresholds we must not confuse. The integer $n$ is the starting point of a tail comparison, and $m>n$ can be arbitrarily far beyond it. Our bound contains $n$ but not $m$, so one choice of $n$ controls even very long tails.
 
 For $D>0$, a given tolerance $\eps$ asks for $q^n<\eps(1-q)/D$. The preceding geometric-limit argument supplies a threshold $N$ for that positive number. For any two indices at least $N$, put the smaller one in the role of $n$; symmetry handles their order, and equal indices have zero distance. If $D=0$, every step has zero length, so the sequence is constant. This also covers the case where dividing by $D$ would not have been permitted. We have found exactly the stronger control missing from the harmonic-sum example.
-
-\begin{lab}{Asking for the quantifier that failed}
-\noindent\textbf{Deliberately flawed reply.} ``The updates get arbitrarily small, so the iterates converge.''
-
-\noindent\textbf{Learner.} ``Compare consecutive differences with the Cauchy condition. Test the partial sums of $1/j$. Then give a stronger hypothesis that controls every tail, not just one step.''
-
-\noindent\textbf{Model repair.} A geometric bound on successive distances gives the displayed tail estimate. Completeness then supplies a limit in the space. Record these as separate obligations: tail control and existence of an included destination.
-\end{lab}

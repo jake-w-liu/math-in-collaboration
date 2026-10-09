@@ -6,7 +6,7 @@ Function application is written with a space: \code{f x} means $f(x)$. The funct
 It helps to read a declaration by its parts before reading an entire proof. In
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
- def twice (n : Nat) : Nat := n + n
+def twice (n : Nat) : Nat := n + n
 \end{lstlisting}
 \end{minipage}\par
 
@@ -14,19 +14,15 @@ It helps to read a declaration by its parts before reading an entire proof. In
 
 A theorem declaration uses the same basic separation. Its name and parameters come first, its claimed proposition follows a colon, and a proof follows \code{:=}. Writing \code{by} begins a sequence of proof-building instructions. The command does not mean ``assume the statement is true.'' It begins the work required to justify it.
 
-The theorem below has no input parameter. It claims one concrete equality about the definition just supplied.
-
-For example:
+Here is a theorem about the definition just supplied. It has no input parameters and claims one concrete equality:
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
-def twice (n : Nat) : Nat := n + n
-
 theorem twice_two : twice 2 = 4 := by
   rfl
 \end{lstlisting}
 \end{minipage}\par
 
-The first declaration defines a function. The second claims an equality and gives a proof. The tactic \code{rfl} closes an equality whose two sides reduce to the same expression by definitions and computation. Here \code{twice 2} unfolds to \code{2 + 2}, which computes to \code{4}. It would not prove an arbitrary true equality that requires an independent theorem.
+The definition introduced a function; the theorem claims an equality about it and gives a proof. The tactic \code{rfl} closes an equality whose two sides reduce to the same expression by definitions and computation. Here \code{twice 2} unfolds to \code{2 + 2}, which computes to \code{4}. It would not prove an arbitrary true equality that requires an independent theorem.
 
 The theorem's equality and the definition's assignment have different jobs. The definition supplies what \code{twice} means. The theorem says that evaluating that meaning at input two gives four. A different name would not change the mathematics. A different definition body could change the claim's truth.
 

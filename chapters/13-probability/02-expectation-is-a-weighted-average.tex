@@ -25,4 +25,8 @@ There is one more property of finite averages that we need. If $X(\omega)\le Y(\
 
 The word \emph{pointwise} means ``for each fixed input outcome separately.'' It does not mean only on average. A pointwise inequality implies an average inequality by this argument, but the reverse implication is generally false.
 
-At least one outcome with positive probability has $X(\omega)\ge\E X$. Otherwise every positive-probability value would be smaller than the expectation, and their weighted average would also be smaller than it, a contradiction. This is the same average argument used for graph degrees, now with weights.
+The averaging fact from Chapter~7 has a weighted version: \emph{at least one outcome $\omega$ with $p(\omega)>0$ satisfies $X(\omega)\ge\E X$.} Suppose not. Then $X(\omega)<\E X$ for every outcome of positive probability. Multiply each of these inequalities by its positive weight $p(\omega)$ and add them; outcomes of probability zero contribute nothing to either side. The result is
+\[
+\E X=\sum_{\omega}p(\omega)X(\omega)<\sum_{\omega}p(\omega)\,\E X=\E X\cdot\sum_\omega p(\omega)=\E X,
+\]
+so $\E X<\E X$, which is impossible. In the two-coin example, $\E X=1$ and the outcomes $01$, $10$, and $11$ all have $X\ge1$. Notice that the argument proves that a good outcome exists without telling us which one it is.

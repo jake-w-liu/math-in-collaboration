@@ -1,5 +1,5 @@
 \section{The smallest amount of Python needed}
-The core proofs can be read without programming. For the computational laboratories, the companion uses Python 3.10 or later and only its standard library. The following vocabulary is sufficient to begin; the official tutorial explains lists and sets in more detail~\cite{pystructures}.
+The programs in this appendix use Python~3.10 or later and only its standard library, so no additional packages need to be installed. The following vocabulary is enough to read them; the official tutorial explains lists and sets in more detail~\cite{pystructures}.
 
 A \emph{list} is an ordered collection written in square brackets. In \code{a = [1, 1, 1, -1]}, the first entry is \code{a[0]}, not \code{a[1]}. Python starts list indices at zero. A \emph{set} records membership without repeated elements; \code{\{0, 1\}} is the set containing zero and one. The empty set is written \code{set()}, because empty braces have a different meaning in Python. The expression \code{len(a)} is the number of entries.
 
@@ -27,4 +27,4 @@ def correlation(a, shift):
 \end{lstlisting}
 \end{minipage}\par
 
-The \code{return} line gives the output. Unlike the teaching fragment, the companion validates its inputs and rejects empty sign sequences or invalid aperiodic shifts. It keeps periodic and aperiodic calculations as different named functions so that their conventions cannot be confused silently.
+The line beginning \code{def} names the function and its inputs, the indented lines describe the calculation, and the \code{return} line gives the output. For example, \code{correlation([1, 1, 1, -1], 1)} returns $1$. This short version assumes that its inputs make sense: \code{a} should be a nonempty list of signs and \code{shift} should satisfy $1\le\text{\code{shift}}<\text{\code{len(a)}}$. The programs below keep the aperiodic and periodic correlations as two differently named functions, so that the two conventions of Chapter~14 cannot be confused.

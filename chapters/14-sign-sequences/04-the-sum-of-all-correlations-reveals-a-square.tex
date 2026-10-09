@@ -1,7 +1,9 @@
 \section{The sum of all correlations reveals a square}
-Let $r=\sum_{j=0}^{n-1}a_j$ be the row sum. Add every periodic correlation, including shift zero:
+Let $r=\sum_{j=0}^{n-1}a_j$ be the row sum. Add every periodic correlation, including shift zero. By definition, each $C_s$ is itself a sum over $j$, so the total is a double sum. A finite sum may be added in any order, so we may add over $s$ first for each fixed $j$, and then pull out the factor $a_j$, which does not depend on $s$:
 \begin{align*}
 \sum_{s=0}^{n-1}C_s
+&=\sum_{s=0}^{n-1}\sum_{j=0}^{n-1}a_j a_{(j+s)\bmod n}
+ =\sum_{j=0}^{n-1}\sum_{s=0}^{n-1}a_j a_{(j+s)\bmod n}\\
 &=\sum_{j=0}^{n-1}a_j\left(\sum_{s=0}^{n-1}a_{(j+s)\bmod n}\right)\\
 &=\sum_{j=0}^{n-1}a_j\left(\sum_{k=0}^{n-1}a_k\right)\\
 &=r^2.

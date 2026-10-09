@@ -32,4 +32,4 @@ theorem second_not_first {V : Type}
 
 The nested conjunction is grouped to the right. Thus \code{h.right} contains the last two conditions, and its \code{left} component is the required exclusion. Reading this projection correctly is more important than memorizing its name.
 
-The full repository theorem also needs a finite vertex type, nonemptiness, and an oriented relation, and counts the relevant finite sets. Our local definition does not formalize that whole theorem. It isolates a piece of statement meaning that can be checked before studying a large proof.
+The formal statement of Seymour's conjecture in the repository discussed in Chapter~7 needs more than this: a finite type of vertices, a guarantee that there is at least one vertex, a hypothesis that the edge relation is oriented, and a way to count the vertices in each neighborhood. Its membership condition for second neighbors, however, is exactly the one above: $w\ne v$, $w$ is not a first neighbor, and some $u$ gives $v\to u\to w$. Our local definition does not formalize the whole theorem. It isolates one piece of the statement's meaning that can be checked before anyone studies a long proof.

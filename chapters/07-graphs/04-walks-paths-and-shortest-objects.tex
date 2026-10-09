@@ -1,5 +1,5 @@
 \section{Walks, paths, and shortest objects}
-A walk is a sequence of vertices in which consecutive vertices are joined by edges. It may repeat vertices. A path is a walk with no repeated vertices. Its length is the number of edges used, one less than the number of listed vertices.
+A walk is a sequence of vertices in which consecutive vertices are joined by edges. It may repeat vertices and edges. A path is a walk with no repeated vertices. The length of a walk is its number of steps, that is, the number of edges traversed, counting an edge again each time it is used. This is one less than the number of listed vertices. For example, in the graph displayed above, $a,c,b,c,d$ is a walk of length four that uses the edge $bc$ twice, and $a,c,d$ is a path of length two.
 
 If any walk joins two vertices, a shortest walk between them has no repeated vertex. Indeed, if the same vertex occurs twice, delete the part of the walk between those occurrences. The remaining sequence is still a walk with the same endpoints and has fewer edges, contradicting shortestness. Thus connected vertices admit a path.
 

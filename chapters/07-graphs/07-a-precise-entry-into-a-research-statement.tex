@@ -1,12 +1,18 @@
 \section{A precise entry into a research statement}
-Let $N_1^+(v)$ be the out-neighbors of $v$. Define
+Let $N_1^+(v)$ be the set of out-neighbors of $v$, which we call its \emph{first out-neighborhood}. Its \emph{second out-neighborhood} is
 \[
-N_2^+(v)=\{w\ne v:\ w\notin N_1^+(v),\ \text{and some }u\text{ satisfies }v\to u\to w\}.
+N_2^+(v)=\{w:\ w\ne v,\ w\notin N_1^+(v),\ \text{and some }u\text{ satisfies }v\to u\to w\}.
 \]
-These are vertices at directed distance exactly two, not all endpoints of two-edge walks. They are counted as vertices, not as paths. In the triangle $a\to b\to c$ with $a\to c$, the vertex $c$ is not in $N_2^+(a)$ because it is already a first neighbor.
+In words, $w$ belongs to $N_2^+(v)$ when it can be reached from $v$ in two steps but not in fewer: it is not $v$ itself and not a first neighbor. These are the vertices at directed distance \emph{exactly} two. They are counted as vertices, not as routes: if several intermediate vertices $u$ lead to the same $w$, then $w$ is still counted once.
 
-The statement documented for Family~173 of the OpenAI mathematics repository is that every nonempty finite oriented graph has some $v$ with $|N_2^+(v)|\ge|N_1^+(v)|$, with exactly this exclusion convention and with sinks allowed~\cite{oai173}. Our sink theorem proves this statement for the acyclic subclass: choose a sink, for which both sets are empty. This is a complete special-case proof, not a proof for all oriented graphs. Chapter~17 returns to the distinction between such a bridge result and the repository's full claim.
+Two small examples show how the exclusions work. In the graph with edges $a\to b$, $b\to c$, and $a\to c$, the vertex $c$ can be reached from $a$ by the two-step route $a\to b\to c$, but it is not in $N_2^+(a)$, because the edge $a\to c$ already makes it a first neighbor. Here $|N_1^+(a)|=2$ and $|N_2^+(a)|=0$. In the directed cycle $a\to b\to c\to a$, each vertex has exactly one first neighbor and exactly one second neighbor: for instance $N_1^+(a)=\{b\}$ and $N_2^+(a)=\{c\}$.
 
-\begin{lab}{When ``two steps away'' is ambiguous}
-Construct a directed triangle with edges $a\to b$, $b\to c$, and $a\to c$. Ask an assistant to compute both neighborhoods of $a$. If it counts $c$ as a second neighbor, ask whether ``second'' means a two-edge walk exists or the shortest directed distance is exactly two. Then test a directed three-cycle, where each vertex has one first and one second neighbor. Your output should state the definition before giving the counts.
-\end{lab}
+In 1990 Paul Seymour proposed the following statement, now known as \emph{Seymour's second-neighborhood conjecture}:
+\begin{quote}
+Every nonempty finite oriented graph has a vertex $v$ with $|N_2^+(v)|\ge|N_1^+(v)|$.
+\end{quote}
+In words: some vertex reaches at least as many new vertices in its second step as in its first. A sink always satisfies the inequality, since both of its neighborhoods are empty, so the interesting graphs are those in which every vertex has an outgoing edge. For decades the statement remained open in general, although special cases were settled; the case of tournaments, for example, was proved in 1996.
+
+In September 2026 a preprint claiming a proof of the full conjecture was released together with a formal proof in the Lean proof assistant, in OpenAI's public mathematics repository~\cite{oai173}. The repository's description of the formalized statement uses exactly the conventions above: the second neighborhood consists of vertices at directed distance exactly two, $v$ and its first neighbors are excluded, and sinks are allowed. This book does not reproduce or check that proof. Chapter~16 shows how its definitions can be read in Lean, and Chapter~17 describes how to begin reading such a proof responsibly.
+
+What we \emph{can} prove completely already is a special case. If an oriented graph is nonempty, finite, and acyclic, Theorem~\ref{thm:sink} gives a sink $v$, and then $|N_2^+(v)|=0\ge0=|N_1^+(v)|$. This is a complete proof for the acyclic class of graphs, and no proof at all for graphs with directed cycles. Keeping track of exactly which class a proof covers is the same discipline as keeping track of the scope of a quantifier in Chapter~2.

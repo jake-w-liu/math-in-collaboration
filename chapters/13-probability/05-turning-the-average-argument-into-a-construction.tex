@@ -7,11 +7,17 @@ F=C+\frac U2.
 \]
 At the beginning, $F=m/2$.
 
-Now assign the next vertex $v$. Suppose it has $\ell$ already assigned neighbors on the left and $r$ on the right. Placing it on the left resolves $\ell+r$ previously unresolved edges and makes $r$ of them cross. The change in $F$ is
+Now assign the next vertex $v$. Suppose it has $\ell$ already assigned neighbors on the left and $r$ on the right. Sort the edges at $v$ into three kinds and see how each one's contribution to $F$ changes if we place $v$ on the left.
+\begin{itemize}
+\item The $\ell$ edges to assigned neighbors on the left were unresolved, contributing $1/2$ each. Afterwards both endpoints are on the left, so they do not cross and contribute $0$.
+\item The $r$ edges to assigned neighbors on the right also contributed $1/2$ each. Afterwards they cross and contribute $1$ each.
+\item Edges from $v$ to vertices that are still unassigned remain unresolved and still contribute $1/2$ each.
+\end{itemize}
+Edges not touching $v$ are unaffected. So the change in $F$ is
 \[
-r-\frac{\ell+r}{2}=\frac{r-\ell}{2}.
+r\cdot\Big(1-\frac12\Big)+\ell\cdot\Big(0-\frac12\Big)=\frac{r-\ell}{2}.
 \]
-Placing it on the right gives change $(\ell-r)/2$. At least one is nonnegative. Choose the side opposite the larger number of already assigned neighbors. Edges from $v$ to still unassigned vertices remain unresolved and contribute the same $1/2$ as before.
+Placing $v$ on the right instead gives change $(\ell-r)/2$. These two changes are negatives of each other, so at least one of them is nonnegative. The rule is therefore simple: put $v$ on the side \emph{opposite} the larger number of its already assigned neighbors (either side if the numbers are equal). Then $F$ never decreases.
 
 After all vertices are assigned, $U=0$ and $F$ is the actual cut size. Since $F$ never decreased from $m/2$, the final cut has at least $m/2$ edges. This is a deterministic construction with a maintained lower bound. The technique is an instance of conditional expectation, but its entire calculation is visible here; no general probability theory is needed.
 

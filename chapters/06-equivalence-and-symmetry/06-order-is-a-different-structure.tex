@@ -1,18 +1,23 @@
 \section{Order is a different structure}
-A partial order is a relation that is reflexive, antisymmetric, and transitive. Antisymmetry means that $x\le y$ and $y\le x$ together force $x=y$. This differs from the symmetry required for equivalence relations.
+Equivalence relations describe sameness. A different kind of relation describes \emph{comparison}: one object is smaller than, below, or contained in another. Write $x\preceq y$ for such a relation, read ``$x$ is below $y$.'' It is a \emph{partial order} when it satisfies three requirements for all allowed $x,y,z$:
+\begin{itemize}
+\item \emph{Reflexivity:} $x\preceq x$.
+\item \emph{Antisymmetry:} if $x\preceq y$ and $y\preceq x$, then $x=y$.
+\item \emph{Transitivity:} if $x\preceq y$ and $y\preceq z$, then $x\preceq z$.
+\end{itemize}
+Reflexivity and transitivity are the same requirements as for an equivalence relation, but symmetry has been replaced by antisymmetry. Symmetry says that a relation always goes both ways; antisymmetry says that it goes both ways only between an object and itself. The usual order $\le$ on the real numbers is a partial order.
 
-Set inclusion is a partial order. It need not compare every pair: neither $\{1\}$ nor $\{2\}$ contains the other. In a finite collection, an element is \emph{maximal} if no strictly larger element of that collection contains it. A \emph{maximum} contains every element of the collection. For the collection $\{\{1\},\{2\}\}$, both members are maximal and there is no maximum. The distinction will reappear when a matching cannot be enlarged by one obvious step but is not of largest possible size.
+Set inclusion $\subseteq$ is also a partial order on any collection of sets. Unlike $\le$ on numbers, it need not compare every pair: neither $\{1\}$ nor $\{2\}$ contains the other. That is why the word \emph{partial} appears in the name.
+
+Because some pairs may be incomparable, there are two different notions of a ``largest'' element of a collection, and they must not be confused.
+\begin{itemize}
+\item An element $x$ is \emph{maximal} if nothing in the collection lies strictly above it: there is no $y$ in the collection with $x\preceq y$ and $y\ne x$.
+\item An element $x$ is a \emph{maximum} if everything in the collection lies below it: $y\preceq x$ for every $y$ in the collection.
+\end{itemize}
+A maximum is always maximal, but not conversely. In the collection $\{\{1\},\{2\}\}$, ordered by inclusion, both members are maximal, because neither lies inside the other. Neither member is a maximum, because neither contains the other. A collection can therefore have several maximal elements and no maximum.
+
+A related but different distinction appears in Chapter~8. There, a partial assignment of tasks can be \emph{maximal under inclusion}---no single new pair can be added to it---without having the largest possible \emph{number} of pairs. In that chapter the word ``maximum'' will mean ``largest number of pairs,'' not ``contains every other assignment''; two assignments of the largest size need not contain one another. In both settings the lesson is the same: being impossible to improve by one obvious step is weaker than being best overall.
 
 \begin{principle}{Habit 6: ask what a change of description preserves}
 Before quotienting, normalizing, or identifying objects, specify the relation and the preserved property. Before applying a formula to equivalence classes, check independence of representatives. A short well-definedness check can prevent an entire argument from being about the wrong object.
 \end{principle}
-
-\begin{lab}{A definition that secretly depends on a choice}
-\noindent\textbf{Deliberately flawed proposal.} ``Define the parity of a class modulo three as the parity of any integer representing it.''
-
-\noindent\textbf{Learner.} ``Test two representatives of the same class. Do $0$ and $3$ give the same answer?''
-
-\noindent\textbf{Diagnosis.} They represent the same class modulo three but have different parity. The proposed rule is not well-defined.
-
-\noindent\textbf{Repair options.} Use a fixed representative from $\{0,1,2\}$ and acknowledge that the resulting function depends on that convention; or use classes modulo an even number, for which all representatives have the same parity. These are different mathematical constructions. Ask the assistant which one matches the original purpose rather than accepting either repair automatically.
-\end{lab}

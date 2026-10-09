@@ -21,6 +21,6 @@ theorem preimage_meet {A B : Type} (f : A -> B)
 \end{lstlisting}
 \end{minipage}\par
 
-The expression \code{Iff P Q} means logical equivalence of $P$ and $Q$. Unfolding the left side gives \code{And (s (f x)) (t (f x))}. Unfolding the right side gives the very same expression. The theorem is short because the definitions already encode the reasoning. It is not short because an opaque automation step skipped an unexplained mathematical argument.
+The expression \code{Iff P Q} means logical equivalence of $P$ and $Q$, that is, $P\Leftrightarrow Q$. Unfolding the definitions on the left side gives \code{And (s (f x)) (t (f x))}. Unfolding the right side gives the very same expression. In Chapter~15 we used \code{rfl} to prove an equality whose two sides compute to the same expression; the same tactic also proves an equivalence $P\Leftrightarrow P$ whose two sides are the same proposition. Lean unfolds \code{preimage} and \code{meet} itself before comparing the two sides, so no rewriting is needed. The theorem is short because the definitions already encode the reasoning, not because some automation skipped a mathematical argument.
 
 This example also shows why definitions deserve close attention. Replacing \code{meet} by a differently defined operation could preserve the theorem name but change the statement. Formal names are handles for expressions, not warranties about their intended meaning.

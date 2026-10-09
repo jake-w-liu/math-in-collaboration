@@ -1,6 +1,6 @@
 \section{The proof, one obligation at a time}
 \begin{proof}
-First handle $q=0$. The contraction inequality gives $d(Tx,Ty)=0$ for every pair, so $T$ is constant. Choose $x_0\in X$ and set $c=T(x_0)$. Since $c\in X$, constancy gives $T(c)=T(x_0)=c$. Thus $c$ is fixed, every iterate after the first equals $c$, and no other fixed point is possible. The residual estimate is exact because $d(z,Tz)=d(z,c)$. We now assume $0<q<1$.
+First handle $q=0$. The contraction inequality gives $d(Tx,Ty)=0$ for every pair, so $T$ is constant. Choose $x_0\in X$ and set $c=T(x_0)$. Since $c\in X$, constancy gives $T(c)=T(x_0)=c$. Thus $c$ is fixed, and every iterate from $x_1$ onward equals $c$. No other fixed point is possible, because any fixed point $y$ satisfies $y=T(y)=c$. The residual estimate is exact because $d(z,Tz)=d(z,c)$. We now assume $0<q<1$.
 
 \textbf{1. Construct the sequence and control one step.} Choose any $x_0\in X$ and define $x_{n+1}=T(x_n)$. The self-map assumption ensures that every iterate remains in $X$. Set $D=d(x_1,x_0)$. We claim
 \[
@@ -19,7 +19,7 @@ d(x_m,x_n)\le\sum_{j=n}^{m-1}d(x_{j+1},x_j)
 \le D\sum_{j=n}^{m-1}q^j
 \le\frac{Dq^n}{1-q}.
 \]
-If $D=0$, all iterates are the same and the Cauchy conclusion is immediate. Otherwise, because $q^n\to0$, for each $\eps>0$ there is $N$ with $Dq^N/(1-q)<\eps$. For any $m,n\ge N$, assume $m>n$ by symmetry, or handle $m=n$ with distance zero. The bound gives $d(x_m,x_n)<\eps$. Thus the sequence is Cauchy.
+If $D=0$, then $x_1=x_0$, and since each iterate is obtained by applying $T$ to the previous one, all iterates are the same; the Cauchy conclusion is immediate. Otherwise, because $q^n\to0$ (Chapter~11), for each $\eps>0$ there is an $N$ such that $Dq^n/(1-q)<\eps$ for every $n\ge N$. Now take any $m,n\ge N$. If $m=n$, their distance is zero. Otherwise name them so that $m>n$; this is allowed because $d(x_m,x_n)=d(x_n,x_m)$. The bound gives $d(x_m,x_n)\le Dq^n/(1-q)<\eps$. Thus the sequence is Cauchy.
 
 \textbf{3. Obtain a point in the space.} Completeness supplies $x_*\in X$ with $x_n\to x_*$. This is precisely where completeness is used. The preceding bounds alone would not ensure that a limit belongs to an incomplete space.
 
@@ -30,13 +30,15 @@ d(Tx_*,x_*)&\le d(Tx_*,Tx_n)+d(Tx_n,x_*)\\
 \end{align*}
 For any $\eps>0$, choose $n$ so late that both distances on the final line are smaller than $\eps/(q+1)$. This is possible because both the sequence and its one-step shift converge to $x_*$. The displayed bound is then strictly smaller than $\eps$. A nonnegative number smaller than every positive $\eps$ must be zero; otherwise choose $\eps$ equal to that number.
 
-More explicitly, the quantity on the left, $d(Tx_*,x_*)$, does not depend on $n$. We have shown that for \emph{each} positive tolerance we can choose a late enough $n$ making an upper bound smaller than that tolerance. If the left side had some positive value $D$, requesting tolerance $D/2$ would give $D<D/2$, which is impossible. We are not replacing an approximate equality by an exact equality after a finite number of steps. Hence $d(Tx_*,x_*)=0$ and $Tx_*=x_*$.
+More explicitly, the quantity on the left, $d(Tx_*,x_*)$, does not depend on $n$. We have shown that for \emph{each} positive tolerance we can choose a late enough $n$ making an upper bound smaller than that tolerance. If the left side had some positive value $\rho$, requesting the tolerance $\rho/2$ would give $\rho<\rho/2$, which is impossible. We are not replacing an approximate equality by an exact equality after a finite number of steps. Hence $d(Tx_*,x_*)=0$ and $Tx_*=x_*$.
 
 \textbf{5. Prove uniqueness.} Suppose $y_*$ is another fixed point. Then
 \[
 d(x_*,y_*)=d(Tx_*,Ty_*)\le q\,d(x_*,y_*).
 \]
 Subtracting the rightmost quantity gives $(1-q)d(x_*,y_*)\le0$. Both factors are nonnegative and $1-q>0$, so the distance must be zero. Thus $x_*=y_*$.
+
+This also settles the claim about \emph{every} initial point. Steps 1--4 worked for an arbitrary choice of $x_0$: whatever starting point we choose, its iterates converge to some fixed point. By uniqueness there is only one fixed point, so all starting points lead to the same $x_*$.
 
 \textbf{6. Certify the error.} Fix $n$. For any later $m$,
 \[

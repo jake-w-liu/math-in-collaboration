@@ -16,6 +16,8 @@ The separate identity $N(A)=B$ is needed because the shortage condition counts \
 
 We also have $N(A)=B$. Every reached task was entered from a reached student, so $B\subseteq N(A)$. For the reverse containment, take a task neighboring a reached student. If their connecting edge is unmatched, the exploration follows it, so the task lies in $B$. If their edge is matched, the student is not the unmatched root $x$, and its matched task is the task from which it was reached; that task already lies in $B$. Thus all neighbors lie in $B$.
 
+It helps to run this argument on the three-student example above, where $a$ holds task $1$, $b$ holds task $2$, the root is $c$, and every student accepts only tasks $1$ and $2$. For the root $c$, both edges $c$--$1$ and $c$--$2$ are unmatched, so the search follows them and both tasks lie in $B$. For $a$, the edge $a$--$1$ is matched, and task $1$ is exactly the task from which $a$ was reached; the edge $a$--$2$ is unmatched, so the search follows it, and task $2$ is in $B$ anyway. The same reasoning applies to $b$. Every acceptable task of every reached student is in $B=\{1,2\}$, as the general argument promised. If the search had stopped early, say after reaching only task $1$ and its owner $a$, then task $2$ would be an acceptable task of a reached student lying outside the recorded set, and the comparison of sizes below would prove nothing. This is why the search must be complete.
+
 Combining the two identities gives
 \[
 |N(A)|=|B|=|A|-1<|A|.

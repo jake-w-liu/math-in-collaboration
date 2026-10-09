@@ -14,6 +14,17 @@ These two transformations simplify the matrix for the proof; they do not assert 
 
 We do not need these transformations to preserve the circulant pattern. The lemma applies to \emph{every} sign Hadamard matrix, so its proof needs only to preserve the sign entries and row orthogonality. Circulant structure is used separately in the square-order identity. Requiring every intermediate representation to retain more structure than the lemma uses would obscure the argument.
 
+Here is what the two simplifications produce for the order-four matrix
+\[
+\begin{pmatrix}
+1&1&1&1\\
+1&1&-1&-1\\
+1&-1&1&-1\\
+1&-1&-1&1
+\end{pmatrix},
+\]
+whose rows are mutually orthogonal (check one pair yourself). The first row is all ones; the second row has its two plus signs first and its two minus signs last. The third row splits into a first half $(1,-1)$ and a second half $(1,-1)$, each summing to zero, exactly as the general argument below predicts. Each half has one plus sign out of two entries, so the half-length $2$ is even and the order $4$ is divisible by four.
+
 Since $n>2$, a third row exists. Let $x$ be the sum of its entries in the first half of the columns and $y$ the sum in the second half. Orthogonality with the first row gives $x+y=0$. Orthogonality with the second row gives $x-y=0$. Adding and subtracting yield $x=y=0$.
 
 In detail, adding the equations gives $2x=0$, hence $x=0$. Substituting into $x+y=0$ gives $y=0$. Let $h=n/2$ be the number of entries in the first half, and suppose exactly $p$ of those entries are positive. The other $h-p$ are negative, so their sum is $p-(h-p)=2p-h$. Since this sum is $x=0$, we obtain $h=2p$, proving that the half-length is even. This explains the second divisibility-by-two step rather than merely repeating the whole-row argument.
@@ -31,4 +42,4 @@ A real circulant sign Hadamard matrix of positive order has $n=1$ or $n=4u^2$ fo
 Equation~\eqref{eq:squareorder} gives $n=r^2$ for an integer $r$. If $n>1$, it is not $2$, because $2$ is not an integer square. Hence $n>2$, and the lemma gives $4\mid n$. The integer $r$ must then be even: an odd square is odd. Write $|r|=2u$ with $u>0$. It follows that $n=4u^2$.
 \end{proof}
 
-This leaves candidate orders $4,16,36,\ldots$. It does not construct matrices at those orders and does not rule them out. Necessary conditions define a research boundary: the argument has eliminated many cases and has stated exactly what remains.
+This leaves the candidate orders $4,16,36,64,\ldots$. At order four we have an explicit example, the matrix $H$ displayed earlier. At the larger candidate orders the proposition neither constructs a matrix nor rules one out. Necessary conditions define a research boundary: the argument has eliminated many cases and has stated exactly what remains.

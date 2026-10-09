@@ -18,3 +18,13 @@ fits the examples. Here $2^{-n}=1/2^n$. Prove it by induction: it holds at $n=0$
 \end{align*}
 The last equality uses $2^{-n}/2=1/(2^n\cdot2)=1/2^{n+1}$. Notice that $x_{n+1}$ is the name of the next term, whereas $x_n+1$ means one added to the current term.
 This proves the exact formula for every finite step. It also identifies the error relative to $1$ as $2^{-n}$. A pattern in the outputs has become an explanation of their behavior.
+
+There is an even more revealing way to organize this calculation. Instead of tracking $x_n$ itself, track its \emph{error} $x_n-1$, the distance from the value the terms seem to approach. Subtract $1$ from both sides of the update rule:
+\[
+x_{n+1}-1=\frac{x_n+1}{2}-1=\frac{x_n+1-2}{2}=\frac{x_n-1}{2}.
+\]
+In words: each update exactly halves the error. Nothing in this calculation used the starting value $x_0=0$. So for \emph{any} real starting value $x_0$, induction gives
+\[
+x_n-1=2^{-n}(x_0-1)\qquad(n\ge0).
+\]
+At $n=0$ both sides equal $x_0-1$, and if the formula holds at $n$, halving both sides gives it at $n+1$. With $x_0=0$ we recover $x_n-1=-2^{-n}$, the formula proved above. This general statement covers every starting point and is no harder to prove, because it isolates the one fact that matters: the error is halved at every step. Strengthening a statement so that its structure becomes simpler is a useful technique; we will meet it again in the contraction theorem of Chapter~12.

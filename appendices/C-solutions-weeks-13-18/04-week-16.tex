@@ -1,5 +1,5 @@
 \section{Week 16}
-\sol{16.1}{After unpacking \code{hg c}, the witness is \code{b : B} and \code{hb} proves \code{g b = c}. After unpacking \code{hf b}, the witness is \code{a : A} and \code{ha} proves \code{f a = b}. The final witness must belong to $A$ because the composition starts there. Rewriting the final expression $g(f(a))$ first by \code{ha} and then by \code{hb} gives $c$.}
+\sol{16.1}{After unpacking \code{hg c}, the witness is \code{b : B} and \code{hb} proves \code{g b = c}. After unpacking \code{hf b}, the witness is \code{a : A} and \code{ha} proves \code{f a = b}. The final witness must belong to $A$ because the composition starts there; the line \code{refine Exists.intro a ?\_} proposes exactly this $a$. The remaining goal, restated by \code{show} as $g(f(a))=c$, is proved by rewriting $g(f(a))$ first with \code{ha}, which gives $g(b)$, and then with \code{hb}, which gives $c$.}
 \sol{16.2}{Represent union by disjunction of membership predicates:
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
@@ -14,7 +14,7 @@ theorem preimage_join {A B : Type} (f : A -> B)
 \end{lstlisting}
 \end{minipage}\par
 
-Both sides unfold to the proposition that $s(f(x))$ or $t(f(x))$ holds. This is the membership proof from Exercise~3.4 expressed through definitions.}
+Both sides unfold to the proposition that $s(f(x))$ or $t(f(x))$ holds. This is the membership proof from Exercise~\ref{ex:3.4} expressed through definitions.}
 \sol{16.3}{The first and last components of the nested conjunction supply the two claims:
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}

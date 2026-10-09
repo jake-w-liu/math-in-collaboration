@@ -1,6 +1,11 @@
 \section{Contraposition and vacuous truth}
-The \emph{contrapositive} of $P\Rightarrow Q$ is $\neg Q\Rightarrow\neg P$. These are equivalent in ordinary classical logic. If $Q$ fails, then $P$ could not have held, because the original implication would have forced $Q$. Conversely, if the contrapositive holds and $P$ is true, $Q$ cannot be false.
+The \emph{contrapositive} of $P\Rightarrow Q$ is $\neg Q\Rightarrow\neg P$. In words: if the conclusion fails, then the assumption must have failed too. An implication and its contrapositive are logically equivalent, meaning that each one is true exactly when the other is. Here is why.
+\begin{itemize}
+\item Suppose $P\Rightarrow Q$ is true, and suppose $Q$ fails. If $P$ held, the implication would force $Q$ to hold, which it does not. So $P$ fails. This proves $\neg Q\Rightarrow\neg P$.
+\item Suppose $\neg Q\Rightarrow\neg P$ is true, and suppose $P$ holds. If $Q$ failed, the contrapositive would force $P$ to fail, which it does not. So $Q$ holds. This proves $P\Rightarrow Q$.
+\end{itemize}
+Both arguments use the principle that every statement is either true or false, which is the setting of ordinary (classical) mathematics.
 
-This is different from the converse. ``Divisible by four implies even'' is equivalent to ``not even implies not divisible by four.'' It is not equivalent to ``even implies divisible by four.''
+The contrapositive is different from the converse. ``Divisible by four implies even'' is equivalent to its contrapositive ``not even implies not divisible by four.'' Check this at $n=7$: seven is not even, and indeed it is not divisible by four. The statement is \emph{not} equivalent to its converse ``even implies divisible by four,'' which fails at $n=6$.
 
-An implication with an impossible assumption has no counterexample. For example, ``Every integer that is both even and odd is larger than $100$'' is true in this limited logical sense because no integer is both even and odd. We call this \emph{vacuous truth}. It does not tell us that such an integer exists. If a model produces a theorem whose assumptions cannot simultaneously hold, a proof may be formally correct but uninformative for the intended application.
+What happens when the assumption of an implication can never hold? Consider the statement ``Every integer that is both even and odd is larger than $100$.'' A counterexample would have to be an integer that is both even and odd and is at most $100$. Since no integer is both even and odd (Chapter~4 proves this), there is no counterexample, and the statement counts as true. Such a statement is called \emph{vacuously true}: it is true because it makes no promise about any actual object. It does not tell us that an integer which is both even and odd exists. The same warning applies to a theorem whose assumptions can never hold at the same time. A proof of such a theorem may be perfectly correct and still tell us nothing about the situation we cared about.

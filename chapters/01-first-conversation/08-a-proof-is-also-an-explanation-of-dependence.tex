@@ -3,18 +3,12 @@ In the parity proof, the two inputs may vary. The witnesses $k$ and $\ell$ vary 
 
 Suppose an assistant writes both odd inputs as $2k+1$ using the same $k$. That only describes the special case in which the two inputs agree. The algebra could be correct and the argument still fail to cover the intended claim. A useful question is: ``Which quantities are independent, and which are chosen in response to others?'' Chapter~2 turns this question into a general method.
 
-\begin{lab}{Asking for the missing bridge}
-\noindent\textbf{Your first attempt.} Explain to a partner why three odd integers have an odd sum. Use different letters for the three witnesses.
-
-\noindent\textbf{Learner.} ``Here is my argument: three odd numbers have sum $2k+2\ell+2m+3$. I believe the answer is odd, but I cannot see the final representation. Explain only that step.''
-
-\noindent\textbf{Teaching reply.} ``Split $3$ as $2+1$, then factor the terms divisible by two:
+Here is a short exercise in keeping witnesses separate. Suppose we want to show that the sum of three odd integers is odd. Name them $a=2k+1$, $b=2\ell+1$, and $c=2m+1$, with three different letters because the three inputs may be different. Adding gives
+\[
+a+b+c=2k+2\ell+2m+3.
+\]
+At this point it is tempting to say that the expression ``looks odd,'' but that is not yet the definition. The definition asks for the form \emph{twice an integer plus one}. Split $3$ as $2+1$ and factor the terms that contain a $2$:
 \[
 2k+2\ell+2m+3=2(k+\ell+m+1)+1.
 \]
-The quantity in parentheses is an integer, so the result has the defining form of an odd integer.''
-
-\noindent\textbf{Your follow-up.} ``Why is it not enough to say that the expression looks odd? Which exact definition finished the proof?''
-
-\noindent\textbf{Record.} Write the general claim, your original stopping point, and the repaired final step. Then repeat the argument without the reply. The purpose of the exchange is to isolate a small learning need, not to replace your attempt with a complete generated answer.
-\end{lab}
+The number $k+\ell+m+1$ is an integer, so $a+b+c$ has exactly the form required by Definition~\ref{def:parity}, and the proof is complete. Notice where the work happened: the arithmetic was easy, and the important step was recognizing which form the definition demands.

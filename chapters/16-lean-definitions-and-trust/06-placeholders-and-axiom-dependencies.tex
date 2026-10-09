@@ -1,7 +1,15 @@
 \section{Placeholders and axiom dependencies}
-Lean permits unfinished developments containing \code{sorry}, which uses a placeholder axiom. An accepted declaration that depends on such a placeholder is not a completed proof. The command \code{\#print axioms theoremName} displays axiom dependencies and is useful for detecting this situation. Standard foundational axioms and evaluation-related trust assumptions must also be interpreted rather than treated as interchangeable errors~\cite{leanaxioms}.
+While a proof is being developed, Lean allows a gap to be filled temporarily with the word \code{sorry}. Lean then accepts the declaration, with a warning, by treating the missing step as if it had been assumed. Such a declaration is not a completed proof. To find out whether a theorem secretly depends on a gap of this kind, use the command
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+#print axioms theoremName
+\end{lstlisting}
+\end{minipage}\par
+which lists every \emph{axiom}---every statement accepted without proof---that the theorem's proof ultimately relies on. A theorem that used \code{sorry} anywhere in its dependencies shows the axiom \code{sorryAx} in this list.
 
-For the companion, inspect commands such as
+Not every axiom signals a problem. Lean's foundations include a few standard axioms that ordinary mathematics uses routinely: \code{propext} (logically equivalent propositions are equal), \code{Quot.sound} (used to build quotient objects such as the residue classes of Chapter~6), and \code{Classical.choice} (which supports proofs by contradiction and choices of objects whose existence has been proved). Seeing these in the list is normal. The research repository of Chapter~7, for example, explicitly permits exactly these three axioms for its formal proof of Seymour's conjecture~\cite{oaiconfig}. What matters is to know what each listed axiom means~\cite{leanaxioms}.
+
+For the examples in Chapters~15 and~16, the commands
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 #print axioms MathCourse.inj_comp
@@ -9,7 +17,8 @@ For the companion, inspect commands such as
 #print axioms MathCourse.preimage_meet
 \end{lstlisting}
 \end{minipage}\par
+report that these theorems depend on no axioms at all: their proofs use only the rules of Lean's logic and our own definitions.
 
-An axiom list is not a substitute for the theorem signature. The impossible-context theorem can have no additional axiom dependency while still assuming \code{False} as a parameter. Conversely, a theorem may use ordinary foundational principles without assuming its desired conclusion. Both the assumptions in the signature and the dependencies of the proof must be understood.
+An axiom list is not a substitute for reading the theorem's statement. The impossible-context theorem of the previous section depends on no axioms, yet it assumes \code{False} as a hypothesis. Conversely, a theorem may use a standard axiom without assuming anything about its desired conclusion. Both the assumptions written in the statement and the dependencies of the proof must be understood.
 
-The command-line check \code{lean proofs.lean} should be run from the companion directory with its pinned toolchain. Check the process result, warnings, and requested dependency output. Do not interpret absence of visible editor errors before checking has finished as a completed verification. Larger or untrusted projects call for the stronger validation procedures described in the official documentation~\cite{leanvalidate}.
+When you check a file, read everything Lean reports: errors, warnings (a \code{sorry} produces a warning, not an error), and the output of any \code{\#print axioms} commands. Wait until checking has finished before concluding that there are no problems; an editor that has not yet reached a line shows no error there. Larger projects, or proofs from sources you do not trust, call for the stronger validation procedures described in the official documentation~\cite{leanvalidate}.

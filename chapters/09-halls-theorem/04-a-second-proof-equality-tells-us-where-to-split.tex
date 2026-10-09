@@ -1,7 +1,7 @@
 \section{A second proof: equality tells us where to split}
 An inductive proof reveals a different useful idea. A subset $S$ is called tight when $|N(S)|=|S|$. Such a subset has just enough tasks, with no spare capacity. It is a natural block to solve first. If no nonempty proper subset is tight, every such subset has at least one spare task, and that spare capacity lets us make an arbitrary first assignment.
 
-\noindent\textit{Proof plan.} Induct on $|L|$. If a proper tight block exists, solve inside the block and outside it. Otherwise assign one student any acceptable task and show the remaining graph still satisfies Hall's condition.
+\noindent\textit{Proof plan.} Induct on $|L|$. If a nonempty proper tight block exists, solve inside the block and outside it. Otherwise assign one student any acceptable task and show the remaining graph still satisfies Hall's condition.
 
 \subsection*{A concrete tight block before the general proof}
 Let four students have options
@@ -11,6 +11,8 @@ Let four students have options
 The group $S=\{a,b\}$ has exactly two available tasks, so it is tight. Assigning all of $S$ must use both tasks $1,2$. The remaining students therefore have options $c:\{3\}$ and $d:\{3,4\}$ after those two tasks are removed. They can use $3$ and $4$ respectively.
 
 Notice what happened to $T=\{c\}$. Originally $N(T)=\{2,3\}$, which overlaps $N(S)=\{1,2\}$. In the remaining problem its neighborhood is $N'(T)=\{3\}$. The prime in $N'$ labels a \emph{new neighborhood function}; it is not differentiation. The combined group $S\cup T$ had three distinct tasks. Subtracting the two tasks committed to $S$ left one for $T$.
+
+The same subtraction works for the group $T=\{c,d\}$. Together with $S$ it forms the whole class, whose available tasks are $\{1,2,3,4\}$; removing the two tasks committed to $S$ leaves $N'(T)=\{3,4\}$, again at least as many tasks as students in $T$.
 
 The general proof must establish this remaining capacity for every group $T$ outside $S$, not just for a single student. That is why it applies the original condition to $S\cup T$. Applying it to $T$ alone would give no control over how many of $T$'s options disappear when $N(S)$ is removed.
 
@@ -27,7 +29,7 @@ We use strong induction on $n=|L|$. For $n=0$, the empty matching works. Assume 
 \[
 N'(T)=N(T)\setminus N(S).
 \]
-Because $S$ and $T$ are disjoint, $|S\cup T|=|S|+|T|$. Applying Hall's condition to $S\cup T$ gives
+Because $S$ and $T$ are disjoint, $|S\cup T|=|S|+|T|$. The tasks acceptable to someone in $S\cup T$ are exactly the tasks acceptable to someone in $S$ or to someone in $T$, so $N(S\cup T)=N(S)\cup N(T)$. Applying Hall's condition to the set $S\cup T$ therefore gives
 \[
 |N(S)\cup N(T)|\ge |S|+|T|.
 \]
@@ -35,7 +37,9 @@ The union on the left is the disjoint union of $N(S)$ and $N(T)\setminus N(S)$. 
 \[
 |N(S)|+|N'(T)|\ge |S|+|T|.
 \]
-Substitute $|N(S)|=|S|$ and subtract $|S|$ from both sides to obtain $|N'(T)|\ge|T|$. This holds for every $T$, including the empty set. The remaining graph satisfies Hall's condition and has fewer than $n$ students. Induction therefore gives a matching of all remaining students using only tasks outside $N(S)$. \emph{Recombine the two answers.} The first matching uses students in $S$ and tasks in $N(S)$. The second uses students outside $S$ and tasks outside $N(S)$. No student or task can therefore occur in both matchings. Their union is a matching, and every original student belongs to one of the two matched groups. Hence it saturates $L$.
+Substitute $|N(S)|=|S|$ and subtract $|S|$ from both sides to obtain $|N'(T)|\ge|T|$. This holds for every $T$, including the empty set. The remaining graph satisfies Hall's condition and has fewer than $n$ students. Induction therefore gives a matching of all remaining students using only tasks outside $N(S)$.
+
+\emph{Recombine the two answers.} The first matching uses students in $S$ and tasks in $N(S)$. The second uses students outside $S$ and tasks outside $N(S)$. No student or task can therefore occur in both matchings. Their union is a matching, and every original student belongs to one of the two matched groups. Hence it saturates $L$.
 
 \textbf{Case 2: no nonempty proper subset is tight.} Hall's condition and the integrality of cardinalities imply
 \[

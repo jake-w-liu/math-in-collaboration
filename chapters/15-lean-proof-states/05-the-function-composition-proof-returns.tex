@@ -23,4 +23,12 @@ In the proof, those two elements are \code{f x} and \code{f y}, not \code{x} and
 
 The first proof line introduces arbitrary inputs and an equality of final outputs. The expression \code{hg (f x) (f y) h} supplies two inputs of $g$ and the evidence that their outputs agree. It returns equality of the intermediate values. The final application of \code{hf} then returns equality of the original inputs. These are the same two steps as Theorem~\ref{thm:injcomp}.
 
+If you run this proof in the editor, you will see that Lean displays the hypothesis \code{h} as
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+h : (fun x => g (f x)) x = (fun x => g (f x)) y
+\end{lstlisting}
+\end{minipage}\par
+rather than as \code{g (f x) = g (f y)}. The expression \code{(fun x => g (f x)) x} means ``apply the rule $x\mapsto g(f(x))$ to the input $x$,'' and evaluating that application gives \code{g (f x)}. This evaluation step is called \emph{beta-reduction}. Lean regards an expression and its beta-reduced form as the same proposition when it checks that a proof has the right type, which is why \code{hg (f x) (f y) h} is accepted. Some tactics, however, look for the literal written form of an expression, and Chapter~16 shows a case where we must first ask Lean to display the reduced form.
+
 If Lean rejects the application, inspect the actual types of \code{h}, \code{hf}, and \code{hg}. A common mistake is to apply \code{hf} directly to equality after $g$, skipping the intermediate equality that injectivity of $g$ must establish.

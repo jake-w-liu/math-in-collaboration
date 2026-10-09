@@ -1,0 +1,26 @@
+\section{Checking the Lean examples}
+After installing Lean with the official instructions~\cite{leaninstall}, create a file named \code{proofs.lean} that begins and ends as follows:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+import Std
+
+namespace MathCourse
+
+-- definitions and theorems from Chapters 15 and 16 go here
+
+end MathCourse
+\end{lstlisting}
+\end{minipage}\par
+Lines beginning with \code{--} are comments, which Lean ignores. Copy the definitions and theorems from Chapters~15 and~16, and the Lean solutions from Appendix~\ref{app:solc}, between the two lines containing \code{MathCourse}, in the order in which they appear in the book; a definition such as \code{Inj} must come before the theorems that use it. Every example in the book has been checked in this way with Lean version~4.19.0.
+
+Open the file in the editor to see the proof state beside each line, or check the whole file from a terminal with
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+lean proofs.lean
+\end{lstlisting}
+\end{minipage}\par
+If the command prints nothing, every declaration was accepted. Adding the line \code{\#print axioms MathCourse.surj\_comp} after \code{end MathCourse} makes Lean report the axioms that the proof depends on, as described in Chapter~16. For the examples in this book the report is that there are none.
+
+To see how Lean reacts to an unfinished proof, temporarily replace the last line of a proof by \code{sorry}. Lean then accepts the file but prints a warning, and \code{\#print axioms} lists \code{sorryAx}. Remove the \code{sorry} again before treating the file as checked.
+
+For further practice after these chapters, \emph{Mathematics in Lean} provides an interactive textbook with many exercises, built on the mathematical library Mathlib~\cite{mil}. It is a natural next step once the ideas of statements, goals, and proof states from Chapters~15 and~16 are familiar.

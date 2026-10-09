@@ -9,15 +9,15 @@ The number $\sqrt2$ is irrational.
 
 \noindent\textit{Plan.} If a fraction represented $\sqrt2$, squaring would force both its numerator and denominator to be even. That would allow a smaller positive denominator, contradicting a minimal choice.
 \begin{proof}
-Suppose $\sqrt2$ were rational. Then it could be written as $a/b$ with integers $a,b$ and $b>0$. Among all such representations, choose one with the smallest positive denominator $b$. This choice is possible because every nonempty set of positive integers has a least element; this is the well-ordering property of the integers.
+Suppose $\sqrt2$ were rational. Then it could be written as $a/b$ with integers $a,b$ and $b\ne0$. If $b$ were negative, multiplying numerator and denominator by $-1$ would give the same fraction with a positive denominator, so we may assume $b>0$. Among all such representations, choose one with the smallest possible positive denominator $b$. This choice is possible because every nonempty set of positive integers has a least element; this is called the \emph{well-ordering property} of the integers.
 
-The choice does not assume there are only finitely many fractions representing the number. Start from any one candidate denominator $b_0$. Among the finite list $1,2,\ldots,b_0$, at least $b_0$ occurs as a denominator. Select the first member of that list that occurs. A still smaller denominator would also be on the list, so this selected one is smallest among all candidates. If the initial representation had a negative denominator, multiplying numerator and denominator by $-1$ would first make it positive without changing the fraction.
+It is worth seeing why such a smallest denominator can actually be found, even though infinitely many fractions represent the same number. Call a positive integer $j$ \emph{usable} if $\sqrt2=a/j$ for some integer $a$. By assumption some denominator $b_0$ is usable. Now test $j=1,2,\ldots,b_0$ in order and stop at the first usable one; the list is finite and ends at a usable number, so the search must stop. The number found is smaller than or equal to every usable denominator, because any smaller usable denominator would have appeared earlier in the list. (The same search applied to $0.75=3/4=6/8=\cdots$ would test $1,2,3,4$ and stop at $4$.)
 
-Squaring $\sqrt2=a/b$ and multiplying by $b^2$ gives $a^2=2b^2$. Hence $a^2$ is even. By the parity result just proved, $a$ is even, so $a=2c$ for some integer $c$. Substitution gives
+Squaring $\sqrt2=a/b$ and multiplying by $b^2$ gives $a^2=2b^2$. Hence $a^2$ is even. By Lemma~\ref{thm:parity-square}, $a$ is even, so $a=2c$ for some integer $c$. Substitution gives
 \[
 (2c)^2=2b^2,\qquad 4c^2=2b^2,\qquad b^2=2c^2.
 \]
-Thus $b^2$ is even, and the same parity result shows that $b$ is even. Write $b=2d$. Since $b>0$, the integer $d=b/2$ is positive and smaller than $b$. But
+Thus $b^2$ is even, and Lemma~\ref{thm:parity-square} shows that $b$ is even. Write $b=2d$. Since $b>0$, the integer $d=b/2$ is positive and smaller than $b$. But
 \[
 \sqrt2=\frac{a}{b}=\frac{2c}{2d}=\frac{c}{d}.
 \]
@@ -25,5 +25,7 @@ This is a representation with a smaller positive denominator, contradicting the 
 \end{proof}
 
 There are two separate ideas: a local arithmetic fact about parity, and a global choice of the smallest denominator. The contradiction is not simply that numerator and denominator are even; fractions with both even certainly exist. The contradiction is that a representation chosen with minimal denominator could be reduced further.
+
+Could a computer settle the question instead? A calculator shows $\sqrt2\approx1.41421356$, and one can compute millions more digits. But every fraction $a/b$ has a decimal expansion that eventually repeats, and a repeating block can begin very late and be very long. No finite list of digits can rule out that the pattern starts just beyond the digits we have checked. The proof above avoids this problem entirely: it shows that \emph{no} fraction, of any size, can square to two.
 
 \pauseq{Where was positivity of the denominator used?}{It made the set of candidate denominators a nonempty set of positive integers with a least member, and it ensured $b/2$ was still positive and strictly smaller. Minimality would not have the same meaning over unrestricted negative denominators.}

@@ -9,7 +9,7 @@ Distribution gives $u\cdot v-t(v\cdot v)=0$. When $v\ne0$, its squared length $v
 \[
  t=\frac{u\cdot v}{v\cdot v}.
 \]
-This explains the coefficient that appears in the proof: it is the solution of a simple equation, not an unexplained guess. In our example $t=4/2=2$, so $u-tv=(1,-1)$, whose dot product with $(1,1)$ is indeed zero.
+So the coefficient used in the proof below is not a lucky guess: it is the solution of a simple equation. In our example $t=4/2=2$, so $u-tv=(1,-1)$, whose dot product with $(1,1)$ is indeed zero.
 
 The residual vector $u-tv$ is what remains after subtracting the chosen multiple. Its squared length is two in the example. The proof below turns the nonnegativity of this residual into the desired bound. Absolute value around $u\cdot v$ is needed because a dot product can be negative, whereas the product of two lengths is nonnegative.
 
@@ -21,7 +21,7 @@ For all $u,v\in\RR^n$, $|u\cdot v|\le\norm{u}_2\norm{v}_2$.
 
 \noindent\textit{Plan.} The squared length of $u-tv$ is nonnegative for every real $t$. Choose $t$ to remove as much of the component along $v$ as possible.
 \begin{proof}
-If $v=0$, both sides involving the dot product are zero and the inequality holds. Assume $v\ne0$, so $v\cdot v>0$. For any real $t$, expand one argument at a time:
+If $v=0$, both sides of the inequality are zero and it holds. Assume $v\ne0$, so $v\cdot v>0$. For any real $t$, expand one argument at a time:
 \begin{align*}
  (u-tv)\cdot(u-tv)
  &=u\cdot(u-tv)-t\,v\cdot(u-tv)\\
@@ -42,17 +42,17 @@ Move the fraction to the left and multiply by the positive quantity $v\cdot v$:
 Both sides are nonnegative. Taking nonnegative square roots gives the stated inequality, because $\sqrt{(u\cdot v)^2}=|u\cdot v|$.
 \end{proof}
 
-For $v\ne0$, equality holds exactly when the chosen vector $u-tv$ has zero length, that is, when $u$ is a scalar multiple of $v$.
+When does the inequality become an equality? For $v\ne0$, the answer is: exactly when $u$ is a scalar multiple of $v$.
 
-Indeed, after choosing $t$, the difference between the squared bound's right and left sides is
+To see this, look again at the proof. With the chosen $t$, it showed that $\norm{u-tv}_2^2=u\cdot u-(u\cdot v)^2/(v\cdot v)$. Multiplying by the positive number $v\cdot v$ gives
 \[
  (u\cdot u)(v\cdot v)-(u\cdot v)^2
  =(v\cdot v)\,\norm{u-tv}_2^2.
 \]
-Since $v\cdot v>0$, the difference vanishes exactly when the residual vector is zero. This is the equality case, not an additional assumption imposed to prove the inequality. If $v=0$, equality holds for every $u$, as the proof's separate first case already showed. This equality condition explains when the bound loses no information. It is often worth studying equality before trying to improve a bound.
+The left side measures the gap between the two sides of the squared inequality. Since $v\cdot v>0$, the gap is zero exactly when the residual vector $u-tv$ is zero, that is, when $u=tv$. Conversely, if $u=sv$ for some number $s$, then $t=(sv\cdot v)/(v\cdot v)=s$, so the residual is $u-sv=0$ and the gap vanishes. For example, $u=(2,2)$ and $v=(1,1)$ give $u\cdot v=4$ and $\norm{u}_2\norm{v}_2=\sqrt8\sqrt2=4$: equality. For $u=(3,1)$ and $v=(1,1)$ the gap is $20-16=4$, which equals $(v\cdot v)\norm{u-2v}_2^2=2\cdot2$. Nothing extra was assumed to obtain the equality case; it was already contained in the proof. If $v=0$, equality holds for every $u$, as the proof's separate first case already showed. This equality condition explains when the bound loses no information. It is often worth studying equality before trying to improve a bound.
 
 \subsection*{From the dot-product bound to a distance bound}
-The next chapter needs the fact that traveling through an intermediate vector cannot be shorter in total than the direct route. We establish its algebraic form here rather than leave a prerequisite hidden in an exercise. Expand
+The next chapter needs the fact that a route through an intermediate point is never shorter than the direct route. Cauchy--Schwarz gives its algebraic form quickly. Expand
 \begin{align*}
  \norm{u+v}_2^2
  &=(u+v)\cdot(u+v)\\
@@ -65,4 +65,4 @@ The first inequality uses $a\le|a|$ for a real number; the second uses Cauchy--S
 \[
  \norm{u+v}_2\le\norm{u}_2+\norm{v}_2.
 \]
-Exercise~10.5 asks you to reconstruct this argument, not to supply an unexplained prerequisite before you can continue.
+Exercise~\ref{ex:10.5} asks you to reconstruct this argument on your own.

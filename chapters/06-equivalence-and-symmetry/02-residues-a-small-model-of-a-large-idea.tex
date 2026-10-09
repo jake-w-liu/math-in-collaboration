@@ -3,7 +3,7 @@ Fix a positive integer $m$. Say $a\equiv b\pmod m$ when $m$ divides $a-b$. This 
 
 This is an equivalence relation. Reflexivity follows because $a-a=0=m\cdot0$. If $a-b=mk$, then $b-a=m(-k)$, proving symmetry. If $a-b=mk$ and $b-c=m\ell$, then $a-c=m(k+\ell)$, proving transitivity.
 
-The equivalence class $[a]_m$ consists of all integers equivalent to $a$. Division with remainder shows that every class has one representative among $0,1,\ldots,m-1$. These $m$ classes form the set $\ZZ/m\ZZ$. The notation can initially be read simply as ``integers with differences by multiples of $m$ ignored.'' We do not need the general theory of quotient objects to use this example correctly.
+The equivalence class $[a]_m$ consists of all integers equivalent to $a$. Every class has \emph{exactly one} representative among $0,1,\ldots,m-1$. One exists because division with remainder writes $a=qm+r$ with $0\le r<m$, and then $a-r=qm$, so $a\equiv r\pmod m$. For example, $-7=(-2)\cdot4+1$, so $-7$ is in the same class modulo four as $1$. There is only one such representative, because two different numbers in the range $0,\ldots,m-1$ differ by a positive amount less than $m$, which cannot be a multiple of $m$. Hence there are exactly $m$ classes. They form the set $\ZZ/m\ZZ$. The notation can initially be read simply as ``integers with differences by multiples of $m$ ignored.'' We do not need the general theory of quotient objects to use this example correctly.
 
 For modulus four, the class $[1]_4$ is the entire set
 \[

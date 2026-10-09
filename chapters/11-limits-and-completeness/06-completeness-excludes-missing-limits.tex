@@ -1,15 +1,19 @@
 \section{Completeness excludes missing limits}
-A metric space is complete when every Cauchy sequence in it converges to a point in the same space. We take completeness of the real numbers as a standard starting property of the real-number system. It is not something inferred from a numerical plot.
+A metric space is complete when every Cauchy sequence in it converges to a point in the same space. Informally, a complete space has no ``holes'': whenever the terms of a sequence crowd closer and closer together, there is a point of the space for them to crowd around.
 
 Completeness is a property of the chosen space, not an extra adjective for one sequence. To use it, first prove the sequence is Cauchy; then the definition guarantees a limit belonging to that space. To show a space is \emph{not} complete, it is enough to give one Cauchy sequence whose only possible destination has been excluded.
 
-We do not prove completeness of the real numbers here. It is an explicit starting fact about the number line, just as the existence of nonnegative square roots was an explicit starting fact earlier. We do prove the particular consequences of completeness that we use. This keeps the foundational boundary visible instead of hiding it behind an unsupported assertion that a limit exists.
+The real line with distance $|x-y|$ is complete. We accept this as a basic property of the real numbers, in the same way that we accepted the existence of nonnegative square roots in Chapter~1; proving it would require constructing the real numbers, which is beyond the scope of this book. Every other consequence of completeness that we use will be proved from this one starting fact. Stating the fact openly is important: when a later argument says that a limit exists, you will be able to point to exactly where that existence comes from.
 
 The interval $(0,1)$ with ordinary distance is not complete. The sequence $x_n=2^{-(n+1)}$ lies in that interval and is Cauchy: for $m,n\ge N$, both terms lie between zero and $2^{-(N+1)}$, so their distance is at most $2^{-(N+1)}$, which tends to zero. Its real limit is zero, but zero is excluded from $(0,1)$. It cannot converge to a different point of the interval because real limits are unique.
 
-A subset $C$ of a metric space is closed when it contains the limit of every convergent sequence of its points. We use this sequential definition here. If the ambient space is complete and $C$ is closed, then $C$ is complete with the inherited distance: a Cauchy sequence in $C$ converges in the ambient space, and closedness puts its limit back in $C$.
+Completeness can be passed from a space to many of its subsets. Let $(X,d)$ be a metric space and $C\subseteq X$. We say $C$ is \emph{closed} in $X$ when the following holds: whenever a sequence of points of $C$ converges to a point of $X$, that limit point lies in $C$. In words, you cannot leave $C$ by taking limits.
 
-In particular, the interval $[0,1]$ is complete. To check closedness rather than assume it, suppose a sequence of points in $[0,1]$ converges in the real line to a number $L$.
+If $X$ is complete and $C$ is closed, then $C$ is complete when it uses the same distance $d$. Here is the argument. Take a Cauchy sequence of points of $C$. The Cauchy condition only involves distances between terms, and those distances are the same whether we regard the terms as points of $C$ or of $X$. So the sequence is also Cauchy in $X$. Since $X$ is complete, the sequence converges to some point of $X$. Since $C$ is closed, that point lies in $C$. Hence every Cauchy sequence in $C$ converges in $C$.
+
+The interval $(0,1]$ shows what goes wrong without closedness. The points $1/(n+1)$ all lie in $(0,1]$ and converge in $\RR$ to $0$, which is not in $(0,1]$. So $(0,1]$ is not closed in $\RR$, and indeed it is not complete: the sequence is Cauchy, but its only possible limit is missing.
+
+The closed interval $[0,1]$, on the other hand, is complete. To check that it is closed rather than assume it, suppose a sequence of points in $[0,1]$ converges in the real line to a number $L$.
 
 If $L<0$, choose the positive tolerance $-L/2$. For a sufficiently late term, $|x_n-L|<-L/2$, so $x_n<L-L/2=L/2<0$. This contradicts $x_n\in[0,1]$. If $L>1$, instead choose tolerance $(L-1)/2$. A sufficiently late term then satisfies
 \[

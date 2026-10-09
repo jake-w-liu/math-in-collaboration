@@ -16,11 +16,11 @@ The inclusion matters: the selections at later stages retain the distance contro
 
 Choose $n_1\in S_1$. Once $n_{k-1}$ is chosen, choose $n_k\in S_k$ with $n_k>n_{k-1}$. Such an index exists because $S_k$ is infinite. This constructs a subsequence $(x_{n_k})$.
 
-Here $k$ counts the extraction stage, while $n_k$ is an index in the original sequence. For example, the first few chosen indices might be $n_1=4,n_2=9,n_3=15$. The extracted terms would be $x_4,x_9,x_{15}$, in that order. The index values need not follow a simple formula. What matters is that each $n_k$ is chosen from $S_k$ and is strictly larger than the preceding one.
+Here $k$ counts the extraction stage, while $n_k$ is an index in the original sequence. A concrete run helps. In the complete, totally bounded space $[-1,2]$, consider $x_n=(-1)^n+1/(n+1)$. The even-indexed terms $1+1/(n+1)$ crowd toward $1$, and the odd-indexed terms crowd toward $-1$. At stage $1$, a ball of radius $1/4$ around $1$ contains $x_n$ for every even $n\ge4$, so we may take $S_1=\{4,6,8,\ldots\}$. At stage $2$, a ball of radius $1/8$ around $1$ contains $x_n$ for the even $n\ge8$, so we may take $S_2=\{8,10,12,\ldots\}$, which lies inside $S_1$. Choosing $n_1=4$, then $n_2=8$ (the first index of $S_2$ beyond $4$), and so on, gives the subsequence $x_4,x_8,\ldots$, which converges to $1$. A different choice of balls at stage $1$, around $-1$, would have produced a subsequence converging to $-1$ instead; the theorem promises \emph{some} convergent subsequence, not a particular one. In general the index values need not follow a simple formula. What matters is that each $n_k$ is chosen from $S_k$ and is strictly larger than the preceding one.
 
 For $\ell\ge k$, nestedness means $S_\ell\subseteq S_k$. Since $n_\ell\in S_\ell$, it follows that $n_\ell\in S_k$. Thus not only the $k$th chosen term but \emph{every later chosen term} obeys the distance control from stage $k$. This is the bridge from one-stage choices to a Cauchy tail.
 
-We show it is Cauchy. Given $\eps>0$, choose $K$ with $2^{-K}<\eps$. For $\ell,m\ge K$, nestedness gives $S_\ell\subseteq S_K$ and $S_m\subseteq S_K$. Thus $n_\ell,n_m\in S_K$, and
+We show it is Cauchy. Given $\eps>0$, choose an integer $K\ge1$ with $2^{-K}<\eps$; we need $K\ge1$ because the distance control was only obtained for the stages $k\ge1$. For $\ell,m\ge K$, nestedness gives $S_\ell\subseteq S_K$ and $S_m\subseteq S_K$. Thus $n_\ell,n_m\in S_K$, and
 \[
  d(x_{n_\ell},x_{n_m})<2^{-K}<\eps.
 \]

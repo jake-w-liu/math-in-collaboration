@@ -16,7 +16,7 @@ The first requirement rules out negative distances and prevents different points
 
 To \emph{use} a metric already given in a theorem, we may use all three requirements. To \emph{propose} a new metric, we must check all three. These are the two directions of using a definition from Chapter~1. Merely naming a formula ``distance'' does not establish that it meets them.
 
-The real line with $d(x,y)=|x-y|$ is an example. In $\RR^n$, the Euclidean distance is $\norm{x-y}_2$, whose triangle inequality was derived in Chapter~10 and revisited in Exercise~10.5. Another useful choice is
+The real line with $d(x,y)=|x-y|$ is an example. In $\RR^n$, the Euclidean distance is $\norm{x-y}_2$, whose triangle inequality was derived at the end of Chapter~10 (see also Exercise~\ref{ex:10.5}). Another useful choice is
 \[
 d_\infty(x,y)=\max_{1\le j\le n}|x_j-y_j|.
 \]
@@ -24,6 +24,6 @@ It records the worst coordinate error. For every coordinate $j$,
 \[
 |x_j-z_j|\le|x_j-y_j|+|y_j-z_j|\le d_\infty(x,y)+d_\infty(y,z).
 \]
-Taking the maximum over $j$ proves its triangle inequality. This example shows that a distance can be selected to match the question being controlled.
+The right side does not depend on $j$, so it bounds the largest of the left sides too, which is $d_\infty(x,z)$. This proves the triangle inequality. The other two requirements are checked in Exercise~\ref{ex:11.3}. This example shows that a distance can be selected to match the question being controlled.
 
 A norm measures the size of a vector, is nonnegative and zero exactly at the zero vector, and satisfies $\norm{cx}=|c|\norm{x}$, and the triangle inequality. It produces a metric by $d(x,y)=\norm{x-y}$. A general metric space need not allow addition of points. Our later proof will be stronger if it uses only distances when vector subtraction is unnecessary.

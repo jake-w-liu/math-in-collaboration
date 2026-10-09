@@ -11,7 +11,14 @@ A function with both properties is \emph{bijective}. An injective function prese
 
 Consider the finite map $f:\{a,b\}\to\{1,2,3\}$ with $f(a)=1$ and $f(b)=2$. Its inputs do not merge, so it is injective. It misses the target three, so it is not surjective. Conversely, the map $g:\{a,b,c\}\to\{1,2\}$ with outputs $1,1,2$ is surjective but not injective. Its two preimages of one prevent a uniquely determined reverse assignment.
 
-Why does bijectivity supply an inverse? Given a target $b$, surjectivity supplies at least one preimage $a$. Injectivity says that two such preimages would have to be equal. We can therefore define $h(b)$ to be that unique preimage. By construction $f(h(b))=b$, and for any input $a$, the unique preimage of $f(a)$ is $a$ itself, giving $h(f(a))=a$. Both inverse identities have now been checked.
+Why does a bijective function have an inverse? Call an input $a$ a \emph{preimage} of a target $b$ when $f(a)=b$. To build an inverse $h$, we must decide, for every target $b$, which input $h(b)$ should be. The two properties of a bijection are exactly what make this decision possible and unambiguous.
+\begin{itemize}
+\item Surjectivity says that every target $b$ has \emph{at least one} preimage, so there is something to choose.
+\item Injectivity says that every target has \emph{at most one} preimage: if $f(a_1)=b$ and $f(a_2)=b$, then $f(a_1)=f(a_2)$ and so $a_1=a_2$. So there is no choice to make.
+\end{itemize}
+We may therefore define $h(b)$ to be \emph{the} unique preimage of $b$. Now check the two inverse identities. By the definition of $h$, the input $h(b)$ is sent to $b$, so $f(h(b))=b$. For the other identity, start with an input $a$ and look at its output $f(a)$. The input $a$ is certainly a preimage of $f(a)$, and the preimage is unique, so $h(f(a))=a$.
+
+For a small example, let $f:\{x,y,z\}\to\{1,2,3\}$ be given by $f(x)=2$, $f(y)=3$, $f(z)=1$. Every target is hit exactly once, so $f$ is bijective. Reading the arrows backward gives the inverse: $h(1)=z$, $h(2)=x$, $h(3)=y$. The general argument above is just a careful description of this ``read the arrows backward'' recipe, with an explanation of why the recipe produces exactly one answer for each target.
 
 The square map on all real inputs is not injective because $f(1)=f(-1)$. Restricted to nonnegative inputs and nonnegative outputs, it is bijective: each nonnegative real has exactly one nonnegative square root. Here we use the usual square-root property of real numbers. Changing the domain removes the collision, and changing the codomain removes unreachable negative targets.
 
@@ -43,4 +50,10 @@ f(0)=0,\quad f(1)=1,\qquad g(0)=0,\quad g(1)=g(2)=1.
 \]
 The composition sends $0$ to $0$ and $1$ to $1$, so it is injective. Yet $g$ is not injective because the distinct inputs $1,2$ have equal output.
 \end{proof}
-The unused input $2$ explains the failure. The composition only tests $g$ on the image $f(A)$, not on the whole set $B$. A counterexample can reveal the exact correction: $g$ is injective when restricted to $f(A)$.
+The unused input $2$ explains the failure. The composition only tests $g$ on the image $f(A)$, not on the whole set $B$. A counterexample can reveal the exact correction. The \emph{restriction} of $g$ to the image $f(A)$ is the function $f(A)\to C$ that uses the same rule as $g$ but accepts only inputs from $f(A)$. That restriction is always injective when $g\circ f$ is: if $g(f(x))=g(f(y))$ for two image points $f(x),f(y)$, injectivity of the composition gives $x=y$, and hence $f(x)=f(y)$. In the example, $g$ is injective on $f(A)=\{0,1\}$ and fails only at the unused point $2$.
+
+This diagnosis also suggests an extra assumption that would rescue the original converse. If $f$ is \emph{surjective}, then $f(A)$ is all of $B$, so there are no untested inputs of $g$. Let us check that this really works. Suppose $g\circ f$ is injective and $f$ is surjective, and let $b_1,b_2\in B$ satisfy $g(b_1)=g(b_2)$. Surjectivity supplies inputs $a_1,a_2\in A$ with $f(a_1)=b_1$ and $f(a_2)=b_2$. Then
+\[
+(g\circ f)(a_1)=g(b_1)=g(b_2)=(g\circ f)(a_2),
+\]
+so injectivity of the composition gives $a_1=a_2$. Applying $f$ to both sides gives $b_1=f(a_1)=f(a_2)=b_2$. Hence $g$ is injective on all of $B$. Each hypothesis has a visible job: surjectivity of $f$ lets us reach every input of $g$, and injectivity of $g\circ f$ lets us compare them.

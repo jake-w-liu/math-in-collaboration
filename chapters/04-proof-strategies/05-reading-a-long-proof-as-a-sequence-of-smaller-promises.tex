@@ -1,20 +1,8 @@
 \section{Reading a long proof as a sequence of smaller promises}
-A \emph{lemma} is a supporting result. A \emph{theorem} is a result emphasized as a main conclusion. A numbered \emph{proposition} is another presentation of an assertion with a proof. In logic, the same word can also mean a statement whose truth has not yet been established. The labels describe the author's organization, not different standards of truth.
-
-When a paper invokes a lemma, pause to identify its inputs and output. In the irrationality proof, the parity lemma accepts the fact that $a^2$ is even and returns that $a$ is even. The hypothesis is visibly satisfied. A reference such as ``by a standard result'' is not enough for a beginner unless the result and the matching assumptions are supplied.
+Long proofs are usually assembled from shorter results: lemmas, earlier propositions, and theorems, labels whose roles were described in Chapter~1. Each such result works like a small promise: if its hypotheses are supplied, it delivers its conclusion. When a paper invokes a lemma, pause to identify its inputs and output. In the irrationality proof, Lemma~\ref{thm:parity-square} accepts the fact that $a^2$ is even and returns that $a$ is even. The hypothesis is visibly satisfied. A reference such as ``by a standard result'' is not enough for a beginner unless the result and the matching assumptions are supplied.
 
 A proof can also use temporary assumptions. In a contradiction proof, the false statement being assumed must remain clearly marked. We may deduce consequences from it inside that argument, but we must not export it as an established fact afterward.
 
 \begin{principle}{Habit 4: ask for a local contract, not just more words}
 At a difficult step, ask: What is known here? What is the next target? Which exact result is used? Why do its assumptions hold? Which quantity is being constructed? These questions reveal missing mathematics more reliably than asking for an explanation to be ``simpler.''
 \end{principle}
-
-\begin{lab}{Finding the actual contradiction}
-\noindent\textbf{Deliberately incomplete reply.} ``Assume $\sqrt2=a/b$. Then $a$ and $b$ are even, a contradiction.''
-
-\noindent\textbf{Learner.} ``Why can a numerator and denominator not both be even? For example, $2/4$ is a valid fraction. Identify the missing condition.''
-
-\noindent\textbf{Repair.} Choose a representation with the smallest positive denominator, or explicitly choose one in lowest terms and justify that such a representation exists. Then show that both numerator and denominator being even contradicts that chosen property.
-
-\noindent\textbf{Your output.} A three-part annotation: the assumption introduced for contradiction; the supporting parity result; and the exact statement contradicted. Then explain why checking many decimal digits of $\sqrt2$ would not establish irrationality.
-\end{lab}

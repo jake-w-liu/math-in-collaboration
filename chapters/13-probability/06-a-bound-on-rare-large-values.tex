@@ -3,18 +3,14 @@ For a nonnegative random variable $X$ and a real threshold $a>0$, we have
 \[
 \Prob(X\ge a)\le\frac{\E X}{a}.
 \]
-To prove it, split the expectation into outcomes where $X\ge a$ and the rest. The first part is at least $a\Prob(X\ge a)$, while the second is nonnegative. Hence $\E X\ge a\Prob(X\ge a)$, and division by $a$ gives the claim. This is Markov's inequality in a finite setting.
+To prove it, split the sum defining the expectation into the outcomes where $X\ge a$ and the rest:
+\[
+\E X=\sum_{\omega:\,X(\omega)\ge a}p(\omega)X(\omega)+\sum_{\omega:\,X(\omega)<a}p(\omega)X(\omega).
+\]
+In the first sum every value $X(\omega)$ is at least $a$, so that sum is at least $\sum_{X(\omega)\ge a}p(\omega)\,a=a\Prob(X\ge a)$. In the second sum every term is nonnegative, because $X$ is nonnegative. Hence $\E X\ge a\Prob(X\ge a)$, and dividing by the positive number $a$ gives the claim. This is \emph{Markov's inequality} in a finite setting. For example, if the average score in a class is $20$ and no score is negative, then at most a quarter of the students can have scored $80$ or more.
 
 The nonnegativity assumption is not decorative. Large negative values could offset large positive ones in the expectation. For example, a variable equal to $100$ or $-100$ with equal probability has expectation zero but is at least $100$ with probability $1/2$.
 
 \begin{principle}{Habit 8: choose a quantity whose average is easier than its best value}
 When direct construction is difficult, define a finite experiment and count the desired or undesired features by indicators. Ask which averages can be computed exactly. Then state the logical conclusion carefully: one suitable outcome, a probability bound, or an actual efficient construction are different results.
 \end{principle}
-
-\begin{lab}{A proof that asks for an unnecessary assumption}
-\noindent\textbf{Deliberately flawed criticism.} ``The cut proof is invalid because the edge indicators are not independent.''
-
-\noindent\textbf{Learner.} ``Which identity requires independence? Expand the expectation of the sum directly. Separately identify where independence of vertex labels was used.''
-
-\noindent\textbf{Model distinction.} Independence of the two endpoint labels gives each edge crossing probability $1/2$. Linearity of expectation then sums these probabilities without requiring independence between the edge events. Write a triangle example to demonstrate the difference. Finally, run the deterministic construction by hand on a four-cycle.
-\end{lab}

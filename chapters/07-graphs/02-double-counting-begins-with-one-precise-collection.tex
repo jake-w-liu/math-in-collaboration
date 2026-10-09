@@ -15,6 +15,18 @@ In a finite simple undirected graph, $\sum_{v\in V}\deg(v)=2|E|$, where $|E|$ is
 Count pairs $(v,e)$ in which $v$ is an endpoint of the edge $e$. Fixing a vertex $v$ gives $\deg(v)$ such pairs, so counting by vertices gives the sum on the left. Fixing an edge gives exactly two pairs, one for each endpoint, so counting by edges gives $2|E|$. Both counts refer to the same collection, so they are equal.
 \end{proof}
 
-As a consequence, the number of vertices of odd degree is even. Split the degree sum into its even terms and odd terms. The even terms sum to an even integer. The entire sum is even, so the sum of the odd terms is even. A sum of $k$ odd integers has the same parity as $k$, because it can be written as twice an integer plus $k$. Hence $k$ is even.
+The theorem has a surprising consequence: \emph{in every finite simple graph, the number of vertices of odd degree is even.} In the displayed graph the odd-degree vertices are $c$ and $d$, two of them. Here is why it must always happen.
 
-This is more informative than a numerical observation about one drawing. No rearrangement of the graph can produce exactly one odd-degree vertex under the stated rules.
+Suppose exactly $k$ vertices have odd degree. Split the degree sum into two parts: the degrees that are even and the degrees that are odd.
+\begin{itemize}
+\item The even degrees add up to an even number, because a sum of even numbers is even.
+\item The whole degree sum equals $2|E|$, so it is even.
+\item Therefore the odd degrees also add up to an even number: it is the difference of two even numbers.
+\end{itemize}
+Now write each odd degree in the form $2\ell_i+1$, using the definition from Chapter~1. Adding $k$ such numbers gives
+\[
+(2\ell_1+1)+\cdots+(2\ell_k+1)=2(\ell_1+\cdots+\ell_k)+k.
+\]
+This sum is even, and $2(\ell_1+\cdots+\ell_k)$ is even, so $k$ is the difference of two even numbers and is itself even.
+
+This conclusion is more informative than anything we could see in one drawing. It says, for example, that no graph whatsoever has exactly one vertex of odd degree, and no group of seven people can be arranged so that each of them shakes hands with exactly three others: the degrees would be seven odd numbers.

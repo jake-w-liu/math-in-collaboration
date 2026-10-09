@@ -18,4 +18,8 @@ With $e_1=(1,0)$ and $e_2=(0,1)$, the vector $(3,-2)$ is $3e_1-2e_2$. Existence 
 
 The single vector $(1,1)$ does not span the plane: every multiple has equal coordinates, so it cannot make $(1,0)$. The list $(1,0),(0,1),(1,1)$ does span it, but does not give unique coefficients. The vector $(1,1)$ can be made as one copy of the third vector or as one copy each of the first two. A basis requires both spanning and uniqueness.
 
-An equivalent test for uniqueness is that a combination equaling zero must have all coefficients zero; this property is called \emph{linear independence}. To see the connection, subtract two representations of the same vector. The differences of their coefficients make a combination equal to zero. If only zero coefficients can do this, the two original coefficient lists agree. Conversely, a nonzero coefficient list making zero would give a second representation of the zero vector besides the all-zero list.
+An equivalent test for uniqueness is that a combination equaling zero must have all coefficients zero; this property is called \emph{linear independence}. To see the connection, subtract two representations of the same vector. The differences of their coefficients make a combination equal to zero. If only zero coefficients can do this, the two original coefficient lists agree. Conversely, a nonzero coefficient list making zero would give a second representation of the zero vector besides the all-zero list. For the list $(1,0),(0,1),(1,1)$, subtracting the two representations of $(1,1)$ found above gives
+\[
+(-1)(1,0)+(-1)(0,1)+1\cdot(1,1)=(0,0),
+\]
+a combination equal to zero whose coefficients are not all zero. So this list is not linearly independent, which is another way of saying that it does not give unique coefficients.

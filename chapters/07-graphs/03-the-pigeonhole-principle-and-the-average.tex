@@ -1,6 +1,14 @@
 \section{The pigeonhole principle and the average}
-If $n$ objects occupy $m$ boxes and every box contains at most $k$ objects, then $n\le mk$: add the bounds for all boxes. Taking the contrapositive, if $n>mk$, some box contains more than $k$ objects. This is the pigeonhole principle in a quantitative form.
+If $n$ objects are placed in $m$ boxes and every box contains at most $k$ objects, then $n\le mk$: adding the bounds for all $m$ boxes gives at most $mk$ objects in total. Taking the contrapositive gives the \emph{pigeonhole principle}: if $n>mk$, then some box contains more than $k$ objects. The best-known case is $k=1$: if more than $m$ objects are placed in $m$ boxes, some box contains at least two of them. For example, among any $13$ people, two have their birthdays in the same month. Notice that the principle tells us that such a box \emph{exists}, but not which box it is.
 
-For real numbers $a_1,\ldots,a_n$ with $n>0$, at least one is at least their average $\bar a=(a_1+\cdots+a_n)/n$. Otherwise each would be strictly less than $\bar a$, and adding those strict inequalities would give a total smaller than $n\bar a$, contradicting the definition. Similarly, at least one is at most the average.
+A closely related fact concerns averages. Let $a_1,\ldots,a_n$ be real numbers, with $n\ge1$, and let
+\[
+\bar a=\frac{a_1+\cdots+a_n}{n}
+\]
+be their average. Then at least one of the numbers is at least $\bar a$. To see why, suppose instead that every $a_i$ were strictly less than $\bar a$. Adding these $n$ strict inequalities would give
+\[
+a_1+\cdots+a_n<n\bar a.
+\]
+But by the definition of the average, $n\bar a$ is exactly $a_1+\cdots+a_n$, so we would have a number strictly less than itself. This contradiction proves the claim. The same argument, with all inequalities reversed, shows that at least one of the numbers is at most the average. For instance, the numbers $1,3,8$ have average $4$; the number $8$ is at least $4$, and the numbers $1$ and $3$ are at most $4$.
 
-The word ``some'' is essential. An average does not control every entry. A graph with $m$ edges and $n>0$ vertices therefore has a vertex of degree at least $2m/n$, but not necessarily all vertices have that degree. Chapter~13 will turn the same observation into a method for proving existence through random choices.
+The word ``some'' is essential. An average does not control every entry. Applying the averaging fact to the degrees of a graph with $m$ edges and $n\ge1$ vertices, whose degrees sum to $2m$ by the handshake theorem, shows that some vertex has degree at least $2m/n$. It does not say that every vertex has that degree. Chapter~13 turns this same observation into a method for proving that an object exists by computing an average over random choices.

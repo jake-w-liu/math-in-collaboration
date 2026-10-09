@@ -16,7 +16,3 @@ theorem left_inverse_inj {A B : Type}
 \end{minipage}\par
 
 The first step reverses the identity $g(f(x))=x$; \code{.symm} reverses an equality proof. The middle step applies $g$ to the assumed equality $f(x)=f(y)$. The final step uses the inverse identity at $y$. The underscores reuse the previous expression, keeping the chain readable.
-
-\begin{lab}{One repair at a time}
-Give the assistant the composition theorem with the middle \code{have} line removed. Ask for the missing mathematical fact first, not a replacement script. Then request exactly one Lean line expressing that fact. After inserting it, inspect the remaining goal yourself. Finally change the theorem to the false converse from Chapter~3. Before requesting tactics, supply the finite counterexample and explain why no sound proof of that unrestricted statement should exist.
-\end{lab}
