@@ -1,5 +1,5 @@
-\section{A successful proof can still be irrelevant}
-The following theorem is logically valid:
+\section{A successful proof can still be irrelevant}\label{ch16:sec:irrelevant}
+Lean accepts the following theorem without any error or warning:
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 theorem impossible_context (h : False) : (0 : Nat) = 1 := by
@@ -7,6 +7,22 @@ theorem impossible_context (h : False) : (0 : Nat) = 1 := by
 \end{lstlisting}
 \end{minipage}\par
 
-It does not establish that zero equals one unconditionally. It says that from the impossible assumption \code{False}, any conclusion follows. The assumption is part of the statement. A reader who looks only at the conclusion would misunderstand what was proved.
+Its conclusion, $0=1$, is false. Yet the theorem is correct, because the conclusion is not all that it says. The parameter \code{h : False} is a hypothesis, and \code{False} is the proposition that is never true, so it has no proof. The theorem says: \emph{if} we had a proof of \code{False}, then $0=1$ would follow. This implication is true for the reason that Section~\ref{ch02:sec:contrapositive} gave for vacuous truth: its hypothesis can never be satisfied. The proof uses the rule \code{False.elim}, which turns a proof of \code{False} into a proof of any proposition whatsoever. Since nobody can ever supply the hypothesis \code{h}, the theorem can never be used to conclude that $0=1$. A reader who looked only at the conclusion would completely misunderstand what was proved.
 
-This matters when an assistant ``repairs'' a failing proof by adding a hypothesis. Adding injectivity may make a false cancellation theorem true. Adding existence of the desired solution may trivialize an existence theorem. The code may then check, but the mathematical task has changed. Review the statement difference before reviewing the proof difference.
+The same thing can happen less visibly when an assistant ``repairs'' a proof that Lean rejects by changing the statement, most often by adding a hypothesis. The new statement may well be true and its proof correct, and still not be the statement that was asked for. Here are two examples.
+\begin{itemize}
+\item The claim ``for all real numbers $x$ and $y$, if $x^2=y^2$, then $x=y$'' is false: take $x=1$ and $y=-1$. Adding the hypotheses $x\ge0$ and $y\ge0$ makes it true, because the square map is injective on $[0,\infty)$ (Section~\ref{ch03:sec:injsurj}). The repaired claim is a correct theorem, but it says nothing about negative numbers. Whether the repair is acceptable depends on whether those hypotheses were part of the intended statement.
+\item An existence theorem can be made trivial by assuming the very thing to be proved. Here is \code{surj\_comp} with one extra hypothesis:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+theorem surj_comp_assumed {A B C : Type}
+    (f : A -> B) (g : B -> C)
+    (hf : Surj f) (hg : Surj g)
+    (h : Surj (fun x => g (f x))) :
+    Surj (fun x => g (f x)) := by
+  exact h
+\end{lstlisting}
+\end{minipage}\par
+The new hypothesis \code{h} is the conclusion itself, so the proof only has to repeat it. Lean accepts this theorem. It does print a warning that the variables \code{hf} and \code{hg} are unused, a useful hint that the proof never needed the real hypotheses. But a warning is not an error, and a changed statement does not always leave such a trace: \code{impossible\_context} produces no warning at all.
+\end{itemize}
+In both examples the repaired statement has a correct proof that Lean would accept, but the mathematical task has changed. So when a proof has been repaired, first compare the new statement with the old one, hypothesis by hypothesis and down to the conclusion, as in the table of Section~\ref{ch16:sec:surj}. Only then look at how the proof itself changed.

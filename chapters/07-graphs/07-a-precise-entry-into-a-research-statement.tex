@@ -1,18 +1,44 @@
-\section{A precise entry into a research statement}
-Let $N_1^+(v)$ be the set of out-neighbors of $v$, which we call its \emph{first out-neighborhood}. Its \emph{second out-neighborhood} is
-\[
-N_2^+(v)=\{w:\ w\ne v,\ w\notin N_1^+(v),\ \text{and some }u\text{ satisfies }v\to u\to w\}.
-\]
-In words, $w$ belongs to $N_2^+(v)$ when it can be reached from $v$ in two steps but not in fewer: it is not $v$ itself and not a first neighbor. These are the vertices at directed distance \emph{exactly} two. They are counted as vertices, not as routes: if several intermediate vertices $u$ lead to the same $w$, then $w$ is still counted once.
+\section{Second out-neighborhoods and a research problem}\label{ch07:sec:seymour}
+This section states a problem about directed graphs that stayed open for more than thirty years. Stating it exactly needs one more idea: distance measured along the arrows.
 
-Two small examples show how the exclusions work. In the graph with edges $a\to b$, $b\to c$, and $a\to c$, the vertex $c$ can be reached from $a$ by the two-step route $a\to b\to c$, but it is not in $N_2^+(a)$, because the edge $a\to c$ already makes it a first neighbor. Here $|N_1^+(a)|=2$ and $|N_2^+(a)|=0$. In the directed cycle $a\to b\to c\to a$, each vertex has exactly one first neighbor and exactly one second neighbor: for instance $N_1^+(a)=\{b\}$ and $N_2^+(a)=\{c\}$.
+The deletion argument of Lemma~\ref{ch07:lem:shortest-walk} works just as well for directed walks. If a vertex appears twice in a directed walk, cut out the part between the two visits. The arrow that used to leave the second visit now leaves the first, which is the same vertex, so what remains is still a directed walk with the same start and end, and it is shorter. Exactly as in the proof of the lemma, it follows that whenever there is a directed walk from $v$ to $w$, a shortest one exists and is a directed path. Its length is called the \emph{directed distance} from $v$ to $w$. Unlike distance in a graph, directed distance depends on the order of the two vertices. In the chain $a\to b\to c$, the directed distance from $a$ to $c$ is $2$, but there is no directed walk from $c$ back to $a$ at all.
+
+Now let $v$ be a vertex of a directed graph with vertex set $V$. Write $N_1^+(v)$ for the set of out-neighbors of $v$, and call it the \emph{first out-neighborhood} of $v$. Its members are exactly the vertices at directed distance $1$ from $v$. The \emph{second out-neighborhood} of $v$ is the set
+\[
+N_2^+(v)=\{w\in V:\ w\ne v,\ w\notin N_1^+(v),\ \text{and }v\to u\to w\text{ for some vertex }u\}.
+\]
+The superscript $+$ is a reminder that we follow the arrows outward from $v$, and the subscript counts the steps. In words, $w$ belongs to $N_2^+(v)$ when it can be reached from $v$ in two steps but not in fewer. It is not $v$ itself, which is at distance $0$, and it is not a first out-neighbor, which is at distance $1$, but some directed walk $v\to u\to w$ of length $2$ reaches it. So $N_2^+(v)$ is exactly the set of vertices at directed distance \emph{exactly} two from $v$. It is a set of vertices, not of routes: if several intermediate vertices $u$ lead to the same $w$, then $w$ is still a single member of $N_2^+(v)$ and is counted once in $|N_2^+(v)|$.
+
+In an oriented graph, the condition $w\ne v$ holds automatically, because a route $v\to u\to v$ would need edges in both directions between $v$ and $u$. In a directed graph that is not oriented, such a route can occur, and the condition $w\ne v$ is what prevents $v$ from counting as its own second out-neighbor. Chapter~\ref{ch:lean2} writes the same three conditions in Lean for an arbitrary relation between vertices.
+
+Two small examples show how the exclusions work. In the oriented graph with edges $a\to b$, $b\to c$, $a\to c$, and $c\to d$, the two-step routes from $a$ are $a\to b\to c$ and $a\to c\to d$. The vertex $c$ is at the end of the first route, but it is not in $N_2^+(a)$, because the edge $a\to c$ already makes it a first out-neighbor. So
+\[
+N_1^+(a)=\{b,c\},\qquad N_2^+(a)=\{d\},\qquad |N_1^+(a)|=2,\qquad |N_2^+(a)|=1.
+\]
+In the directed cycle $a\to b\to c\to a$, each vertex has exactly one first and one second out-neighbor; for instance, $N_1^+(a)=\{b\}$ and $N_2^+(a)=\{c\}$.
 
 In 1990 Paul Seymour proposed the following statement, now known as \emph{Seymour's second-neighborhood conjecture}:
 \begin{quote}
 Every nonempty finite oriented graph has a vertex $v$ with $|N_2^+(v)|\ge|N_1^+(v)|$.
 \end{quote}
-In words: some vertex reaches at least as many new vertices in its second step as in its first. A sink always satisfies the inequality, since both of its neighborhoods are empty, so the interesting graphs are those in which every vertex has an outgoing edge. For decades the statement remained open in general, although special cases were settled; the case of tournaments, for example, was proved in 1996.
+In words: some vertex reaches at least as many new vertices in its second step as in its first. The conjecture asks for one such vertex, not for every vertex to have this property. In the four-vertex example above, the vertex $a$ fails the inequality, since $1<2$, but the vertex $d$ satisfies it. Indeed, $d$ is a sink, and a sink always satisfies the inequality: it has no out-neighbors, so it has no two-step routes either, and both of its out-neighborhoods are empty. So the interesting graphs are those in which every vertex has at least one out-neighbor.
 
-In September 2026 a preprint claiming a proof of the full conjecture was released together with a formal proof in the Lean proof assistant, in OpenAI's public mathematics repository~\cite{oai173}. The repository's description of the formalized statement uses exactly the conventions above: the second neighborhood consists of vertices at directed distance exactly two, $v$ and its first neighbors are excluded, and sinks are allowed. This book does not reproduce or check that proof. Chapter~16 shows how its definitions can be read in Lean, and Chapter~17 describes how to begin reading such a proof responsibly.
+The word ``oriented'' cannot be dropped from the conjecture. Consider the directed graph with two vertices $u$ and $v$ and both edges $u\to v$ and $v\to u$. The only two-step route from $u$ is $u\to v\to u$, which returns to $u$ itself, so $N_1^+(u)=\{v\}$ and $N_2^+(u)=\varnothing$. The same holds for $v$, so neither vertex satisfies the inequality.
 
-What we \emph{can} prove completely already is a special case. If an oriented graph is nonempty, finite, and acyclic, Theorem~\ref{thm:sink} gives a sink $v$, and then $|N_2^+(v)|=0\ge0=|N_1^+(v)|$. This is a complete proof for the acyclic class of graphs, and no proof at all for graphs with directed cycles. Keeping track of exactly which class a proof covers is the same discipline as keeping track of the scope of a quantifier in Chapter~2.
+For decades the conjecture remained open, although special cases were settled; the case of tournaments, for example, was proved by David Fisher in 1996. In September 2026, a preprint claiming a proof of the full conjecture was released, together with a formal proof in the Lean proof assistant, in OpenAI's public mathematics repository~\cite{oai173}. The repository's description of the formalized statement uses exactly the conventions above: the second out-neighborhood consists of the vertices at directed distance exactly two, so $v$ and its first out-neighbors are excluded, and graphs with sinks are allowed. The proof is long and draws on ideas well beyond this course. Chapter~\ref{ch:lean2} shows how the definition of $N_2^+(v)$ is written in Lean, and Chapter~\ref{ch:bridge} describes how to begin reading a proof of this kind.
+
+If a news report or an AI assistant tells you that ``Seymour's conjecture has been proved,'' the first thing to check is \emph{which statement} was proved. A proof that counted two-step routes instead of vertices, or that allowed first out-neighbors to count as second out-neighbors, would establish a weaker statement, because both changes can only make the second count larger. The definitions in this section are what let you ask that question precisely.
+
+We can already prove one special case completely.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{proposition}\label{ch07:prop:acyclic-seymour}
+Every nonempty finite acyclic oriented graph has a vertex $v$ with $|N_2^+(v)|\ge|N_1^+(v)|$.
+\end{proposition}
+\end{minipage}\par
+
+\begin{proof}
+By Theorem~\ref{thm:sink}, the graph has a sink $v$. A sink has no out-neighbors, so $N_1^+(v)=\varnothing$. A member $w$ of $N_2^+(v)$ would need a route $v\to u\to w$, whose first step would make $u$ an out-neighbor of $v$; since there is none, $N_2^+(v)=\varnothing$ as well. Hence $|N_2^+(v)|=0\ge0=|N_1^+(v)|$.
+\end{proof}
+
+This is a complete proof for acyclic graphs, and no proof at all for graphs with directed cycles, which is where all the difficulty lies. In fact, a counterexample to the conjecture would have to be a nonempty finite oriented graph without a sink, and by Theorem~\ref{thm:sink} such a graph must contain a directed cycle. Keeping track of exactly which graphs a proof covers is part of keeping the statement contract of Habit~2 (Chapter~\ref{ch:logic}): the hypothesis ``acyclic'' belongs to the contract of Proposition~\ref{ch07:prop:acyclic-seymour}, and removing it changes the statement into the conjecture itself.

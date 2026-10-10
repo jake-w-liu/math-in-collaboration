@@ -1,29 +1,52 @@
-\section{A failed search exposes a shortage}
-For $S\subseteq L$, let $N(S)$ be the tasks acceptable to at least one student in $S$. Suppose a complete alternating search from an unmatched student $x$ reaches no unused task. Let $A$ be the reached students, including $x$, and let $B$ be the reached tasks.
+\section{A failed search exposes a shortage}\label{ch08:sec:shortage}
+To say that a group of students is short of tasks, we need the set of all the tasks that the group accepts. For a set $S$ of students, let $N(S)$ be the set of tasks that at least one student of $S$ accepts. In other words, $N(S)$ is the union of the sets $N(s)$ for $s$ in $S$; for example, $N(\{a,b,c\})=N(a)\cup N(b)\cup N(c)$. A task accepted by several students of $S$ is still only one member of $N(S)$. In the second Ada--Ben example, $N(\{\text{Ada},\text{Ben}\})=\{1,2\}\cup\{1\}=\{1,2\}$. For a single student, $N(\{s\})=N(s)$, and the empty set of students accepts no tasks at all, so $N(\varnothing)=\varnothing$.
 
-Before the general counting argument, consider three students $a,b,c$ who can all use only tasks $1,2$. Suppose $a$ is matched to $1$ and $b$ to $2$, with root $x=c$. The search reaches both tasks and then their owners $a,b$. It finds no unused task. Thus $A=\{c,a,b\}$ and $B=\{1,2\}$.
+Now suppose that the complete search of Section~\ref{ch08:sec:search}, started at an unmatched student $x$, fails. Let $A$ be the set of students it reached, including $x$, and let $B$ be the set of tasks it reached.
 
-The existing matching pairs task $1$ with $a$ and task $2$ with $b$. Every reached student \emph{except the unmatched root} appears in exactly one such pair. There is no pair for $c$, which is precisely the shortage. We now show that this one-extra-student pattern holds whenever a complete search fails, not just in this example.
+\subsection*{An example}
+Let three students $a$, $b$, $c$ each accept exactly the tasks $1$ and $2$, let $M=\{a\text{--}1,\ b\text{--}2\}$, and search from the root $x=c$.
+\begin{itemize}
+\item Inspect $c$. Both of its edges are unmatched. The edge $c$--$1$ reaches task~$1$, which is held by $a$, so $a$ is reached as well. The edge $c$--$2$ reaches task~$2$, which is held by $b$, so $b$ is reached.
+\item Inspect $a$. Its only unmatched edge is $a$--$2$, and task~$2$ has already been reached.
+\item Inspect $b$. Its only unmatched edge is $b$--$1$, and task~$1$ has already been reached.
+\end{itemize}
+Every reached student has been inspected and no unused task was found, so the search fails, with $A=\{c,a,b\}$ and $B=\{1,2\}$.
 
-Every task in $B$ is matched; otherwise the search would have succeeded. Its matched student is reached by the search rule and lies in $A\setminus\{x\}$. Conversely, every reached student other than $x$ was reached from a matched task. Because matching partners are unique, the matching pairs give a bijection between $B$ and $A\setminus\{x\}$. Therefore
+The matching pairs task~$1$ with $a$ and task~$2$ with $b$. Every reached student except the root appears in exactly one of these pairs, and the root $c$ appears in none. So $A$ has exactly one more member than $B$. Moreover, the three students of $A$ accept no tasks other than $1$ and $2$, so $N(A)=B$. Three students who together accept only two tasks cannot all be given different tasks. The next proposition shows that the same thing happens whenever a complete search fails.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{proposition}\label{ch08:prop:shortage}
+Let $M$ be a matching in a bipartite graph and let $x$ be an unmatched student. Suppose that the complete search from $x$ fails, and let $A$ and $B$ be the sets of students and tasks that it reached. Then
 \[
-|A|=|B|+1.
+N(A)=B\qquad\text{and}\qquad |N(A)|=|A|-1.
 \]
+\end{proposition}
+\end{minipage}\par
 
-A bijection here is not an abstract new object that we must discover. It is the existing partner rule: send each task in $B$ to its owner. Two tasks cannot have the same owner because $M$ is a matching. Every student in $A\setminus\{x\}$ is an owner of a reached task because that is the only rule that can reach a new student. Thus the partner rule is injective and surjective onto that set. Equal finite sizes follow, and adding back the single root gives the displayed equation.
+\begin{proof}
+The proof has two steps. The first counts the reached vertices, and the second shows that the search has found every task that the students of $A$ accept. Both steps use properties (C1) and (C2) of a failed search from Section~\ref{ch08:sec:search}.
 
-The separate identity $N(A)=B$ is needed because the shortage condition counts \emph{all acceptable tasks} of $A$, not merely whichever tasks the search happened to record. A proof that reached tasks are too few would be inconclusive if some acceptable tasks had been missed. The next two-containment argument rules that out.
+\emph{Step 1: $|B|=|A|-1$.} For each task $t$ in $B$, let $f(t)$ be the owner of $t$. This makes sense, because by (C2) every reached task is used, so it has exactly one owner. Again by (C2), the owner is a reached student. It is not $x$, because $x$ is unmatched. So $f$ is a function from $B$ to $A\setminus\{x\}$. It is injective: if two different tasks $t$ and $t'$ had the same owner $s$, then $s$ would lie on the two different edges $s$--$t$ and $s$--$t'$ of $M$, which is impossible in a matching. It is surjective: a student $s$ in $A$ other than $x$ can only have been reached by a move from the task it holds, so that task lies in $B$, and $f$ sends it to $s$. Hence $f$ is a bijection, and by Section~\ref{ch03:sec:injsurj} the two sets have the same size: $|B|=|A\setminus\{x\}|=|A|-1$.
 
-We also have $N(A)=B$. Every reached task was entered from a reached student, so $B\subseteq N(A)$. For the reverse containment, take a task neighboring a reached student. If their connecting edge is unmatched, the exploration follows it, so the task lies in $B$. If their edge is matched, the student is not the unmatched root $x$, and its matched task is the task from which it was reached; that task already lies in $B$. Thus all neighbors lie in $B$.
+\emph{Step 2: $N(A)=B$.} We show that each set is contained in the other. Every task $t$ in $B$ was reached by a move from some reached student $s$ along an edge $s$--$t$, so $t\in N(s)$, which is contained in $N(A)$. Thus $B\subseteq N(A)$. For the reverse containment, let $t$ be any task in $N(A)$, and choose a student $s\in A$ that accepts $t$.
+\begin{itemize}
+\item If the edge $s$--$t$ is unmatched, then $t$ has been reached, by (C1).
+\item If the edge $s$--$t$ is matched, then $s$ is matched, so $s\ne x$, and $t$ is the task that $s$ holds. As in Step~1, the student $s$ was reached by a move from the task it holds, so $t$ was reached before~$s$.
+\end{itemize}
+In both cases $t\in B$. Thus $N(A)\subseteq B$, and so $N(A)=B$.
 
-It helps to run this argument on the three-student example above, where $a$ holds task $1$, $b$ holds task $2$, the root is $c$, and every student accepts only tasks $1$ and $2$. For the root $c$, both edges $c$--$1$ and $c$--$2$ are unmatched, so the search follows them and both tasks lie in $B$. For $a$, the edge $a$--$1$ is matched, and task $1$ is exactly the task from which $a$ was reached; the edge $a$--$2$ is unmatched, so the search follows it, and task $2$ is in $B$ anyway. The same reasoning applies to $b$. Every acceptable task of every reached student is in $B=\{1,2\}$, as the general argument promised. If the search had stopped early, say after reaching only task $1$ and its owner $a$, then task $2$ would be an acceptable task of a reached student lying outside the recorded set, and the comparison of sizes below would prove nothing. This is why the search must be complete.
+Combining the two steps gives $|N(A)|=|B|=|A|-1$.
+\end{proof}
 
-Combining the two identities gives
-\[
-|N(A)|=|B|=|A|-1<|A|.
-\]
-There are fewer available tasks than students in $A$. No assignment can give all those students distinct acceptable tasks. The search has produced an independently checkable certificate of impossibility.
+Why is Step~2 needed? Step~1 compares the students in $A$ only with the tasks that the search happened to reach. To show that these students are really short of tasks, we must count \emph{all} the tasks they accept, and that is what Step~2 does. Here the completeness of the search is essential. In the example above, suppose the search had stopped right after reaching task~$1$ and its owner~$a$, before following the edge $c$--$2$. Then $A=\{c,a\}$ and $B=\{1\}$, and still $|B|=|A|-1$. But $N(A)=\{1,2\}$ has two members, as many as $A$, so these two students are not short of tasks at all. The comparison of sizes would prove nothing. In the completed search, by contrast, every acceptable task of every reached student was checked. Both edges at $c$ are unmatched, so (C1) puts tasks $1$ and $2$ into $B$. At $a$, the edge $a$--$1$ is matched, and task~$1$ is the task from which $a$ was reached; the edge $a$--$2$ is unmatched, so (C1) applies to it. The same holds at~$b$.
+
+\subsection*{Shortage sets are certificates}
+A set $S$ of students with $|N(S)|<|S|$ is called a \emph{shortage set}. If a shortage set exists, then no matching saturates $L$. To see this, suppose that some matching saturated $L$. Give each student $s$ of $S$ its partner in that matching. This partner is a task that $s$ accepts, so it lies in $N(S)$. Different students of $S$ receive different partners, because two edges of a matching never share an endpoint. So we would have $|S|$ different tasks in $N(S)$, which is impossible when $N(S)$ has fewer than $|S|$ members.
+
+By Proposition~\ref{ch08:prop:shortage}, the set $A$ reported by a failed search satisfies $|N(A)|=|A|-1<|A|$, so it is a shortage set, and no full assignment exists. A shortage set is an \emph{obstruction}: it blocks every possible way of assigning tasks, not just the choices that one search happened to make. It is also easy to check. To confirm that $S$ is a shortage set, list the tasks accepted by the students of $S$ and count them. There is no need to trust the search that found $S$, or to run it again. Evidence that can be checked directly in this way is called a \emph{certificate}, and a shortage set is also called a \emph{shortage certificate}. A matching that saturates $L$ is a certificate in the other direction: to confirm that it solves the assignment problem, check that each of its pairs is an edge and that no task appears twice.
+
+So the procedure of Section~\ref{ch08:sec:search} always ends with a certificate. It stops after at most $|L|$ flips. If it stops because every student is matched, the final matching is an assignment that can be checked pair by pair. If it stops because a search failed, the reported set $A$ is a shortage set that can be checked by counting. Chapter~\ref{ch:hall} turns this observation into a theorem.
 
 \begin{principle}{Habit 7: make failure informative}
-A failed attempt is not automatically a counterexample. Ask whether the failure can be turned into a concrete object that violates a necessary condition. In this problem, the object is a set of students competing for too few tasks. In another problem it may be two distinct inputs with the same output, refuting a claim of injectivity, or a particular value violating a required inequality.
+A failed attempt to build something is not, by itself, a proof that it cannot be built. Ask whether the failure can be turned into a concrete object that violates a necessary condition. In this chapter, the object is a set of students who together accept too few tasks. In another problem it may be two different inputs with the same output, which shows that a function is not injective, or a particular value that violates a required inequality. When a search, yours or an assistant's, reports that nothing was found, ask whether it also produced such an object, and whether the search could have missed anything.
 \end{principle}

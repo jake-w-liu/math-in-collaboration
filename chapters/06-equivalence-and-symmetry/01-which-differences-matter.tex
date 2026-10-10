@@ -1,10 +1,32 @@
-\section{Which differences matter?}
-The fractions $1/2$ and $2/4$ look different but represent the same rational number. A graph with vertices named Alice, Ben, and Chen may describe the same connection pattern as a graph named $1,2,3$. A necklace does not change when we rotate it, although its written sequence changes if we choose a different starting bead.
+\section{Which differences matter?}\label{ch06:sec:differences}
+The fractions $1/2$ and $2/4$ look different, but they name the same rational number. Here is a second example. Three people, Alice, Ben, and Chen, are linked by acquaintance: Alice knows Ben and Ben knows Chen, but Alice and Chen have never met. If we replace the names by the numbers $1$, $2$, $3$, the description becomes ``$1$ is linked to $2$, and $2$ is linked to $3$.'' The labels have changed, but the pattern of connections has not. (Chapter~\ref{ch:graphs} studies such patterns under the name \emph{graphs}.) Finally, think of a necklace with three beads, two red and one blue. Reading the colors around the necklace gives red, red, blue, or red, blue, red, or blue, red, red, depending on the bead where we start. The written lists differ, yet it is the same necklace.
 
-In each example, we decide which distinctions to ignore. This decision should be expressed precisely. Otherwise ``these are the same'' can conceal a change to the problem.
+In each example we have chosen to ignore certain differences: how a fraction is written, what the people are called, where we start reading. Such a choice should be stated precisely, because whether two things count as ``the same'' depends on the question being asked. If the question is ``what is the numerator?'', then $1/2$ and $2/4$ give different answers, and one cannot be replaced by the other. Saying ``these are the same'' without saying in what sense can quietly change the problem.
 
-A binary relation on a set $A$ specifies which pairs of elements are related. Write $x\sim y$ for one such relation. An \emph{equivalence relation} is a relation with three requirements. \emph{Reflexivity} says each element is related to itself. \emph{Symmetry} says that if $x\sim y$, then $y\sim x$. \emph{Transitivity} says that if $x\sim y$ and $y\sim z$, then $x\sim z$. These are parts of the definition. Calling a new relation an equivalence relation creates three obligations: check every requirement for arbitrary allowed elements, not just a favorite example.
+\subsection*{Relations and equivalence relations}
+The precise tool for describing sameness is a relation. A \emph{relation} on a set $A$ is a rule that tells us, for every ordered pair $(x,y)$ of elements of $A$, whether $x$ is related to $y$. We write $x\sim y$, read ``$x$ is related to $y$,'' when it is. Two familiar examples are the order $x<y$ on the integers and the relation ``$x$ has the same birth month as $y$'' on a set of people. The pair is ordered because the answer can depend on the order: $1<2$ is true, but $2<1$ is false.
 
-Consider students grouped by their birth month. Each student has the same birth month as themself. If Alice has the same birth month as Ben, Ben has the same birth month as Alice. If Alice and Ben share a birth month and Ben and Chen do too, Alice and Chen share it. The three checks justify regarding students with a common month as one group for this particular comparison. They do not say the students are identical in every other respect.
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}[Equivalence relation]\label{ch06:def:equivalence}
+A relation $\sim$ on a set $A$ is an \emph{equivalence relation} if it has the following three properties.
+\begin{itemize}
+\item \emph{Reflexivity:} $x\sim x$ for every $x\in A$.
+\item \emph{Symmetry:} for all $x,y\in A$, if $x\sim y$, then $y\sim x$.
+\item \emph{Transitivity:} for all $x,y,z\in A$, if $x\sim y$ and $y\sim z$, then $x\sim z$.
+\end{itemize}
+\end{definition}
+\end{minipage}\par
 
-The relation ``is a friend of'' is generally not transitive, so it is not automatically an equivalence relation. An explanation that says merely ``a relation groups similar things'' is insufficient: similarity may fail the exact conditions needed for a class construction.
+To show that a relation is an equivalence relation, we must check all three properties, and each of them for arbitrary elements of $A$, not only for a few convenient examples.
+
+Consider the students taking a course, and let $x\sim y$ mean that $x$ and $y$ were born in the same month. Every student has the same birth month as themself, so the relation is reflexive. If Alice has the same birth month as Ben, then Ben has the same birth month as Alice, so the relation is symmetric. If Alice and Ben share a birth month, and Ben and Chen share a birth month, then all three were born in Ben's month, so Alice and Chen share it as well. The relation is transitive, and therefore it is an equivalence relation.
+
+An equivalence relation sorts the elements of its set into groups. The \emph{equivalence class} of an element $x\in A$ is the set of all elements of $A$ that are related to $x$:
+\[
+[x]=\{y\in A:y\sim x\}.
+\]
+For birth months, the class of a student born in March is the set of all students in the course who were born in March. There is one class for each month in which at least one student was born, and every student belongs to exactly one of these classes. Section~\ref{ch06:sec:residues} proves that every equivalence relation sorts its set in this clean way. Putting two students into the same class records only that they share a birth month. It does not say that they are alike in any other respect.
+
+Many natural relations are not equivalence relations. The relation ``is a friend of'' usually fails transitivity: Alice may be friends with Ben, and Ben with Chen, while Alice and Chen are not friends at all. Relations that express rough similarity fail in the same way, and this is a common trap. On the real numbers, let $x\approx y$ mean $\abs{x-y}\le1$, so that $x$ and $y$ are within distance $1$ of each other. This relation is reflexive, because $\abs{x-x}=0$, and symmetric, because $\abs{x-y}=\abs{y-x}$. It is not transitive: $0\approx0.8$ and $0.8\approx1.6$, but $\abs{0-1.6}=1.6>1$. A chain of small steps can lead from any number to any other, so there is no sensible way to sort the real numbers into groups of ``numbers close to each other.'' The idea that a relation ``groups similar things together'' is therefore not enough. The three properties of Definition~\ref{ch06:def:equivalence} are exactly what make the groups behave well.
+
+\pauseq{Is the relation $x\le y$ on the integers an equivalence relation? Check each of the three properties.}{No. Reflexivity holds, since $x\le x$ for every integer $x$. Transitivity holds too: if $x\le y$ and $y\le z$, then $x\le z$. Symmetry fails, because $1\le2$ is true but $2\le1$ is false. One failure is enough. The relation $\le$ describes comparison rather than sameness, and Section~\ref{ch06:sec:order} studies relations of that kind.}

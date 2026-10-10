@@ -1,6 +1,21 @@
-\section{Your independent capstone}
-Choose one thread and keep the first deliverable narrow enough that every assertion can be checked. An assignments project can add integer capacities to tasks and derive the appropriate shortage condition by replacing a capacity-$c$ task with $c$ distinct slots. An iteration project can analyze a specified decaying-error schedule. A sign-sequence project can give a reproducible classification at one additional finite length and investigate which symmetries preserve its conditions. None of these is expected to produce a new theorem; each is a manageable place to start.
+\section{Your independent capstone}\label{ch18:sec:independent}
+Now it is your turn. Choose one of the three problems that run through the book: assigning tasks, iterating a map, or sign sequences. Start with a question narrow enough that you can check every claim you make. Here are three possible starting points.
+\begin{itemize}
+\item \emph{Assignments with capacities.} Allow a task to be given to several students, up to a fixed capacity, and find the right version of Hall's condition. Replacing a task of capacity $c$ by $c$ separate slots turns the question into one about ordinary matchings; Exercise~\ref{ex:18.5} carries out this first step. You might then ask how the search procedure of Chapter~\ref{ch:matching} changes in this setting.
+\item \emph{Iteration with a specified pattern of errors.} Pick a particular pattern of update errors, for example $\eps_n=1/(n+1)$, or $\eps_n=r^n$ for a number $r$ with $0<r<1$ and $r\ne q$, and find out as precisely as you can how fast the error $e_n$ goes to zero. Exercise~\ref{ex:18.4} treats the case $\eps_n\le aq^n$.
+\item \emph{Sign sequences at a new length.} Extend the table of Section~\ref{ch14:sec:experiment} by one more length, with a program that anyone can run to reproduce your counts. Then find out which operations on sequences, such as negating every sign, reversing the order, or rotating, keep the conditions being counted.
+\end{itemize}
+None of these is expected to lead to a new theorem. Each is a manageable place to start, with room to go further.
 
-Submit a precise statement, a prerequisite map, a proof or counterexample, executable checks when relevant, an assumption-and-evidence record, and a short explanation of what is genuinely new to the literature versus new only to you. The oral component should ask you to explain one delicate step, change an assumption, and predict what fails. Your ability to answer matters more than the fluency of the saved AI conversation.
+Your write-up should contain:
+\begin{itemize}
+\item a precise statement of your question and of your result;
+\item a map of the background your argument needs, like the prerequisite map of Section~\ref{ch17:sec:map};
+\item a proof, or a counterexample;
+\item computer checks where they are relevant, together with the program and the range of cases it covers;
+\item a record of the assumptions you used and of the evidence for each claim: proved, cited from another source, checked by computer for finitely many cases, or not established, as in the section ``Keeping track of evidence'' at the start of the book;
+\item a short explanation of what is new compared with the published literature, and what is new only to you.
+\end{itemize}
+The investigation ends with a short oral discussion. Expect to explain one delicate step of your argument, to change one of your assumptions, and to predict what fails. Your ability to answer these questions matters more than how polished your saved conversation with an assistant looks. Appendix~\ref{app:guide} gives a suggested grading rubric.
 
-An effective final review uses the assistant in three passes with different tasks. First request a faithful reconstruction of the argument. Next request counterexamples to stronger variants and scrutiny of each hypothesis. Finally ask for a correspondence check between the prose, formulas, code, and formal statements. These passes may still share blind spots; they do not constitute independent human peer review. Their value lies in the concrete obligations they expose for you to check.
+Before you hand in your work, an assistant can help you review it. Ask it for three things, one at a time. First, ask it to restate your argument in its own words, and check whether the restatement is faithful; a step that it gets wrong is often a step that you explained badly. Second, ask it for counterexamples to stronger versions of your statement, and ask whether each hypothesis is really needed. Third, ask it to check that your prose, your formulas, your code and any Lean statements all say the same thing. All three answers come from the same assistant, so they may share the same blind spots, and they are no substitute for a careful human reader such as a classmate or an instructor. Their value lies in the specific points they raise, each of which you then check yourself.

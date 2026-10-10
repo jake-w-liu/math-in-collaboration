@@ -1,7 +1,17 @@
-\section{Equality can be transported through a map}
-If $h$ proves $x=y$, then \code{congrArg f h} proves $f(x)=f(y)$. This is not injectivity: it applies the same function to equal inputs. Injectivity goes in the opposite direction and needs an extra hypothesis.
+\section{Equality can be transported through a map}\label{ch15:sec:equality}
+Applying the same function to equal inputs gives equal outputs: if $x=y$, then $f(x)=f(y)$. In Lean, if \code{h} is a proof of \code{x = y}, then \code{congrArg f h} is a proof of \code{f x = f y}. This holds for every function $f$. It is not injectivity. Injectivity goes in the opposite direction, from $f(x)=f(y)$ to $x=y$, and it holds only for some functions: the squaring map on $\RR$ sends $1$ and $-1$ to the same output (Section~\ref{ch03:sec:injsurj}).
 
-The command \code{rw [h]} rewrites an occurrence of one side of an equality using the other. A \code{calc} block organizes a chain of equalities, with a justification for each link~\cite{leanquant}. For instance:
+Another way to use an equation is to substitute. If \code{h : a = b}, the tactic \code{rw [h]} rewrites the goal, replacing every occurrence of the left side \code{a} by the right side \code{b}. After rewriting, \code{rw} tries \code{rfl} by itself, so a goal that has become an equation with two identical sides is closed at once. For example:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+theorem add_one_of_eq (a b : Nat) (h : a = b) :
+    a + 1 = b + 1 := by
+  rw [h]
+\end{lstlisting}
+\end{minipage}\par
+The rewrite turns the goal \code{a + 1 = b + 1} into \code{b + 1 = b + 1}, which \code{rw} then closes. On paper we would write: ``since $a=b$, substitute $b$ for $a$.''
+
+For a chain of equalities, Lean provides the \code{calc} block~\cite{leanquant}. Each line of the block states one link of the chain, followed by its justification after \code{:=}, and Lean combines the links. Here is the first half of Exercise~\ref{ex:3.5}: a function with a left inverse is injective.
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 theorem left_inverse_inj {A B : Type}
@@ -15,4 +25,13 @@ theorem left_inverse_inj {A B : Type}
 \end{lstlisting}
 \end{minipage}\par
 
-The first step reverses the identity $g(f(x))=x$; \code{.symm} reverses an equality proof. The middle step applies $g$ to the assumed equality $f(x)=f(y)$. The final step uses the inverse identity at $y$. The underscores reuse the previous expression, keeping the chain readable.
+The hypothesis \code{h : forall x, g (f x) = x} says that $g$ undoes $f$: $g(f(x))=x$ for every $x$. Lean infers that $x$ ranges over \code{A}, because \code{f} is applied to it. As in Section~\ref{ch15:sec:injcomp}, the line \code{intro x y hxy} opens the definition of \code{Inj f}. It introduces \code{x} and \code{y} in \code{A} and the hypothesis \code{hxy : f x = f y}, and it leaves the goal \code{x = y}. The \code{calc} block proves this goal in three links, the Lean form of the chain
+\[
+x=g(f(x))=g(f(y))=y.
+\]
+\begin{itemize}
+\item The first link, \code{x = g (f x)}, comes from \code{h x}, the hypothesis applied to this particular \code{x}. But \code{h x} proves \code{g (f x) = x}, with the two sides in the other order. The suffix \code{.symm} reverses an equation: if \code{e} is a proof of \code{a = b}, then \code{e.symm} is a proof of \code{b = a}.
+\item The second link, \code{g (f x) = g (f y)}, is \code{congrArg g hxy}: apply $g$ to both sides of $f(x)=f(y)$.
+\item The third link, \code{g (f y) = y}, is \code{h y}.
+\end{itemize}
+The underscore at the start of the second and third lines stands for the right side of the line before, so that no expression has to be written twice. Lean joins the three links into a proof of \code{x = y}, which is the goal.

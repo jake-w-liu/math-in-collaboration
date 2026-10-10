@@ -1,8 +1,23 @@
-\section{Reading a long proof as a sequence of smaller promises}
-Long proofs are usually assembled from shorter results: lemmas, earlier propositions, and theorems, labels whose roles were described in Chapter~1. Each such result works like a small promise: if its hypotheses are supplied, it delivers its conclusion. When a paper invokes a lemma, pause to identify its inputs and output. In the irrationality proof, Lemma~\ref{thm:parity-square} accepts the fact that $a^2$ is even and returns that $a$ is even. The hypothesis is visibly satisfied. A reference such as ``by a standard result'' is not enough for a beginner unless the result and the matching assumptions are supplied.
+\section{Reading a long proof as a sequence of smaller promises}\label{ch04:sec:promises}
+Long proofs are usually assembled from shorter results: lemmas, propositions, and theorems, whose roles were described in Section~\ref{ch01:sec:roles}. Each such result works like a small promise: if you supply its hypotheses, it delivers its conclusion. So whenever a proof, whether in a book, in a paper, or from an assistant, uses an earlier result, stop and identify three things. What does the result need? Why does the proof have it at this point? What does the result give back?
 
-A proof can also use temporary assumptions. In a contradiction proof, the false statement being assumed must remain clearly marked. We may deduce consequences from it inside that argument, but we must not export it as an established fact afterward.
+Here is that check carried out for the proof of Theorem~\ref{thm:sqrt2}, which uses one starting fact and one lemma twice.
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.19\linewidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Result used & What it needs & Why it holds here & What it gives\\
+\midrule
+Well-ordering property & a nonempty set of positive integers & the assumed fraction for $\sqrt2$ supplies one positive denominator & a smallest positive denominator $b$\\
+Lemma~\ref{thm:parity-square} & an integer whose square is even & $a$ is an integer, and $a^2=2b^2$ is twice the integer $b^2$ & $a$ is even\\
+Lemma~\ref{thm:parity-square} again & an integer whose square is even & $b$ is an integer, and $b^2=2c^2$ is twice the integer $c^2$ & $b$ is even\\
+\bottomrule
+\end{tabularx}
+\end{center}
+In each row the third column must be checked, not assumed. A sentence such as ``by a standard result, $a$ is even'' does not let a reader do this check. It does not say which result is meant, so the reader cannot see what that result needs or confirm that the proof has it. A careful proof names the result and makes it visible that its hypotheses hold.
+
+A proof can also use temporary assumptions. In a proof by contradiction, the supposition is in force only until the contradiction is reached, so it should be clearly marked, for example with the words ``suppose, for contradiction.'' In the proof of Theorem~\ref{thm:sqrt2}, the supposition is that $\sqrt2$ is a fraction of integers. Inside that proof we chose such a fraction $a/b$ and deduced that $a$ and $b$ are both even. Those deductions describe numbers that turned out not to exist, so they must not be carried out of the proof and used later as established facts.
 
 \begin{principle}{Habit 4: ask for a local contract, not just more words}
-At a difficult step, ask: What is known here? What is the next target? Which exact result is used? Why do its assumptions hold? Which quantity is being constructed? These questions reveal missing mathematics more reliably than asking for an explanation to be ``simpler.''
+Habit~2 (Chapter~\ref{ch:logic}) asked for the contract of a whole statement. When a single step of a proof is hard to follow, whether the proof is your own, a book's, or an assistant's, ask for the contract of that step. What is known at this point? What is the next target? Which exact result is being used, and why do its hypotheses hold here? Which quantity is being constructed, and from what? These questions locate the missing mathematics more reliably than a request to make the explanation ``simpler.''
 \end{principle}

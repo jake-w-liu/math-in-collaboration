@@ -1,6 +1,10 @@
-\section{What does a pattern promise?}
-Suppose two people collect an odd number of tokens. If they combine their collections, must the total be even? Try $3+5=8$, $7+9=16$, and $1+1=2$. The examples agree. They do not yet explain what happens for two odd numbers we have not tried.
+\section{What does a pattern promise?}\label{ch01:sec:pattern}
+Suppose two people each have an odd number of tokens. If they put their tokens together, must the total be even? Try a few cases: $3+5=8$, $7+9=16$, and $1+1=2$. Every total is even. But there are infinitely many pairs of odd numbers, and no list of examples can include them all. The examples tell us what happened for the pairs we tried. They do not explain what must happen for a pair we have not tried.
 
-A mathematical statement makes its scope explicit: \emph{For every pair of odd integers, their sum is even.} An integer is a whole number, possibly negative or zero: $\ldots,-2,-1,0,1,2,\ldots$. We write their collection as $\ZZ$. The statement includes negative odd integers as well as positive ones. For example, $-3+5=2$. A calculation checks a particular pair. A proof explains why every allowed pair works.
+To turn the pattern into mathematics, we first say exactly which numbers it is about. An \emph{integer} is a whole number that may be positive, negative, or zero: $\ldots,-2,-1,0,1,2,\ldots$. The collection of all integers is written $\ZZ$. Now the pattern becomes a precise statement:
+\begin{center}
+\emph{For every pair of odd integers, their sum is even.}
+\end{center}
+This statement says more than the token story. Nobody holds $-3$ tokens, but $-3$ is an odd integer, so the statement also covers sums such as $-3+5=2$ and $-7+(-1)=-8$. A calculation checks one particular pair. A proof explains why every pair the statement allows must work.
 
-The first collaborative question is therefore not ``Can you prove this?'' but ``What does the claim range over, and what exactly must hold?'' An assistant that quietly replaces all integers by positive integers has changed the question. The new statement may still be true, but it is not the same statement.
+So when you bring a claim like this to a classmate or to an AI assistant, the first question to settle is not ``Can you prove this?'' It is ``Which numbers does the claim talk about, and what exactly must be true of them?'' Suppose an assistant quietly replaces ``integers'' by ``positive integers'' and then gives a correct argument. It has answered a different question. The new statement happens to be true, but its proof says nothing about a sum such as $-3+5$.

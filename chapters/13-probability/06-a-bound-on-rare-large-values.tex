@@ -1,16 +1,31 @@
-\section{A bound on rare large values}
-For a nonnegative random variable $X$ and a real threshold $a>0$, we have
+\section{A bound on rare large values}\label{ch13:sec:markov}
+The expectation also limits how often a quantity can be much larger than its average, provided the quantity is never negative. A random variable $X$ is \emph{nonnegative} when $X(\omega)\ge0$ for every outcome $\omega$. For a real number $a$, we write $\Prob(X\ge a)$ for the probability of the event $\{\omega\in\Omega:X(\omega)\ge a\}$.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{proposition}[Markov's inequality]\label{ch13:prop:markov}
+Let $X$ be a nonnegative random variable on a finite probability space, and let $a>0$ be a real number. Then
 \[
 \Prob(X\ge a)\le\frac{\E X}{a}.
 \]
-To prove it, split the sum defining the expectation into the outcomes where $X\ge a$ and the rest:
+\end{proposition}
+\end{minipage}\par
+
+\begin{proof}
+Split the sum defining the expectation into the outcomes where $X\ge a$ and the rest:
 \[
 \E X=\sum_{\omega:\,X(\omega)\ge a}p(\omega)X(\omega)+\sum_{\omega:\,X(\omega)<a}p(\omega)X(\omega).
 \]
-In the first sum every value $X(\omega)$ is at least $a$, so that sum is at least $\sum_{X(\omega)\ge a}p(\omega)\,a=a\Prob(X\ge a)$. In the second sum every term is nonnegative, because $X$ is nonnegative. Hence $\E X\ge a\Prob(X\ge a)$, and dividing by the positive number $a$ gives the claim. This is \emph{Markov's inequality} in a finite setting. For example, if the average score in a class is $20$ and no score is negative, then at most a quarter of the students can have scored $80$ or more.
+In the first sum every value $X(\omega)$ is at least $a$, and every weight $p(\omega)$ is nonnegative, so $p(\omega)X(\omega)\ge p(\omega)a$ for each term. Hence the first sum is at least
+\[
+\sum_{\omega:\,X(\omega)\ge a}p(\omega)\,a=a\,\Prob(X\ge a).
+\]
+In the second sum every term is nonnegative, because $X$ is nonnegative, so the second sum is at least $0$. Together, $\E X\ge a\,\Prob(X\ge a)$, and dividing by the positive number $a$ gives the claim.
+\end{proof}
 
-The nonnegativity assumption is not decorative. Large negative values could offset large positive ones in the expectation. For example, a variable equal to $100$ or $-100$ with equal probability has expectation zero but is at least $100$ with probability $1/2$.
+For example, suppose that the scores on a test are all nonnegative and that the class average is $20$. Choose a student uniformly at random, and let $X$ be that student's score. In a uniform model the expectation is the ordinary average, so $\E X=20$, and $\Prob(X\ge80)$ is the fraction of the class that scored $80$ or more. Markov's inequality says that this fraction is at most $20/80=1/4$. You can also see this directly: if more than a quarter of the class had scored at least $80$, those students alone would contribute more than $\tfrac14\cdot80=20$ to the average, and since no score is negative, the other students could not bring it back down to $20$.
+
+The inequality needs the hypothesis that $X$ is nonnegative. Without it, large negative values can balance large positive ones in the expectation. A random variable equal to $100$ or $-100$, each with probability $1/2$, has expectation $0$, so the right side of Markov's inequality would be $0/100=0$; yet $\Prob(X\ge100)=1/2$. In the proof, the hypothesis was used to say that the second sum is at least $0$, and for this variable that sum is $\tfrac12\cdot(-100)=-50$.
 
 \begin{principle}{Habit 8: choose a quantity whose average is easier than its best value}
-When direct construction is difficult, define a finite experiment and count the desired or undesired features by indicators. Ask which averages can be computed exactly. Then state the logical conclusion carefully: one suitable outcome, a probability bound, or an actual efficient construction are different results.
+When an object with a desired property is hard to construct directly, set up a finite experiment that produces candidates, and count the features you want, or the ones you want to avoid, with indicators. Look for averages that you can compute exactly; linearity often makes this easy even when the features interact. Then say precisely what you have proved. Three kinds of conclusion are easy to confuse: that at least one suitable outcome exists, that some probability is small, and that a suitable object can be built efficiently.
 \end{principle}

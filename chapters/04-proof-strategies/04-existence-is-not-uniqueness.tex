@@ -1,18 +1,31 @@
-\section{Existence is not uniqueness}
-The equation $x^2=1$ has solutions, but not a unique real solution. It has exactly two: $1$ and $-1$. ``There is a unique solution'' makes two claims. First, at least one candidate satisfies the specification. Second, any two candidates satisfying it must agree.
+\section{Existence is not uniqueness}\label{ch04:sec:unique}
+The equation $x^2=1$ has real solutions, but it does not have a \emph{unique} real solution, that is, exactly one. It has exactly two, $1$ and $-1$. Both of them square to $1$. There are no others: a solution makes $x^2-1=(x-1)(x+1)$ equal to zero, and a product of real numbers is zero only when at least one factor is zero, so $x=1$ or $x=-1$. In general, the statement ``there is a unique solution'' makes two separate claims:
+\begin{itemize}
+\item \emph{existence}: at least one number satisfies the condition;
+\item \emph{uniqueness}: any two numbers that satisfy the condition are equal, so there is at most one.
+\end{itemize}
+This is the same split we met in Section~\ref{ch03:sec:injsurj}, where surjectivity gave every target at least one preimage and injectivity gave it at most one. Each claim needs its own argument.
 
-Consider the equation $x=(x+1)/2$ over the real numbers. Existence follows by checking $x=1$. For uniqueness, suppose both $x$ and $y$ satisfy the equation. Subtracting their equations gives
+Consider the equation
+\[
+x=\frac{x+1}{2}
+\]
+over the real numbers. \emph{Existence} is settled by a witness: the number $1$ satisfies the equation, because $(1+1)/2=2/2=1$.
+
+For \emph{uniqueness}, suppose that two real numbers $x$ and $y$ both satisfy the equation, so that
+\[
+x=\frac{x+1}{2}\qquad\text{and}\qquad y=\frac{y+1}{2}.
+\]
+Subtract the second equation from the first. On the right, the numerators give $(x+1)-(y+1)=x-y$, because the two constant terms $1$ cancel. So
 \[
 x-y=\frac{x-y}{2}.
 \]
-Multiplying by two and subtracting $x-y$ gives $x-y=0$, so $x=y$. We did not need to discover the solution again. We compared two hypothetical solutions and proved they could not differ. Chapter~12 will generalize this comparison into a theorem about iterative methods.
+Multiplying both sides by two gives $2(x-y)=x-y$, and subtracting $x-y$ from both sides gives $x-y=0$. Hence $x=y$. Together, the two parts show that the equation has exactly one real solution, namely $1$.
 
-The two-candidate argument proves \emph{at most one} solution. It would also be valid in a problem with no solutions at all: there would be no two different solutions to compare. That is why the earlier substitution of $x=1$ is indispensable for ``exactly one.'' In general, ``exactly one'' combines ``at least one'' from existence and ``at most one'' from uniqueness.
+Notice that the uniqueness argument never solves the equation. It takes two hypothetical solutions and shows that they cannot differ. Comparing two solutions can be simpler than solving, because whatever the two equations share, such as the constant terms here, cancels when they are subtracted. Chapter~\ref{ch:contraction} turns this comparison into the uniqueness part of the contraction theorem, a general result about repeating a map until the output settles down; that chapter begins with the same equation $x=(x+1)/2$.
 
-At the subtraction step, write both equations before combining them:
-\[
- x=\frac{x+1}{2},\qquad y=\frac{y+1}{2}.
-\]
-Subtract the second from the first. On the right the numerators become $(x+1)-(y+1)=x-y$, because the two constant terms cancel. This explains why comparing solutions can be simpler than solving again: shared terms disappear.
+A uniqueness argument on its own proves only that there is \emph{at most one} solution, and that is also true of an equation with no solutions at all. For example, consider the equation $2x=1$ over the integers. If $x$ and $y$ are integers with $2x=1$ and $2y=1$, then subtracting gives $2(x-y)=0$, so $x=y$. This argument is correct, yet the equation has no integer solution: the only number with $2x=1$ is $x=1/2$, which is not an integer. That is why the existence check for $x=(x+1)/2$, substituting $x=1$, cannot be skipped. ``Exactly one'' means ``at least one'' together with ``at most one,'' and each half needs its own proof.
 
-When a proof says ``let $x$ be the solution,'' check that existence has already been established or is being used only conditionally. Otherwise the wording may smuggle the main difficulty into an opening sentence.
+Be careful, too, with the phrase ``the solution.'' The word ``the'' quietly claims that there is exactly one. A proof that begins ``let $x$ be the solution of $x^2=1$'' has already gone wrong, because there are two solutions; any conclusion it reaches, such as ``so $x$ is positive,'' may be true of one solution and false of the other. Before writing ``let $x$ be the solution,'' make sure that existence and uniqueness have both been established. If they have not, say what you are really assuming, for example ``suppose $x$ is a solution'' or ``if a solution exists, then \ldots.'' Otherwise the main difficulty of the problem can slip unnoticed into the first sentence of the proof.
+
+\pauseq{Try the comparison argument on the equation $x=x$ over the real numbers. What happens, and why is that the right outcome?}{If $x=x$ and $y=y$, subtracting gives $x-y=x-y$. This is true for all real numbers $x$ and $y$, so it gives no information about whether $x=y$. That is as it should be: every real number solves $x=x$, so uniqueness is false, and no correct argument could prove it.}

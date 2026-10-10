@@ -1,24 +1,44 @@
 \section{Week 6}
-\sol{6.1}{The required integers are $-12,-7,-2,3,8$. Each differs from $-2$ by an integer multiple of five. The next value, $13$, lies outside the requested interval. The representative among $0,1,2,3,4$ is $3$, since $3-(-2)=5$.}
-\sol{6.2}{An operation on classes is well-defined only if different names for the same input classes give the same output class. Suppose $a'$ names the same class as $a$, and $b'$ the same class as $b$. By the definition of congruence, write
+\sol{6.1}{The class $[-2]_5$ consists of the integers $-2+5k$, where $k$ is an integer. Taking $k=-2,-1,0,1,2$ gives
+\[
+-12,\quad-7,\quad-2,\quad3,\quad8.
+\]
+These are all the members between $-12$ and $12$: the next members on either side, $-17$ (for $k=-3$) and $13$ (for $k=3$), lie outside the interval. The member of the class in $\{0,1,2,3,4\}$ is $3$, since $3-(-2)=5$ is a multiple of five. So $[-2]_5=[3]_5$. Division with remainder gives the same answer: $-2=(-1)\cdot5+3$ with $0\le3<5$.}
+\sol{6.2}{An operation on classes is well-defined when different names for the same input classes always give the same output class. Suppose $[a']_m=[a]_m$ and $[b']_m=[b]_m$. By Proposition~\ref{ch06:prop:classes}(b), $a'\equiv a$ and $b'\equiv b\pmod m$, so we can write
 \[
  a'=a+mk,\qquad b'=b+m\ell
 \]
-for integers $k,\ell$. The output classes are equal exactly when their representatives differ by a multiple of $m$. Compute that difference:
+for integers $k$ and $\ell$. The output classes $[a'b']_m$ and $[ab]_m$ are equal exactly when $a'b'-ab$ is a multiple of $m$. Compute that difference:
 \begin{align*}
  a'b'-ab
  &=(a+mk)(b+m\ell)-ab\\
  &=ab+am\ell+mkb+m^2k\ell-ab\\
  &=m(a\ell+bk+mk\ell).
 \end{align*}
-The expression in parentheses is an integer, so the difference is divisible by $m$. Therefore $[a'b']_m=[ab]_m$. We have proved equality of classes, not equality of the underlying products, which can be different integers. Both representatives were allowed to change independently.}
-\sol{6.3}{Label positions by $0,1,2,3$ modulo four. Rotation by two sends $j$ to $j+2$ modulo four. Applying it twice sends $j$ to $j+4$, the original position. Hence it is its own inverse. It is not the identity because, for example, it sends position $0$ to position $2$. An operation whose square is the identity need not itself be the identity.}
-\sol{6.4}{Reflexivity holds because a finite set has the same cardinality as itself. Symmetry holds because $|A|=|B|$ implies $|B|=|A|$. Transitivity holds because $|A|=|B|$ and $|B|=|C|$ imply $|A|=|C|$. Therefore the relation is an equivalence relation. It identifies sets according to size, not according to their actual members.}
-\sol{6.5}{The proposed rule takes an input class modulo $m$ and returns a class modulo $d$. Assume $m,d$ are positive integers. Different representatives of the same input class must produce the same output class.
+The expression in parentheses is an integer, so the difference is divisible by $m$. Therefore $[a'b']_m=[ab]_m$. Notice what was proved: the two classes are equal, while the products $a'b'$ and $ab$ themselves can be different integers. For example, with $m=4$, the choices $a=1$, $b=2$ and $a'=5$, $b'=6$ give the products $2$ and $30$, which differ by $28=4\cdot7$, so $[30]_4=[2]_4$. Both representatives were allowed to change at the same time, so the argument covers every possible choice of names for the two classes.}
+\sol{6.3}{Label the seats $0,1,2,3$. The rotation $r_2$ sends seat $j$ to seat $(j+2)\bmod4$, so
+\[
+r_2(0)=2,\qquad r_2(1)=3,\qquad r_2(2)=0,\qquad r_2(3)=1.
+\]
+Applying $r_2$ twice sends $0\to2\to0$, $1\to3\to1$, $2\to0\to2$, and $3\to1\to3$. So $r_2\circ r_2$ leaves every seat where it was, that is, $r_2\circ r_2=r_0=\id$. This says exactly that $r_2$ undoes itself: it is its own inverse. It is not the identity, because the identity leaves every seat in place, while $r_2$ moves seat $0$ to seat $2$. A symmetry that undoes itself need not do nothing.}
+\sol{6.4}{Yes. Write $X\sim Y$ when $\abs{X}=\abs{Y}$, that is, when $X$ and $Y$ have the same number of elements. Let $X$, $Y$, $Z$ be sets in the collection.
+\begin{itemize}
+\item \emph{Reflexivity:} $\abs{X}=\abs{X}$, so $X\sim X$.
+\item \emph{Symmetry:} if $\abs{X}=\abs{Y}$, then $\abs{Y}=\abs{X}$, so $X\sim Y$ implies $Y\sim X$.
+\item \emph{Transitivity:} if $\abs{X}=\abs{Y}$ and $\abs{Y}=\abs{Z}$, then $\abs{X}=\abs{Z}$, so $X\sim Y$ and $Y\sim Z$ imply $X\sim Z$.
+\end{itemize}
+Each property of $\sim$ comes from the same property of equality of numbers. Therefore the relation is an equivalence relation. The equivalence class of a set $X$ consists of all sets in the collection that have as many elements as $X$; for instance, $\{1,2\}$ and $\{p,q\}$, with $p\ne q$, lie in the same class. The relation sorts sets by size and ignores what their members are.}
+\sol{6.5}{The rule takes a class modulo $m$, chooses a representative $a$, and returns $[a]_d$. It is well-defined when any two representatives of the same class modulo $m$ give the same class modulo $d$, that is, when $[a]_m=[b]_m$ always implies $[a]_d=[b]_d$. We prove the two directions of ``exactly when'' separately.
 
-First suppose $d$ divides $m$. Write $m=dt$ for an integer $t$. If $[a]_m=[b]_m$, then $a-b=mk$ for an integer $k$. Substituting $m=dt$ gives $a-b=d(tk)$, so $d$ divides $a-b$. This is exactly $[a]_d=[b]_d$. Thus any two representatives of one input class give the same output class.
+First suppose $d$ divides $m$, and write $m=dt$ with $t$ an integer. Let $[a]_m=[b]_m$. By Proposition~\ref{ch06:prop:classes}(b), $a-b=mk$ for an integer $k$. Substituting $m=dt$ gives $a-b=d(tk)$, and $tk$ is an integer, so $d$ divides $a-b$. By the same proposition, $[a]_d=[b]_d$. Thus any two representatives of one input class give the same output class, and the rule is well-defined.
 
-Conversely, suppose the rule is well-defined. The integers zero and $m$ represent the same class modulo $m$, because their difference is a multiple of $m$. Their output classes must therefore agree: $[0]_d=[m]_d$. By the definition of equality of congruence classes, $d$ divides $m$. This proves necessity.
+Conversely, suppose the rule is well-defined. The integers $0$ and $m$ represent the same class modulo $m$, because $m-0=m\cdot1$. Their output classes must therefore agree: $[0]_d=[m]_d$. By Proposition~\ref{ch06:prop:classes}(b) once more, $d$ divides $m-0=m$.
 
-For example, passing from classes modulo six to classes modulo three works. Passing from classes modulo six to classes modulo four does not: zero and six are the same input class but give distinct classes modulo four. The failing example identifies precisely what well-definedness is checking.}
-\sol{6.6}{Use the family $\{\{1\},\{2\}\}$ ordered by inclusion. Each member is maximal because neither is properly contained in another member of the family. Neither contains the other, so there is no maximum. Add $\{1,2\}$. It contains both previous members and itself, so it is now the maximum. The ambient universe does not determine which candidates are present in the ordered family.}
+For example, passing from classes modulo six to classes modulo three works, since $3$ divides $6$. Passing from classes modulo six to classes modulo four does not: $0$ and $6$ represent the same class modulo six, but $[0]_4\ne[6]_4$, because $6-0=6$ is not a multiple of four. The second half of the proof is this example made general: the representatives $0$ and $m$ always name the same class modulo $m$, so a well-defined rule must send them to the same class modulo $d$.}
+\sol{6.6}{Use the family $\{\{1\},\{2\}\}$, ordered by inclusion. Each member is maximal, because the only other member does not contain it. Neither member is a maximum: $\{1\}$ is not a maximum because $\{2\}$ is not a subset of $\{1\}$, and $\{2\}$ is not a maximum because $\{1\}$ is not a subset of $\{2\}$.
+
+Now add the set $\{1,2\}$. In the family $\{\{1\},\{2\},\{1,2\}\}$, every member is a subset of $\{1,2\}$:
+\[
+\{1\}\subseteq\{1,2\},\qquad\{2\}\subseteq\{1,2\},\qquad\{1,2\}\subseteq\{1,2\}.
+\]
+So $\{1,2\}$ is a maximum of the new family. Notice that $\{1\}$ and $\{2\}$ are no longer maximal, because $\{1,2\}$ lies strictly above each of them. Whether an element is maximal, or a maximum, always depends on the family it is compared with.}

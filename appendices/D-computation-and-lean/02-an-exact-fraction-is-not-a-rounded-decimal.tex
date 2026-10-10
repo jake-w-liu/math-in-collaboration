@@ -1,19 +1,31 @@
-\section{An exact fraction is not a rounded decimal}
-Use \code{Fraction} when the intended inputs are rational. It stores a numerator and denominator and performs rational arithmetic rather than immediately converting to a floating-point approximation~\cite{pyfractions}.
+\section{An exact fraction is not a rounded decimal}\label{appD:sec:fractions}
+When a program contains a number such as \code{0.1}, Python does not store one tenth exactly. It stores a \emph{floating-point number}: a binary approximation that is correct to about sixteen significant digits. The approximation is very good, but it is not exact, and a tiny error can change the answer to a yes-or-no question. The two lines
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+print(0.1 + 0.2)
+print(0.1 + 0.2 == 0.3)
+\end{lstlisting}
+\end{minipage}\par
+display \code{0.30000000000000004} and \code{False}. In an experiment that tests an equation or an inequality, such a rounding error could make a true statement look false, or a false one look true.
+
+When the numbers involved are rational, the standard library offers exact arithmetic instead~\cite{pyfractions}. A \code{Fraction} stores an integer numerator and a positive integer denominator, reduced to lowest terms, and it adds, subtracts, multiplies and divides by the usual rules for fractions, with no rounding at any stage. Python's integers are exact as well, however large they become.
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 from fractions import Fraction
+print(Fraction(1, 10) + Fraction(2, 10) == Fraction(3, 10))
 x = Fraction(1, 3)
 y = (x * x + 1) / 3
 print(y)
 \end{lstlisting}
 \end{minipage}\par
+This program displays \code{True} and then \code{10/27}. The last three lines use the map $T(x)=(x^2+1)/3$ of Section~\ref{ch12:sec:example}: the name \code{x} holds the iterate $x_1=1/3$, so \code{y} is $T(x_1)=x_2$, and Python finds exactly the value $10/27$ computed by hand in that section.
 
-This prints \code{10/27}, the iterate $x_2$ from Chapter~12. Write \code{Fraction(1, 10)} for the exact rational number one tenth. Writing \code{0.1} instead gives Python's floating-point approximation of one tenth, which is not exactly equal to it; \code{Fraction(0.1)} would faithfully record that slightly different number.
+Two details deserve attention. First, dividing one ordinary integer by another with \code{/} gives a floating-point number, so \code{1 / 3} is \code{0.3333333333333333}. When a \code{Fraction} is combined with an integer or with another \code{Fraction}, however, the result is again a \code{Fraction}. That is why the line \code{y = (x * x + 1) / 3} can use the plain integers $1$ and $3$ and still be exact. Combining a \code{Fraction} with a floating-point number such as \code{0.5}, on the other hand, gives a floating-point number, so the two kinds of number should not be mixed. Second, the exact rational number one tenth must be written \code{Fraction(1, 10)}. Writing \code{Fraction(0.1)} instead converts the floating-point number \code{0.1} into a fraction exactly as it is stored, and Python displays it as
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+3602879701896397/36028797018963968
+\end{lstlisting}
+\end{minipage}\par
+The denominator is $2^{55}$, and this fraction is close to one tenth but not equal to it.
 
-The sign-sequence counts below use integer arithmetic, and the iteration checks use fractions, so no rounding occurs anywhere. Exact arithmetic removes one source of doubt, but not all of them: it does not prove that a loop examines exactly the intended objects, or that the mathematical assumptions behind the experiment hold. Exact arithmetic and a correct model are separate requirements.
-
-\subsection*{Running a program}
-Save a program in a plain text file whose name ends in \code{.py}, for example \code{signs.py}. Open a terminal, move to the folder containing the file (for example with \code{cd path/to/folder}, using the actual location), and run the file with \code{python3 signs.py}; on some systems the command is \code{python} instead. You can check which interpreter is installed with \code{python3 --version}.
-
-Short calculations can also be typed at Python's interactive prompt, which appears after you type \code{python3} with no file name. The prompt is usually displayed as \code{>>>}. Type only the text after the prompt, and do not copy the prompt characters into a file. The terminal's own prompt expects commands that start programs, while Python's prompt expects Python statements; an error caused by typing into the wrong one says nothing about the mathematics being tested.
+The experiments of Section~\ref{appD:sec:experiments} keep every comparison exact. The sign-sequence counts use only integers, and the iteration uses fractions; decimals appear only when a result is displayed. Exact arithmetic removes one source of doubt, but not every source. It cannot tell you whether a loop runs over exactly the objects you intended, or whether the program computes the quantity that the text defines. Those questions can be answered only by reading the code against the definitions, and Section~\ref{appD:sec:experiments} does this for each program.

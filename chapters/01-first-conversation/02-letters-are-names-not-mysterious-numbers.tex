@@ -1,18 +1,21 @@
-\section{Letters are names, not mysterious numbers}
-A letter such as $n$ can stand for an integer. The expression $2n$ means $2\times n$; $n+1$ is one more than $n$; and $n^2$ means $n\times n$. Parentheses group an expression: $2(n+1)$ is twice the entire quantity $n+1$. It equals $2n+2$, not $2n+1$.
+\section{Letters are names, not mysterious numbers}\label{ch01:sec:letters}
+A letter such as $n$ can stand for an integer whose value we have not fixed. Writing a number directly in front of a letter means multiplication: $2n$ means $2\times n$. Two letters written side by side are multiplied too, so $ab$ means $a\times b$. A raised dot also means multiplication, so $2\cdot4$ is the same as $2\times4$. The expression $n+1$ is one more than $n$, and $n^2$ means $n\times n$. Parentheses group an expression: $2(n+1)$ is twice the entire quantity $n+1$. It equals $2n+2$, not $2n+1$, because the $1$ inside the parentheses is doubled too. At $n=5$, for instance, $2(5+1)=12$, while $2\cdot5+1=11$.
 
-An equality says that its two sides name the same value. It does not mean ``now calculate the next thing.'' For example,
+An equals sign says that the two expressions on either side of it have the same value. It does not mean ``and now calculate the next thing.'' For example,
 \[
 2(3+1)=2\cdot4=8
 \]
-is legitimate because all three expressions have the same value. The chain $2+3=5\cdot2=10$ is not legitimate: its first expression is $5$, but its middle expression is $10$. Write two sentences or two separate equations when the values differ.
+is a correct chain, because all three expressions have the value $8$. By contrast, the chain $2+3=5\cdot2=10$ is wrong. Its first expression, $2+3$, has the value $5$, while its middle expression, $5\cdot2$, has the value $10$, and $5$ is not equal to $10$. The writer meant two separate steps: first $2+3=5$, then $5\cdot2=10$. When the values differ, write two separate equations or two sentences.
 
-The arithmetic rules we use are familiar. Addition can be reordered and regrouped, and multiplication distributes over addition:
-\[
-a+b=b+a,\qquad (a+b)+c=a+(b+c),\qquad a(b+c)=ab+ac.
-\]
-The same integer may have many expressions. For example, $12=3\cdot4=2\cdot6$. Choosing an expression is not merely cosmetic. The second product immediately displays evenness, whereas the first does not.
+We will use the familiar rules of arithmetic freely. Addition and multiplication can each be done in either order and grouped in either way, and multiplication distributes over addition:
+\begin{gather*}
+a+b=b+a,\qquad (a+b)+c=a+(b+c),\\
+ab=ba,\qquad (ab)c=a(bc),\qquad a(b+c)=ab+ac.
+\end{gather*}
+Because $ab=ba$, the distributive rule also works from the right: $(a+b)c=ac+bc$. These rules hold for all integers and, more generally, for all the numbers we meet in this chapter.
 
-A fraction $a/b$ means $a$ divided by $b$ and requires $b\ne0$. The symbol $\ne$ means ``is not equal to.'' Multiplying both sides of an equality by the same number preserves equality. Dividing both sides does too, provided the divisor is not zero. This condition will be responsible for several important counterexamples.
+The same integer can be written in many ways. For example, $12=3\cdot4=2\cdot6$. Choosing how to write a number is not merely cosmetic. The form $2\cdot6$ shows at a glance that $12$ is twice a whole number, while the form $3\cdot4$ does not display a factor $2$ directly. The proof in Section~\ref{ch01:sec:first-proof} turns this observation into a method.
 
-\pauseq{An assistant starts from $x^2=x$, divides by $x$, and concludes $x=1$. Has it found every solution?}{No. Division assumes $x\ne0$, but $x=0$ satisfies the original equation. A complete argument separates $x=0$ from $x\ne0$. In the second case division gives $x=1$. Both $0$ and $1$ are solutions.}
+A fraction $a/b$ means $a$ divided by $b$, and it is defined only when $b\ne0$. (The symbol $\ne$ means ``is not equal to.'') If two expressions are equal, multiplying both by the same number gives two expressions that are still equal. Dividing both by the same number also preserves equality, but only when that number is not zero. Forgetting this condition is one of the most common ways to lose solutions of an equation, as the next question shows.
+
+\pauseq{An assistant starts from the equation $x^2=x$, divides both sides by $x$, and concludes that $x=1$. Has it found every solution?}{No. Dividing by $x$ is allowed only when $x\ne0$, so the argument says nothing about $x=0$. In fact $x=0$ satisfies the original equation, since $0^2=0$. A complete argument treats two cases. If $x=0$, the equation holds. If $x\ne0$, dividing both sides by $x$ gives $x=1$, and indeed $1^2=1$. So the solutions are exactly $0$ and $1$.}

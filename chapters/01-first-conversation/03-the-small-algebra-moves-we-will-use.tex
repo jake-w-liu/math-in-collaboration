@@ -1,28 +1,33 @@
-\section{The small algebra moves we will use}
-An expression such as $2k+1$ is built from operations you already know. To evaluate it at $k=3$, replace every occurrence of $k$ by $3$: $2k+1$ becomes $2\cdot3+1=7$. This replacement is called \emph{substitution}. Substitution does not say that $k$ always equals three; it checks one chosen input.
+\section{The small algebra moves we will use}\label{ch01:sec:algebra}
+An expression such as $2k+1$ is built from operations you already know. To evaluate it at $k=3$, replace every occurrence of $k$ by $3$: the expression $2k+1$ becomes $2\cdot3+1=7$. This replacement is called \emph{substitution}. Substituting $k=3$ does not claim that $k$ always equals three. It only computes the value of the expression for that one input.
 
-Sometimes we give the rule itself a name. Writing $f(n)=n+1$ means that the rule named $f$ adds one to its input $n$; for example, $f(3)=4$. Read $f(n)$ as ``the output of $f$ at input $n$,'' not as $f$ multiplied by $n$. Chapter~3 develops functions fully. For now this notation lets us refer to a formula and its values without rewriting the formula each time.
+Sometimes we give a rule its own name. Writing $f(n)=n+1$ means that the rule named $f$ adds one to whatever input $n$ it is given; for example, $f(3)=3+1=4$. Read $f(n)$ as ``the output of $f$ at the input $n$,'' not as $f$ multiplied by $n$. Such a rule is called a \emph{function}, and Chapter~\ref{ch:maps} studies functions in detail. For now the notation simply lets us refer to a formula and its values without writing the formula out each time.
 
-To rewrite an expression without changing its value, use an arithmetic rule in either direction. Distributing gives $2(k+1)=2k+2$. Reading that equality in reverse gives $2k+2=2(k+1)$; this is called \emph{factoring}. In a proof, factoring is often useful because it reveals a common multiplier.
+To rewrite an expression without changing its value, we may use any arithmetic rule from Section~\ref{ch01:sec:letters}, reading it in either direction. Reading the distributive rule from left to right gives $2(k+1)=2k+2$; this is called \emph{expanding} or \emph{multiplying out}. Reading the same equality from right to left gives $2k+2=2(k+1)$; this is called \emph{factoring}. Factoring is often useful in a proof because it brings a common multiplier, here $2$, out into the open.
 
-For a slightly longer example, apply distribution one bracket at a time:
+For a longer example, we multiply out a product of two brackets, one bracket at a time:
 \begin{align*}
  (2k+1)(2\ell+1)
- &=2k(2\ell+1)+1(2\ell+1)\\
+ &=2k(2\ell+1)+1\cdot(2\ell+1)\\
+ &=(4k\ell+2k)+(2\ell+1)\\
  &=4k\ell+2k+2\ell+1.
 \end{align*}
-The first line gives each term of the first bracket a copy of the second bracket. The second line multiplies out those two copies. The letter $\ell$, read ``ell,'' is a different name from $k$, not the digit one. We need two names because the inputs may differ.
+The first line uses the rule $(a+b)c=ac+bc$ with $a=2k$, $b=1$, and $c=2\ell+1$: each term of the first bracket is multiplied by a copy of the second bracket. The second line multiplies out each copy. In the first copy, $2k\cdot2\ell=(2\cdot2)(k\ell)=4k\ell$ because factors may be reordered and regrouped, and $2k\cdot1=2k$. In the second copy, $1\cdot(2\ell+1)=2\ell+1$. The third line removes the brackets, which is allowed because addition may be regrouped. The letter $\ell$, read ``ell,'' is a curly form of the lowercase letter l, written that way so that it cannot be mistaken for the digit $1$. We use two different letters, $k$ and $\ell$, so that they are free to stand for different numbers. Section~\ref{ch01:sec:dependence} explains why that freedom matters.
 
-There is also a difference between an identity and an equation to solve. The equality $2(k+1)=2k+2$ holds for every integer $k$; it is an \emph{identity}. The equation $2k+1=7$ asks which values of $k$ make it true. Subtracting one from both sides gives $2k=6$; dividing by two gives $k=3$. Substitution into the original equation checks that $2\cdot3+1=7$.
+An \emph{identity} is different from an equation to be solved. The equality $2(k+1)=2k+2$ holds for every integer $k$; for instance, at $k=5$ both sides equal $12$. That makes it an identity. The equation $2k+1=7$, on the other hand, asks which values of $k$ make it true. Subtracting one from both sides gives $2k=6$, and dividing both sides by two gives $k=3$. Substituting $k=3$ into the original equation confirms the answer: $2\cdot3+1=7$.
 
-A power records repeated multiplication: $2^3=2\cdot2\cdot2=8$. The exponent three counts how many factors are multiplied; it does not count additions, so $2^3$ is not $2+2+2$.
+A \emph{power} records repeated multiplication: $2^3=2\cdot2\cdot2=8$. The \emph{exponent} $3$ counts how many equal factors are multiplied. It does not count additions: $2+2+2=6$, which is $2\cdot3$, not $2^3$.
 
-Two rules follow directly from counting factors. If we write a row of two factors of $2$ next to a row of three, we get a row of five:
+Two rules for powers follow directly from counting factors. If we write a row of two factors of $2$ next to a row of three factors of $2$, we get a row of five:
 \[
 2^2\cdot2^3=(2\cdot2)(2\cdot2\cdot2)=2^5.
 \]
-In general $a^na^m=a^{n+m}$ for positive integers $n,m$. Division cancels factors instead: $2^5/2^2=(2\cdot2\cdot2\cdot2\cdot2)/(2\cdot2)=2^3$. In general $a^n/a^m=a^{n-m}$ when $n>m$ and $a\ne0$.
+In general, $a^na^m=a^{n+m}$ for every number $a$ and all positive integers $n$ and $m$. Division cancels factors instead:
+\[
+\frac{2^5}{2^2}=\frac{2\cdot2\cdot2\cdot2\cdot2}{2\cdot2}=2\cdot2\cdot2=2^3.
+\]
+In general, $a^n/a^m=a^{n-m}$ when $n$ and $m$ are positive integers with $n>m$ and $a\ne0$.
 
-We extend the notation to the exponents zero and negative integers so that these two rules keep working. Dividing $a^n$ by itself gives $1$, and the subtraction rule would give $a^{n-n}=a^0$; so we agree that $a^0=1$ whenever $a\ne0$. Similarly, $a^0/a^n$ should be $a^{0-n}=a^{-n}$, so we agree that $a^{-n}=1/a^n$ for a positive integer $n$ and nonzero $a$. For example, $2^{-3}=1/2^3=1/8$. With these agreements, $a^na^m=a^{n+m}$ and $a^n/a^m=a^{n-m}$ hold for all integers $n,m$ whenever $a\ne0$. We will use these rules with actual numbers, especially powers such as $2^{-n}$, from Chapter~5 onward.
+We now extend the notation to the exponent zero and to negative exponents, in the only way that keeps these two rules working. Dividing $a^n$ by itself gives $1$, while the subtraction rule would give $a^{n-n}=a^0$. So we agree that $a^0=1$ whenever $a\ne0$. Next, $1/a^n$ is the same as $a^0/a^n$, which the subtraction rule would turn into $a^{0-n}=a^{-n}$. So we agree that $a^{-n}=1/a^n$ whenever $n$ is a positive integer and $a\ne0$. For example, $2^{-3}=1/2^3=1/8$. With these agreements, the rules $a^na^m=a^{n+m}$ and $a^n/a^m=a^{n-m}$ hold for all integers $n$ and $m$, positive, negative, or zero, as long as $a\ne0$. For instance, $2^3\cdot2^{-1}=8\cdot\tfrac12=4=2^2$, exactly as the addition rule $3+(-1)=2$ predicts. Powers such as $2^{-n}$ appear regularly from Chapter~\ref{ch:induction} onward.
 
-\pauseq{Why is $(a+b)^2$ not generally $a^2+b^2$?}{The square means $(a+b)(a+b)$. Distribution gives $a^2+ab+ba+b^2=a^2+2ab+b^2$. For $a=1,b=2$, the two proposed values are nine and five. The missing cross terms account for the difference.}
+\pauseq{Why is $(a+b)^2$ not in general equal to $a^2+b^2$?}{The square means $(a+b)(a+b)$. Multiplying out one bracket at a time gives $a^2+ab+ba+b^2$, and since $ba=ab$ this is $a^2+2ab+b^2$. The extra term $2ab$ is not zero in general. For $a=1$ and $b=2$, we get $(1+2)^2=9$ but $1^2+2^2=5$; the difference $4$ is exactly $2ab=2\cdot1\cdot2$.}

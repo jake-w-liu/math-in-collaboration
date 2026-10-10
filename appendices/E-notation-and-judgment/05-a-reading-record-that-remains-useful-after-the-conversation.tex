@@ -1,4 +1,13 @@
-\section{A reading record that remains useful after the conversation}
-A finished reading record contains the exact claim and source version; a plain-language interpretation; the objects and hypotheses; a diagram or paragraph describing the proof's dependencies; and one expanded delicate step. Beside each borrowed result, state its hypotheses and why they hold here. Beside each computation, state the finite range and arithmetic model. Beside each formal result, state which proposition was checked and which assumptions it uses.
+\section{A reading record that stays useful after the conversation}\label{appE:sec:record}
+Section~\ref{ch17:sec:research} introduced the \emph{reading record}: a written account of a proof you are studying, saying what you have read, what you have understood, and what remains open. While you work, the record grows piece by piece. A finished record contains the following.
+\begin{itemize}
+\item The exact statement of the result, copied from a named source. Note which version you read, by its date or version number, because a preprint or a repository can change.
+\item The same statement in your own words, in plain language.
+\item The objects that the statement is about, and the hypotheses on them.
+\item A map of the proof's dependencies, drawn as a diagram or written as a paragraph, like the prerequisite map of Section~\ref{ch17:sec:map}.
+\item One delicate step of the proof, written out in full detail.
+\end{itemize}
 
-The final page should contain your own explanation and one justified variation of the question. A saved chat log is not an adequate substitute: it mixes guesses, corrections, and results without necessarily identifying which statements survived scrutiny. The record should let another reader reconstruct the final argument without reproducing the entire conversation.
+Some entries need a note beside them. Next to each result that you use without having read its proof, write its hypotheses and why they hold in your situation. Next to each computer calculation, write the range of cases it covered and whether it used exact arithmetic or rounded decimals (Section~\ref{appD:sec:fractions}). Next to each result checked by Lean, write exactly which statement Lean checked and which axioms its proof depends on (Section~\ref{ch16:sec:axioms}). Finally, give every entry its status. As in Sections~\ref{ch17:sec:map} and~\ref{ch17:sec:research}, mark it as \emph{understood}, \emph{borrowed}, or still \emph{open}. The section ``Keeping track of evidence'' at the start of the book adds a second record, of what supports each claim: proved, cited from another source, checked by computer for finitely many cases, or not established.
+
+The record should end with your own explanation of the proof, together with one variation of the question that you have worked out, such as a hypothesis removed or a conclusion strengthened, with the reasons for what you found. A saved conversation with an assistant cannot take the place of this record. A conversation mixes guesses, corrections and results, and it does not mark which statements survived checking. The record should let another reader rebuild the final argument without having to read the whole conversation.

@@ -1,22 +1,58 @@
-\section{Capsule one: small regions that cover the space}
-For a metric space $(X,d)$, a \emph{ball} with center $c\in X$ and radius $r>0$ is
+\section{Capsule one: small regions that cover the space}\label{ch17:sec:balls}
+The first missing piece is a way to describe a whole metric space, at any desired precision, by finitely many small regions. The regions we use are balls.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}[Ball]\label{ch17:def:ball}
+Let $(X,d)$ be a metric space, let $c\in X$, and let $r>0$. The \emph{ball} with center $c$ and radius $r$ is the set of points of $X$ at distance less than $r$ from $c$:
 \[
  B(c,r)=\set{x\in X:d(x,c)<r}.
 \]
-It need not look round in a drawing. The definition only uses distance. If $x,y$ lie in the same ball, the triangle inequality gives
-\[
- d(x,y)\le d(x,c)+d(c,y)<r+r=2r.
-\]
-This is the property of balls that the proof will use: one small ball controls distances between all of its points. A bound on all pairwise distances within a set is called a diameter bound.
-
-\par\noindent\begin{minipage}{\linewidth}
-\begin{definition}
-A metric space is \emph{totally bounded} if, for every $r>0$, finitely many balls of radius $r$, with centers in the space, cover the entire space.
 \end{definition}
 \end{minipage}\par
 
-The centers and their number may depend on $r$. We are not claiming that one finite list works at all resolutions.
+The center always belongs to its own ball, because $d(c,c)=0<r$. Despite the name, a ball need not look round. On the real line, $B(c,r)$ is the open interval $(c-r,c+r)$, because $|x-c|<r$ means $c-r<x<c+r$ (Section~\ref{sec:magnitude}). In the space $[0,1]$, the ball $B(0,1/4)$ consists of the points $x\in[0,1]$ with $x<1/4$, so it is the interval $[0,1/4)$; points outside the space do not count. For the metric $d_\infty$ on the plane (Section~\ref{ch11:sec:metric}), the ball $B\bigl((0,0),1\bigr)$ is the square of points $(x_1,x_2)$ with $|x_1|<1$ and $|x_2|<1$. Only the distance matters, not the picture.
 
-For example, $[0,1]$ is totally bounded with ordinary distance. Given $r>0$, choose a positive integer $N$ with $1/N<r$. Use centers $0,1/N,\ldots,1$. Every point between two consecutive centers is within $1/N$ of at least one of them, and hence within $r$. The endpoints are centers themselves. This gives a finite cover explicitly.
+The proof will use one property of balls: a small ball keeps all of its points close to one another. If $x$ and $y$ both lie in $B(c,r)$, then the triangle inequality, with $c$ as the stopping point, and symmetry give
+\[
+ d(x,y)\le d(x,c)+d(c,y)<r+r=2r.
+\]
+So any two points of a ball of radius $r$ are less than $2r$ apart. We call this the \emph{diameter bound} for balls. On the real line it says that two points of the interval $(c-r,c+r)$ are closer together than the length $2r$ of the interval.
 
-A metric space is \emph{bounded} when some fixed finite number is an upper bound for the distance between every pair of its points. Every totally bounded space is bounded: cover it by finitely many balls of radius $1$ with centers $c_1,\ldots,c_k$, and let $M$ be the largest of the distances $d(c_i,c_j)$. If $x$ lies in the ball about $c_i$ and $y$ in the ball about $c_j$, then $d(x,y)\le d(x,c_i)+d(c_i,c_j)+d(c_j,y)<1+M+1$. The converse fails, as the next example shows, so total boundedness is the stronger condition. On $\NN$, define $d(m,n)=0$ if $m=n$ and $d(m,n)=1$ otherwise. This is a metric: for distinct endpoints, an intermediate point cannot make both distances zero, so their sum is at least one. All distances are at most one, yet a ball of radius $1/2$ contains only its center. Finitely many such balls cannot cover infinitely many natural numbers. Thus this space is bounded but not totally bounded.
+A collection of sets \emph{covers} $X$ if every point of $X$ lies in at least one set of the collection.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}[Totally bounded]\label{ch17:def:totally-bounded}
+A metric space $(X,d)$ is \emph{totally bounded} if, for every $r>0$, there are finitely many points $c_1,\ldots,c_k$ of $X$ such that the balls $B(c_1,r),\ldots,B(c_k,r)$ cover $X$. In symbols:
+\[
+ \forall r>0\ \exists k\in\NN\ \exists c_1,\ldots,c_k\in X\ \forall x\in X\ \exists i\in\set{1,\ldots,k}:\quad d(x,c_i)<r.
+\]
+\end{definition}
+\end{minipage}\par
+
+Read the quantifiers as a game, as in Section~\ref{ch02:sec:quantifiers}. A skeptic names a radius $r>0$. You answer with a finite list of centers, all of them points of the space; your list may depend on $r$. The skeptic then picks any point $x$ of the space, and you win if $x$ lies within distance $r$ of at least one of your centers. The space is totally bounded if you can always win. A smaller radius usually needs more centers, and that is allowed. What the definition does not ask for is one finite list that works for every radius at once; the second example below shows that for the interval $[0,1]$ no such list exists.
+
+\subsection*{Two examples on the interval $[0,1]$}
+\emph{The interval $[0,1]$ is totally bounded.} Let $r>0$ be given. By the Archimedean property (Section~\ref{ch02:sec:quantifiers}), there is a positive integer $N$ with $N>1/r$, that is, $1/N<r$. Use the $N+1$ centers $0,\tfrac1N,\tfrac2N,\ldots,1$. A point $x\in[0,1]$ that is not itself a center lies strictly between two consecutive centers, say $j/N<x<(j+1)/N$, and then
+\[
+ d\Bigl(x,\frac jN\Bigr)=x-\frac jN<\frac{j+1}N-\frac jN=\frac1N<r.
+\]
+So every point of $[0,1]$ lies in at least one of the $N+1$ balls of radius $r$. For instance, the radius $r=0.3$ allows $N=4$, and the five balls of radius $0.3$ centered at $0$, $0.25$, $0.5$, $0.75$ and $1$ cover $[0,1]$.
+
+\emph{No single finite list works for every radius.} Fix a list of $k\ge1$ points $c_1,\ldots,c_k$ of $[0,1]$, and take the radius $r=1/(2k)$. The $k+1$ points $0,\tfrac1k,\tfrac2k,\ldots,1$ are at least $1/k=2r$ apart from one another. Suppose the $k$ balls $B(c_i,r)$ covered all of these points. Assign each of the $k+1$ points to a ball that contains it. By the pigeonhole principle (Proposition~\ref{ch07:prop:pigeonhole}), two of the points would share a ball, and by the diameter bound they would then be less than $2r$ apart. That is impossible, so some point of $[0,1]$ is not covered. The list that works for one radius fails for a smaller one.
+
+\subsection*{Totally bounded spaces are bounded}
+A metric space is \emph{bounded} if there is a real number $M$ such that $d(x,y)\le M$ for all points $x$ and $y$ of the space. Every totally bounded space is bounded. If the space is empty, there is nothing to prove. Otherwise, cover it by finitely many balls of radius $1$, with centers $c_1,\ldots,c_k$, where $k\ge1$, and let $M$ be the largest of the finitely many distances $d(c_i,c_j)$. Now let $x$ and $y$ be any two points. Say $x$ lies in the ball about $c_i$ and $y$ in the ball about $c_j$. Using the triangle inequality twice, first with $c_i$ and then with $c_j$ as a stopping point, gives
+\[
+ d(x,y)\le d(x,c_i)+d(c_i,c_j)+d(c_j,y)<1+M+1.
+\]
+So the number $M+2$ bounds every distance in the space.
+
+The converse is false: a bounded space need not be totally bounded. To see this we need a new metric. On any set $X$, let
+\[
+ d(x,y)=\begin{cases}0&\text{if }x=y,\\1&\text{if }x\ne y.\end{cases}
+\]
+This is a metric, called the \emph{discrete metric} on $X$. The first two requirements of Definition~\ref{def:metric} hold by the way $d$ is defined. For the triangle inequality $d(x,z)\le d(x,y)+d(y,z)$, consider two cases. If $x=z$, the left side is $0$ and there is nothing to prove. If $x\ne z$, the left side is $1$; the point $y$ cannot be equal to both $x$ and $z$, so at least one of the two distances on the right is $1$, and the right side is at least $1$.
+
+Now take $X=\NN$ with the discrete metric. Every distance is at most $1$, so the space is bounded. But a ball of radius $1/2$ contains only its center: $B(n,1/2)=\set{m\in\NN:d(m,n)<1/2}=\set n$, because every other natural number is at distance $1$ from $n$. So $k$ balls of radius $1/2$ contain at most $k$ natural numbers, and no finite collection of them covers the infinitely many natural numbers. This space is bounded but not totally bounded. Boundedness asks for a single bound on all distances; total boundedness asks for a finite description of the space at every scale, which is much more.
+
+\pauseq{Is the real line, with distance $|x-y|$, totally bounded?}{No. A totally bounded space is bounded, as we just proved, but the real line is not bounded: for any proposed bound $M$, the points $0$ and $M+1$ are at distance $M+1>M$. So the real line cannot be totally bounded.}

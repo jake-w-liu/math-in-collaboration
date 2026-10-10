@@ -1,23 +1,38 @@
-\section{The geometry of an inner product}
-For vectors $u,v\in\RR^n$, define their dot product by
+\section{The geometry of an inner product}\label{ch10:sec:inner}
+For vectors $u,v\in\RR^n$, define their \emph{dot product} by
 \[
-u\cdot v=\sum_{j=1}^n u_jv_j.
+u\cdot v=\sum_{j=1}^n u_jv_j=u_1v_1+u_2v_2+\cdots+u_nv_n.
 \]
-The dot product is also called the standard \emph{inner product} on $\RR^n$; the two names refer to the same operation.
+The result is a number, not a vector. For example, $(1,2,3)\cdot(4,-5,6)=4-10+18=12$. The dot product is also called the standard \emph{inner product} on $\RR^n$. In this language, the row rule of Section~\ref{ch10:sec:linearmaps} says that $(Ax)_i$ is the dot product of row $i$ of $A$ with $x$.
 
-Symmetry follows because each product $u_jv_j$ equals $v_ju_j$. The phrase ``linear in each argument'' means that one argument can be held fixed while addition and scaling in the other distribute through the dot product. For example,
+The dot product has three basic properties, and these are the only facts about it that the proofs in the next section use.
+\begin{itemize}
+\item \emph{Symmetry:} $u\cdot v=v\cdot u$, because each product $u_jv_j$ equals $v_ju_j$.
+\item \emph{Linearity in each argument:} if one of the two vectors is held fixed, the dot product is linear in the other one. For the first argument,
+\begin{align*}
+(au+bw)\cdot v
+&=\sum_{j=1}^n(au_j+bw_j)v_j\\
+&=a\sum_{j=1}^n u_jv_j+b\sum_{j=1}^n w_jv_j
+=a(u\cdot v)+b(w\cdot v).
+\end{align*}
+The same expansion gives $u\cdot(av+bw)=a(u\cdot v)+b(u\cdot w)$ for the second argument. In particular, taking $a=b=0$ shows that $0\cdot v=0$ for every $v$, where the $0$ on the left is the zero vector.
+\item \emph{Positivity:} $u\cdot u=u_1^2+\cdots+u_n^2\ge0$, and $u\cdot u=0$ only when $u=0$. Each square is nonnegative, so the sum is nonnegative. A sum of nonnegative numbers is zero only if every term is zero, and $u_j^2=0$ only when $u_j=0$.
+\end{itemize}
+
+The \emph{Euclidean length}, or \emph{norm}, of a vector $u$ is
 \[
- (a u+b w)\cdot v
- =\sum_j(au_j+bw_j)v_j
- =a\sum_j u_jv_j+b\sum_j w_jv_j
- =a(u\cdot v)+b(w\cdot v).
+\norm{u}_2=\sqrt{u\cdot u}=\sqrt{u_1^2+u_2^2+\cdots+u_n^2}.
 \]
-The same expansion works in the second argument. All sums here contain exactly $n$ terms. The Euclidean length is
+By positivity, the number under the root is nonnegative, so the square root exists. Since $\sqrt t=0$ only when $t=0$, positivity also shows that $\norm{u}_2=0$ exactly when $u=0$. In the plane, $\norm{(3,4)}_2=\sqrt{9+16}=5$. By Pythagoras' theorem this is the distance from the origin to the point $(3,4)$, because that distance is the longest side of a right triangle whose two shorter sides have lengths $3$ and $4$.
+
+Scaling a vector scales its length by the size of the scalar: $\norm{cu}_2=|c|\,\norm{u}_2$. To see this, use linearity in each argument to get $\norm{cu}_2^2=(cu)\cdot(cu)=c^2(u\cdot u)$. Since $|c|^2=c^2$, the two numbers $\norm{cu}_2$ and $|c|\,\norm{u}_2$ are nonnegative and have the same square, namely $c^2\norm{u}_2^2$. A nonnegative number is determined by its square (Section~\ref{ch01:sec:notation}), so they are equal.
+
+The subscript $2$ in $\norm{u}_2$ is a label for this way of measuring size, which is built from squares. It is not the second coordinate of $u$, and it does not mean that $u$ has two coordinates. The label is useful because Chapter~\ref{ch:limits} meets other ways of measuring the size of a vector.
+
+Two vectors $u$ and $v$ are \emph{orthogonal} when $u\cdot v=0$. In the plane, two nonzero vectors are orthogonal exactly when they are perpendicular in the usual sense. For instance, turning a vector $(a,b)$ through a right angle gives $(-b,a)$, and indeed
 \[
-\norm{u}_2=\sqrt{u\cdot u}=\sqrt{\sum_{j=1}^n u_j^2}.
+(a,b)\cdot(-b,a)=-ab+ba=0.
 \]
-Each square is nonnegative, so the square root is defined. Length is zero exactly when every coordinate is zero.
+The algebraic definition makes sense in $\RR^n$ for every $n$, even when we can no longer draw a picture. The zero vector is orthogonal to every vector, since $0\cdot v=0$.
 
-The subscript $2$ on $\norm{u}_2$ identifies this square-based length. It is not the second coordinate of $u$ and does not restrict the vector to two coordinates. Vectors are orthogonal when their dot product is zero. In the plane this agrees with perpendicularity, but the algebraic definition works in any finite dimension.
-
-For $u=(1,1)$ and $v=(1,-1)$, $u\cdot v=1-1=0$. Orthogonality says the positive and negative contributions cancel. This same cancellation will express zero correlation between sign sequences in Chapter~14.
+For $u=(1,1)$ and $v=(1,-1)$, the two columns of the matrix $A$ of Section~\ref{ch10:sec:linearmaps}, we get $u\cdot v=1\cdot1+1\cdot(-1)=0$. The positive product from the first coordinate cancels the negative product from the second. Cancellation of exactly this kind will express the vanishing of correlations between sign sequences in Chapter~\ref{ch:signs}.

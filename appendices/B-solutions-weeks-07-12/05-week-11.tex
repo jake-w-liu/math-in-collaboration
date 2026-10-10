@@ -1,34 +1,55 @@
 \section{Week 11}
-\sol{11.1}{Name the input errors $\Delta x=x-a$ and $\Delta y=y-b$, where the symbol $\Delta$ is simply a label for a difference. Subtraction and regrouping give
+\sol{11.1}{Name the input errors $\Delta x=x-a$ and $\Delta y=y-b$; the symbol $\Delta$ (the Greek capital letter delta) is simply a label for a difference. Subtracting and regrouping gives
 \[
  (2x-y)-(2a-b)=2(x-a)-(y-b)=2\Delta x-\Delta y.
 \]
-Now use the triangle inequality and the absolute-value scaling rule:
+Now use the triangle inequality, then the product rule $|cx|=|c|\,|x|$ from Section~\ref{sec:magnitude}:
 \begin{align*}
  |2\Delta x-\Delta y|
  &\le|2\Delta x|+|{-\Delta y}|\\
  &=2|\Delta x|+|\Delta y|\\
  &\le2(0.02)+0.03=0.07.
 \end{align*}
-The signs of the input errors were not specified, so a guaranteed estimate must allow the worst permitted combination. For $\Delta x=0.02$ and $\Delta y=-0.03$, the output error is $0.04+0.03=0.07$, attaining the bound. For $\Delta x=0.02$ and $\Delta y=0.03$, it is $0.04-0.03=0.01$. In this expression, same-sign errors can partially cancel, while opposite-sign errors reinforce because the second error is subtracted.}
-\sol{11.2}{For $a_n=3/(n+1)$ with $n\ge0$, the error from zero is $3/(n+1)$. Given $\eps>0$, choose a positive integer $N>3/\eps$. Then $n\ge N$ implies $n+1>N$ and hence $|a_n-0|=3/(n+1)<3/N<\eps$. The same $N$ works for every later index, which is required for convergence. This choice is sufficient, even though it need not be the smallest possible threshold.}
-\sol{11.3}{For vectors in $\RR^n$, recall $d_\infty(x,y)=\max_{1\le i\le n}|x_i-y_i|$. It is nonnegative. It equals zero exactly when every coordinate difference equals zero, hence exactly when $x=y$. Symmetry follows from $|x_i-y_i|=|y_i-x_i|$. For the triangle inequality, each coordinate satisfies
+So $|(2x-y)-(2a-b)|\le0.07$ for all numbers satisfying the hypotheses.
+
+The bound is attained. Take $a=b=0$, $x=0.02$ and $y=-0.03$. Both hypotheses hold, and $(2x-y)-(2a-b)=0.04+0.03=0.07$. By contrast, $x=0.02$ and $y=0.03$ give $0.04-0.03=0.01$. Because the second error is subtracted, errors of the same sign partly cancel here, while errors of opposite signs reinforce each other. Since the hypotheses say nothing about the signs, a guaranteed estimate must allow for the worst combination, and $0.07$ is the best bound that holds in every case.}
+\sol{11.2}{Let $\eps>0$ be given. By the Archimedean property, choose an integer $N>3/\eps$; it is positive because $3/\eps>0$. Let $n\ge N$. Then $n+1>N>0$, so taking reciprocals gives $1/(n+1)<1/N$, and multiplying by $3$ gives $3/(n+1)<3/N$. Multiplying $N>3/\eps$ by the positive number $\eps/N$ gives $\eps>3/N$. Together,
 \[
- |x_i-z_i|\le|x_i-y_i|+|y_i-z_i|
- \le d_\infty(x,y)+d_\infty(y,z).
+ |a_n-0|=\frac3{n+1}<\frac3N<\eps\qquad\text{for every }n\ge N.
 \]
-Taking the maximum over $i$ preserves this common bound. Thus it is a metric.}
-\sol{11.4}{For any $m>n$, insert the consecutive iterates between the endpoints. Repeated triangle inequalities give
+So the threshold is any integer $N>3/\eps$, and $a_n\to0$. For example, $\eps=0.01$ calls for $N>300$, so $N=301$ works; indeed $a_{301}=3/302\approx0.00993$. The smallest threshold that works for this tolerance is actually $N=300$, since $a_{300}=3/301\approx0.00997$, but the definition asks only for some threshold that works for every later index.}
+\sol{11.3}{Recall that $d_\infty(x,y)=\max_{1\le i\le n}|x_i-y_i|$ is the largest of the $n$ numbers $|x_1-y_1|,\ldots,|x_n-y_n|$.
+
+\emph{Nonnegativity.} Each of these numbers is an absolute value and so is at least $0$. Their largest is one of them, so $d_\infty(x,y)\ge0$.
+
+\emph{Zero exactly for equal vectors.} If $x=y$, every coordinate difference is $0$, so all $n$ numbers are $0$ and their largest is $0$. Conversely, suppose $d_\infty(x,y)=0$. Every number $|x_i-y_i|$ is at most the largest one, which is $0$, and at least $0$, so $|x_i-y_i|=0$ and hence $x_i=y_i$ for every $i$. Two vectors with the same coordinates are equal, so $x=y$.
+
+\emph{Symmetry.} For each $i$, $|x_i-y_i|=|y_i-x_i|$, because $y_i-x_i=-(x_i-y_i)$ and changing the sign does not change the absolute value. So $d_\infty(x,y)$ and $d_\infty(y,x)$ are the largest of the same list of numbers, and they are equal.
+
+Together with the triangle inequality proved in Section~\ref{ch11:sec:metric}, these facts show that $d_\infty$ satisfies all three requirements of Definition~\ref{def:metric}, so it is a metric on $\RR^n$.}
+\sol{11.4}{Let $m>n$. As in Step~1 of the proof of Proposition~\ref{ch11:prop:geometric-cauchy}, repeated use of the triangle inequality through the intermediate terms gives
 \[
  d(x_m,x_n)\le d(x_m,x_{m-1})+\cdots+d(x_{n+1},x_n)
- \le\sum_{k=n}^{m-1}2(1/3)^k.
+ \le\sum_{j=n}^{m-1}2\Bigl(\frac13\Bigr)^j.
 \]
-The geometric-sum bound from the chapter yields
+The geometric tail bound of Section~\ref{ch11:sec:geometric}, with $q=1/3$, yields
 \[
- \sum_{k=n}^{m-1}2(1/3)^k
+ \sum_{j=n}^{m-1}2\Bigl(\frac13\Bigr)^j
  \le\frac{2(1/3)^n}{1-1/3}
- =3(1/3)^n=3^{1-n}.
+ =3\Bigl(\frac13\Bigr)^n=3^{1-n}.
 \]
-This bound does not depend on $m$, so it controls all later endpoints together. For any positive tolerance, choose $N$ so $3^{1-N}$ is smaller than that tolerance. When both indices are at least $N$, put the smaller one in the role of $n$; if they are equal their distance is zero. This proves the Cauchy condition. Completeness would be an additional requirement to conclude convergence inside the chosen space.}
-\sol{11.5}{The sequence $x_n=2+2^{-(n+1)}$ lies in $(2,3)$ for all $n\ge0$. Its real limit is two because its distance from two is $2^{-(n+1)}\to0$. A convergent real sequence is Cauchy: two sufficiently late terms are each within $\eps/2$ of the limit and hence within $\eps$ of each other. If this sequence converged to a point of $(2,3)$, uniqueness of real limits would force that point to be two, which is outside the interval. Thus this is a Cauchy sequence without a limit in the space.}
-\sol{11.6}{One is an upper bound for $(0,1)$. No $b<1$ is an upper bound: if $b<0$, the point $1/2$ exceeds it; if $0\le b<1$, the point $(b+1)/2$ lies in $(0,1)$ and exceeds $b$. Therefore one is the least upper bound. It is not a maximum because it is not a member. Indeed every $x\in(0,1)$ is exceeded by $(x+1)/2$, another member of the interval.}
+So $d(x_m,x_n)\le3^{1-n}$ for all $m>n$, a bound that does not depend on $m$.
+
+For the Cauchy condition we need $3^{1-n}$ to become small. With $q=1/3$ we have $c=1/q-1=2$, and Bernoulli's inequality gives $3^n\ge1+2n$, so $3^{1-n}\le3/(1+2n)$. Let $\eps>0$, and choose an integer $N>3/(2\eps)$. For $n\ge N$ we get $1+2n>2n\ge2N>3/\eps$, hence $3^{1-n}\le3/(1+2n)<\eps$. Now take any $m,n\ge N$. If $m=n$, their distance is $0<\eps$. Otherwise name them so that $m>n$, which is allowed because $d$ is symmetric; then $d(x_m,x_n)\le3^{1-n}<\eps$. So the sequence is Cauchy, with threshold any integer $N>3/(2\eps)$.
+
+This shows only that the sequence is Cauchy. To conclude that it converges to a point of the space, we would also need the space to be complete.}
+\sol{11.5}{Take $x_n=2+2^{-(n+1)}$ for $n\in\NN$, that is, $2.5,\ 2.25,\ 2.125,\ldots$. Since $0<2^{-(n+1)}\le1/2$, every term satisfies $2<x_n\le2.5$, so the sequence lies in $(2,3)$.
+
+\emph{The sequence is Cauchy.} On the real line it converges to $2$. Indeed, $|x_n-2|=2^{-(n+1)}$, and $2^{n+1}\ge n+2$ (Section~\ref{ch11:sec:convergence}), so $|x_n-2|\le1/(n+2)<1/(n+1)$. Given $\eps>0$, choose an integer $N>1/\eps$; then every $n\ge N$ satisfies $|x_n-2|<1/(n+1)<1/N<\eps$. By Proposition~\ref{ch11:prop:convergent-cauchy}, the sequence is Cauchy on the real line. The Cauchy condition involves only distances between terms, and these are the same in $(2,3)$ as in $\RR$, so the sequence is Cauchy in $(2,3)$.
+
+\emph{The sequence has no limit in $(2,3)$.} Suppose it converged to a point $L$ of $(2,3)$. Distances in $(2,3)$ are distances in $\RR$, so it would also converge to $L$ on the real line. Since it converges to $2$ there, Proposition~\ref{thm:limitunique} forces $L=2$. But $2$ is not in $(2,3)$, a contradiction. So this is a Cauchy sequence in $(2,3)$ with no limit in $(2,3)$, and in particular $(2,3)$ is not complete.}
+\sol{11.6}{\emph{1. The supremum.} Every $x\in(0,1)$ satisfies $x<1$, so $1$ is an upper bound for $(0,1)$. Now let $b$ be any upper bound; we show $b\ge1$. Suppose instead that $b<1$. Since $1/2\in(0,1)$, we have $1/2\le b$, so $b>0$. Consider $t=(b+1)/2$, the midpoint of $b$ and $1$. Because $b<1$, we have $b<t<1$, and $t>b>0$, so $t\in(0,1)$. But $t>b$, so $b$ is not an upper bound, a contradiction. Hence every upper bound $b$ satisfies $b\ge1$, and $1$ is a supremum of $(0,1)$.
+
+\emph{2. No maximum.} A maximum would be a member $x$ of $(0,1)$ that is also an upper bound. Take any $x\in(0,1)$ and put $t=(x+1)/2$. Because $0<x<1$, we have $x<t<1$, so $t$ is a member of $(0,1)$ that is larger than $x$. Thus $x$ is not an upper bound, and no member of $(0,1)$ is a maximum.
+
+\emph{3. Supremum versus maximum.} The interval $(0,1)$ is nonempty, and $1$ is an upper bound for it. By part~2 it has no maximum. So the statement ``every nonempty set of real numbers that has an upper bound has a maximum'' is false, with $(0,1)$ as a counterexample. The difference is that a maximum must belong to the set, while a supremum need not. The supremum $1$ of $(0,1)$ is exactly the point missing from the interval, just as the limit $0$ was missing from $(0,1)$ in Section~\ref{ch11:sec:complete}.}

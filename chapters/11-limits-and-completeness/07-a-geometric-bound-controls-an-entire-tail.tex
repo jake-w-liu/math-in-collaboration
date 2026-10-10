@@ -1,42 +1,81 @@
-\section{A geometric bound controls an entire tail}
-For $0<q<1$, the finite geometric sum satisfies
+\section{A geometric bound controls an entire tail}\label{ch11:sec:geometric}
+The harmonic sums of Section~\ref{ch11:sec:cauchy} failed to be Cauchy because their steps, though small, added up to a lot. This section shows that steps which shrink by a fixed factor at every stage cannot add up to much. The tool is the finite geometric sum.
+
+\subsection*{The finite geometric sum}
+Let $q$ be a real number with $q\ne1$, and let $r$ be a positive integer. Then
 \[
-1+q+\cdots+q^{r-1}=\frac{1-q^r}{1-q}.
+1+q+q^2+\cdots+q^{r-1}=\frac{1-q^r}{1-q}.
 \]
-To see the cancellation, first take $r=4$ and give the sum a name, $S=1+q+q^2+q^3$. Then
+To see why, first take $r=4$ and call the sum $S=1+q+q^2+q^3$. Multiplying by $q$ raises every power by one:
 \begin{align*}
  S&=1+q+q^2+q^3,\\
- qS&=\phantom{1+{}}q+q^2+q^3+q^4,\\
- S-qS&=1-q^4.
+ qS&=\phantom{1+{}}q+q^2+q^3+q^4.
 \end{align*}
-The left side is $(1-q)S$, so $S=(1-q^4)/(1-q)$. For general positive $r$, the common terms are $q$ through $q^{r-1}$ and the unmatched end terms are $1$ and $q^r$. The same subtraction gives $(1-q)S=1-q^r$. Since $1-q>0$, division is permitted. Therefore
-\[
-\sum_{j=n}^{m-1}q^j=q^n\frac{1-q^{m-n}}{1-q}\le\frac{q^n}{1-q}\qquad(m>n).
-\]
-The bound must get small as the starting index $n$ grows. We therefore need to justify $q^n\to0$ for every fixed $0<q<1$, not just for $q=1/2$.
+When the second line is subtracted from the first, the terms $q$, $q^2$ and $q^3$ cancel, leaving $S-qS=1-q^4$. The left side is $(1-q)S$, and $1-q\ne0$, so we may divide by it: $S=(1-q^4)/(1-q)$. For a general $r$, the same subtraction applies to $S=1+q+\cdots+q^{r-1}$ and $qS=q+q^2+\cdots+q^r$. The terms $q$ through $q^{r-1}$ appear in both, so only $1$ and $q^r$ remain, and $(1-q)S=1-q^r$. As a check, take $q=1/2$ and $r=4$. The sum is $1+\tfrac12+\tfrac14+\tfrac18=\tfrac{15}8$, and the formula gives $\bigl(1-\tfrac1{16}\bigr)\big/\bigl(1-\tfrac12\bigr)=\tfrac{15}{16}\cdot2=\tfrac{15}8$.
 
-Put $c=1/q-1>0$, so $1/q=1+c$. We prove $(1+c)^n\ge1+nc$ by induction. At $n=0$ both sides are one. If it holds at $n$, multiplication by $1+c>0$ gives
+From now on let $0<q<1$. We need sums that start at a later power. For integers $m>n\ge0$, factor out $q^n$ and apply the formula with $r=m-n$:
+\[
+\sum_{j=n}^{m-1}q^j=q^n\bigl(1+q+\cdots+q^{m-n-1}\bigr)=q^n\,\frac{1-q^{m-n}}{1-q}\le\frac{q^n}{1-q}.
+\]
+The final inequality holds because $q^{m-n}>0$, so $1-q^{m-n}<1$, and the factor $q^n/(1-q)$ is positive. The bound on the right does not depend on $m$: however many terms we add, a sum of consecutive powers starting at $q^n$ never exceeds $q^n/(1-q)$.
+
+\subsection*{Powers of a number between zero and one tend to zero}
+The bound $q^n/(1-q)$ is useful only if it becomes small as $n$ grows, so we need $q^n\to0$. Section~\ref{ch11:sec:convergence} handled $q=1/2$ by proving $2^n\ge n+1$. For a general $q$ with $0<q<1$, put $c=1/q-1$. Since $0<q<1$, we have $1/q>1$, so $c>0$, and $1/q=1+c$. We prove by induction that
+\[
+(1+c)^n\ge1+nc\qquad\text{for every }n\in\NN.
+\]
+This is known as \emph{Bernoulli's inequality}. At $n=0$ both sides equal $1$. If it holds for some $n$, multiply both sides by the positive number $1+c$:
 \[
  (1+c)^{n+1}\ge(1+nc)(1+c)
- =1+(n+1)c+nc^2\ge1+(n+1)c.
+ =1+(n+1)c+nc^2\ge1+(n+1)c,
 \]
-Thus the bound holds for every $n$. Taking reciprocals of positive quantities reverses order, giving
+because $nc^2\ge0$. This is the inequality for $n+1$, so it holds for every $n$. Since $q^n=1/(1+c)^n$, and both $(1+c)^n$ and $1+nc$ are positive, taking reciprocals reverses the order and gives
 \[
  0<q^n\le\frac1{1+nc}.
 \]
-For a requested tolerance $\eps>0$, choose a positive integer $N>1/(c\eps)$. If $n\ge N$, then $1+nc>nc\ge Nc>1/\eps$, so $q^n<\eps$. This is the required convergence proof. The threshold may depend on the fixed factor $q$ through $c$, and on the requested tolerance.
+Now let $\eps>0$ be given, and use the Archimedean property to choose a positive integer $N>1/(c\eps)$. If $n\ge N$, then $1+nc>nc\ge Nc>1/\eps$, and taking reciprocals once more gives $q^n\le1/(1+nc)<\eps$. This proves $q^n\to0$. (If $q=0$, then $q^n=0$ for every $n\ge1$, so $q^n\to0$ in that case too.)
 
-Now suppose a sequence satisfies $d(x_{j+1},x_j)\le Dq^j$ for every $j$, where $D\ge0$ is a fixed number. To compare two terms $x_n$ and $x_m$ with $m>n$, travel from $x_n$ to $x_m$ one step at a time. For instance, if $m=n+3$, two uses of the triangle inequality give
+The threshold depends on $\eps$ and, through $c$, on $q$: the closer $q$ is to $1$, the smaller $c$ is, and the larger the number $1/(c\eps)$ that $N$ must exceed. For example, $q=0.9$ gives $c=1/9$, and for $\eps=0.01$ the recipe asks for $N>900$. In fact $0.9^n<0.01$ already holds from $n=44$ on, since $0.9^{44}\approx0.0097$ while $0.9^{43}\approx0.0108$. Thresholds that come out of a proof are often much larger than necessary. That costs nothing here, because convergence only asks for some threshold that works.
+
+\subsection*{Geometrically shrinking steps give a Cauchy sequence}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{proposition}\label{ch11:prop:geometric-cauchy}
+Let $x_0,x_1,x_2,\ldots$ be a sequence in a metric space $(X,d)$, and suppose there are numbers $D\ge0$ and $0<q<1$ such that
+\[
+d(x_{j+1},x_j)\le Dq^j\qquad\text{for every }j\in\NN.
+\]
+Then $d(x_m,x_n)\le Dq^n/(1-q)$ whenever $m>n$, and the sequence is a Cauchy sequence.
+\end{proposition}
+\end{minipage}\par
+
+Before the proof, here is an example. For the sequence $x_n=1-2^{-n}$ of Section~\ref{ch11:sec:convergence}, each step is
+\[
+x_{j+1}-x_j=2^{-j}-2^{-(j+1)}=2^{-(j+1)}=\tfrac12\bigl(\tfrac12\bigr)^j,
+\]
+so the hypothesis holds with $D=1/2$ and $q=1/2$. The proposition then promises $|x_m-x_n|\le\tfrac12\bigl(\tfrac12\bigr)^n\big/\tfrac12=2^{-n}$ for all $m>n$. Directly, $|x_m-x_n|=2^{-n}-2^{-m}$, which is indeed less than $2^{-n}$.
+
+\begin{proof}
+\emph{Step 1: from single steps to many steps.} Fix $n$. We show by induction on $m$ that, for every $m>n$,
+\[
+d(x_m,x_n)\le\sum_{j=n}^{m-1}d(x_{j+1},x_j).
+\]
+In words, the distance from $x_n$ to $x_m$ is at most the total length of the single steps between them. For $m=n+1$ the sum has just one term, $d(x_{n+1},x_n)$, and the claim is an equality. Suppose the claim holds for some $m>n$. The triangle inequality with $x_m$ as the stopping point gives
+\[
+d(x_{m+1},x_n)\le d(x_{m+1},x_m)+d(x_m,x_n)\le d(x_{m+1},x_m)+\sum_{j=n}^{m-1}d(x_{j+1},x_j)=\sum_{j=n}^{m}d(x_{j+1},x_j),
+\]
+which is the claim for $m+1$. For instance, with $m=n+3$ the claim reads
 \[
 d(x_{n+3},x_n)\le d(x_{n+3},x_{n+2})+d(x_{n+2},x_{n+1})+d(x_{n+1},x_n).
 \]
-In general, induction on $m-n$ shows that the distance from $x_n$ to $x_m$ is at most the sum of the $m-n$ single steps between them. Combining this with the step bounds and the geometric sum gives
+
+\emph{Step 2: a bound for the whole tail.} Combine Step~1 with the assumed bounds on the steps and with the geometric tail sum. For $m>n$,
 \[
-d(x_m,x_n)\le\sum_{j=n}^{m-1}d(x_{j+1},x_j)
-\le\frac{Dq^n}{1-q}.
+d(x_m,x_n)\le\sum_{j=n}^{m-1}d(x_{j+1},x_j)\le\sum_{j=n}^{m-1}Dq^j=D\sum_{j=n}^{m-1}q^j\le\frac{Dq^n}{1-q}.
 \]
-The right side tends to zero independently of how late $m$ is. This proves the Cauchy condition.
 
-There are two thresholds we must not confuse. The integer $n$ is the starting point of a tail comparison, and $m>n$ can be arbitrarily far beyond it. Our bound contains $n$ but not $m$, so one choice of $n$ controls even very long tails.
+\emph{Step 3: the Cauchy condition.} Let $\eps>0$. If $D=0$, Step~2 gives $d(x_m,x_n)=0$ for all $m>n$, so all the terms are equal and the threshold $N=0$ works. Now let $D>0$. The number $\eps(1-q)/D$ is positive, and $q^n\to0$, so there is a threshold $N$ such that $q^n<\eps(1-q)/D$ for every $n\ge N$. Multiplying by the positive number $D/(1-q)$ gives $Dq^n/(1-q)<\eps$ for every $n\ge N$. Take any two indices $m,n\ge N$. If $m=n$, their distance is $0$, which is less than $\eps$. Otherwise, by symmetry of $d$, we may name them so that $m>n$, and Step~2 gives $d(x_m,x_n)\le Dq^n/(1-q)<\eps$. So the sequence is Cauchy.
+\end{proof}
 
-For $D>0$, a given tolerance $\eps$ asks for $q^n<\eps(1-q)/D$. The preceding geometric-limit argument supplies a threshold $N$ for that positive number. For any two indices at least $N$, put the smaller one in the role of $n$; symmetry handles their order, and equal indices have zero distance. If $D=0$, every step has zero length, so the sequence is constant. This also covers the case where dividing by $D$ would not have been permitted. We have found exactly the stronger control missing from the harmonic-sum example.
+Notice the roles of the two indices in Step~2. The index $n$ is where the comparison starts, and $m$ may be any later index, however far beyond $n$. The bound $Dq^n/(1-q)$ involves $n$ but not $m$, so a single choice of $n$ controls the whole tail from $x_n$ onward. This is exactly the control that the harmonic sums lack. There, the steps after index $n$ add up to at least $1/2$ no matter how large $n$ is. Here, they add up to at most $Dq^n/(1-q)$, which is as small as we like once $n$ is large.
+
+If the space is complete, as the real line and every closed interval are, then the definition of completeness turns the conclusion of the proposition into convergence: the sequence has a limit in the space. This combination of a geometric bound on the steps with completeness is the heart of the contraction theorem in Chapter~\ref{ch:contraction}.

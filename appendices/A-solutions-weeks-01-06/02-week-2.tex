@@ -1,14 +1,52 @@
 \section{Week 2}
-\sol{2.1}{The converse is ``If $x^2=9$, then $x=3$.'' It is false at $x=-3$. The contrapositive is ``If $x^2\ne9$, then $x\ne3$.'' It is true: $x=3$ would force $x^2=9$ and contradict its assumption. The original implication is also true by substitution.}
-\sol{2.2}{Work from the outer promise inward. The original sentence says that \emph{every} integer $n$ has at least one satisfactory response $m$. Its failure requires \emph{some} integer $n$ for which no response works. Thus the first two words of the negation are ``There exists,'' and the response clause must say ``for every integer $m$.''
+\sol{2.1}{The original implication is true: if $x=3$, then $x^2=3\cdot3=9$.
 
-For a proposed response to work, both $m>n$ and evenness are required. It fails when at least one requirement fails: $m\le n$ or $m$ is not even. Equality belongs to the first failure because the original comparison was strict. The full negation is
+The converse is ``If $x^2=9$, then $x=3$.'' It is false, and $x=-3$ is a counterexample. It satisfies the hypothesis, since $(-3)^2=9$, but not the conclusion, since $-3\ne3$.
+
+The contrapositive is ``If $x^2\ne9$, then $x\ne3$.'' It is true, because it is equivalent to the original implication, which is true. We can also see this directly: if $x$ were equal to $3$, then $x^2$ would equal $9$, which contradicts the hypothesis $x^2\ne9$.
+
+So the original statement and its contrapositive are true, and the converse is false. This is the same pattern as for ``divisible by four implies even'' in Chapter~\ref{ch:logic}: a true implication always has a true contrapositive, but its converse may fail.}
+\sol{2.2}{Work from the outside in. The original statement says that \emph{every} integer $n$ has at least one successful response $m$. It fails if \emph{some} integer $n$ has no successful response at all. So the negation begins ``There is an integer $n$ such that, for every integer $m$, \ldots.'' The domains stay the same: both $n$ and $m$ are still integers.
+
+A proposed response $m$ succeeds when $m>n$ \emph{and} $m$ is even. By De Morgan's law, it fails when at least one of these requirements fails: $m\le n$, or $m$ is not even. The comparison $m>n$ is strict, so its failure is $m\le n$, which includes the case $m=n$. In symbols, the original statement is
+\[
+ \forall n\in\ZZ\ \exists m\in\ZZ:\quad (m>n)\land(m\text{ is even}),
+\]
+and its negation is
 \[
  \exists n\in\ZZ\ \forall m\in\ZZ:\quad
  (m\le n)\lor\neg(m\text{ is even}).
 \]
-In words: there is an integer $n$ such that every integer $m$ either is at most $n$ or is not even. The ``or'' is inclusive. An $m$ that fails both conditions is still an unsuccessful response; there is no reason to exclude it. We are describing how the original statement would fail, not asserting that this negation is true.}
-\sol{2.3}{The first statement is true: after receiving $x$, choose $y=-x$. Their sum is zero. The second is false. If a single $y$ worked for every $x$, using $x=0$ would give $y=0$, while using $x=1$ would give $y=-1$. One number cannot satisfy both requirements. Equivalently, after any proposed $y$, choose $x=1-y$, whose sum with $y$ is one.}
-\sol{2.4}{The value $x=-3$ satisfies $x^2=9>4$ but not $x>2$. The corrected conclusion is $x<-2$ or $x>2$, equivalently $|x|>2$. To check the classification, when $-2\le x\le2$ the magnitude of $x$ is at most two, so $x^2\le4$. Outside that interval the magnitude exceeds two, so squaring gives $x^2>4$.}
-\sol{2.5}{Let both students accept only task $1$. Each has an acceptable task, but distinct assignments would require two different tasks drawn from a one-element set. The stronger condition checks groups: the acceptable tasks of every set of students must number at least as many as those students. For this pair it reads $1\ge2$, which fails. Chapter~9 proves this groupwise condition is also sufficient in the finite setting.}
-\sol{2.6}{Choose a positive integer $N>1/\eps$. For any integer $n\ge N$, positivity gives $1/n\le1/N<\eps$. The witness $N$ may depend on the tolerance already supplied. It must work for every later $n\ge N$, so choosing a different $N$ after seeing each $n$ would not establish the stated eventual guarantee.}
+In words: there is an integer $n$ such that every integer $m$ fails at least one requirement, that is, $m$ is at most $n$ or $m$ is not even. The ``or'' is inclusive. An $m$ that fails both requirements, such as an odd integer smaller than $n$, is still an unsuccessful response and must not be left out.
+
+Writing down the negation does not claim that it is true. In fact the original statement is true, so its negation is false. For any integer $n$, the integer $m=2|n|+2$ is even, and $m>|n|\ge n$. (Here $|n|\ge n$ because $|n|$ equals $n$ when $n\ge0$ and is positive when $n<0$.)}
+\sol{2.3}{The first statement is true. The skeptic chooses $x$ first, and the prover then chooses $y$ already knowing $x$. The choice $y=-x$ works, because $x+(-x)=0$. For example, $x=5$ is answered by $y=-5$.
+
+The second statement is false. It asks for a single $y$, chosen before $x$, with $x+y=0$ for every real number $x$. Suppose such a $y$ existed. Taking $x=0$ would give $y=0$, and taking $x=1$ would give $1+y=0$, that is, $y=-1$. One number cannot equal both $0$ and $-1$, so no such $y$ exists. Put differently, whatever $y$ is proposed, the skeptic can choose $x=1-y$, and then $x+y=1\ne0$.
+
+The two statements differ only in the order of their quantifiers, exactly as statements (A) and (B) do in Section~\ref{ch02:sec:quantifiers}.}
+\sol{2.4}{The number $x=-3$ is a counterexample. It satisfies the hypothesis, since $(-3)^2=9>4$, but not the conclusion, since $-3$ is not greater than $2$.
+
+The repaired claim is ``If a real number $x$ satisfies $x^2>4$, then $x<-2$ or $x>2$,'' or equivalently ``then $|x|>2$.'' Section~\ref{sec:magnitude} proves that $x^2>4$ holds exactly when $|x|>2$. In brief: if $|x|>2$, squaring the inequality $2<|x|$ between nonnegative numbers gives $4<|x|^2=x^2$; and if $|x|\le2$, that is, $-2\le x\le2$, squaring $|x|\le2$ gives $x^2=|x|^2\le4$. So the new conclusion holds for exactly the real numbers with $x^2>4$, and the repaired claim is true for every real $x$.
+
+Other repairs give true statements but lose information. For instance, ``if $x^2>4$, then $x\ne0$'' is true but much weaker. Restricting the claim to positive $x$ would also make it true, but then it would no longer be a statement about every real number, so it would not answer the question as asked.}
+\sol{2.5}{Let Ada and Ben be the two students, and let tasks $1$ and $2$ be available. Suppose both students accept task~$1$ and neither accepts task~$2$. Each student accepts at least one task, namely task~$1$. But giving Ada and Ben different acceptable tasks would require two different tasks, each acceptable to the student who receives it, while task~$1$ is the only task either of them accepts.
+
+A stronger condition looks at groups of students:
+\begin{center}
+\emph{for every group of students, the number of tasks acceptable to at least one member of the group is at least the number of students in the group.}
+\end{center}
+In the example, the group made up of Ada and Ben has two students but only one acceptable task between them, and $1\ge2$ is false. So the condition fails, and it detects the problem.
+
+The condition must hold whenever all the students can be given different acceptable tasks. Suppose such an assignment exists, and take any group of $k$ students. The assignment gives these $k$ students $k$ different tasks, and each of those tasks is acceptable to the student who receives it, so it is acceptable to at least one member of the group. Hence at least $k$ tasks are acceptable to members of the group.
+
+The group condition is stronger than ``each student accepts at least one task.'' Applied to a group consisting of a single student, it says exactly that this student accepts at least one task, and it also checks every larger group, which is where the example fails. Chapter~\ref{ch:hall} proves the converse: when there are finitely many students and tasks, the group condition guarantees that all the students can be given different acceptable tasks. This is Hall's theorem, Theorem~\ref{thm:hall}.}
+\sol{2.6}{Let $\eps$ be a positive real number. By the Archimedean property, choose an integer $N$ with $N>1/\eps$. It is positive, because $1/\eps>0$. Now let $n$ be any integer with $n\ge N$. Then $0<N\le n$, so the reciprocal rule for $\le$ from Section~\ref{ch02:sec:quantifiers} gives $1/n\le1/N$. As in Example~\ref{ch02:ex:archimedes}, the inequality $N>1/\eps$ gives $1/N<\eps$. Together,
+\[
+\frac1n\le\frac1N<\eps.
+\]
+For instance, for $\eps=1/100$ the choice $N=101$ works, and for $\eps=0.003$ the choice $N=334$ works.
+
+The statement involves three choices, made in this order: first the tolerance $\eps$ is given, then we choose $N$, and then any integer $n\ge N$ may be tested. Since $\eps$ comes first, $N$ may depend on it. In fact it must, because a smaller $\eps$ needs a larger $N$; the Pause and decide question at the end of Section~\ref{ch02:sec:quantifiers} shows that no single $N$ works for every $\eps$.
+
+The integer $n$ comes after $N$. The phrase ``every integer $n\ge N$'' only makes sense once $N$ has been fixed, because $N$ decides which integers are tested. To see why this order matters, imagine that $N$ could be chosen after seeing $n$. Then for any $n$ we could choose $N=n+1$. The tested integer $n$ would not satisfy $n\ge N$, so the requirement ``if $n\ge N$, then $1/n<\eps$'' would hold vacuously, as in Section~\ref{ch02:sec:contrapositive}. The same trick would work for any list of numbers whatsoever, even numbers that never become small, so a statement with the choices in that order promises nothing. With $N$ fixed before $n$, the statement makes a real promise: from $N$ onward, every number $1/n$ is less than $\eps$. Chapter~\ref{ch:limits} defines limits by statements of exactly this shape.}

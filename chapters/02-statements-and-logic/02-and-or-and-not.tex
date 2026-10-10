@@ -1,25 +1,41 @@
-\section{And, or, and not}
-The statement $P\land Q$ means both $P$ and $Q$ hold. The statement $P\lor Q$ means at least one holds; both are allowed. Mathematical ``or'' is inclusive unless the author explicitly says otherwise. The symbol $\neg P$ means $P$ is false.
+\section{And, or, and not}\label{ch02:sec:connectives}
+Statements can be combined into longer statements. Throughout this section, $n$ is an integer, $P$ is the statement ``$n$ is even,'' and $Q$ is the statement ``$n$ is divisible by three.'' The letters $P$ and $Q$ stand for whole statements, not for numbers. Each of them becomes true or false once the value of $n$ is known.
 
-Consider a number that is even or divisible by three. The number $6$ qualifies for both reasons. To disprove this property, one must show that neither condition holds. Thus
+The statement $P\land Q$, read ``$P$ and $Q$,'' is true when both $P$ and $Q$ are true. It is called the \emph{conjunction} of $P$ and $Q$. The statement $P\lor Q$, read ``$P$ or $Q$,'' is true when at least one of $P$ and $Q$ is true. It is called the \emph{disjunction} of $P$ and $Q$. ``At least one'' includes the case in which both are true: $6$ is even and also divisible by three, so for $n=6$ the statement $P\lor Q$ is true. In everyday speech, ``tea or coffee'' often means one but not both. In mathematics, ``or'' allows both unless the author explicitly says otherwise. Finally, $\neg P$, read ``not $P$,'' is the \emph{negation} of $P$. It is true exactly when $P$ is false.
+
+The table below works out these combinations for four integers. Each integer represents one of the four ways in which $P$ and $Q$ can be true (T) or false (F).
+\begin{center}
+\begin{tabular}{@{}ccccccc@{}}
+\toprule
+$n$ & $P$ & $Q$ & $P\land Q$ & $P\lor Q$ & $\neg(P\lor Q)$ & $(\neg P)\land(\neg Q)$\\
+\midrule
+$6$ & T & T & T & T & F & F\\
+$4$ & T & F & F & T & F & F\\
+$3$ & F & T & F & T & F & F\\
+$5$ & F & F & F & F & T & T\\
+\bottomrule
+\end{tabular}
+\end{center}
+Read the table one row at a time. For $n=4$, the statement $P$ is true and $Q$ is false, so $P\lor Q$ is true but $P\land Q$ is false. For $n=5$, both $P$ and $Q$ are false, so both combinations are false.
+
+The last two columns agree in every row. In words: an integer fails to be ``even or divisible by three'' exactly when it is not even \emph{and} not divisible by three. To show that $5$ lacks this property, it is not enough to show that $5$ is not even; we must also show that $5$ is not divisible by three. Thus
 \[
 \neg(P\lor Q)\quad\Longleftrightarrow\quad (\neg P)\land(\neg Q).
 \]
-By contrast, to disprove ``even and divisible by three,'' it is enough for either condition to fail:
+By contrast, an integer fails to be ``even and divisible by three'' as soon as one of the two requirements fails. The number $4$ fails because it is not divisible by three, and the number $3$ fails because it is not even. Thus
 \[
 \neg(P\land Q)\quad\Longleftrightarrow\quad (\neg P)\lor(\neg Q).
 \]
-These rules are not arbitrary symbol manipulations. They describe exactly what would make the original promises fail.
+These two rules are called \emph{De Morgan's laws}. Here the symbol $\Longleftrightarrow$ says that the two combined statements on either side of it are true in exactly the same situations. Since $P$ and $Q$ can each only be true or false, there are only four situations, one for each row of the table. So checking all four rows, as the table does for the first law, proves that law for any two statements $P$ and $Q$, not only for these four integers. The second law can be checked in the same way. Each law records what it takes for the original statement to fail.
 
-An implication fails precisely when its assumption holds and its conclusion fails. Therefore
+An implication $P\Rightarrow Q$ fails exactly when its hypothesis holds and its conclusion fails. Therefore
 \[
-\neg(P\Rightarrow Q)\quad\Longleftrightarrow\quad P\land\neg Q.
+\neg(P\Rightarrow Q)\quad\Longleftrightarrow\quad P\land(\neg Q).
 \]
-This is the specification of a counterexample to a conditional theorem.
+This is precisely the description of a counterexample from Section~\ref{ch02:sec:implication}: an input that satisfies the hypothesis and violates the conclusion. In every other situation the implication counts as true, including every situation in which $P$ is false. Section~\ref{ch02:sec:contrapositive} looks at what this means when the hypothesis can never be true.
 
 \subsection*{Read the grouping before changing the symbols}
-The letters $P,Q$ stand for whole statements, not numbers. If $P$ is ``$n$ is even'' and $Q$ is ``$n$ is divisible by three,'' then $P\land Q$ is the single statement that both requirements hold. Parentheses say which statements belong together, just as they group numerical operations.
+Parentheses show which statements belong together, just as they group numbers in arithmetic, and moving them can change the meaning. Compare $\neg(P\land Q)$ with $(\neg P)\land Q$. For $n=5$, the first is true, because $5$ is not both even and divisible by three. The second is false, because it requires $5$ to be divisible by three. By convention, the symbol $\neg$ applies only to the statement immediately after it, so $\neg P\land Q$ means $(\neg P)\land Q$. In this book we usually write such parentheses anyway, to make the grouping easy to see.
 
-For $n=4$, $P$ is true and $Q$ is false. Thus $P\lor Q$ is true but $P\land Q$ is false. For $n=5$, both are false, so both combinations are false. For $n=6$, both are true. These three checks give concrete meaning to the earlier negation rules. They are not proofs of every logical identity, but they help prevent a symbol from replacing its meaning.
-
-A universal statement such as ``every allowed input has the property'' is not a command to list all inputs. It specifies the coverage a proof must have. An existence statement asks for at least one input with the property; it does not promise only one. We now introduce symbols for these two kinds of coverage.
+\subsection*{Statements about every input, and about some input}
+Many statements talk about all the members of a collection, or about at least one of them. A \emph{universal} statement, such as ``every integer divisible by four is even,'' claims that every allowed input has a property. There are infinitely many integers, so a proof cannot check them one at a time. Instead, as in Chapter~\ref{ch:start}, it works with an input about which we know nothing except that it is allowed, so that the same argument applies to each input. An \emph{existence} statement, such as ``some integer is both even and divisible by three,'' claims that at least one allowed input has the property. A single example proves it, and $6$ will do. The statement does not claim that its example is the only one, and indeed $12$ works too. The next section introduces symbols for ``every'' and ``some'' and shows that the order in which they appear matters.

@@ -1,5 +1,9 @@
-\section{A complete existence proof in Lean}
-Recall that surjectivity means every target has a preimage. Define it explicitly:
+\section{A complete existence proof in Lean}\label{ch16:sec:surj}
+In Section~\ref{ch15:sec:exists}, the witness for an existence statement was easy to spot. In most existence proofs the witness has to be built from other information. Our example is Exercise~\ref{ex:3.2}: if $f:A\to B$ and $g:B\to C$ are surjective, then so is $g\circ f$. Recall from Section~\ref{ch03:sec:injsurj} that $f$ is surjective when every target has a preimage:
+\[
+\forall b\in B\ \exists a\in A:\qquad f(a)=b.
+\]
+Here is this definition in Lean, followed by the theorem and its proof.
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 def Surj {A B : Type} (f : A -> B) : Prop :=
@@ -20,39 +24,84 @@ theorem surj_comp {A B C : Type}
 \end{lstlisting}
 \end{minipage}\par
 
-The first line, \code{intro c}, starts with an arbitrary target $c$ in $C$. At this point the goal is an existence statement: find some $a$ in the input type $A$ with $g(f(a))=c$. We do not yet know which $a$ to use. First use the hypothesis about $g$, because $g$ is the map whose outputs lie in $C$ and so can reach our target $c$.
+\subsection*{The statement}
+As Section~\ref{ch16:sec:statement} recommends, we read the statement before the proof. The body of the definition says that \code{Surj f} is the proposition \code{forall y : B, Exists (fun x : A => f x = y)}: for every \code{y} in \code{B}, some \code{x} in \code{A} satisfies \code{f x = y}. The body shows the domain \code{A}, the codomain \code{B}, and the order of the quantifiers. The target \code{y} is chosen first, and the input \code{x} is found afterward, so it may depend on \code{y}. The table compares the theorem with the mathematical statement.
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Mathematics & Lean\\
+\midrule
+sets $A$, $B$, $C$ & types \code{A B C : Type}, as implicit parameters\\
+functions $f:A\to B$ and $g:B\to C$ & \code{f : A -> B} and \code{g : B -> C}\\
+hypothesis: $f$ is surjective & \code{hf : Surj f}\\
+hypothesis: $g$ is surjective & \code{hg : Surj g}\\
+the composition $g\circ f$ & \code{fun x => g (f x)}\\
+conclusion: $g\circ f$ is surjective & \code{Surj (fun x => g (f x))}\\
+\bottomrule
+\end{tabularx}
+\end{center}
+Every part of the mathematical statement has a partner in Lean, and nothing extra has been assumed. Section~\ref{ch16:sec:irrelevant} shows what an extra assumption can do.
 
-The evidence \code{hg c} says that some input of $g$ reaches $c$; it contains a witness together with a property. The lines
+\subsection*{The proof, line by line}
+Because \code{Surj} is defined as a ``for all'' statement, the tactic \code{intro} can look inside the definition, just as it looked inside \code{Inj} in Section~\ref{ch15:sec:injcomp}. The line \code{intro c} introduces an arbitrary target \code{c} in \code{C}, and the infoview shows the goal
+\begin{center}
+$\exists$\,\code{x, (fun x => g (f x)) x = c}
+\end{center}
+In words: find some $a$ in $A$ with $g(f(a))=c$. We do not yet know which $a$ to use. Our only sources of elements are the two hypotheses, and we start with the one about $g$, because the outputs of $g$ lie in $C$, where the target $c$ lives.
+
+Since \code{hg} proves a ``for all'' statement, it can be applied to \code{c}, just as \code{hg} was applied to elements of \code{B} in Section~\ref{ch15:sec:injcomp}. The result \code{hg c} proves that some element of \code{B} is sent to \code{c} by \code{g}. Like all existence evidence, it consists of a witness together with a proof that the witness has the property. The lines
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
- cases hg c with
- | intro b hb =>
+  cases hg c with
+  | intro b hb =>
 \end{lstlisting}
 \end{minipage}\par
+mean: unpack this existence evidence, call the witness \code{b} and the proof of its property \code{hb}, and continue with the indented lines below. Afterward the facts \code{b : B} and \code{hb : g b = c} are available, and the goal has not changed. The word \code{intro} after the vertical bar is not the tactic \code{intro}. It refers to \code{Exists.intro}, the only way to build existence evidence, which Section~\ref{ch15:sec:exists} used to combine a witness with a proof. Writing \code{| intro b hb} says: this evidence was built as \code{Exists.intro b hb}, so take it apart into those two pieces. The infoview labels the goal inside this branch \code{case intro}, after the same word.
 
-mean: unpack that existence evidence, name the witness \code{b}, name its property \code{hb}, and continue inside the indented branch. Here the word \code{intro} after the vertical bar is the name of the way existence evidence is built (a witness together with a property); it is not the standalone tactic \code{intro} that we used to assume a premise. Both uses introduce new names, but they appear in different places in the syntax.
-
-The second unpacking does the same with \code{hf b}. Inside its branch, the available information is
+The second unpacking does the same with \code{hf b}. Since $b$ lies in $B$, the surjectivity of $f$ applies to it, and it supplies a witness \code{a : A} together with \code{ha : f a = b}. Inside this second branch the available information is
 \[
  b\in B,\quad g(b)=c,\qquad a\in A,\quad f(a)=b.
 \]
-We now have a candidate input, $a$. The line \code{refine Exists.intro a ?\_} proposes $a$ as the witness for the existence goal and leaves the proof of its property, marked by the placeholder \code{?\_}, as the new goal. Lean displays that goal as
+Now we have a candidate input, $a$. The line \code{refine Exists.intro a ?\_} proposes $a$ as the witness. The tactic \code{refine} works like \code{exact}, except that its argument may contain the placeholder \code{?\_} for a part of the proof that has not been supplied yet; that part becomes the new goal. Here the missing part is the proof that $a$ has the required property, and Lean displays the new goal as
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 (fun x => g (f x)) a = c
 \end{lstlisting}
 \end{minipage}\par
-which still contains the unevaluated application discussed at the end of Chapter~15. The line \code{show g (f a) = c} restates the goal in its beta-reduced form; Lean accepts this because the two forms are the same proposition. This step is not decoration. The next tactic, \code{rw}, rewrites by searching for the literal expression \code{f a}, and that expression only appears once the goal is written in reduced form. Finally, \code{rw [ha, hb]} substitutes $f(a)=b$, turning the goal into $g(b)=c$, and then substitutes $g(b)=c$, turning it into $c=c$, which \code{rw} closes automatically.
+This is the unevaluated application described at the end of Section~\ref{ch15:sec:injcomp}: the rule $x\mapsto g(f(x))$, applied to the input $a$. The line \code{show g (f a) = c} replaces the goal by its beta-reduced form. The tactic \code{show} accepts a new form of the goal only when Lean can see that it is the same proposition as the old one, and here it is.
 
-The witnesses are chosen in reverse order from function execution: first find an input to $g$ that reaches the final target, then find an input to $f$ that reaches that intermediate value. This is the same argument as in Exercise~\ref{ex:3.2}, now visible in a formal script.
+The \code{show} line is needed. The next tactic, \code{rw [ha, hb]}, rewrites by searching the goal for the written expression \code{f a}, the left side of \code{ha}. In \code{(fun x => g (f x)) a} that expression does not occur: inside the rule, the goal contains \code{f x}, with the variable \code{x}. Without the \code{show} line, Lean stops at the \code{rw} line with the error
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+tactic 'rewrite' failed, did not find instance of the pattern in the target expression
+  f a
+\end{lstlisting}
+\end{minipage}\par
+After \code{show}, the expression \code{f a} is visible. Rewriting with \code{ha : f a = b} turns the goal into \code{g b = c}. Rewriting with \code{hb : g b = c} then turns it into \code{c = c}, which \code{rw} closes by itself (Section~\ref{ch15:sec:equality}).
 
-\subsection*{An ordinary proof beside the syntax}
-The surjectivity argument can be written without Lean as a three-line dependency chain:
-\[
- c\ \longleftarrow\ g(b)=c,\qquad
- b\ \longleftarrow\ f(a)=b,\qquad
- g(f(a))=g(b)=c.
-\]
-The first two statements use hypotheses to obtain witnesses. The last checks the proposed final witness. In the Lean proof, \code{refine Exists.intro a ?\_} corresponds to proposing the witness, and the last two lines correspond to checking it.
+The table records the proof state after each step.
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.27\linewidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}\toprule
+Step & Facts added & Goal afterwards\\\midrule
+Start & \code{hf : Surj f} and \code{hg : Surj g} & \code{Surj (fun x => g (f x))}\\
+\code{intro c} & \code{c : C} & $\exists$\,\code{x, (fun x => g (f x)) x = c}\\
+unpack \code{hg c} & \code{b : B} and \code{hb : g b = c} & unchanged\\
+unpack \code{hf b} & \code{a : A} and \code{ha : f a = b} & unchanged\\
+\code{refine Exists.intro a ?\_} & none & \code{(fun x => g (f x)) a = c}\\
+\code{show g (f a) = c} & none & \code{g (f a) = c}\\
+\code{rw [ha, hb]} & none & none: the proof is complete\\\bottomrule
+\end{tabularx}
+\end{center}
 
-Indentation records which named witnesses are in scope. A witness unpacked inside a branch is available in that branch. The proof does not get to use an unnamed existential object as though its value had already been chosen. This is the formal version of the distinction between ``there is a solution'' and ``let this named object be a solution'' from Chapter~4.
+The witnesses are found in the opposite order to the one in which the functions are applied. The composition applies $f$ first and $g$ second. The proof first finds an input to $g$ that reaches the final target $c$, and then an input to $f$ that reaches the intermediate value $b$. The solution of Exercise~\ref{ex:3.2} finds them in the same order.
+
+\pauseq{Could the proof begin by unpacking \code{hf} instead of \code{hg}?}{No. The hypothesis \code{hf} says that every element of $B$ has a preimage under $f$, so it can only be applied to an element of \code{B}. At the start, the only element available is the target \code{c}, which lies in \code{C}. Lean rejects \code{hf c} with an ``application type mismatch'' error, because \code{c} has type \code{C} where an element of \code{B} is expected. An element of $B$ becomes available only after \code{hg c} has been unpacked and has supplied \code{b}. The types of the hypotheses force the order of the steps.}
+
+\subsection*{The ordinary proof beside the Lean proof}
+Here is the same argument written on paper.
+\begin{quote}
+Let $c\in C$. Since $g$ is surjective, there is $b\in B$ with $g(b)=c$. Since $f$ is surjective, there is $a\in A$ with $f(a)=b$. Then $(g\circ f)(a)=g(f(a))=g(b)=c$. Since $c$ was arbitrary, $g\circ f$ is surjective.
+\end{quote}
+Each sentence has a partner in the Lean proof. ``Let $c\in C$'' is \code{intro c}. The two sentences that begin with ``Since $g$'' and ``Since $f$'' are the two unpackings; each uses a hypothesis to obtain a named witness. The chain of equalities proposes $a$ as the witness and checks it, which Lean does with \code{refine}, \code{show}, and \code{rw}. The last sentence has no separate line in Lean. Because \code{c} was introduced as an arbitrary element, Lean already knows that the argument covers every \code{c}.
+
+The indentation shows where each name may be used. The names \code{b} and \code{hb} exist only inside the branch that follows \code{| intro b hb =>}, and \code{a} and \code{ha} exist only inside the branch nested within it. Before the first unpacking, the proof knows that some element of $B$ is sent to $c$, but it has no name for that element and cannot use it. A written proof behaves the same way: the sentence ``there is $b\in B$ with $g(b)=c$'' introduces the name $b$ and records the one fact that is known about it. Notice also that $b$ need not be the only element of $B$ with this property, since $c$ may have several preimages under $g$. The proof uses nothing about $b$ except $g(b)=c$, so it works whichever of them $b$ stands for. This is the care that Section~\ref{ch04:sec:unique} asked for when it distinguished ``suppose $x$ is a solution'' from ``let $x$ be the solution.''

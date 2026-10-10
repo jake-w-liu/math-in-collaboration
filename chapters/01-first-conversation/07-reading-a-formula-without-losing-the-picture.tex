@@ -1,21 +1,36 @@
-\section{Reading a formula without losing the picture}
+\section{Sums, number systems, and inequalities}\label{ch01:sec:notation}
 Sometimes we need to add many quantities. The notation
 \[
 \sum_{j=1}^{4}a_j=a_1+a_2+a_3+a_4
 \]
-means add the entries named $a_1$ through $a_4$. The symbol $j$ is a temporary index: it takes the values $1,2,3,4$ in turn. A subscript is a label, not multiplication. For example, $a_2$ is the second entry, whereas $2a$ is twice $a$.
+means: add the numbers named $a_1$, $a_2$, $a_3$, and $a_4$. The large symbol $\sum$ is the Greek capital letter sigma, an S for ``sum.'' The letter $j$ is a temporary \emph{index}, a counter that takes the values $1,2,3,4$ in turn: it starts at the value written below the sigma and stops at the value written above it. A small number or letter written below and to the right of a symbol, such as the $2$ in $a_2$, is called a \emph{subscript}. A subscript is a label, not a multiplication: $a_2$ is the second number in the list, whereas $2a$ is twice $a$.
 
-Suppose the entries are $1,3,5,7$. Their total is $16$. Changing the temporary letter from $j$ to $r$ does not change the sum. Changing the upper limit from $4$ to $3$ does: we would obtain $1+3+5=9$. Small pieces of notation can express substantial changes in a claim.
+Suppose the numbers are $a_1=1$, $a_2=3$, $a_3=5$, and $a_4=7$. Then the sum is $1+3+5+7=16$. Renaming the index does not change the sum: $\sum_{r=1}^{4}a_r$ is also $16$, because the index is only a counter. Changing the upper limit from $4$ to $3$ does change it: $\sum_{j=1}^{3}a_j=1+3+5=9$. A small change in the notation can be a real change in what is being claimed.
 
-Several collections of numbers have standard names.
+Notice also that the totals $1+3+5=9=3^2$ and $1+3+5+7=16=4^2$ are perfect squares. Is the sum of the first $n$ odd positive integers always $n^2$? This is exactly the situation of Section~\ref{ch01:sec:pattern}: the examples suggest a pattern, but only a proof can settle it. Theorem~\ref{thm:odds} in Chapter~\ref{ch:induction} supplies that proof.
+
+The quantity being added can be any expression involving the index. To evaluate such a sum, substitute each value of the index in turn and add the results. With the same numbers as before,
+\[
+\sum_{j=1}^{3}(a_j+5)=(a_1+5)+(a_2+5)+(a_3+5)=6+8+10=24.
+\]
+The index itself may also appear in the expression:
+\[
+\sum_{j=1}^{3}j^2=1^2+2^2+3^2=1+4+9=14.
+\]
+
+Several collections of numbers have standard names. A \emph{set} is a collection of objects, called its \emph{members}; Chapter~\ref{ch:maps} studies sets carefully. Curly braces are used to list the members of a set.
 \begin{itemize}
-\item $\NN=\{0,1,2,\ldots\}$ is the set of \emph{natural numbers}. Braces enclose the members of a collection, and the dots mean that the displayed pattern continues. In this book zero counts as a natural number; when we need a positive number of objects we will say $n\ge1$ explicitly.
-\item $\ZZ$ is the set of integers, introduced above.
-\item $\QQ$ is the set of \emph{rational numbers}: numbers that can be written as a fraction $a/b$ of integers with $b\ne0$, such as $3/4$, $-5/2$, or $7=7/1$.
-\item $\RR$ is the set of \emph{real numbers}: all the numbers on the number line. Every integer and every fraction is a real number, but the number line also contains numbers that are not fractions of integers. Chapter~4 proves that the length $\sqrt2$ of the diagonal of a unit square is one of them.
+\item $\NN=\{0,1,2,3,\ldots\}$ is the set of \emph{natural numbers}. The dots mean that the displayed pattern continues forever. In this book zero counts as a natural number; when we want only the whole numbers $1,2,3,\ldots$, we will say so explicitly.
+\item $\ZZ=\{\ldots,-2,-1,0,1,2,\ldots\}$ is the set of integers from Section~\ref{ch01:sec:pattern}.
+\item $\QQ$ is the set of \emph{rational numbers}: numbers that can be written as a fraction $a/b$ in which $a$ and $b$ are integers and $b\ne0$. Examples are $3/4$, $-5/2$, and $7=7/1$.
+\item $\RR$ is the set of \emph{real numbers}: all the numbers on the number line. Every integer and every fraction is a real number, but the number line also contains numbers that are not fractions of integers. For example, by Pythagoras' theorem the diagonal of a square with sides of length $1$ has a length whose square is $1^2+1^2=2$. That length is $\sqrt2$, the positive number whose square is $2$. (Square roots are discussed at the end of this section.) Theorem~\ref{thm:sqrt2} in Chapter~\ref{ch:proof} proves that $\sqrt2$ cannot be written as a fraction of integers.
 \end{itemize}
-When a letter is said to be real, every point of the number line is an allowed value, including negative numbers, zero, and numbers that are not fractions. The notation $x\ge y$ means $x$ is at least $y$, while $x>y$ means $x$ is strictly larger than $y$. The difference between strict and non-strict inequalities often matters at the boundary of a claim.
+Each of these sets contains the one before it: every natural number is an integer, every integer is a rational number, and every rational number is a real number. When a letter is said to be real, every point of the number line is an allowed value, including negative numbers, zero, and numbers that are not fractions.
 
-The word \emph{positive} means strictly greater than zero. \emph{Nonnegative} means greater than or equal to zero, so it includes zero. Likewise, $x\le y$ means $x$ is at most $y$, and $x<y$ means strictly smaller. A chain such as $0\le x\le1$ states two conditions together: $0\le x$ and $x\le1$.
+To compare real numbers we use four inequality signs. The statement $x<y$ means that $x$ is strictly smaller than $y$, and $x\le y$ means that $x$ is smaller than or equal to $y$, that is, at most $y$. Likewise, $x>y$ means that $x$ is strictly larger than $y$, and $x\ge y$ means that $x$ is at least $y$. For example, $3\le3$ is true, but $3<3$ is false. The signs $<$ and $>$ give \emph{strict} inequalities, while $\le$ and $\ge$ give \emph{non-strict} ones. The two kinds disagree only when the two sides are equal, and that boundary case is where many mistakes in proofs occur. A chain such as $0\le x\le1$ states two conditions at once: $0\le x$ and $x\le1$.
 
-Later we will use square roots. For a nonnegative real $t$, the symbol $\sqrt t$ denotes the \emph{nonnegative} real number whose square is $t$. For example, $\sqrt9=3$, although both $3$ and $-3$ have square nine. We use the usual real-number fact that this nonnegative square root exists and is unique. The expression $\sqrt{x^2}$ therefore equals the nonnegative magnitude of $x$, not always $x$ itself. At $x=-3$ it equals three. We give this magnitude its own notation in the next chapter.
+A number $x$ is \emph{positive} if $x>0$ and \emph{negative} if $x<0$. It is \emph{nonnegative} if $x\ge0$. So zero is nonnegative, but it is neither positive nor negative.
+
+Later we will use square roots. If $t$ is a nonnegative real number, the symbol $\sqrt t$ denotes the nonnegative real number whose square is $t$. For example, $\sqrt9=3$: both $3$ and $-3$ have square $9$, and the square-root sign always picks the nonnegative one. We accept without proof the familiar fact that every nonnegative real number $t$ has exactly one nonnegative square root. A negative number has no real square root at all, because the square of a real number is never negative.
+
+Because the square-root sign always gives a nonnegative answer, $\sqrt{x^2}$ is not always equal to $x$. At $x=-3$, for instance, $\sqrt{(-3)^2}=\sqrt9=3$. In general, $\sqrt{x^2}=x$ when $x\ge0$, and $\sqrt{x^2}=-x$ when $x<0$; in the second case $-x$ is the right answer because it is nonnegative and $(-x)^2=x^2$. In both cases $\sqrt{x^2}$ is the distance from $x$ to $0$ on the number line. Section~\ref{sec:magnitude} calls this distance the \emph{absolute value} of $x$ and writes it $|x|$.

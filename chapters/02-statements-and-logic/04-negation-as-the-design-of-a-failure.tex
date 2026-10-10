@@ -1,18 +1,55 @@
-\section{Negation as the design of a failure}
-To negate a universal statement, find one failing input. To negate an existence statement, rule out every candidate:
+\section{Negation: describing how a statement fails}\label{ch02:sec:negation}
+To use quantifiers well, we must be able to negate statements that contain them. We write $P(x)$ for a statement about $x$ that becomes true or false once a value of $x$ is chosen. For example, if $P(x)$ is the statement ``$x^2>4$,'' then $P(3)$ is the true statement $9>4$, and $P(1)$ is the false statement $1>4$.
+
+A universal statement $\forall x\ P(x)$ is false exactly when at least one $x$ fails to satisfy $P(x)$, and such an $x$ is a counterexample. An existence statement $\exists x\ P(x)$ is false exactly when no $x$ satisfies $P(x)$, that is, when every $x$ fails. In symbols,
 \[
 \neg(\forall x\ P(x))\Longleftrightarrow\exists x\ \neg P(x),
 \qquad
 \neg(\exists x\ P(x))\Longleftrightarrow\forall x\ \neg P(x).
 \]
-For instance, the negation of (A) is
+The domain does not change. The negation of a statement about every real number is a statement about some real number. It is not a statement about things that are not real numbers.
+
+To negate a statement with several quantifiers, apply these rules one quantifier at a time, from left to right. Here is the negation of statement (A) from Section~\ref{ch02:sec:quantifiers}, worked out step by step:
+\begin{align*}
+\neg\bigl(\forall x\in\RR\ \exists y\in\RR:\ y>x\bigr)
+&\Longleftrightarrow\exists x\in\RR\ \neg\bigl(\exists y\in\RR:\ y>x\bigr)\\
+&\Longleftrightarrow\exists x\in\RR\ \forall y\in\RR:\ \neg(y>x)\\
+&\Longleftrightarrow\exists x\in\RR\ \forall y\in\RR:\ y\le x.
+\end{align*}
+The first step moves the negation past $\forall x$, which turns it into $\exists x$. The second step moves it past $\exists y$, which turns it into $\forall y$. The third step negates the final condition. Overall, each $\forall$ became an $\exists$ and each $\exists$ became a $\forall$, the quantifiers kept their order and their domains, and the condition after the colon was negated. The result claims that some real number $x$ is at least as large as every real number $y$. Such an $x$ would be an \emph{upper bound} for all the real numbers. This negation is false, as it must be, since (A) is true: for any proposed $x$, the number $y=x+1$ is larger.
+
+Notice that $y>x$ became $y\le x$, not $y<x$. For two real numbers, exactly one of $y<x$, $y=x$, and $y>x$ is true. So when $y>x$ is false, two possibilities remain, $y<x$ and $y=x$, and $y\le x$ says exactly that. The failure of a strict inequality includes the case of equality.
+
+\pauseq{Negate the statement ``Every real number $x$ satisfies $x^2\ge x$.'' Which is true, the statement or its negation?}{The negation is ``There is a real number $x$ with $x^2<x$.'' The word ``every'' became ``there is,'' the domain is still the real numbers, and $\ge$ became $<$. The negation is true, and $x=1/2$ is a witness: $(1/2)^2=1/4$, which is less than $1/2$. So $x=1/2$ is a counterexample to the original statement, which is therefore false.}
+
+\subsection*{One acceptable task each, or different tasks for all?}
+The same reading applies outside arithmetic. Suppose a class has some students and a list of tasks, and each student finds some of the tasks acceptable. Consider the statement
+\begin{center}
+\emph{For every student, there is an acceptable task.}
+\end{center}
+Its negation is ``There is a student for whom no task is acceptable.'' With the quantifiers kept visible, this reads: ``there is a student such that, for every task, that task is not acceptable to that student.''
+
+Now compare the original statement with a stronger one: ``All the students can be given different tasks, each acceptable to the student who receives it.'' In the first statement, each student's task is chosen after looking at that student alone, so two students may be offered the same task. The second statement asks for a single assignment, chosen once, that works for all the students at the same time. The first statement can be true while the second is false: what can be done for each student separately cannot always be done for all of them together. Exercise~\ref{ex:2.5} asks you to build an example. Chapters~\ref{ch:matching} and~\ref{ch:hall} work out exactly when such an assignment exists. The answer, Hall's theorem, is one of the main results of this book.
+
+\subsection*{A negation worked out slowly}
+Here is a longer example. We negate the statement
+\begin{center}
+\emph{For every real number $x$, there is an integer $m$ that is divisible by three and satisfies $m>x$.}
+\end{center}
+Start with a single input. Fix a real number $x$. A proposed response $m$ succeeds only if it meets \emph{both} requirements: $m$ is divisible by three, and $m>x$. By De Morgan's law, a response fails when at least one requirement fails: $m$ is not divisible by three, or $m\le x$. For the whole statement to fail, there must be at least one input $x$ for which \emph{every} integer $m$ fails. So the negation is
+\begin{center}
+\emph{There is a real number $x$ such that every integer $m$ fails at least one requirement: $m$ is not divisible by three, or $m\le x$.}
+\end{center}
+In symbols, the original statement is
 \[
-\exists x\in\RR\ \forall y\in\RR:\quad y\le x.
+\forall x\in\RR\ \exists m\in\ZZ:\quad (m\text{ is divisible by }3)\land(m>x),
 \]
-It claims that some real number is an upper bound for all real numbers. Notice that $y>x$ became $y\le x$, not $y<x$. Equality belongs to the failure of a strict inequality.
+and its negation is
+\[
+\exists x\in\RR\ \forall m\in\ZZ:\quad \neg(m\text{ is divisible by }3)\lor(m\le x).
+\]
+As before, each quantifier changed into the other kind, the order and the domains stayed the same, and the final condition was negated.
 
-Now take a more elaborate statement: ``For every student, there is an acceptable task.'' Its negation is ``There is a student with no acceptable task.'' This says nothing yet about assigning different tasks to different students. Two students might have the same single acceptable task. Thus individually feasible choices need not combine into a globally feasible assignment. This will become our first long theorem.
+Negating a statement describes what its failure would look like. It does not tell us whether failure actually happens. Here the original statement is true, so its negation is false. To see this, let $x$ be a real number. The Archimedean property gives an integer $k$ with $k>x/3$. Multiplying both sides by the positive number $3$ gives $3k>x$, so $m=3k$ is divisible by three and larger than $x$.
 
-Here is a slower negation of ``for every real number $x$, there is an integer $m$ that is divisible by three and satisfies $m>x$.'' Fix an input $x$. A response $m$ succeeds only if it satisfies \emph{both} requirements: ``$m$ is divisible by three'' and ``$m>x$.'' So a response fails when at least one requirement fails: it is not divisible by three, or it is at most $x$. For the whole promise to fail, there must be one input $x$ for which \emph{every} candidate response fails. Thus the negation is: there exists a real number $x$ such that every integer $m$ is either not divisible by three or satisfies $m\le x$. We exchanged the two quantifiers and then described how the final test can fail. (The original statement is true, so this negation is false; negating a statement describes what failure would look like, whether or not failure actually happens.)
-
-This is a useful order of work: negate the plain-language promise first, then write its symbols. Asking an assistant to ``flip the quantifiers'' without explaining what counts as failure can leave a correct-looking but misunderstood sentence.
+It usually helps to describe the failure in plain words first and to write the symbols afterwards. The same check works on someone else's negation. If an assistant produces a negation by mechanically flipping symbols, say in your own words what would make the original statement fail, and compare that description with what the assistant wrote. A sentence can look correct and still describe the wrong kind of failure.

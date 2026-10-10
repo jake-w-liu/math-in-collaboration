@@ -1,14 +1,14 @@
-\section{A proof is also an explanation of dependence}
-In the parity proof, the two inputs may vary. The witnesses $k$ and $\ell$ vary with them. The final witness for evenness is built from those earlier witnesses. This dependence is part of the argument, not an incidental choice of letters.
+\section{A proof is also an explanation of dependence}\label{ch01:sec:dependence}
+Look again at the proof of Proposition~\ref{thm:odd-sum}. The two odd integers $a$ and $b$ can be any odd integers. The witnesses $k$ and $\ell$ are not chosen freely: they are determined by $a$ and $b$, and they change when $a$ and $b$ change. The witness for the evenness of the sum, $k+\ell+1$, is in turn built from $k$ and $\ell$. Keeping track of which quantity depends on which is a genuine part of the argument.
 
-Suppose an assistant writes both odd inputs as $2k+1$ using the same $k$. That only describes the special case in which the two inputs agree. The algebra could be correct and the argument still fail to cover the intended claim. A useful question is: ``Which quantities are independent, and which are chosen in response to others?'' Chapter~2 turns this question into a general method.
+Suppose an assistant writes both odd integers as $2k+1$, using the same $k$ for each. Then it computes $(2k+1)+(2k+1)=2(2k+1)$, which is certainly even. The algebra is correct, but the argument covers only the case in which the two odd integers are equal, as in $5+5$ or $(-3)+(-3)$. It says nothing about $3+5$, because no single integer $k$ makes both $3=2k+1$ and $5=2k+1$ true. A useful question to ask of any argument is: ``Which quantities can be anything, and which are determined by the others?'' Chapter~\ref{ch:logic} makes this question precise with the phrases ``for every'' and ``there exists.''
 
-Here is a short exercise in keeping witnesses separate. Suppose we want to show that the sum of three odd integers is odd. Name them $a=2k+1$, $b=2\ell+1$, and $c=2m+1$, with three different letters because the three inputs may be different. Adding gives
+Here is a worked example in keeping witnesses separate. We show that the sum of three odd integers is odd. Let $a$, $b$, and $c$ be odd integers. By the definition of odd, there are integers $k$, $\ell$, and $m$ with $a=2k+1$, $b=2\ell+1$, and $c=2m+1$. We use three different letters because the three odd integers may be different. Adding gives
 \[
-a+b+c=2k+2\ell+2m+3.
+a+b+c=(2k+1)+(2\ell+1)+(2m+1)=2k+2\ell+2m+3.
 \]
-At this point it is tempting to say that the expression ``looks odd,'' but that is not yet the definition. The definition asks for the form \emph{twice an integer plus one}. Split $3$ as $2+1$ and factor the terms that contain a $2$:
+At this point it is tempting to say that the expression ``looks odd,'' but that is not yet what the definition asks for. The definition asks for the form \emph{twice an integer, plus one}. So split $3$ as $2+1$ and factor $2$ out of all the terms that contain it:
 \[
-2k+2\ell+2m+3=2(k+\ell+m+1)+1.
+2k+2\ell+2m+3=2k+2\ell+2m+2+1=2(k+\ell+m+1)+1.
 \]
-The number $k+\ell+m+1$ is an integer, so $a+b+c$ has exactly the form required by Definition~\ref{def:parity}, and the proof is complete. Notice where the work happened: the arithmetic was easy, and the important step was recognizing which form the definition demands.
+The number $k+\ell+m+1$ is an integer, because a sum of integers is an integer. So $a+b+c$ has exactly the form required by Definition~\ref{def:parity}, and $a+b+c$ is odd. Notice where the real work happened. The arithmetic was easy; the important step was recognizing which form the definition demands and steering the expression into that form.

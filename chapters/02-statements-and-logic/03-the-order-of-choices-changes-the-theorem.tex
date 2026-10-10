@@ -1,32 +1,50 @@
-\section{The order of choices changes the theorem}
-The symbol $\forall$ means ``for every,'' and $\exists$ means ``there exists.'' Write $x\in\RR$ to say that $x$ belongs to the real numbers. Compare
+\section{The order of choices changes the meaning}\label{ch02:sec:quantifiers}
+The symbol $\forall$ means ``for every,'' and the symbol $\exists$ means ``there exists'' or ``there is at least one.'' These two symbols are called \emph{quantifiers}, because they say how many inputs a statement covers. We write $x\in\RR$, read ``$x$ in $\RR$,'' to say that $x$ belongs to the set $\RR$ of real numbers, that is, that $x$ is a real number. The set that a quantified letter ranges over is called its \emph{domain}. In ``$\forall x\in\RR$'' the domain of $x$ is $\RR$.
+
+Compare the two statements
 \begin{align*}
 &\forall x\in\RR\ \exists y\in\RR:\quad y>x,\tag{A}\\
 &\exists y\in\RR\ \forall x\in\RR:\quad y>x.\tag{B}
 \end{align*}
-In (A), someone supplies $x$ and we may respond with a suitable $y$. Taking $y=x+1$ works. The response depends on the input. In (B), we must first choose one $y$ that exceeds every real number. Once we choose it, the input $x=y+1$ defeats it. The two sentences contain the same inequality but make different promises.
+Read aloud, (A) says ``for every real number $x$, there is a real number $y$ such that $y>x$.'' Statement (B) says ``there is a real number $y$ such that, for every real number $x$, $y>x$.'' The colon separates the quantifiers from the condition that the chosen values must satisfy. The two lines contain the same symbols in a different order, and they make very different promises.
 
-Read a quantified statement as a sequence of choices, made from left to right. A choice introduced by $\exists$ may depend on every input that was chosen before it, but not on anything chosen after it. When a proof involving constants becomes confusing, one of the most useful questions to ask is: \emph{at what stage is this quantity chosen, and which other quantities is it allowed to depend on?}
+Statement (A) is true. Someone supplies a real number $x$, and we may then respond with a number $y$ that suits it. Taking $y=x+1$ works, since $x+1>x$. Our response depends on the input: for $x=3$ we answer $4$, and for $x=-10$ we answer $-9$.
 
-\subsection*{Tolerance and the inequality moves it needs}
-A \emph{tolerance} is a positive amount of error we are prepared to allow. The letter $\eps$, read ``epsilon,'' is often used for it, but it is just a name. It might stand for $1/10$, $1/1000$, or any other positive real number. ``For every positive $\eps$'' includes all of those choices; it does not refer to one unspecified fixed decimal.
+Statement (B) is false. It asks us to choose a single number $y$ \emph{first}, and that one number must be larger than every real number. Whatever $y$ we choose, the input $x=y+1$ defeats it, because $y>y+1$ is false. So no choice of $y$ works.
 
-Before using fractions in an inequality, check signs. Three rules cover almost everything we need:
+It helps to read a quantified statement as a game between two players: a skeptic, who doubts the statement, and a prover, who defends it. The quantifiers are read from left to right, and each one is a move. At a $\forall$, the skeptic picks a value, which may be any member of the domain. At an $\exists$, the prover picks a value. At the end, the prover wins if the condition after the colon holds for the values that were picked. The statement is true exactly when the prover has a way to win however the skeptic plays. In (A), the skeptic picks $x$, and then the prover picks $y$ already knowing $x$. In (B), the prover must pick $y$ before seeing $x$, and the skeptic can always pick an $x$ that defeats it.
+
+The general rule is that a value chosen at an $\exists$ may depend on every value chosen before it, but not on anything chosen after it. This is the dependence we met in Section~\ref{ch01:sec:dependence}, where the witnesses $k$ and $\ell$ were determined by the odd integers $a$ and $b$. Swapping two neighboring quantifiers of the same kind, such as the two in $\forall x\ \forall y$, does not change the meaning. Swapping a $\forall$ with an $\exists$ can change it completely, as (A) and (B) show. When a proof with several constants becomes confusing, one of the most useful questions to ask is: \emph{at what stage is this quantity chosen, and which other quantities may it depend on?}
+
+\subsection*{Tolerances and the inequality rules they need}
+In later chapters we often need one number to be close to another, within some allowed error. A \emph{tolerance} is a positive amount of error that we are prepared to allow. It is traditionally written $\eps$, the Greek letter epsilon, but the letter is just a name. A tolerance might be $1/10$, or $1/1000$, or any other positive real number, and a statement that begins ``for every positive $\eps$'' must hold for all of these values. In symbols we write this as $\forall\eps>0$, a short form of ``for every real number $\eps$ with $\eps>0$.''
+
+Working with tolerances means working with inequalities between fractions, and there the sign of a number matters. Three rules cover almost everything we need.
 \begin{itemize}
-\item Adding the same number to both sides preserves the order: from $2<5$ we get $2+7<5+7$.
-\item Multiplying or dividing both sides by the same \emph{positive} number preserves the order: from $2<5$ we get $6<15$.
-\item Multiplying or dividing both sides by the same \emph{negative} number reverses the order: from $2<5$ we get $-2>-5$.
+\item Adding the same number to both sides keeps the direction of an inequality: from $2<5$ we get $2+7<5+7$.
+\item Multiplying or dividing both sides by the same \emph{positive} number keeps the direction: multiplying $2<5$ by $3$ gives $6<15$.
+\item Multiplying or dividing both sides by the same \emph{negative} number reverses the direction: multiplying $2<5$ by $-1$ gives $-2>-5$.
 \end{itemize}
-These rules explain a fact about reciprocals. Suppose $0<a<b$. The product $ab$ is positive, so we may divide both sides of $a<b$ by $ab$ without reversing the inequality:
+The same three rules hold with $\le$ in place of $<$.
+
+These rules tell us what happens to reciprocals. Suppose $0<a<b$. The product $ab$ is positive, so we may divide both sides of $a<b$ by $ab$ without reversing the inequality:
 \[
 \frac{a}{ab}<\frac{b}{ab},\qquad\text{that is,}\qquad \frac1b<\frac1a.
 \]
-So for positive numbers, taking reciprocals reverses the order: $2<5$ becomes $1/5<1/2$. The rule fails without positivity; for instance $-1<2$, but $1/(-1)=-1$ is not larger than $1/2$.
+So for positive numbers, taking reciprocals reverses the order: from $2<5$ we get $1/5<1/2$. The same argument with $\le$ shows that $0<a\le b$ implies $1/b\le1/a$. The rule can fail when the two numbers are not both positive. For instance, $-1<2$, but $1/(-1)=-1$ is smaller than $1/2$, not larger.
 
-For example, to make $1/N<1/100$, choosing $N=101$ works, while $N=100$ gives equality and fails the strict inequality. For a general tolerance $\eps$, we will choose an integer $N$ larger than $1/\eps$. Such an integer always exists, because the integers are not bounded above on the real number line: beyond any real number, however large, there is an integer. We accept this as a basic property of the real numbers; it is called the \emph{Archimedean property}.
+Here is a typical question about a tolerance: for which positive integers $N$ is $1/N<1/100$? By the reciprocal rule, this holds exactly when $N>100$. So $N=101$ works, while $N=100$ gives $1/N=1/100$, and then the strict inequality fails. For a general tolerance $\eps$, we will want a positive integer $N$ larger than $1/\eps$. Such an integer always exists, because of the following property of the real numbers, which we accept without proof.
+\begin{center}
+\emph{The Archimedean property: for every real number $r$, there is an integer $N$ with $N>r$.}
+\end{center}
+In other words, the integers go on forever along the number line: beyond any real number, however large, there is an integer. When $r$ is positive, any integer $N>r$ is positive as well, since $N>r>0$.
 
-\begin{example}
-The statement ``For every positive real $\eps$, there is a positive integer $N$ with $1/N<\eps$'' allows $N$ to depend on $\eps$. A smaller requested tolerance generally needs a larger integer. To find such an $N$, use the Archimedean property to choose an integer $N>1/\eps$. Both $N$ and $1/\eps$ are positive, so taking reciprocals reverses the inequality and gives $1/N<1/(1/\eps)=\eps$.
+\begin{example}\label{ch02:ex:archimedes}
+Consider the statement ``for every positive real number $\eps$, there is a positive integer $N$ with $1/N<\eps$.'' Here is a proof. Let $\eps$ be a positive real number. By the Archimedean property, there is an integer $N$ with $N>1/\eps$, and this $N$ is positive because $1/\eps>0$. Both $1/\eps$ and $N$ are positive, so taking reciprocals reverses the inequality $1/\eps<N$:
+\[
+\frac1N<\frac{1}{1/\eps}=\eps.
+\]
+The order of the quantifiers allows $N$ to depend on $\eps$, and it has to: a smaller tolerance needs a larger $N$. For instance, if $\eps=0.003$, then $1/\eps=333.33\ldots$, so $N=334$ is a suitable choice, and indeed $1/334=0.002994\ldots$ is less than $0.003$. The smaller choice $N=333$ would not do, because $1/333=0.003003\ldots$ is larger than $0.003$.
 \end{example}
 
-\pauseq{Can one positive integer $N$ satisfy $1/N<\eps$ for every positive $\eps$?}{No. After $N$ is fixed, take $\eps=1/(2N)$. Then $1/N=2\eps>\eps$. The failed claim demands one universal choice instead of a choice adapted to each tolerance.}
+\pauseq{Can a single positive integer $N$ satisfy $1/N<\eps$ for every positive $\eps$?}{No. Once $N$ is fixed, the skeptic may choose $\eps=1/(2N)$, which is positive. Then $1/N=2\eps$, and $2\eps>\eps$, so $1/N<\eps$ fails. The claim in this question has the shape of (B): it asks for one $N$ chosen before $\eps$. The true statement in Example~\ref{ch02:ex:archimedes} has the shape of (A): $N$ is chosen after $\eps$ is known.}

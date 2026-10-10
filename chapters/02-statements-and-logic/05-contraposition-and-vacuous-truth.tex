@@ -1,11 +1,24 @@
-\section{Contraposition and vacuous truth}
-The \emph{contrapositive} of $P\Rightarrow Q$ is $\neg Q\Rightarrow\neg P$. In words: if the conclusion fails, then the assumption must have failed too. An implication and its contrapositive are logically equivalent, meaning that each one is true exactly when the other is. Here is why.
+\section{Contraposition and vacuous truth}\label{ch02:sec:contrapositive}
+The \emph{contrapositive} of $P\Rightarrow Q$ is $\neg Q\Rightarrow\neg P$. In words: if the conclusion fails, then the hypothesis must have failed too. An implication and its contrapositive are \emph{logically equivalent}, meaning that each one is true exactly when the other is. Here is why.
 \begin{itemize}
 \item Suppose $P\Rightarrow Q$ is true, and suppose $Q$ fails. If $P$ held, the implication would force $Q$ to hold, which it does not. So $P$ fails. This proves $\neg Q\Rightarrow\neg P$.
 \item Suppose $\neg Q\Rightarrow\neg P$ is true, and suppose $P$ holds. If $Q$ failed, the contrapositive would force $P$ to fail, which it does not. So $Q$ holds. This proves $P\Rightarrow Q$.
 \end{itemize}
-Both arguments use the principle that every statement is either true or false, which is the setting of ordinary (classical) mathematics.
+The second argument concludes that $Q$ holds because the possibility that $Q$ fails has been ruled out. That step uses the principle that every statement is either true or false, which is the setting of ordinary (classical) mathematics and of this book.
 
-The contrapositive is different from the converse. ``Divisible by four implies even'' is equivalent to its contrapositive ``not even implies not divisible by four.'' Check this at $n=7$: seven is not even, and indeed it is not divisible by four. The statement is \emph{not} equivalent to its converse ``even implies divisible by four,'' which fails at $n=6$.
+\pauseq{Use the rule $\neg(P\Rightarrow Q)\Leftrightarrow P\land(\neg Q)$ from Section~\ref{ch02:sec:connectives} to describe exactly when the contrapositive $\neg Q\Rightarrow\neg P$ is false. Compare this with the situation in which $P\Rightarrow Q$ is false.}{The contrapositive has hypothesis $\neg Q$ and conclusion $\neg P$. So it is false exactly when $\neg Q$ is true and $\neg P$ is false, that is, when $Q$ is false and $P$ is true. This is the same situation in which $P\Rightarrow Q$ is false. Two statements that fail in exactly the same situations are true in exactly the same situations, so they are equivalent.}
 
-What happens when the assumption of an implication can never hold? Consider the statement ``Every integer that is both even and odd is larger than $100$.'' A counterexample would have to be an integer that is both even and odd and is at most $100$. Since no integer is both even and odd (Chapter~4 proves this), there is no counterexample, and the statement counts as true. Such a statement is called \emph{vacuously true}: it is true because it makes no promise about any actual object. It does not tell us that an integer which is both even and odd exists. The same warning applies to a theorem whose assumptions can never hold at the same time. A proof of such a theorem may be perfectly correct and still tell us nothing about the situation we cared about.
+Do not confuse the contrapositive with the converse. The statement ``divisible by four implies even'' is equivalent to its contrapositive, ``not even implies not divisible by four.'' For example, $7$ is not even, and the contrapositive correctly tells us that $7$ is not divisible by four. The statement is \emph{not} equivalent to its converse, ``even implies divisible by four,'' which fails at $n=6$.
+
+The contrapositive is often the easier version to prove. Chapter~\ref{ch:proof} proves ``if $n^2$ is even, then $n$ is even'' by proving its contrapositive, ``if $n$ is not even, then $n^2$ is not even.'' That chapter also explains why an integer that is not even must be odd, so the new hypothesis lets us write $n=2k+1$, a form we can calculate with.
+
+\subsection*{Vacuous truth}
+What happens when the hypothesis of an implication can never hold? Consider the statement
+\begin{center}
+\emph{Every integer that is both even and odd is larger than $100$.}
+\end{center}
+A counterexample would have to be an integer that is both even and odd and is at most $100$. But no integer is both even and odd. Indeed, if $n=2k$ and $n=2\ell+1$ for integers $k$ and $\ell$, then $2k=2\ell+1$, so $2(k-\ell)=1$ and $k-\ell=1/2$, which is impossible because $k-\ell$ is an integer. Chapter~\ref{ch:proof} returns to this argument. So there is no counterexample, and the statement counts as true. This agrees with the rule of Section~\ref{ch02:sec:connectives}: an implication fails only when its hypothesis holds and its conclusion fails, and here the hypothesis never holds.
+
+A statement of this kind is called \emph{vacuously true}: it is true because there is nothing for it to be about. It does not tell us that an integer which is both even and odd exists. Nor does it tell us anything about integers larger than $100$. The statement ``every integer that is both even and odd is smaller than $0$'' is vacuously true as well, for the same reason.
+
+The same warning applies to a theorem whose hypotheses can never all hold at once. Its proof may be perfectly correct and still tell us nothing about the situation we cared about. Suppose an assistant proves a result about ``every real number $x$ with $x^2<0$.'' The square of a real number is never negative, so no such $x$ exists, and the result is vacuously true however impressive its conclusion looks. Before relying on a theorem, check that at least one object satisfies all of its hypotheses. Vacuous truth appears again in Chapter~\ref{ch:maps}, where it explains why the empty set is contained in every set.

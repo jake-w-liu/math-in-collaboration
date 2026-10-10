@@ -1,14 +1,46 @@
-\section{The pigeonhole principle and the average}
-If $n$ objects are placed in $m$ boxes and every box contains at most $k$ objects, then $n\le mk$: adding the bounds for all $m$ boxes gives at most $mk$ objects in total. Taking the contrapositive gives the \emph{pigeonhole principle}: if $n>mk$, then some box contains more than $k$ objects. The best-known case is $k=1$: if more than $m$ objects are placed in $m$ boxes, some box contains at least two of them. For example, among any $13$ people, two have their birthdays in the same month. Notice that the principle tells us that such a box \emph{exists}, but not which box it is.
+\section{The pigeonhole principle and the average}\label{ch07:sec:pigeonhole}
+Suppose that $n$ objects are placed in $r$ boxes, and that every box ends up containing at most $k$ objects. Adding these bounds over all $r$ boxes shows that there are at most $rk$ objects altogether, that is, $n\le rk$. The contrapositive of this implication (Section~\ref{ch02:sec:contrapositive}) is one of the most useful facts in counting. Its conclusion is the negation of ``every box contains at most $k$ objects,'' which by the rules of Section~\ref{ch02:sec:negation} is ``some box contains more than $k$ objects.''
 
-A closely related fact concerns averages. Let $a_1,\ldots,a_n$ be real numbers, with $n\ge1$, and let
+\par\noindent\begin{minipage}{\linewidth}
+\begin{proposition}[Pigeonhole principle]\label{ch07:prop:pigeonhole}
+Let $n$, $r$, and $k$ be natural numbers. If $n$ objects are placed in $r$ boxes and $n>rk$, then some box contains more than $k$ objects.
+\end{proposition}
+\end{minipage}\par
+
+\begin{proof}
+If every box contained at most $k$ objects, then, as we just saw, there would be at most $rk$ objects in total. This contradicts $n>rk$.
+\end{proof}
+
+The name pictures pigeons settling into the holes of a pigeon house: if there are more pigeons than holes, some hole holds at least two pigeons. This is the case $k=1$, which is the one used most often. If more than $r$ objects are placed in $r$ boxes, some box contains more than one object, that is, at least two of them. For example, among any $13$ people, two have their birthdays in the same month: the people are the objects, the $12$ months are the boxes, and $13>12\cdot1$. Larger values of $k$ work in the same way. Among any $25$ people, some month contains the birthdays of at least three of them, because $25>12\cdot2$.
+
+Notice that the principle tells us that such a box \emph{exists}, but not which box it is. It also connects with Chapter~\ref{ch:maps}. Placing each object in a box defines a function from the set of objects to the set of boxes. In that language, the case $k=1$ is the fact from Section~\ref{ch03:sec:injsurj} that a function from a finite set $A$ to a finite set $B$ with $|A|>|B|$ cannot be injective: two different inputs must share an output.
+
+\pauseq{A class has $30$ students. Must some month contain the birthdays of at least three of them? Of at least four?}{Take the $12$ months as boxes. Since $30>12\cdot2=24$, the pigeonhole principle with $k=2$ shows that some month contains more than two birthdays, that is, at least three. For four birthdays we would need $k=3$, but $30$ is not larger than $12\cdot3=36$, so the principle gives no guarantee. In fact no guarantee is possible: six months with three birthdays each and six months with two each account for $6\cdot3+6\cdot2=30$ students, and no month holds four.}
+
+A closely related fact concerns averages. The \emph{average} of real numbers $a_1,\ldots,a_n$, where $n\ge1$, is
 \[
-\bar a=\frac{a_1+\cdots+a_n}{n}
+\bar a=\frac{a_1+\cdots+a_n}{n}.
 \]
-be their average. Then at least one of the numbers is at least $\bar a$. To see why, suppose instead that every $a_i$ were strictly less than $\bar a$. Adding these $n$ strict inequalities would give
+(The bar over the $a$ is part of the name; read $\bar a$ as ``$a$ bar.'')
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{proposition}[Averaging principle]\label{ch07:prop:average}
+Let $a_1,\ldots,a_n$ be real numbers, where $n\ge1$, and let $\bar a$ be their average. Then at least one of the numbers is at least $\bar a$, and at least one of them is at most $\bar a$.
+\end{proposition}
+\end{minipage}\par
+
+\begin{proof}
+Suppose, for contradiction, that every $a_i$ is strictly less than $\bar a$. Adding these $n$ strict inequalities gives
 \[
 a_1+\cdots+a_n<n\bar a.
 \]
-But by the definition of the average, $n\bar a$ is exactly $a_1+\cdots+a_n$, so we would have a number strictly less than itself. This contradiction proves the claim. The same argument, with all inequalities reversed, shows that at least one of the numbers is at most the average. For instance, the numbers $1,3,8$ have average $4$; the number $8$ is at least $4$, and the numbers $1$ and $3$ are at most $4$.
+(Two strict inequalities $x<y$ and $x'<y'$ can be added: $x+x'<y+x'<y+y'$, by the rule for adding the same number to both sides from Section~\ref{ch02:sec:quantifiers}. Repeating this adds all $n$ of them. Since $n\ge1$, there is at least one inequality to add, so the result is strict.) But the definition of the average says exactly that $n\bar a=a_1+\cdots+a_n$, so this number would be strictly less than itself, which is impossible. Hence some $a_i$ satisfies $a_i\ge\bar a$.
 
-The word ``some'' is essential. An average does not control every entry. Applying the averaging fact to the degrees of a graph with $m$ edges and $n\ge1$ vertices, whose degrees sum to $2m$ by the handshake theorem, shows that some vertex has degree at least $2m/n$. It does not say that every vertex has that degree. Chapter~13 turns this same observation into a method for proving that an object exists by computing an average over random choices.
+The same argument with every inequality reversed proves the second claim: if every $a_i$ were strictly greater than $\bar a$, adding would give $a_1+\cdots+a_n>n\bar a$, again impossible.
+\end{proof}
+
+For instance, the numbers $1,3,8$ have average $12/3=4$. The number $8$ is at least $4$, and the numbers $1$ and $3$ are at most $4$. The condition $n\ge1$ is needed for the average to make sense at all: with $n=0$ the formula would divide by zero, and there would be no number to choose.
+
+The pigeonhole principle is a special case of the averaging principle. If $n$ objects lie in $r\ge1$ boxes, the numbers of objects in the boxes add up to $n$, so their average is $n/r$. When $n>rk$, this average is larger than $k$, and the averaging principle gives a box containing at least $n/r$ objects, which is more than $k$.
+
+The words ``at least one'' are essential: an average does not control every number. Apply the averaging principle to the degrees of a graph with $n\ge1$ vertices and $m$ edges. By the handshake theorem the degrees add up to $2m$, so their average is $2m/n$, and therefore some vertex has degree at least $2m/n$. It does not follow that every vertex has degree $2m/n$, or even a degree close to it. The example graph $G$ has $n=4$ vertices and $m=4$ edges, so its average degree is $2$. The vertex $c$ has degree $3$, which is at least $2$, as promised; the vertex $d$ has degree only $1$. Chapter~\ref{ch:probability} develops this observation into a method for proving that an object exists: compute an average over random choices, and conclude that some choice is at least as good as the average.

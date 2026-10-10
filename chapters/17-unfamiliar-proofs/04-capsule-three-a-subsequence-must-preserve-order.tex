@@ -1,18 +1,30 @@
-\section{Capsule three: a subsequence must preserve order}
-A \emph{subsequence} is a sequence of the form
+\section{Capsule three: a subsequence must preserve order}\label{ch17:sec:subsequence}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}[Subsequence]\label{ch17:def:subsequence}
+Let $x_0,x_1,x_2,\ldots$ be a sequence. A \emph{subsequence} of it is a sequence of the form
 \[
  x_{n_1},x_{n_2},x_{n_3},\ldots,
- \qquad n_1<n_2<n_3<\cdots.
+ \qquad\text{where }n_1<n_2<n_3<\cdots
 \]
-We may skip terms but may not reorder them or reuse a single index indefinitely. Every infinite subset of $\NN$ contains an index larger than any specified integer $M$: otherwise it would be contained in the finite set $\set{0,\ldots,M}$.
+are natural numbers.
+\end{definition}
+\end{minipage}\par
 
-Consequently, if an infinite set of permissible indices is available at each stage, we can choose a new index larger than the previous one. This small fact is exactly what turns nested infinite selections into a subsequence rather than an unordered collection of points.
+In words: we may skip terms, but the terms we keep must stay in their original order, and no index may be used twice. For the sequence $x_n=(-1)^n$, which is $1,-1,1,-1,\ldots$, the indices $n_k=2k$ give the subsequence $x_2,x_4,x_6,\ldots$, which is the constant sequence $1,1,1,\ldots$. By contrast, $x_1,x_0,x_3,x_2,\ldots$ is not a subsequence, because the indices $1,0,3,2,\ldots$ do not increase. Neither is $x_0,x_0,x_0,\ldots$, because it uses the index $0$ again and again.
 
-\subsection*{Plan the construction with three distinct kinds of object}
-There will be points of the metric space, balls containing points, and sets of sequence indices. They are not interchangeable. A ball contains values such as $x_7$. A selected index set contains the natural number seven because its value $x_7$ lies in the selected ball. Repeated equal values can therefore contribute many different indices.
+Two counters are involved, and it helps to keep them apart. The number $k$ counts positions in the subsequence, while $n_k$ is the position of the same term in the original sequence. In the example above, the third term of the subsequence, where $k=3$, is $x_6$. We number the terms of a subsequence from $k=1$, while the sequences of Chapter~\ref{ch:limits} started at index $0$. This makes no difference: writing $y_k=x_{n_k}$, the definitions of convergence and of Cauchy sequences apply to $y_1,y_2,y_3,\ldots$ exactly as before, with thresholds that are at least $1$.
 
-Start with every index permissible. At the first stage, cover the space by finitely many balls of radius $1/4$ and keep the indices whose points lie in one ball containing infinitely many of them. Any two retained values are within $1/2$ of one another. At the second stage, cover the space by balls of radius $1/8$, but consider only indices retained at the first stage. Keep infinitely many of those inside a single new ball. Their values are now within $1/4$ of one another.
+How can we make sure that the chosen indices increase? The following fact is all we need. \emph{An infinite set $S$ of natural numbers contains a number larger than any given natural number $M$.} Otherwise every member of $S$ would lie in the finite set $\set{0,1,\ldots,M}$, and $S$ would be finite. So if, at each stage of a construction, an infinite set of allowed indices is available, we can always choose an allowed index larger than the one chosen at the previous stage. This is what makes the chosen terms a subsequence, and not just an unordered collection of terms.
 
-Continuing, the radii at stage $k$ are $2^{-(k+1)}$, so twice a radius is $2^{-k}$. The factor of two comes from the two-leg distance estimate within a ball. We shrink the radius by an extra factor of two precisely to get this convenient bound.
+\subsection*{A plan with three kinds of objects}
+The construction in the proof involves three different kinds of objects, and it is important not to mix them up: points of the space, such as the term $x_7$; balls, which are sets of points; and sets of indices, which are sets of natural numbers. A ball contains points. A set of indices contains numbers; in our construction it contains the number $7$ when the term $x_7$ lies in the chosen ball. If $x_7=x_9$, this is one point of the ball, but it contributes two indices, $7$ and $9$.
 
-The \emph{sets of indices} are nested because each stage discards some previously permissible indices and introduces none. The chosen balls themselves need not be nested as subsets of the space. We only need all later chosen values to retain the earlier distance guarantees. The proof will use nestedness of the index sets to establish that fact.
+Here is the plan. Start with every index allowed: $S_0=\NN$. At stage~$1$, cover the space by finitely many balls of radius $1/4$, which total boundedness makes possible. By Lemma~\ref{ch17:lem:pigeonhole}, one of these balls contains $x_n$ for infinitely many indices $n\in S_0$. Keep exactly those indices, and call the set of them $S_1$. By the diameter bound, any two terms $x_i$ and $x_j$ with $i,j\in S_1$ are less than $2\cdot\tfrac14=\tfrac12$ apart. At stage~$2$, cover the space by finitely many balls of radius $1/8$, but now consider only the indices in $S_1$. One of the new balls contains $x_n$ for infinitely many $n\in S_1$; keep those indices, and call the set of them $S_2$. Any two terms with indices in $S_2$ are less than $2\cdot\tfrac18=\tfrac14$ apart.
+
+In general, stage~$k$ uses balls of radius $2^{-(k+1)}$, and any two terms with indices in $S_k$ are less than $2\cdot2^{-(k+1)}=2^{-k}$ apart. Why the radius $2^{-(k+1)}$ and not $2^{-k}$? The diameter bound doubles the radius, so starting from half of the desired distance gives the simple bound $2^{-k}$. Any radii that shrink towards zero would work; this choice keeps the arithmetic tidy.
+
+Each set $S_k$ is a subset of $S_{k-1}$, because stage~$k$ only throws indices away and never adds new ones. So
+\[
+ S_0\supseteq S_1\supseteq S_2\supseteq\cdots,
+\]
+and we say that the index sets are \emph{nested}. The chosen balls, by contrast, need not be nested: the ball chosen at stage~$2$ may stick out of the ball chosen at stage~$1$. That does no harm. A term whose index lies in $S_2$ also has its index in $S_1$, so it lies in both chosen balls. In this way the nesting of the index sets carries the distance bound of each stage forward to all later stages. Section~\ref{ch17:sec:proof} makes this precise.

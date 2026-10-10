@@ -1,18 +1,56 @@
-\section{Matrix multiplication records composition}
-If $A$ maps $\RR^n$ to $\RR^m$ and $B$ maps $\RR^m$ to $\RR^k$, their product $BA$ records ``$B$ after $A$.'' Expanding one coordinate gives
+\section{Matrix multiplication records composition}\label{ch10:sec:product}
+Let $A$ be an $m$-by-$n$ matrix and $B$ a $k$-by-$m$ matrix. Then $A$ maps $\RR^n$ to $\RR^m$ and $B$ maps $\RR^m$ to $\RR^k$, so the composition ``$B$ after $A$,'' which sends $x$ to $B(Ax)$, maps $\RR^n$ to $\RR^k$. This composition is linear, because linearity of $A$ and then of $B$ gives
 \[
-(B(Ax))_i=\sum_{r=1}^m B_{ir}\sum_{j=1}^n A_{rj}x_j
+B\bigl(A(ax+by)\bigr)=B\bigl(aAx+bAy\bigr)=a\,B(Ax)+b\,B(Ay).
+\]
+By Section~\ref{ch10:sec:linearmaps}, the composition is therefore recorded by a $k$-by-$n$ matrix. This matrix is called the \emph{product} $BA$. By definition, $(BA)x=B(Ax)$ for every $x\in\RR^n$. As with $g\circ f$ in Section~\ref{ch03:sec:functions}, the factor written on the right acts first.
+
+To find the entries of $BA$, expand the $i$th coordinate of $B(Ax)$, using the row rule first for $B$ and then for $A$:
+\[
+(B(Ax))_i=\sum_{r=1}^m B_{ir}(Ax)_r=\sum_{r=1}^m B_{ir}\sum_{j=1}^n A_{rj}x_j
 =\sum_{j=1}^n\left(\sum_{r=1}^m B_{ir}A_{rj}\right)x_j.
 \]
-The sums are finite, so regrouping is legitimate. This derives $(BA)_{ij}=\sum_rB_{ir}A_{rj}$. Matrix multiplication is not an arbitrary convention; it is forced by composition of the actions.
+The last step multiplies out the brackets and then collects, for each $j$, all the terms that contain $x_j$. All the sums are finite, so this regrouping uses only the ordinary rules of arithmetic. On the other hand, the row rule for the matrix $BA$ says that $((BA)x)_i=\sum_{j=1}^n(BA)_{ij}x_j$. Since $(BA)x=B(Ax)$, the two expressions give the same number for every $x$. Taking $x=e_j$, whose $j$th coordinate is $1$ and whose other coordinates are $0$, reduces each expression to its coefficient of $x_j$, so these two coefficients agree. Hence
+\[
+(BA)_{ij}=\sum_{r=1}^m B_{ir}A_{rj}\qquad(1\le i\le k,\ 1\le j\le n).
+\]
+In words, the entry of $BA$ in row $i$ and column $j$ is the dot product of row $i$ of $B$ with column $j$ of $A$. This makes sense only when each row of $B$ has as many entries as each column of $A$, that is, when $B$ has as many columns as $A$ has rows. The row-by-column rule may look strange at first sight. The calculation shows where it comes from: it is exactly what composing the two maps requires.
 
-To inspect the regrouping without nested sums, take both $A$ and $B$ to be two-by-two matrices. The first coordinate after applying $B$ to $Ax$ has the form
+The double sum can be hard to read, so here it is written out for two-by-two matrices. The first coordinate of $B(Ax)$ is
 \begin{align*}
- B_{11}(A_{11}x_1+A_{12}x_2)
- &+B_{12}(A_{21}x_1+A_{22}x_2)\\
- &=(B_{11}A_{11}+B_{12}A_{21})x_1\\
- &\quad +(B_{11}A_{12}+B_{12}A_{22})x_2.
+&B_{11}(A_{11}x_1+A_{12}x_2)+B_{12}(A_{21}x_1+A_{22}x_2)\\
+&\qquad=(B_{11}A_{11}+B_{12}A_{21})x_1+(B_{11}A_{12}+B_{12}A_{22})x_2.
 \end{align*}
-The coefficients multiplying $x_1$ and $x_2$ are the first row of the composed matrix. In the general formula, the index $r$ runs through the intermediate coordinates, while $j$ runs through the original inputs. These are different jobs. The summation notation is a compact record of this same distributive calculation, not a new operation.
+The coefficients of $x_1$ and $x_2$ form the first row of $BA$. In the general formula, the index $r$ runs through the coordinates of the intermediate vector $Ax$, while $j$ runs through the coordinates of the original input $x$. The summation notation records exactly this distributive calculation in compact form.
 
-The transpose $A^{\mathsf T}$ exchanges rows and columns. Consequently, $(AA^{\mathsf T})_{ij}$ is the dot product of row $i$ with row $j$. A matrix identity $AA^{\mathsf T}=nI$ says its rows have squared length $n$ and different rows are orthogonal. Here $I$ is the identity matrix, with ones on the diagonal and zeros elsewhere. This identity returns in Chapter~14, where it describes a family of matrices that is the subject of current research.
+For a numerical example, multiply the matrix $A$ of Section~\ref{ch10:sec:linearmaps} by itself:
+\begin{align*}
+AA&=\begin{pmatrix}1&1\\1&-1\end{pmatrix}\begin{pmatrix}1&1\\1&-1\end{pmatrix}\\
+&=\begin{pmatrix}1\cdot1+1\cdot1&1\cdot1+1\cdot(-1)\\1\cdot1+(-1)\cdot1&1\cdot1+(-1)\cdot(-1)\end{pmatrix}
+=\begin{pmatrix}2&0\\0&2\end{pmatrix}.
+\end{align*}
+This matrix sends $(x_1,x_2)$ to $(2x_1,2x_2)$, so it doubles every vector, in agreement with the calculation $A(Ax)=2x$ in Section~\ref{ch10:sec:kernel}.
+
+The order of the factors matters, just as $g\circ f$ and $f\circ g$ were different functions in Section~\ref{ch03:sec:functions}. For
+\[
+C=\begin{pmatrix}1&1\\0&1\end{pmatrix}\qquad\text{and}\qquad D=\begin{pmatrix}1&0\\1&1\end{pmatrix},
+\]
+the row-by-column rule gives
+\[
+CD=\begin{pmatrix}2&1\\1&1\end{pmatrix}\qquad\text{but}\qquad DC=\begin{pmatrix}1&1\\1&2\end{pmatrix}.
+\]
+The maps explain the difference. The matrix $C$ sends $(x_1,x_2)$ to $(x_1+x_2,\,x_2)$, adding the second coordinate to the first, while $D$ sends $(x_1,x_2)$ to $(x_1,\,x_1+x_2)$, adding the first coordinate to the second. Starting from $(1,0)$, the product $CD$ applies $D$ first and reaches $(1,1)$, and then $C$ gives $(2,1)$. The product $DC$ applies $C$ first, which leaves $(1,0)$ unchanged, and then $D$ gives $(1,1)$. These two results are the first columns of $CD$ and $DC$.
+
+\subsection*{The transpose and orthogonal rows}
+The \emph{transpose} $A^{\mathsf T}$ of an $m$-by-$n$ matrix $A$ is the $n$-by-$m$ matrix obtained by exchanging rows and columns: $(A^{\mathsf T})_{ij}=A_{ji}$. So column $j$ of $A^{\mathsf T}$ is row $j$ of $A$. For example,
+\[
+\begin{pmatrix}2&-1&3\\1&0&1\end{pmatrix}^{\mathsf T}=\begin{pmatrix}2&1\\-1&0\\3&1\end{pmatrix}.
+\]
+By the row-by-column rule, the entry $(AA^{\mathsf T})_{ij}$ is the dot product of row $i$ of $A$ with column $j$ of $A^{\mathsf T}$, which is row $j$ of $A$. So the entries of $AA^{\mathsf T}$ are the dot products of the rows of $A$ with one another:
+\[
+(AA^{\mathsf T})_{ij}=\sum_{r=1}^n A_{ir}A_{jr}=(\text{row $i$ of $A$})\cdot(\text{row $j$ of $A$}).
+\]
+
+The $n$-by-$n$ \emph{identity matrix} $I$ has ones on its \emph{diagonal}, that is, in the positions $(i,i)$, and zeros everywhere else. It satisfies $Ix=x$ for every $x\in\RR^n$, so it records the identity map. Multiplying a matrix by a number means multiplying every entry by that number, so $nI$ has $n$ in each diagonal position and zeros elsewhere. For an $n$-by-$n$ matrix $A$, the identity $AA^{\mathsf T}=nI$ therefore says two things at once. The diagonal entries say that every row of $A$ has squared length $n$. The entries off the diagonal say that any two different rows of $A$ are orthogonal.
+
+The matrix $A$ of Section~\ref{ch10:sec:linearmaps} is an example with $n=2$. Exchanging its rows and columns does not change it, so $A^{\mathsf T}=A$ and $AA^{\mathsf T}=AA=2I$. Its rows $(1,1)$ and $(1,-1)$ indeed have squared length $2$ and are orthogonal. Square matrices with entries $\pm1$ that satisfy $AA^{\mathsf T}=nI$, where $n$ is the number of rows, are called \emph{Hadamard matrices}. They are central to Chapter~\ref{ch:signs}, which follows a question about them all the way to current research.

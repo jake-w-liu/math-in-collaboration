@@ -1,7 +1,13 @@
 \section*{Exercises}
-\begin{exercise}\label{ex:11.1}If $|x-a|\le0.02$ and $|y-b|\le0.03$, bound $|(2x-y)-(2a-b)|$.\end{exercise}
-\begin{exercise}\label{ex:11.2}Prove $3/(n+1)\to0$ with a stated choice of threshold for each positive tolerance.\end{exercise}
-\begin{exercise}\label{ex:11.3}Prove $d_\infty$ vanishes exactly for equal vectors and is symmetric. Together with the main-text argument, this completes the metric verification.\end{exercise}
-\begin{exercise}\label{ex:11.4}For $d(x_{j+1},x_j)\le2(1/3)^j$, give a bound for $d(x_m,x_n)$ valid for every $m>n$.\end{exercise}
-\begin{exercise}\label{ex:11.5}Give a Cauchy sequence in $(2,3)$ that has no limit in that space. Prove both assertions.\end{exercise}
-\begin{exercise}\label{ex:11.6}A set is bounded above if some real number exceeds or equals every member. Its supremum is its least upper bound. Show that $(0,1)$ has supremum $1$ but no maximum. Explain why replacing ``supremum'' by ``maximum'' would change the claim.\end{exercise}
+\begin{exercise}\label{ex:11.1}Suppose $|x-a|\le0.02$ and $|y-b|\le0.03$. Find an upper bound for $|(2x-y)-(2a-b)|$ that holds for all such numbers, and give values of $x$, $y$, $a$ and $b$ for which your bound is attained.\end{exercise}
+\begin{exercise}\label{ex:11.2}Prove that the sequence $a_n=3/(n+1)$, for $n\in\NN$, converges to $0$. For each tolerance $\eps>0$, state explicitly the threshold $N$ that you use.\end{exercise}
+\begin{exercise}\label{ex:11.3}Show that the function $d_\infty$ on $\RR^n$ from Section~\ref{ch11:sec:metric} satisfies the first two requirements of Definition~\ref{def:metric}: $d_\infty(x,y)\ge0$, with equality exactly when $x=y$, and $d_\infty(x,y)=d_\infty(y,x)$. Together with the triangle inequality proved in that section, this shows that $d_\infty$ is a metric.\end{exercise}
+\begin{exercise}\label{ex:11.4}A sequence $x_0,x_1,x_2,\ldots$ in a metric space satisfies $d(x_{j+1},x_j)\le2(1/3)^j$ for every $j\in\NN$. Find an upper bound for $d(x_m,x_n)$ that holds for all $m>n$ and does not depend on $m$. Then show that the sequence is Cauchy, with an explicit threshold for each tolerance $\eps>0$.\end{exercise}
+\begin{exercise}\label{ex:11.5}Give a Cauchy sequence in the interval $(2,3)$, with distance $|x-y|$, that has no limit in $(2,3)$. Prove both properties of your sequence.\end{exercise}
+\begin{exercise}\label{ex:11.6}Let $A$ be a set of real numbers. A real number $b$ is an \emph{upper bound} for $A$ if $a\le b$ for every $a\in A$. A \emph{maximum} of $A$ is an upper bound for $A$ that is itself a member of $A$. A \emph{supremum}, or \emph{least upper bound}, of $A$ is an upper bound $s$ for $A$ such that $s\le b$ for every upper bound $b$ for $A$.
+\begin{enumerate}
+\item Show that $1$ is a supremum of the interval $(0,1)$.
+\item Show that $(0,1)$ has no maximum.
+\item The completeness of the real line is often stated in the following form: \emph{every nonempty set of real numbers that has an upper bound has a supremum}. Explain why this statement would become false if the word ``supremum'' were replaced by ``maximum.''
+\end{enumerate}
+\end{exercise}

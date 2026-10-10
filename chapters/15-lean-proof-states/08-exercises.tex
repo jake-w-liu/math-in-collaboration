@@ -1,7 +1,7 @@
 \section*{Exercises}
-\begin{exercise}\label{ex:15.1}In \code{h : P -> Q}, distinguish the role of \code{h}, \code{P}, and \code{Q}. What does \code{h hp} provide when \code{hp : P}?\end{exercise}
-\begin{exercise}\label{ex:15.2}Write a Lean proof of $P\land Q\Rightarrow P$. Explain its only mathematical inference.\end{exercise}
-\begin{exercise}\label{ex:15.3}Write a Lean theorem giving a natural-number witness for $n+2=7$.\end{exercise}
-\begin{exercise}\label{ex:15.4}Explain why \code{congrArg g h} cannot in general recover $x=y$ from \code{h : g x = g y}. Which hypothesis is missing?\end{exercise}
-\begin{exercise}\label{ex:15.5}Using \code{Inj}, formalize the claim that if $g\circ f$ is injective, then $f$ is injective. Do not assume $g$ itself is injective.\end{exercise}
-\begin{exercise}\label{ex:15.6}Explain why \code{(7 - 10 : Nat)} and \code{(7 - 10 : Int)} describe different computations. What lesson does this give for translating a theorem's domain?\end{exercise}
+\begin{exercise}\label{ex:15.1}In \code{h : P -> Q}, explain the roles of \code{h}, \code{P}, and \code{Q}. If \code{hp : P}, what does \code{h hp} provide?\end{exercise}
+\begin{exercise}\label{ex:15.2}Write a Lean proof of $P\land Q\Rightarrow P$, and explain the one mathematical inference it uses.\end{exercise}
+\begin{exercise}\label{ex:15.3}Write a Lean theorem stating that some natural number $n$ satisfies $n+2=7$, and prove it by giving a witness.\end{exercise}
+\begin{exercise}\label{ex:15.4}Explain why \code{congrArg g h} cannot, in general, recover $x=y$ from \code{h : g x = g y}. Which hypothesis is missing?\end{exercise}
+\begin{exercise}\label{ex:15.5}Using \code{Inj}, state and prove in Lean the first part of Proposition~\ref{thm:compconverse}: if $g\circ f$ is injective, then $f$ is injective. Do not assume that $g$ itself is injective.\end{exercise}
+\begin{exercise}\label{ex:15.6}Explain why \code{(7 - 10 : Nat)} and \code{(7 - 10 : Int)} describe different computations. What lesson does this give for translating a theorem from one kind of number to another?\end{exercise}

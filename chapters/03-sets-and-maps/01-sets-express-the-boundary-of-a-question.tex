@@ -1,37 +1,55 @@
-\section{Sets express the boundary of a question}
-A set is a collection whose membership matters. The set $A=\{1,3,5\}$ has three elements. Repeating a member does not create a new element: $\{1,1,3\}=\{1,3\}$. Order does not matter either. By contrast, an ordered pair $(1,3)$ is different from $(3,1)$. The distinction between a collection and an ordered arrangement is part of the mathematical model.
+\section{Sets express the boundary of a question}\label{ch03:sec:sets}
+Section~\ref{ch01:sec:pattern} suggested that the first question to ask about any claim is: which objects does it talk about? A \emph{set} is the mathematical tool for recording the answer. It is a collection of objects, called its \emph{members} or \emph{elements}, and it is completely determined by which objects belong to it. The set $A=\{1,3,5\}$ has three elements: $1$, $3$, and $5$. Listing a member twice does not create a new element, so $\{1,1,3\}=\{1,3\}$. The order of the list does not matter either: $\{3,1\}=\{1,3\}$.
 
-Write $x\in A$ when $x$ is a member and $x\notin A$ otherwise. The empty set $\varnothing$ has no elements. The notation $A\subseteq B$ says that every member of $A$ is a member of $B$. To prove this containment, take an arbitrary $x\in A$ and show $x\in B$. To prove equality of sets, prove containment in both directions.
+Sometimes order does matter. An \emph{ordered pair} $(a,b)$ has a first entry $a$ and a second entry $b$. Two ordered pairs are equal only when their first entries are equal and their second entries are equal. So $(1,3)\ne(3,1)$, although $\{1,3\}=\{3,1\}$. When we describe a situation mathematically, we have to decide which kind of object fits it. The three students in a study group form a set, because only membership matters. The winner and the runner-up of a race form an ordered pair, because swapping them changes the result.
 
-The union $A\cup B$ contains elements in at least one set. The intersection $A\cap B$ contains elements in both. The difference $A\setminus B$ contains elements in $A$ but not in $B$. For $A=\{1,2,3\}$ and $B=\{3,4\}$, these are $\{1,2,3,4\}$, $\{3\}$, and $\{1,2\}$ respectively.
+We write $x\in A$, read ``$x$ is in $A$'' or ``$x$ belongs to $A$,'' when $x$ is a member of $A$, and $x\notin A$ when it is not. For example, $3\in\{1,3,5\}$ and $2\notin\{1,3,5\}$. The \emph{empty set} $\varnothing$ is the set with no members at all. The notation $A\subseteq B$, read ``$A$ is a \emph{subset} of $B$'' or ``$A$ is contained in $B$,'' means that every member of $A$ is also a member of $B$. For example, $\{1,3\}\subseteq\{1,2,3\}$. On the other hand, $\{1,4\}$ is not a subset of $\{1,2,3\}$, because $4$ belongs to the first set but not to the second. Every set is a subset of itself. To prove $A\subseteq B$, take an arbitrary $x\in A$ and show that $x\in B$.
 
-The notation $\{x\in A:P(x)\}$ selects the members of $A$ satisfying a property $P$. For example, $\{n\in\ZZ:n\text{ is even}\}$ is the set of even integers. Read the colon as ``such that.''
+Three operations build new sets from old ones. The \emph{union} $A\cup B$ is the set of objects that belong to at least one of $A$ and $B$. This is the inclusive ``or'' of Chapter~\ref{ch:logic}: an object that lies in both sets also lies in the union. The \emph{intersection} $A\cap B$ is the set of objects that belong to both $A$ and $B$. The \emph{difference} $A\setminus B$ is the set of objects that belong to $A$ but not to $B$. For $A=\{1,2,3\}$ and $B=\{3,4\}$,
+\[
+A\cup B=\{1,2,3,4\},\qquad A\cap B=\{3\},\qquad A\setminus B=\{1,2\}.
+\]
+Notice that $B\setminus A=\{4\}$ differs from $A\setminus B$. The order of the two sets matters for a difference, though not for a union or an intersection.
 
-\subsection*{Why a membership proof proves an entire set equality}
-The statements $1\in\{1,2\}$ and $\{1\}\subseteq\{1,2\}$ have different subjects. The first talks about one number. The second talks about a set whose members must all occur in another set. In particular, ``$x$ is a member'' and ``the one-element set $\{x\}$ is contained'' are related but differently written claims.
+To describe a set by a property instead of a list, we write $\{x\in A:P(x)\}$ for the set of those members of $A$ that satisfy the property $P$. Read the colon as ``such that.'' For example, $\{n\in\ZZ:n\text{ is even}\}$ is the set of even integers. Likewise $\{x\in\RR:x^2\le4\}$ is the interval $[-2,2]$. Indeed, Section~\ref{sec:magnitude} showed that $x^2>4$ holds exactly when $x<-2$ or $x>2$, so $x^2\le4$ holds exactly when neither happens, that is, when $-2\le x\le2$. Two of the operations above can be written in this notation: $A\cap B=\{x\in A:x\in B\}$ and $A\setminus B=\{x\in A:x\notin B\}$.
 
-Two sets are equal precisely when they have the same members. To prove $D=E$, it is therefore enough to show that anything in $D$ is in $E$, and anything in $E$ is in $D$. Start the first direction with an arbitrary $x\in D$; do not assume at the outset that it also belongs to $E$. Producing that second membership is the work of the argument.
+\subsection*{Membership, containment, and equality}
+The symbols $\in$ and $\subseteq$ are easy to confuse, because they connect different kinds of objects. The statement $1\in\{1,2\}$ is about the number $1$: it says that $1$ is one of the members. The statement $\{1\}\subseteq\{1,2\}$ is about the set $\{1\}$: it says that every member of $\{1\}$ is also a member of $\{1,2\}$. Both statements are true, and in general $x\in B$ holds exactly when $\{x\}\subseteq B$. But the two symbols cannot be exchanged. The statement $\{1\}\in\{1,2\}$ is false, because the two members of $\{1,2\}$ are the numbers $1$ and $2$, and neither of them is the set $\{1\}$. The expression $1\subseteq\{1,2\}$ has no meaning, because $1$ is a number, not a set.
 
-If the starting set is empty, there is no member to defeat the proposed containment. This is why $\varnothing\subseteq E$ for every set $E$. The sentence ``take an arbitrary member'' is conditional on a member being supplied; it does not assert that the set is nonempty. This is the set version of vacuous truth.
+Two sets are \emph{equal} when they have exactly the same members. So to prove $D=E$, we prove two containments: $D\subseteq E$ (everything in $D$ is in $E$) and $E\subseteq D$ (everything in $E$ is in $D$). For the first, begin with ``Let $x\in D$.'' As in the proofs of Chapter~\ref{ch:start}, this $x$ stands for any member of $D$ whatsoever, so the proof may use only the fact that $x\in D$. Do not assume at the outset that $x$ also belongs to $E$; deriving that is the whole point of the argument. Because $x$ was arbitrary, one argument about $x$ covers every member of $D$ at once. That is how a proof about a single, unnamed member can establish a statement about an entire set.
 
-For a concrete preview of the next identity, use $A=\{1,2,3\}$, $B=\{2,4\}$, and $C=\{3,4\}$. First $B\cup C=\{2,3,4\}$; retaining members also in $A$ leaves $\{2,3\}$. On the other side, $A\cap B=\{2\}$ and $A\cap C=\{3\}$; their union is again $\{2,3\}$. The proof below explains why this agreement persists for arbitrary sets.
+The empty set is a subset of every set: $\varnothing\subseteq E$ for every set $E$. To see why, ask what would make this containment false. We would need a member of $\varnothing$ that is not in $E$. Since $\varnothing$ has no members at all, no such counterexample can exist, so the containment is true. This is the set version of vacuous truth from Chapter~\ref{ch:logic}. It also means that a proof beginning ``Let $x\in D$'' remains valid when $D$ happens to be empty. The proof explains what happens whenever a member is supplied; it never claims that a member exists.
+
+Here is a first set equality to prove. Before reading the proof, try the claim on small sets: take $A=\{1,2,3\}$, $B=\{2,4\}$, and $C=\{3,4\}$. On one side, $B\cup C=\{2,3,4\}$, and keeping only the members that also lie in $A$ leaves $A\cap(B\cup C)=\{2,3\}$. On the other side, $A\cap B=\{2\}$ and $A\cap C=\{3\}$, and their union is again $\{2,3\}$. The proof below explains why the two sides agree for all sets, not only for these three.
 
 \par\noindent\begin{minipage}{\linewidth}
-\begin{proposition}
+\begin{proposition}\label{ch03:prop:distributive}
 For any sets $A,B,C$, we have $A\cap(B\cup C)=(A\cap B)\cup(A\cap C)$.
 \end{proposition}
 \end{minipage}\par
 
 \begin{proof}
-Suppose $x\in A\cap(B\cup C)$. Then $x\in A$ and $x$ belongs to $B$ or to $C$. In the first case $x\in A\cap B$; in the second $x\in A\cap C$. In either case $x$ belongs to their union. This proves one containment.
+We prove the two containments separately.
 
-Conversely, suppose $x\in(A\cap B)\cup(A\cap C)$. In the first case $x\in A$ and $x\in B$; in the second $x\in A$ and $x\in C$. Both cases imply $x\in A$ and $x\in B\cup C$. Thus $x\in A\cap(B\cup C)$, proving the reverse containment.
+First let $x\in A\cap(B\cup C)$. Then $x\in A$ and $x\in B\cup C$, so $x\in B$ or $x\in C$. If $x\in B$, then $x$ lies in both $A$ and $B$, so $x\in A\cap B$. If $x\in C$, then in the same way $x\in A\cap C$. In either case $x$ belongs to at least one of the sets $A\cap B$ and $A\cap C$, so $x\in(A\cap B)\cup(A\cap C)$. Since $x$ was an arbitrary member of $A\cap(B\cup C)$, this proves $A\cap(B\cup C)\subseteq(A\cap B)\cup(A\cap C)$.
+
+Conversely, let $x\in(A\cap B)\cup(A\cap C)$. Then $x\in A\cap B$ or $x\in A\cap C$. In the first case $x\in A$ and $x\in B$; in the second, $x\in A$ and $x\in C$. In both cases $x\in A$, and $x$ lies in $B$ or in $C$, that is, $x\in B\cup C$. Thus $x\in A\cap(B\cup C)$, which proves the reverse containment. The two containments together give the equality.
 \end{proof}
-The proof did not depend on what the elements were. Its content was the pattern of membership. This is a first example of a structure that survives a change of subject matter.
+The proof never asked what the elements were. They could be numbers, people, or tasks; the argument used only the meanings of ``and'' and ``or'' applied to membership. That is why the identity holds for sets of any kind of object. It is a first example of an argument that keeps working when the subject matter changes.
+
+\pauseq{For $A=\{1,2,3\}$, $B=\{2,4\}$, and $C=\{3,4\}$, compare $A\setminus(B\cup C)$ with $(A\setminus B)\cap(A\setminus C)$. Do you expect the two sides to agree for all sets?}{Here $B\cup C=\{2,3,4\}$, so $A\setminus(B\cup C)=\{1\}$. Also $A\setminus B=\{1,3\}$ and $A\setminus C=\{1,2\}$, whose intersection is $\{1\}$. The two sides agree for all sets. An object $x$ belongs to $A\setminus(B\cup C)$ when $x\in A$ and the statement ``$x\in B$ or $x\in C$'' is false. By the negation rule $\neg(P\lor Q)\Leftrightarrow(\neg P)\land(\neg Q)$ from Chapter~\ref{ch:logic}, this says that $x\in A$, $x\notin B$, and $x\notin C$. That is exactly membership in $(A\setminus B)\cap(A\setminus C)$.}
 
 \subsection*{Counting members and forming pairs}
-For a finite set $S$, the notation $|S|$ means the number of its members. For example, if $S=\{2,4,6\}$, then $|S|=3$, not twelve. We count members, not their sum. The empty set has size zero. The word \emph{cardinality} is another name for this size. Bars around a real number mean its absolute value; bars around a finite set mean its cardinality. The kind of object inside the bars tells us which meaning is being used.
+A set is \emph{finite} if its members can be written down in a list that ends. For a finite set $S$, the notation $|S|$ means the number of its members, each counted once. For example, if $S=\{2,4,6\}$, then $|S|=3$: we count the members, we do not add them up. The empty set has $|\varnothing|=0$. The number $|S|$ is called the \emph{size} or \emph{cardinality} of $S$. Bars around a real number mean its absolute value (Section~\ref{sec:magnitude}); bars around a finite set mean its size. The kind of object inside the bars tells you which meaning is intended.
 
-Two sets are \emph{disjoint} if they have no member in common. Counting a disjoint union adds the two sizes. If the sets overlap, simply adding their sizes counts the common members twice. For example, $|\{1,2\}|+|\{2,3\}|=4$ but $|\{1,2,3\}|=3$.
+Two sets are \emph{disjoint} if they have no member in common, that is, if $A\cap B=\varnothing$. For disjoint finite sets, $|A\cup B|=|A|+|B|$, because every member of the union is counted exactly once on the right. If the sets overlap, adding their sizes counts each common member twice. For example, $|\{1,2\}|+|\{2,3\}|=4$, but $|\{1,2\}\cup\{2,3\}|=|\{1,2,3\}|=3$; the common member $2$ was counted twice. Subtracting one copy of each common member corrects the count:
+\[
+|A\cup B|=|A|+|B|-|A\cap B|\qquad\text{for all finite sets }A,B.
+\]
+In the example, $2+2-1=3$.
 
-The \emph{Cartesian product} $A\times B$ is the set of ordered pairs $(a,b)$ with $a\in A$ and $b\in B$. If $A=\{1,2\}$ and $B=\{p,q\}$, it contains the four pairs $(1,p),(1,q),(2,p),(2,q)$. In general, each of the $|A|$ choices of first entry can be combined with each of the $|B|$ choices of second entry, so a finite product has $|A\times B|=|A|\cdot|B|$ members. Despite the multiplication sign, $A\times B$ does not multiply any numbers in $A$ and $B$; it forms pairs of objects, and only the \emph{count} of those pairs is a product. A rule whose input consists of two points of a set $X$, such as the distance between two points, can be described as a function on $X\times X$.
+The \emph{Cartesian product} $A\times B$ is the set of all ordered pairs $(a,b)$ with $a\in A$ and $b\in B$. If $A=\{1,2\}$ and $B=\{p,q\}$, where $p$ and $q$ are two different objects, then
+\[
+A\times B=\{(1,p),(1,q),(2,p),(2,q)\}.
+\]
+In general, each of the $|A|$ choices of first entry can be combined with each of the $|B|$ choices of second entry, so $|A\times B|=|A|\cdot|B|$ for finite sets. The multiplication sign in $A\times B$ does not multiply the elements of $A$ and $B$. The product is a set of pairs, and only its \emph{size} is a product of numbers. Products are useful whenever a single input consists of two pieces. For instance, adding two real numbers takes a pair $(x,y)$ from $\RR\times\RR$ and returns the number $x+y$. In Chapter~\ref{ch:limits}, the distance between two points of a set $X$ will likewise take its input from $X\times X$.

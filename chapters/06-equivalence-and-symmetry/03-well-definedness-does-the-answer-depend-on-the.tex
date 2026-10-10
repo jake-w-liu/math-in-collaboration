@@ -1,22 +1,31 @@
-\section{Well-definedness: does the answer depend on the representative?}
-We would like to add classes by adding representatives:
+\section{Well-definedness: does the answer depend on the representative?}\label{ch06:sec:well-defined}
+We would like to add residue classes. The natural rule is this: to add two classes, choose a representative of each, add the two integers, and take the class of the sum.
 \[
 [a]_m+[b]_m=[a+b]_m.
 \]
-But a class has many representatives. We must show that replacing them does not change the resulting class.
+But a class has many representatives, and the rule does not say which ones to choose. If two people choose different representatives of the same two classes, do they get the same answer? Unless they always do, the rule does not define an operation on classes at all.
 
-Suppose $a'=a+mk$ and $b'=b+m\ell$. Then
+Suppose the first person uses $a$ and $b$, and the second uses $a'$ and $b'$, where $[a']_m=[a]_m$ and $[b']_m=[b]_m$. By the test in Section~\ref{ch06:sec:residues}, $a'\equiv a$ and $b'\equiv b\pmod m$, so $a'=a+mk$ and $b'=b+m\ell$ for some integers $k$ and $\ell$. Then
 \[
 a'+b'=a+b+m(k+\ell).
 \]
-Thus $a'+b'\equiv a+b\pmod m$, so the two choices give the same class. The operation is \emph{well-defined}: it is genuinely an operation on classes rather than an operation on a hidden choice of their names.
+Since $k+\ell$ is an integer, $m$ divides $(a'+b')-(a+b)$, and so $[a'+b']_m=[a+b]_m$. Both people get the same class.
 
-Test this with $[1]_4+[2]_4$. Using representatives one and two gives $[3]_4$. Using five instead of one and $-2$ instead of two gives $[5+(-2)]_4=[3]_4$ again. Choosing five and six gives $[11]_4$, which is the same class as $[3]_4$. The ordinary integer sum may change; the \emph{output class}, which is what the operation promises to produce, does not.
+A rule whose inputs are classes, but which is computed from chosen representatives, is called \emph{well-defined} when its output depends only on the classes and not on which representatives were chosen. We have just shown that addition of residue classes is well-defined. It is an operation on the classes themselves, not on the particular names we happened to choose for them.
 
-This explains the point of the general calculation. It is not trying to prove $a'+b'=a+b$, which would usually be false. It proves that the two sums differ by a multiple of $m$, exactly the criterion for equal output classes. Always ask what kind of object the output is before asking whether two outputs agree.
+Test this with $[1]_4+[2]_4$. Using the representatives $1$ and $2$ gives $[3]_4$. Using $5$ instead of $1$ and $-2$ instead of $2$ gives $[5+(-2)]_4=[3]_4$ again. Choosing $5$ and $6$ gives $[11]_4$, which is the same class as $[3]_4$, because $11-3=8$ is a multiple of four. The integer sum changes from one choice to another, but the class of the sum, which is what the rule promises to produce, does not.
 
-Now consider the proposed ordinary-integer output $F([a]_4)=a$. This is not well-defined. The same class can be written $[1]_4=[5]_4$, but the rule would output either $1$ or $5$. We may instead specify the unique representative in $\{0,1,2,3\}$; then the rule is well-defined because a selection convention has been explicitly supplied. The same check catches subtler proposals. ``The parity of a class modulo three is the parity of any of its representatives'' sounds reasonable, but $0$ and $3$ represent the same class modulo three and have different parities, so the proposed rule does not define anything. By contrast, parity \emph{is} well-defined on classes modulo four, by the pause question below. A single pair of representatives giving different answers is enough to show that a proposed rule is not well-defined.
+Look at what the general calculation proved and what it did not. It did not prove $a'+b'=a+b$, which is usually false: $5+6=11$, not $3$. It proved that the two sums differ by a multiple of $m$, and by Proposition~\ref{ch06:prop:classes}(b) that is exactly what is needed for the two output classes to be equal. Before asking whether two outputs agree, ask what kind of object the output is.
 
-\pauseq{Does the rule $G([a]_4)=[a]_2$ depend on the representative?}{No. If $a'=a+4k$, then $a'-a=2(2k)$, so $a'$ and $a$ determine the same class modulo two. The rule is a legitimate function from classes modulo four to classes modulo two.}
+\subsection*{Rules that fail, and how to spot them}
+Here is a rule that is not well-defined. Try to define an integer-valued function $F$ on $\ZZ/4\ZZ$ by $F([a]_4)=a$. The class $[1]_4$ can also be written $[5]_4$, so the rule would give both $F([1]_4)=1$ and $F([5]_4)=5$ for the same input class. A function must give exactly one output for each input (Section~\ref{ch03:sec:functions}), so this rule does not define a function. We can repair it by saying which representative to use: let $F([a]_4)$ be the unique member of $[a]_4$ in $\{0,1,2,3\}$, which exists by Section~\ref{ch06:sec:residues}. This rule is well-defined, because the output is now determined by the class itself, and the choice of name plays no part. For instance, $F([5]_4)=F([1]_4)=F([-7]_4)=1$. In the notation of Section~\ref{ch05:sec:euclid}, $F([a]_4)=a\bmod4$.
 
-The map in the pause question loses information: $[0]_4$ and $[2]_4$ both become $[0]_2$. Yet it preserves addition. This is a useful distinction. A map can preserve a structure without preserving every distinction between inputs.
+The same check catches proposals that sound reasonable. Suppose someone suggests: ``the parity of a class modulo three is the parity of any of its representatives.'' But $0$ and $3$ represent the same class modulo three, since $3-0=3$, and $0$ is even while $3$ is odd. The rule gives two different answers for one input, so it does not define anything. A single pair of representatives that gives different answers is enough to show that a rule is not well-defined. To show that a rule \emph{is} well-defined, on the other hand, we need an argument that covers all representatives, like the calculation for addition above. For classes modulo four, the parity rule does work, as the next question shows.
+
+\pauseq{Does the rule $G([a]_4)=[a]_2$ depend on the representative? What does the answer tell you about the parity of the members of a class modulo four?}{It does not depend on the representative. Suppose $[a']_4=[a]_4$, so that $a'=a+4k$ for an integer $k$. Then $a'-a=2(2k)$, so $a'\equiv a\pmod2$ and $[a']_2=[a]_2$. The rule is therefore a well-defined function from $\ZZ/4\ZZ$ to $\ZZ/2\ZZ$. Since $[0]_2$ is the set of even integers and $[1]_2$ is the set of odd integers, the output $G([a]_4)$ records the parity of $a$. So all members of a class modulo four have the same parity. The step that made this work is that $2$ divides $4$; Exercise~\ref{ex:6.5} explores this further.}
+
+The map $G$ loses information: it sends both $[0]_4$ and $[2]_4$ to $[0]_2$, so it is not injective. Yet it respects addition. Addition on $\ZZ/2\ZZ$ is well-defined by the same calculation as before, with $m=2$, and for all integers $a$ and $b$,
+\[
+G([a]_4+[b]_4)=G([a+b]_4)=[a+b]_2=[a]_2+[b]_2=G([a]_4)+G([b]_4).
+\]
+In words, adding first and then applying $G$ gives the same result as applying $G$ first and then adding. A map can respect a structure, here addition, without keeping every distinction between its inputs. The next section gives such maps a name.

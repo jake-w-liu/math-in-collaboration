@@ -1,32 +1,55 @@
-\section{The complete proof}
+\section{The complete proof}\label{ch17:sec:proof}
 \par\noindent\begin{minipage}{\linewidth}
 \begin{theorem}\label{thm:subsequence}
-Let $(X,d)$ be a nonempty, complete, totally bounded metric space. Every sequence $(x_n)_{n\ge0}$ in $X$ has a subsequence converging to a point of $X$.
+Let $(X,d)$ be a complete, totally bounded metric space. Then every sequence $x_0,x_1,x_2,\ldots$ in $X$ has a subsequence that converges to a point of $X$.
 \end{theorem}
 \end{minipage}\par
 
+The theorem does not need to assume that $X$ is nonempty. If $X$ has no points, then there is no sequence in $X$ at all, and the statement is vacuously true (Section~\ref{ch02:sec:contrapositive}).
+
 \begin{proof}
-We first construct nested infinite sets of indices. Set $S_0=\NN$. For each integer $k\ge1$, cover $X$ by finitely many balls of radius $2^{-(k+1)}$. The indices in $S_{k-1}$ are infinite in number. By the preceding pigeonhole argument, one of these balls contains $x_n$ for infinitely many $n\in S_{k-1}$. Let $S_k$ be that infinite set of indices. Then
+Let $x_0,x_1,x_2,\ldots$ be a sequence in $X$. The proof has five steps.
+
+\emph{Step 1: nested infinite sets of indices.} We construct, one stage at a time, infinite sets of indices $S_0\supseteq S_1\supseteq S_2\supseteq\cdots$ such that, for every $k\ge1$,
+\begin{equation}\label{ch17:eq:stage}
+ d(x_i,x_j)<2^{-k}\qquad\text{for all }i,j\in S_k.
+\end{equation}
+Start with $S_0=\NN$, which is infinite. Now let $k\ge1$, and suppose that $S_{k-1}$ has already been constructed and is infinite. Since $X$ is totally bounded, finitely many balls of radius $2^{-(k+1)}$ cover $X$. For each of these balls, consider the set of indices $n$ for which $x_n$ lies in that ball. Every term $x_n$ lies in at least one of the balls, so every index lies in at least one of these finitely many sets. By Lemma~\ref{ch17:lem:pigeonhole}, applied to the infinite set $S_{k-1}$, there is a ball $B$ among them such that the set
 \[
- S_k\subseteq S_{k-1},
- \qquad d(x_i,x_j)<2\cdot2^{-(k+1)}=2^{-k}
- \quad(i,j\in S_k).
+ S_k=\set{n\in S_{k-1}:x_n\in B}
 \]
-The inclusion matters: the selections at later stages retain the distance control obtained at earlier stages.
+is infinite. By its definition, $S_k\subseteq S_{k-1}$. If $i,j\in S_k$, then $x_i$ and $x_j$ both lie in the ball $B$ of radius $2^{-(k+1)}$, so the diameter bound gives $d(x_i,x_j)<2\cdot2^{-(k+1)}=2^{-k}$. This proves~\eqref{ch17:eq:stage}.
 
-Choose $n_1\in S_1$. Once $n_{k-1}$ is chosen, choose $n_k\in S_k$ with $n_k>n_{k-1}$. Such an index exists because $S_k$ is infinite. This constructs a subsequence $(x_{n_k})$.
+\emph{Step 2: increasing indices.} Choose any $n_1\in S_1$. For $k\ge2$, once $n_{k-1}$ has been chosen, choose $n_k\in S_k$ with $n_k>n_{k-1}$. Such an index exists because $S_k$ is infinite, and an infinite set of natural numbers contains a number larger than any given one (Section~\ref{ch17:sec:subsequence}). Then $n_1<n_2<n_3<\cdots$, so the terms $x_{n_1},x_{n_2},x_{n_3},\ldots$ form a subsequence. By construction, $n_k\in S_k$ for every $k\ge1$.
 
-Here $k$ counts the extraction stage, while $n_k$ is an index in the original sequence. A concrete run helps. In the complete, totally bounded space $[-1,2]$, consider $x_n=(-1)^n+1/(n+1)$. The even-indexed terms $1+1/(n+1)$ crowd toward $1$, and the odd-indexed terms crowd toward $-1$. At stage $1$, a ball of radius $1/4$ around $1$ contains $x_n$ for every even $n\ge4$, so we may take $S_1=\{4,6,8,\ldots\}$. At stage $2$, a ball of radius $1/8$ around $1$ contains $x_n$ for the even $n\ge8$, so we may take $S_2=\{8,10,12,\ldots\}$, which lies inside $S_1$. Choosing $n_1=4$, then $n_2=8$ (the first index of $S_2$ beyond $4$), and so on, gives the subsequence $x_4,x_8,\ldots$, which converges to $1$. A different choice of balls at stage $1$, around $-1$, would have produced a subsequence converging to $-1$ instead; the theorem promises \emph{some} convergent subsequence, not a particular one. In general the index values need not follow a simple formula. What matters is that each $n_k$ is chosen from $S_k$ and is strictly larger than the preceding one.
-
-For $\ell\ge k$, nestedness means $S_\ell\subseteq S_k$. Since $n_\ell\in S_\ell$, it follows that $n_\ell\in S_k$. Thus not only the $k$th chosen term but \emph{every later chosen term} obeys the distance control from stage $k$. This is the bridge from one-stage choices to a Cauchy tail.
-
-We show it is Cauchy. Given $\eps>0$, choose an integer $K\ge1$ with $2^{-K}<\eps$; we need $K\ge1$ because the distance control was only obtained for the stages $k\ge1$. For $\ell,m\ge K$, nestedness gives $S_\ell\subseteq S_K$ and $S_m\subseteq S_K$. Thus $n_\ell,n_m\in S_K$, and
+\emph{Step 3: later terms keep the earlier bounds.} Let $1\le k\le\ell$. The sets are nested, so $S_\ell\subseteq S_{\ell-1}\subseteq\cdots\subseteq S_k$, and therefore $n_\ell\in S_\ell\subseteq S_k$. So not only the term chosen at stage~$k$, but every term chosen at a later stage, has its index in $S_k$. In particular, if $\ell\ge k$ and $m\ge k$, then $n_\ell$ and $n_m$ both lie in $S_k$, and~\eqref{ch17:eq:stage} gives
 \[
- d(x_{n_\ell},x_{n_m})<2^{-K}<\eps.
+ d(x_{n_\ell},x_{n_m})<2^{-k}.
 \]
-This is precisely the Cauchy condition. Completeness now supplies a point $x_*\in X$ to which the subsequence converges. No further extraction is needed.
 
-We did not choose an index belonging to every set $S_k$ at once. There might be no such index: the nested infinite sets $\{k,k+1,k+2,\ldots\}$ have empty intersection. Instead we chose a new later index from each successive set and proved that any sufficiently late pair belongs together to an earlier selected set. That is all the Cauchy definition asks for. Replacing this step by ``take an index in the intersection'' would introduce a false extra claim.
+\emph{Step 4: the subsequence is a Cauchy sequence.} Let $\eps>0$. By the Archimedean property (Section~\ref{ch02:sec:quantifiers}), choose an integer $K\ge1$ with $K>1/\eps$. Section~\ref{ch11:sec:convergence} showed that $2^K\ge K+1$, so
+\[
+ 2^{-K}\le\frac1{K+1}<\frac1K<\eps.
+\]
+For any $\ell,m\ge K$, Step~3 with $k=K$ gives $d(x_{n_\ell},x_{n_m})<2^{-K}<\eps$. So $K$ is a threshold that works for the tolerance $\eps$, and the subsequence is a Cauchy sequence. The threshold must be at least $1$, because the bound~\eqref{ch17:eq:stage} holds only for $k\ge1$: the set $S_0=\NN$ carries no information about distances.
+
+\emph{Step 5: completeness supplies the limit.} The space $X$ is complete, so the Cauchy sequence $x_{n_1},x_{n_2},x_{n_3},\ldots$ converges to some point $x_*$ of $X$. This is the required subsequence.
 \end{proof}
 
-\pauseq{Where is each hypothesis used?}{Total boundedness gives a finite cover at every smaller radius. Finiteness lets the pigeonhole argument retain infinitely many indices. Nestedness transfers earlier distance bounds to all later choices. Completeness places the limit inside $X$.}
+\subsection*{Watching the construction on an example}
+The interval $[-1,2]$, with distance $|x-y|$, is complete, because it is a closed interval (Section~\ref{ch11:sec:complete}). It is totally bounded by the same argument as for $[0,1]$ in Section~\ref{ch17:sec:balls}; Exercise~\ref{ex:17.4} asks you to write out the details for every interval $[a,b]$ with $a<b$. In this space consider the sequence
+\[
+ x_n=(-1)^n+\frac1{n+1},
+\]
+whose first terms are $x_0=2$, $x_1=-\tfrac12$, $x_2=\tfrac43$, $x_3=-\tfrac34$ and $x_4=\tfrac65$. The even-indexed terms $1+\tfrac1{n+1}$ crowd towards $1$ from above, and the odd-indexed terms $-1+\tfrac1{n+1}$ crowd towards $-1$, never rising above $-\tfrac12$.
+
+At stage~$1$, cover $[-1,2]$ by the thirteen balls of radius $1/4$ centered at $-1,-\tfrac34,-\tfrac12,\ldots,\tfrac74,2$. The ball $B(1,1/4)$ is one of them. It contains $x_n$ exactly when $n$ is even and $\tfrac1{n+1}<\tfrac14$, that is, when $n$ is even and $n\ge4$. So the construction may take $S_1=\set{4,6,8,\ldots}$. Other balls also contain infinitely many terms, for instance $B(-1,1/4)$, which contains $x_n$ for every odd $n\ge5$, and the construction is free to pick any of them.
+
+At stage~$2$, use the balls of radius $1/8$ centered at the points $-1,-\tfrac78,\ldots,2$, which include $1$. Among the indices in $S_1$, the ball $B(1,1/8)$ contains $x_n$ exactly when $\tfrac1{n+1}<\tfrac18$, that is, when $n\ge8$. So we may take $S_2=\set{8,10,12,\ldots}$, which lies inside $S_1$. If we keep choosing the ball around $1$, stage~$k$ gives the set $S_k$ of even numbers that are at least $2^{k+1}$, because $\tfrac1{n+1}<2^{-(k+1)}$ means $n\ge2^{k+1}$.
+
+Now choose the indices of Step~2, taking each time the smallest allowed index. This gives $n_1=4$, then $n_2=8$ (the smallest member of $S_2$ larger than $4$), then $n_3=16$, and in general $n_k=2^{k+1}$. The subsequence is $x_4,x_8,x_{16},\ldots$, with terms $1+\tfrac1{2^{k+1}+1}$, and it converges to $1$. Had stage~$1$ chosen the ball $B(-1,1/4)$ instead, the construction would have produced a subsequence converging to $-1$. The theorem promises \emph{some} convergent subsequence, not a particular one. In this example the indices follow the simple formula $n_k=2^{k+1}$; in general they follow no formula at all. What matters is only that each $n_k$ lies in $S_k$ and is larger than $n_{k-1}$.
+
+\subsection*{Why the proof picks a new index at every stage}
+The proof never chooses one index that belongs to all of the sets $S_k$ at once, and it could not. Nested infinite sets may have no member in common at all. For example, the sets $\set{k,k+1,k+2,\ldots}$ for $k=1,2,3,\ldots$ are infinite and nested, but no natural number $n$ belongs to all of them, since $n$ is not a member of $\set{n+1,n+2,\ldots}$. In the example above, too, no index lies in every $S_k$. Instead, the proof picks a new, later index from each set in turn, and Step~3 shows that any two sufficiently late picks lie together in one earlier set. That is exactly what the Cauchy condition asks for. An argument that began ``take an index that lies in every $S_k$'' would rely on a claim that can be false.
+
+\pauseq{Where does the proof use each hypothesis of Theorem~\ref{thm:subsequence}?}{There are two hypotheses. Total boundedness is used at every stage of Step~1, to cover $X$ by finitely many balls of radius $2^{-(k+1)}$. The finiteness of that cover is what allows Lemma~\ref{ch17:lem:pigeonhole} to keep infinitely many indices. Completeness is used once, in Step~5, to give the Cauchy subsequence a limit in $X$. The other ingredients, namely the diameter bound, the nesting of the index sets and the increasing choice of indices, are not hypotheses. They are facts proved along the way.}

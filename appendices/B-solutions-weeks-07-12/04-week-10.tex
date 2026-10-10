@@ -1,24 +1,38 @@
 \section{Week 10}
-\sol{10.1}{Matrix multiplication gives
+\sol{10.1}{The row rule gives
 \[
  \begin{pmatrix}2&1\\0&3\end{pmatrix}
  \begin{pmatrix}1\\-2\end{pmatrix}
- =\begin{pmatrix}2\cdot1+1(-2)\\0\cdot1+3(-2)\end{pmatrix}
+ =\begin{pmatrix}2\cdot1+1\cdot(-2)\\0\cdot1+3\cdot(-2)\end{pmatrix}
  =\begin{pmatrix}0\\-6\end{pmatrix}.
 \]
-Equivalently, take one copy of the first column $(2,0)$ and minus two copies of the second column $(1,3)$. Their sum is $(0,-6)$. This displays how columns encode the action on basis vectors.}
-\sol{10.2}{The kernel consists of pairs satisfying $x+y=0$. Solving for $y$ gives $(x,y)=(t,-t)$ for arbitrary real $t$. For output five, solve $x+y=5$ to obtain $(t,5-t)$. One solution is $(0,5)$, and every other solution differs from it by $(t,-t)$ in the kernel. The map loses one degree of information: it remembers the sum but not the split between coordinates.}
-\sol{10.3}{For $T(x,y)=(x+y,x-y)$, define $U(a,b)=((a+b)/2,(a-b)/2)$. Then
+Now use the columns. The columns of $A$ are $Ae_1=(2,0)$ and $Ae_2=(1,3)$, and $x=(1,-2)=1e_1-2e_2$. By linearity,
 \[
- U(T(x,y))=\left(\frac{x+y+x-y}{2},\frac{x+y-x+y}{2}\right)=(x,y).
+Ax=Ae_1-2Ae_2=(2,0)+(-2,-6)=(0,-6),
 \]
-Conversely,
+the same answer. The coordinates of $x$ say how much of each column to take: one copy of the first column and minus two copies of the second.}
+\sol{10.2}{The kernel consists of the pairs with $x+y=0$, that is, with $y=-x$. Writing $t$ for the first coordinate, these are the pairs $(t,-t)$, so
 \[
- T(U(a,b))=\left(\frac{a+b+a-b}{2},\frac{a+b-a+b}{2}\right)=(a,b).
+\ker T=\{(t,-t):t\in\RR\}.
 \]
-Both compositions are identities, so $U$ is an inverse, not merely a map that works for one selected input.}
-\sol{10.4}{For $u=(1,2)$ and $v=(2,-1)$, the dot product is $1\cdot2+2(-1)=0$. Both squared lengths are $1+4=5$, so both lengths are $\sqrt5$. Cauchy--Schwarz reads $0\le\sqrt5\sqrt5=5$. Orthogonality does not mean either vector is zero.}
-\sol{10.5}{Start from the squared length because its dot product expands using addition:
+Similarly, $x+y=5$ exactly when $y=5-x$, so the solutions of $T(x,y)=5$ are the pairs $(t,5-t)$ with $t\in\RR$. This matches the description in Section~\ref{ch10:sec:kernel}: $(0,5)$ is one solution, and every solution has the form
+\[
+(t,5-t)=(0,5)+(t,-t),
+\]
+one particular solution plus a vector in the kernel. The map remembers the sum $x+y$ but forgets how that sum is split between the two coordinates. Adding a kernel vector $(t,-t)$ moves an amount $t$ from the second coordinate to the first, which changes the split but not the sum; these are exactly the changes that $T$ cannot see. For instance, $(0,5)$ and $(1,4)$ both have output $5$, so $T$ is not injective.}
+\sol{10.3}{Write $U(s,t)=\bigl((s+t)/2,(s-t)/2\bigr)$. By the definition of an inverse in Section~\ref{ch03:sec:functions}, we must check that $U(T(x,y))=(x,y)$ for every $(x,y)\in\RR^2$ and that $T(U(s,t))=(s,t)$ for every $(s,t)\in\RR^2$.
+
+For the first, $T(x,y)=(x+y,x-y)$, so we apply $U$ with $s=x+y$ and $t=x-y$:
+\[
+ U(T(x,y))=\left(\frac{(x+y)+(x-y)}{2},\ \frac{(x+y)-(x-y)}{2}\right)=\left(\frac{2x}{2},\ \frac{2y}{2}\right)=(x,y).
+\]
+For the second, $T$ adds and subtracts the two coordinates of $U(s,t)$:
+\[
+ T(U(s,t))=\left(\frac{s+t}{2}+\frac{s-t}{2},\ \frac{s+t}{2}-\frac{s-t}{2}\right)=\left(\frac{2s}{2},\ \frac{2t}{2}\right)=(s,t).
+\]
+Both compositions are identity maps, so $U$ is the inverse of $T$. Both checks are needed, and each must hold at every input, not only at a few chosen ones. The map $T$ is the map recorded by the matrix $A$ of Section~\ref{ch10:sec:linearmaps}, and $U$ is the inverse $b\mapsto\tfrac12Ab$ found in Section~\ref{ch10:sec:kernel}.}
+\sol{10.4}{The dot product is $u\cdot v=1\cdot2+2\cdot(-1)=0$. The squared lengths are $1^2+2^2=5$ and $2^2+(-1)^2=5$, so both lengths equal $\sqrt5$. The Cauchy--Schwarz inequality reads $|0|\le\sqrt5\cdot\sqrt5=5$, which is true with a large gap. The inequality is strict, as the equality case of Section~\ref{ch10:sec:cs} predicts. Since $v\ne0$, equality would require $u$ to be a multiple of $v$, and it is not: $(1,2)=c(2,-1)$ would need both $2c=1$ and $-c=2$, which is impossible. Notice also that the two vectors are orthogonal although neither of them is zero.}
+\sol{10.5}{Both sides of the triangle inequality are nonnegative, and nonnegative numbers compare in the same way as their squares (Section~\ref{ch10:sec:cs}). So it is enough to show $\norm{u+v}_2^2\le(\norm{u}_2+\norm{v}_2)^2$. Start from the squared length, because it is a dot product and can be expanded using linearity in each argument:
 \begin{align*}
  \norm{u+v}_2^2
  &=(u+v)\cdot(u+v)\\
@@ -28,17 +42,17 @@ Both compositions are identities, so $U$ is an inverse, not merely a map that wo
  &\le\norm{u}_2^2+2\norm{u}_2\norm{v}_2+\norm{v}_2^2\\
  &=(\norm{u}_2+\norm{v}_2)^2.
 \end{align*}
-The first inequality uses that a real number is at most its absolute value. The next applies Cauchy--Schwarz. The final equality recognizes the expansion of a square.
+The step to the third line uses symmetry, $v\cdot u=u\cdot v$. The first inequality uses the fact that a real number is at most its absolute value. The second applies Cauchy--Schwarz. The final equality is the expansion $(p+q)^2=p^2+2pq+q^2$.
 
-Both $\norm{u+v}_2$ and $\norm{u}_2+\norm{v}_2$ are nonnegative. Taking their nonnegative square roots therefore preserves the comparison and yields $\norm{u+v}_2\le\norm{u}_2+\norm{v}_2$. Without nonnegativity, a comparison of squares would not by itself compare the unsquared quantities in the same order.}
-\sol{10.6}{Assume $a_1u_1+\cdots+a_ku_k=0$. To recover one coefficient, choose its index $j$ and take the dot product of both sides with $u_j$. Linearity gives
+Since $\norm{u+v}_2$ and $\norm{u}_2+\norm{v}_2$ are both nonnegative, the comparison of their squares gives $\norm{u+v}_2\le\norm{u}_2+\norm{v}_2$. The nonnegativity is essential in this last step. For numbers that may be negative, comparing squares says nothing about the order: $2^2\le(-3)^2$, yet $2>-3$.}
+\sol{10.6}{Assume that $a_1u_1+\cdots+a_ku_k=0$, and pick any index $j$ between $1$ and $k$. Take the dot product of both sides with $u_j$. By linearity in the first argument, the left side becomes
 \[
- a_1(u_1\cdot u_j)+\cdots+a_k(u_k\cdot u_j)=0\cdot u_j=0.
+ a_1(u_1\cdot u_j)+\cdots+a_k(u_k\cdot u_j),
 \]
-For every $i\ne j$, orthogonality means $u_i\cdot u_j=0$. All of those terms disappear. The only remaining equation is
+and the right side becomes $0\cdot u_j=0$, the dot product of the zero vector with $u_j$. For every $i\ne j$, orthogonality gives $u_i\cdot u_j=0$, so all of those terms disappear. Only the term with $i=j$ remains:
 \[
  a_j(u_j\cdot u_j)=a_j\norm{u_j}_2^2=0.
 \]
-The vector $u_j$ is nonzero, so its squared length is positive. Division by that squared length gives $a_j=0$. Because $j$ was an arbitrary index, the argument recovers every coefficient. This is linear independence, not just a statement about one particular coefficient choice.
+The vector $u_j$ is nonzero, so its squared length is positive. Dividing by it gives $a_j=0$. Because $j$ was an arbitrary index, every coefficient is zero, which is exactly the definition of linear independence in Section~\ref{ch10:sec:vectors}.
 
-Nonzeroness matters. If one of the vectors were zero, a nonzero coefficient multiplying it could appear in a zero combination. The proof would then fail precisely at the division step.}
+The word ``nonzero'' cannot be left out. Take $u_1=(1,0)$ and $u_2=(0,0)$. They are orthogonal, since $u_1\cdot u_2=0$. Yet $0u_1+1u_2=(0,0)$ is a combination equal to zero whose second coefficient is $1$, so the list is not linearly independent. In the proof above, this is exactly where the division by $\norm{u_2}_2^2=0$ would be impossible.}

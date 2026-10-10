@@ -1,17 +1,19 @@
-\section{A definition that makes a proof possible}
-A \emph{definition} gives an exact meaning to a word or symbol. It is an agreement about how that word will be used, not a claim that a pattern has been discovered. We need a meaning precise enough to decide which numbers qualify.
+\section{A definition that makes a proof possible}\label{ch01:sec:definition}
+To prove anything about odd and even numbers, we need to know exactly what those words mean. A \emph{definition} gives an exact meaning to a word or symbol. It is an agreement about how the word will be used from now on, not a discovery about numbers. What we need is a meaning precise enough to decide, for any integer at all, whether it qualifies.
 
-Here is our agreement. An integer is \emph{even} when it is twice an integer. It is \emph{odd} when it is one more than twice an integer. Thus $8$ is even because $8=2\cdot4$, and $7$ is odd because $7=2\cdot3+1$. Negative integers are allowed: $-3=2(-2)+1$ is odd. Zero is even because $0=2\cdot0$.
+Here is our agreement. An integer is \emph{even} when it is twice an integer. It is \emph{odd} when it is one more than twice an integer. Thus $8$ is even because $8=2\cdot4$, and $7$ is odd because $7=2\cdot3+1$. Negative integers are included: $-3$ is odd because $-3=2\cdot(-2)+1$. Zero is even because $0=2\cdot0$. Whether an integer is even or odd is called its \emph{parity}.
 
-Mathematics books display important definitions in labelled boxes so that they are easy to find and to cite later. The number on the label only records its position: Definition~\ref{def:parity} below is the first numbered item in Chapter~1. Here is the same agreement in displayed form.
+Mathematics books set important definitions apart under a numbered heading, so that they are easy to find and to refer to later. In this book, the definitions, examples, propositions, and theorems of a chapter share a single numbering. Definition~\ref{def:parity} below is simply the first of them in Chapter~\ref{ch:start}. Here is the agreement we just made, in that displayed form.
 \par\noindent\begin{minipage}{\linewidth}
 \begin{definition}[Even and odd integers]\label{def:parity}
-An integer $a$ is even if it can be written as $a=2k$ for an integer $k$. It is odd if it can be written as $a=2k+1$ for an integer $k$.
+An integer $a$ is \emph{even} if $a=2k$ for some integer $k$. It is \emph{odd} if $a=2k+1$ for some integer $k$.
 \end{definition}
 \end{minipage}\par
 
-The phrase ``for an integer $k$'' is essential. Without requiring $k$ to be an integer, every integer $a$ would have the form $2k$, simply by choosing $k=a/2$. The definition is not merely asking whether a number can be divided by two. It asks whether the result is an integer.
+The words ``for some integer $k$'' mean that at least one integer $k$ makes the equation true. The requirement that $k$ be an \emph{integer} is essential. If $k$ were allowed to be any number, then every integer $a$ would have the form $2k$, simply by choosing $k=a/2$; for instance, $7=2\cdot3.5$. The definition does not ask whether a number can be divided by two. It asks whether the result of dividing by two is an integer, and $3.5$ is not.
 
-A particular value showing that a definition's requirement is met is called a \emph{witness}. For the odd integer $7$, the witness is $k=3$. It is not the number $7$ itself: it is the auxiliary integer that makes $7=2k+1$ true. For $-3$, the witness is $-2$. Different inputs may need different witnesses.
+You may wonder whether every integer is even or odd, and whether some integer could be both. In fact every integer is exactly one of the two, but that is a separate fact that needs its own argument. Chapter~\ref{ch:proof} explains why it holds. Nothing in this chapter depends on it.
 
-A definition can be used in two directions. If someone tells us $a$ is odd, we may introduce an integer $k$ with $a=2k+1$. Conversely, if we produce such an integer and equality, we have shown $a$ is odd. The first direction unpacks information; the second recognizes when the required information has been supplied. These are the two uses that our first proof will combine.
+A particular value that shows a definition's requirement is met is called a \emph{witness}. For the odd integer $7$, the witness is $k=3$, because $7=2\cdot3+1$. The witness is not $7$ itself: it is the extra integer that makes the equation $7=2k+1$ true. For $-3$, the witness is $k=-2$. Different integers need different witnesses.
+
+A definition can be used in two directions. Suppose we are told that $a$ is odd. Then we may introduce an integer $k$ with $a=2k+1$ and use that equation in our reasoning; this direction \emph{unpacks} the information. Conversely, suppose we want to show that some number $a$ is odd. Then it is enough to name an integer $k$ and check that $a=2k+1$; this direction \emph{recognizes} that the definition is satisfied. Our first proof uses both directions: it unpacks the information that two numbers are odd, and it recognizes that their sum meets the definition of even.

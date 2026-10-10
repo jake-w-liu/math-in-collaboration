@@ -1,5 +1,5 @@
-\section{Conjunction means two obligations}
-To prove $Q\land P$ from $P\land Q$, extract the two components and put them in the opposite order:
+\section{Conjunction means two obligations}\label{ch15:sec:conjunction}
+To prove a conjunction $P\land Q$ you must prove two things, $P$ and $Q$ (Section~\ref{ch02:sec:connectives}). To use a hypothesis $P\land Q$, you may take either half of it. The next theorem does both. From $P\land Q$ it proves $Q\land P$, by taking the two halves apart and putting them back together in the opposite order. On paper: assume that $P$ and $Q$ both hold; then $Q$ holds and $P$ holds, so $Q\land P$.
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 theorem and_swap (P Q : Prop) : And P Q -> And Q P := by
@@ -8,15 +8,19 @@ theorem and_swap (P Q : Prop) : And P Q -> And Q P := by
 \end{lstlisting}
 \end{minipage}\par
 
-Here \code{And P Q} means the conjunction $P\land Q$. The expressions \code{h.right} and \code{h.left} extract its second and first components. The constructor \code{And.intro} packages two proofs into a conjunction; its argument order must match the desired conclusion. Thus the proof of $Q$ comes first and the proof of $P$ second.
+Lean writes the conjunction $P\land Q$ as \code{And P Q}, and the infoview displays it as $P\land Q$. After \code{intro h}, the fact \code{h : And P Q} is available and the goal is \code{And Q P}. A proof of a conjunction is a pair of proofs, one for each half, and each half can be taken out of the pair: \code{h.left} is a proof of $P$, the first component, and \code{h.right} is a proof of $Q$, the second. In the other direction, \code{And.intro} builds a pair: if \code{a} is a proof of $R$ and \code{b} is a proof of $S$, then \code{And.intro a b} is a proof of \code{And R S}. The order of the two arguments must match the conjunction being built. The goal \code{And Q P} needs a proof of $Q$ first and a proof of $P$ second, so the last line is \code{And.intro h.right h.left}.
 
-This is the formal counterpart of proving two set containments or two directions of an equivalence. Do not let one completed branch obscure an unfinished second obligation.
+The proof above supplies both halves at once. A second version makes the two obligations visible as two separate goals:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+theorem and_swap_two_goals (P Q : Prop) :
+    And P Q -> And Q P := by
+  intro h
+  constructor
+  exact h.right
+  exact h.left
+\end{lstlisting}
+\end{minipage}\par
+The tactic \code{constructor} replaces the goal \code{And Q P} by two goals, $Q$ and $P$, which the infoview labels \code{left} and \code{right}. Each \code{exact} closes the first goal that is still open, so the first one proves $Q$ and the second proves $P$. If the last line is left out, Lean reports the error ``unsolved goals'' and displays the goal $P$ that is still open.
 
-\subsection*{Parameters, arrows, and implicit inputs}
-The type \code{A -> B} describes functions taking an input of type \code{A} and returning an output of type \code{B}. The type \code{A -> B -> C} groups as \code{A -> (B -> C)}: after receiving an \code{A}, the function receives a \code{B}, then returns a \code{C}. This lets Lean write multiple inputs by spaces, as in \code{f x y}. Application groups to the left: first \code{f x}, then its result applied to \code{y}.
-
-For a hypothesis saying injectivity holds, the inputs will be two objects and evidence that their outputs agree. Its result will be evidence that the objects agree. Counting these inputs will make the application in the next proof readable.
-
-The word \code{Type} in the next declaration indicates a type of objects rather than a proposition to prove. The notation \code{\{A B : Type\}} introduces types as implicit parameters: Lean normally infers them from the supplied function. Parentheses around a parameter instead request that it be supplied explicitly. The mathematical domains are still present when braces are used; they have not been removed from the statement.
-
-Finally, \code{fun x => g (f x)} is the rule sending $x$ to $g(f(x))$. It names a function without first giving it a separate declaration. In ordinary mathematical notation it is $x\mapsto g(f(x))$.
+This is the formal counterpart of a paper proof that must establish two set containments (Section~\ref{ch03:sec:sets}), or both directions of an ``if and only if.'' After a long first half it is easy to feel that the proof is finished. Lean keeps track of every open goal, so it does not let that mistake pass, and on paper we must keep the same list ourselves.

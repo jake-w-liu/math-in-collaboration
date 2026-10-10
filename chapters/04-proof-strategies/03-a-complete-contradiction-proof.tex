@@ -1,5 +1,5 @@
-\section{A complete contradiction proof}
-A rational number is a fraction $a/b$ of integers with $b\ne0$. A real number that is not rational is irrational. The positive square root of two, written $\sqrt2$, is the positive real number whose square is two. Its existence belongs to the usual real-number system. We will prove that it is not a rational number.
+\section{A complete proof by contradiction}\label{ch04:sec:sqrt2}
+Recall from Section~\ref{ch01:sec:notation} that a \emph{rational number} is a number that can be written as a fraction $a/b$, where $a$ and $b$ are integers and $b\ne0$. A real number that is not rational is called \emph{irrational}. The symbol $\sqrt2$ denotes the nonnegative real number whose square is $2$; it is in fact positive, because $0^2=0$ is not $2$. We now prove that $\sqrt2$ is irrational.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{theorem}\label{thm:sqrt2}
@@ -7,25 +7,25 @@ The number $\sqrt2$ is irrational.
 \end{theorem}
 \end{minipage}\par
 
-\noindent\textit{Plan.} If a fraction represented $\sqrt2$, squaring would force both its numerator and denominator to be even. That would allow a smaller positive denominator, contradicting a minimal choice.
+The proof chooses a fraction for $\sqrt2$ with the smallest possible positive denominator, so it helps to see what such a choice looks like for an ordinary rational number. The number $0.75$ can be written as $3/4$, $6/8$, $9/12$, and in infinitely many other ways. The positive integers $j$ for which $0.75=a/j$ with an integer $a$ are $4,8,12,16,\ldots$, and the smallest of them is $4$. Choosing the smallest denominator picks out the fraction $3/4$, which cannot be reduced any further.
+
+\noindent\textit{Plan.} Suppose $\sqrt2=a/b$ with $b$ as small as possible. Squaring will force both $a$ and $b$ to be even. Then cancelling a factor of two gives a fraction for $\sqrt2$ with a smaller positive denominator, which contradicts the choice of $b$.
 \begin{proof}
-Suppose $\sqrt2$ were rational. Then it could be written as $a/b$ with integers $a,b$ and $b\ne0$. If $b$ were negative, multiplying numerator and denominator by $-1$ would give the same fraction with a positive denominator, so we may assume $b>0$. Among all such representations, choose one with the smallest possible positive denominator $b$. This choice is possible because every nonempty set of positive integers has a least element; this is called the \emph{well-ordering property} of the integers.
+Suppose, for contradiction, that $\sqrt2$ is rational. Then $\sqrt2=p/q$ for some integers $p$ and $q$ with $q\ne0$. If $q$ is negative, then $p/q=(-p)/(-q)$ and $-q$ is positive. So in either case $\sqrt2$ can be written as a fraction of integers with a positive denominator. In other words, the set of positive integers $j$ for which $\sqrt2=a/j$ with some integer $a$ is nonempty. By the well-ordering property (Section~\ref{ch04:sec:contrapositive}), this set has a smallest member; call it $b$, and let $a$ be an integer with $\sqrt2=a/b$.
 
-It is worth seeing why such a smallest denominator can actually be found, even though infinitely many fractions represent the same number. Call a positive integer $j$ \emph{usable} if $\sqrt2=a/j$ for some integer $a$. By assumption some denominator $b_0$ is usable. Now test $j=1,2,\ldots,b_0$ in order and stop at the first usable one; the list is finite and ends at a usable number, so the search must stop. The number found is smaller than or equal to every usable denominator, because any smaller usable denominator would have appeared earlier in the list. (The same search applied to $0.75=3/4=6/8=\cdots$ would test $1,2,3,4$ and stop at $4$.)
-
-Squaring $\sqrt2=a/b$ and multiplying by $b^2$ gives $a^2=2b^2$. Hence $a^2$ is even. By Lemma~\ref{thm:parity-square}, $a$ is even, so $a=2c$ for some integer $c$. Substitution gives
+Squaring both sides of $\sqrt2=a/b$ gives $2=a^2/b^2$, and multiplying by $b^2$ gives $a^2=2b^2$. Since $b^2$ is an integer, $a^2$ is even. By Lemma~\ref{thm:parity-square}, $a$ is even, so $a=2c$ for some integer $c$. Substituting this into $a^2=2b^2$ gives
 \[
-(2c)^2=2b^2,\qquad 4c^2=2b^2,\qquad b^2=2c^2.
+(2c)^2=2b^2,\qquad\text{that is,}\qquad 4c^2=2b^2,\qquad\text{so}\qquad b^2=2c^2.
 \]
-Thus $b^2$ is even, and Lemma~\ref{thm:parity-square} shows that $b$ is even. Write $b=2d$. Since $b>0$, the integer $d=b/2$ is positive and smaller than $b$. But
+Thus $b^2$ is even, and Lemma~\ref{thm:parity-square} shows that $b$ is even. Write $b=2d$ with $d$ an integer. Since $b$ is positive, $d=b/2$ is positive, and $d<b$ because $b=d+d$ and $d>0$. Cancelling the common factor $2$ gives
 \[
 \sqrt2=\frac{a}{b}=\frac{2c}{2d}=\frac{c}{d}.
 \]
-This is a representation with a smaller positive denominator, contradicting the choice of $b$. The assumed rational representation therefore does not exist.
+So $d$ is a positive integer for which $\sqrt2=c/d$ with $c$ an integer, and $d$ is smaller than $b$. This contradicts the choice of $b$ as the smallest such denominator. Therefore $\sqrt2$ is not rational; it is irrational.
 \end{proof}
 
-There are two separate ideas: a local arithmetic fact about parity, and a global choice of the smallest denominator. The contradiction is not simply that numerator and denominator are even; fractions with both even certainly exist. The contradiction is that a representation chosen with minimal denominator could be reduced further.
+The proof combines two separate ideas: a fact about parity, Lemma~\ref{thm:parity-square}, used twice, and the choice of the smallest denominator. Neither idea is enough on its own. Fractions whose numerator and denominator are both even certainly exist, such as $6/8$, so ``both are even'' is not itself a contradiction. The contradiction is that a fraction chosen with the smallest possible denominator could be reduced further.
 
-Could a computer settle the question instead? A calculator shows $\sqrt2\approx1.41421356$, and one can compute millions more digits. But every fraction $a/b$ has a decimal expansion that eventually repeats, and a repeating block can begin very late and be very long. No finite list of digits can rule out that the pattern starts just beyond the digits we have checked. The proof above avoids this problem entirely: it shows that \emph{no} fraction, of any size, can square to two.
+Could a computer settle the question instead? A calculator shows $\sqrt2\approx1.41421356$, and computers have produced many millions of further digits. Every fraction has a decimal expansion that eventually repeats, so one might hope to check by computer that the digits of $\sqrt2$ never settle into a repeating pattern. No finite list of digits can show this, however, because a repeating block can begin very late and can be very long. Even more simply, the digits we have computed are always the opening digits of some fraction: $1.41421356$ is exactly the fraction $141421356/100000000$. So digits alone can never prove that $\sqrt2$ is irrational. The proof above avoids the difficulty entirely, because it shows that \emph{no} fraction, of any size, has square equal to $2$.
 
-\pauseq{Where was positivity of the denominator used?}{It made the set of candidate denominators a nonempty set of positive integers with a least member, and it ensured $b/2$ was still positive and strictly smaller. Minimality would not have the same meaning over unrestricted negative denominators.}
+\pauseq{Where did the proof use the fact that the denominator $b$ is positive?}{In two places. First, the well-ordering property applies only to sets of \emph{positive} integers. If negative denominators were allowed, there would be no smallest one: from $\sqrt2=a/b$ with $b>0$ we also get $\sqrt2=(-a)/(-b)=(-2a)/(-2b)=(-3a)/(-3b)=\cdots$, and the denominators $-b,-2b,-3b,\ldots$ become more and more negative without end. Second, at the end we needed $d=b/2$ to be a positive denominator smaller than $b$. For a negative $b$ this fails; for example, if $b=-4$, then $b/2=-2$, which is larger than $b$, not smaller.}

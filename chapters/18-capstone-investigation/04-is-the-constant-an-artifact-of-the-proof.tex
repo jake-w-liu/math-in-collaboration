@@ -1,22 +1,40 @@
-\section{Is the constant an artifact of the proof?}
-Take $X=\RR$, $T(x)=qx$, $y_0=0$, and add exactly $\eta$ at each update. The recurrence has the explicit solution
+\section{Can the constant be improved?}\label{ch18:sec:sharp}
+Part~2 of Theorem~\ref{thm:inexact} says that, after many steps, the error is at most a little more than $\eta/(1-q)$. Is the factor $1/(1-q)$ really needed? Our proof used the triangle inequality, which may give away more than necessary, so perhaps a cleverer proof would give a smaller factor. To find out, we test the bound on the assistant's example from Section~\ref{ch18:sec:guess}.
+
+Take $X=\RR$, $T(x)=qx$ and $y_0=0$, let $\eta\ge0$, and add exactly $\eta$ at every update:
+\[
+ y_{n+1}=qy_n+\eta\qquad\text{for every }n\in\NN.
+\]
+Section~\ref{ch18:sec:guess} checked that $T$ is a contraction with factor $q$, that its fixed point is $x_*=0$, and that every update error is $\eta$. The first few points are $y_1=\eta$, $y_2=q\eta+\eta$ and $y_3=q^2\eta+q\eta+\eta$, which suggests
 \[
  y_n=\eta\sum_{k=0}^{n-1}q^k
-     =\eta\frac{1-q^n}{1-q}.
+     =\eta\,\frac{1-q^n}{1-q}\qquad\text{for every }n\in\NN.
 \]
-This follows either from induction or by substituting the formula into $y_{n+1}=qy_n+\eta$.
-
-For the induction step, assume $y_n=\eta(1-q^n)/(1-q)$. Then
+A pattern in the first few terms is only a guess, so we prove the formula by induction. At $n=0$ it gives $\eta(1-1)/(1-q)=0$, which is $y_0$. Now assume the formula for some $n$. Then
 \begin{align*}
  y_{n+1}
  &=q\,\frac{\eta(1-q^n)}{1-q}+\eta\\
  &=\frac{\eta(q-q^{n+1})+\eta(1-q)}{1-q}\\
- &=\frac{\eta(1-q^{n+1})}{1-q}.
+ &=\frac{\eta(1-q^{n+1})}{1-q},
 \end{align*}
-At $n=0$ the formula gives zero, as required. The exact formula is therefore established for every finite step; the limiting value follows afterward from $q^n\to0$. We do not infer the formula merely from the appearance of the first few terms. Since $x_*=0$ and $y_n\ge0$, the uniform-error bound is an equality. Thus its limiting factor $1/(1-q)$ cannot be decreased for all systems satisfying these assumptions.
+which is the formula for $n+1$. So it holds for every $n\in\NN$. Since $q^n\to0$, the points approach $\eta/(1-q)$, as the assistant claimed. There is also a second way to see where they go: the update $y\mapsto qy+\eta$ is itself a contraction with factor $q$, and its fixed point, the solution of $y=qy+\eta$, is $\eta/(1-q)$. So by Theorem~\ref{thm:banach} the points converge to $\eta/(1-q)$, the fixed point of the biased map, not to the fixed point $0$ of $T$.
 
-A sharp bound need not predict convergence of every allowed approximate sequence. For example, let $T(x)=0$ and choose $y_n=(-1)^n\eta$ with $\eta>0$. This map satisfies the contraction inequality for any chosen $q\in(0,1)$, and
+Now compare the formula with the theorem. The starting error is $e_0=|0-0|=0$. Since $\eta\ge0$ and $0<q^n\le1$, every $y_n$ is nonnegative, so
 \[
- d(y_{n+1},T(y_n))=\eta.
+ e_n=|y_n-0|=y_n=\eta\,\frac{1-q^n}{1-q}.
 \]
-Yet $y_n$ alternates between two different values and does not converge. Bounded errors give a distance estimate, not convergence by themselves. Vanishing errors provide the extra conclusion in Theorem~\ref{thm:inexact}.
+The bound in part~2 is $q^n\cdot0+\eta(1-q^n)/(1-q)$, which is exactly the same number. In this example the bound holds with equality at every step, so no better bound of any kind is possible here.
+
+In particular, the factor $1/(1-q)$ cannot be replaced by a smaller number. Suppose someone proposes a number $K<1/(1-q)$ and claims that every iteration satisfying our assumptions, with all update errors at most $\eta$, obeys $e_n\le q^ne_0+K\eta$ for every $n\ge1$. Take $\eta>0$ in the example. There the claim says $\eta(1-q^n)/(1-q)\le K\eta$. Dividing by $\eta$ and multiplying by $1-q$, both positive, turns this into $1-q^n\le K(1-q)$, that is,
+\[
+ q^n\ge1-K(1-q).
+\]
+The right side is positive, because $K(1-q)<1$. Since $q^n\to0$, the inequality fails for every sufficiently large $n$. So the proposed bound is false for this example, and not just at one step but at every step from some point on.
+
+An upper bound that holds for every example in some class is called \emph{sharp} if it cannot be lowered: every smaller proposed bound fails for some example in the class. We have just shown that the factor $1/(1-q)$ in part~2 is sharp for the class of all iterations that satisfy our assumptions.
+
+A sharp bound on the distance to $x_*$ still does not tell us whether the points converge. Let $T(x)=0$ on $\RR$, let $\eta>0$, and take $y_n=(-1)^n\eta$, so that the points are $\eta,-\eta,\eta,-\eta,\ldots$. The map $T$ sends every point to $0$, so $|T(x)-T(y)|=0\le q|x-y|$ for every $q$ with $0<q<1$, and its fixed point is $0$. Every update error is
+\[
+ |y_{n+1}-T(y_n)|=|(-1)^{n+1}\eta-0|=\eta,
+\]
+and every error is $e_n=\eta$, so the distance to the fixed point never grows. Yet the points jump back and forth between $\eta$ and $-\eta$ and do not converge; Exercise~\ref{ex:18.3} asks you to check all of this carefully. Bounded update errors give a bound on the distance to $x_*$, but not convergence. Part~3 of Theorem~\ref{thm:inexact} needs its stronger hypothesis $\eps_n\to0$.

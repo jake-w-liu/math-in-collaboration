@@ -1,5 +1,7 @@
-\section{Encoding the exclusion in a second neighborhood}
-We can represent an oriented edge relation by \code{r : V -> V -> Prop}; the proposition \code{r v w} means $v\to w$. The local membership condition for a genuine second neighbor can be written
+\section{Encoding the exclusions in a second out-neighborhood}\label{ch16:sec:second}
+A directed graph whose vertices form a type \code{V} can be described in Lean by its edge relation \code{r : V -> V -> Prop}. As in Section~\ref{ch15:sec:injcomp}, a type with two arrows describes functions of two inputs: \code{r} takes two vertices \code{v} and \code{w} and returns the proposition \code{r v w}, which we read as $v\to w$. Nothing in this description forces the graph to be oriented, or even to have no loops. Such properties must be stated as extra hypotheses whenever they are wanted.
+
+Recall from Section~\ref{ch07:sec:seymour} that $w$ belongs to the second out-neighborhood $N_2^+(v)$ when three conditions hold: $w\ne v$; $w$ is not an out-neighbor of $v$; and $v\to u\to w$ for some vertex $u$. In Lean, the three conditions become a predicate of $v$ and $w$:
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 def Second {V : Type} (r : V -> V -> Prop)
@@ -8,19 +10,26 @@ def Second {V : Type} (r : V -> V -> Prop)
     (Exists (fun u : V => And (r v u) (r u w))))
 \end{lstlisting}
 \end{minipage}\par
+Here \code{Not P} is the negation of \code{P}. So \code{Not (w = v)} expresses $w\ne v$, and \code{Not (r v w)} says that there is no edge $v\to w$. The last part says that some vertex \code{u} satisfies both \code{r v u} and \code{r u w}.
 
-The three components say the endpoint is not the initial vertex, it is not already a first neighbor, and a two-edge route exists. Here \code{Not P} means logical negation, so \code{Not (w = v)} expresses $w\ne v$. The explicit \code{And} and \code{Exists} names make the grouping visible and avoid confusing propositional inequality with a Boolean comparison.
+Lean also has the usual symbols for these connectives, and the infoview uses them. It displays the body of \code{Second r v w} as
+\begin{center}
+$\neg$\,\code{w = v} $\land$ $\neg$\,\code{r v w} $\land$ $\exists$\,\code{u, r v u} $\land$ \code{r u w}
+\end{center}
+with no parentheses at all. Lean's convention is that $\land$ groups to the right, so that $P\land Q\land R$ means $P\land(Q\land R)$. In our files we write the names \code{And}, \code{Not}, and \code{Exists} instead, because they are easy to type and they make the grouping visible.
 
-To read the nesting, temporarily give the three conditions names:
+To read the nesting, give the three conditions temporary names:
 \[
- P:\ w\ne v,\qquad Q:\ \text{not }v\to w,\qquad
- R:\ \text{some }u\text{ gives }v\to u\to w.
+ P:\ w\ne v,\qquad Q:\ \text{there is no edge }v\to w,\qquad
+ R:\ v\to u\to w\text{ for some vertex }u.
 \]
-Then the definition has the shape \code{And P (And Q R)}. A proof of it contains a proof of $P$ and, as its second component, a pair containing proofs of $Q$ and $R$. Accordingly, \code{h.left} returns $P$, \code{h.right.left} returns $Q$, and \code{h.right.right} returns $R$.
+The definition has the shape \code{And P (And Q R)}. A proof \code{h} of it is a pair (Section~\ref{ch15:sec:conjunction}). Its first component is a proof of $P$, and its second component is itself a pair, made of a proof of $Q$ and a proof of $R$. So \code{h.left} is a proof of $P$, and \code{h.right} is a proof of \code{And Q R}. Taking components once more, \code{h.right.left} is a proof of $Q$, and \code{h.right.right} is a proof of $R$. Taking a component of a pair in this way is called a \emph{projection}.
 
-The existential statement inside $R$ does not require the intermediate vertex to be unique. It supplies at least one valid two-edge route. Multiple choices of $u$ still describe membership of the \emph{same endpoint} $w$ in a neighborhood, rather than several copies of that endpoint.
+The existence statement $R$ does not require the intermediate vertex to be unique; it asks for at least one route $v\to u\to w$. If several vertices $u$ give such a route, each of them is a witness for the membership of the same vertex $w$. As Section~\ref{ch07:sec:seymour} explained, $N_2^+(v)$ is a set of vertices, not of routes, and $w$ is counted only once.
 
-A small but useful consequence is that a second neighbor is not a first neighbor:
+\pauseq{Take the oriented graph of Section~\ref{ch07:sec:seymour} with edges $a\to b$, $b\to c$, $a\to c$, and $c\to d$, and let $v=a$. For each vertex $w$, decide which of the conditions $P$, $Q$, $R$ hold. For which $w$ does \code{Second r a w} hold?}{For $w=a$, condition $P$ fails. For $w=b$, condition $P$ holds, but $Q$ fails because of the edge $a\to b$. Condition $R$ fails as well: the out-neighbors of $a$ are $b$ and $c$, and neither has an edge to $b$. For $w=c$, condition $P$ holds and so does $R$, through the route $a\to b\to c$, but $Q$ fails because of the edge $a\to c$. For $w=d$, all three hold: $d\ne a$, there is no edge $a\to d$, and $a\to c\to d$ is a route. So \code{Second r a w} holds only for $w=d$, in agreement with $N_2^+(a)=\{d\}$. The vertex $c$ is excluded by condition $Q$ alone, one of the two conditions that the shortcut of Section~\ref{ch16:sec:statement} leaves out.}
+
+A small but useful consequence of the definition is that a second out-neighbor is never a first out-neighbor:
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 theorem second_not_first {V : Type}
@@ -29,7 +38,6 @@ theorem second_not_first {V : Type}
   exact h.right.left
 \end{lstlisting}
 \end{minipage}\par
+The proof is the projection described above. Because the conditions are grouped to the right, \code{h.right} is the proof of the last two conditions, and its \code{left} component is the proof of $Q$, which is exactly the claim \code{Not (r v w)}. If the definition grouped the conditions differently, the projections would change with it. Exercise~\ref{ex:16.3} asks you to extract the other two conditions.
 
-The nested conjunction is grouped to the right. Thus \code{h.right} contains the last two conditions, and its \code{left} component is the required exclusion. Reading this projection correctly is more important than memorizing its name.
-
-The formal statement of Seymour's conjecture in the repository discussed in Chapter~7 needs more than this: a finite type of vertices, a guarantee that there is at least one vertex, a hypothesis that the edge relation is oriented, and a way to count the vertices in each neighborhood. Its membership condition for second neighbors, however, is exactly the one above: $w\ne v$, $w$ is not a first neighbor, and some $u$ gives $v\to u\to w$. Our local definition does not formalize the whole theorem. It isolates one piece of the statement's meaning that can be checked before anyone studies a long proof.
+The formal statement of Seymour's conjecture in the repository described in Section~\ref{ch07:sec:seymour} needs more than this one predicate. It works with a type \code{V} of vertices and an edge relation \code{r}, as we do. It adds hypotheses saying that there are only finitely many vertices, that there is at least one vertex, and that \code{r} is oriented: no vertex has an edge to itself, and no two vertices are joined in both directions. It also needs a way to count the members of each out-neighborhood. Its membership condition for second out-neighbors, however, is exactly the condition above: $w\ne v$, there is no edge $v\to w$, and $v\to u\to w$ for some $u$, joined by $\land$ in the same order~\cite{oai173}. Our definition does not formalize the whole conjecture. It isolates one piece of the statement's meaning, the piece that the shortcut gets wrong, and this piece can be checked before anyone studies a long proof. Chapter~\ref{ch:bridge} reads the full formal statement line by line.

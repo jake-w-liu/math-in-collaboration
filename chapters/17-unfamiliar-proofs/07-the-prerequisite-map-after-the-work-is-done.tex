@@ -1,14 +1,21 @@
-\section{The prerequisite map after the work is done}
-The map is now concrete:
+\section{The prerequisite map after the work is done}\label{ch17:sec:map}
+With every piece in place, the map of the proof can be written out in full. Each line says which facts lead to which conclusion:
 \[
 \begin{gathered}
- \text{triangle inequality}\ \longrightarrow\ \text{small-ball diameter bound},\\
- \text{finite cover + infinite indices}\ \longrightarrow\ \text{nested infinite selections},\\
- \text{unbounded index sets}\ \longrightarrow\ \text{increasing subsequence},\\
- \text{nested distance bounds}\ \longrightarrow\ \text{Cauchy subsequence},\\
- \text{completeness}\ \longrightarrow\ \text{limit in the space}.
+ \text{triangle inequality}\ \longrightarrow\ \text{diameter bound for balls},\\
+ \text{total boundedness and infinite pigeonhole}\ \longrightarrow\ \text{nested infinite index sets},\\
+ \text{infinite index sets}\ \longrightarrow\ \text{increasing indices, hence a subsequence},\\
+ \text{nested index sets and the diameter bound}\ \longrightarrow\ \text{a Cauchy subsequence},\\
+ \text{completeness}\ \longrightarrow\ \text{a limit in the space}.
 \end{gathered}
 \]
-The first and last lines were already familiar. The middle lines were the missing background for this proof. After learning each new node, we immediately used it in the argument. That return to the target is essential: otherwise just-in-time learning becomes another disconnected vocabulary list.
+You can read this map as a directed graph in the sense of Section~\ref{ch07:sec:sink}: each fact is a vertex, and an arrow from one fact to another means that the second is obtained from the first.
 
-For a genuinely unfamiliar paper, mark a prerequisite as \emph{understood} only when you can explain its use and solve a small transfer problem. Mark an external theorem as \emph{borrowed} until its hypotheses and application have been checked; learning its full proof can be a separate, explicit task. A proof map is allowed to contain borrowed results, but it must not conceal them.
+Some of the ingredients were familiar before this chapter began. The triangle inequality, Cauchy sequences and completeness come from Chapter~\ref{ch:limits}, and the ordinary pigeonhole principle, on which the infinite version is modeled, comes from Chapter~\ref{ch:graphs}. The new ingredients were balls and their diameter bound, total boundedness, the infinite pigeonhole principle, subsequences, and the nested selection that ties them together. Each new piece was used in the proof right after it was learned. That return to the target proof is essential. Learning a concept at the moment a proof needs it works only if the concept is put to use at once; otherwise it produces one more list of disconnected vocabulary.
+
+For a genuinely unfamiliar paper, it helps to mark each entry of the map with its status.
+\begin{itemize}
+\item Mark a prerequisite as \emph{understood} only when you can explain where the proof uses it and can solve a small \emph{transfer problem} with it, that is, a problem in a setting slightly different from the one in which you learned it. After studying the interval $[0,1]$ in Section~\ref{ch17:sec:balls}, proving that every interval $[a,b]$ is totally bounded (Exercise~\ref{ex:17.4}) is a transfer problem of this kind.
+\item Mark a result as \emph{borrowed} when you use it without having studied its proof. A borrowed result must still be applied correctly: check that its hypotheses hold in your situation and that its conclusion is exactly what you need. Learning its proof can be a separate task for later. In this chapter, the completeness of the real line is borrowed. Chapter~\ref{ch:limits} accepted it as a starting fact, and the completeness of the interval $[-1,2]$ in the example of Section~\ref{ch17:sec:proof} rests on it.
+\end{itemize}
+A map may contain borrowed results, but it must show them openly.

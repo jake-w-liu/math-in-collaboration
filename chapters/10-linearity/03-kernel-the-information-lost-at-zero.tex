@@ -1,34 +1,56 @@
-\section{Kernel: the information lost at zero}
-The kernel of a linear map is the set of inputs sent to zero:
+\section{Kernel: the information lost at zero}\label{ch10:sec:kernel}
+The \emph{kernel} of a linear map $T:\RR^n\to\RR^m$ is the set of inputs that $T$ sends to the zero vector:
 \[
-\ker T=\{x:T(x)=0\}.
+\ker T=\{x\in\RR^n:T(x)=0\}.
 \]
-If two inputs have the same output, their difference belongs to the kernel because
+The kernel always contains $0$, because a linear map sends $0$ to $0$ (see the pause question at the end of Section~\ref{ch10:sec:linearmaps}). For a matrix $A$, the kernel $\ker A$ means the kernel of the map $x\mapsto Ax$. As an example, let $P:\RR^2\to\RR^2$ be the map $P(x_1,x_2)=(x_1,0)$, which keeps the first coordinate and replaces the second by zero. It is linear, because
+\[
+P(ax+by)=(ax_1+by_1,\,0)=a(x_1,0)+b(y_1,0)=aP(x)+bP(y).
+\]
+Its output $(x_1,0)$ is the zero vector exactly when $x_1=0$, so $\ker P=\{(0,t):t\in\RR\}$, the vertical axis.
+
+Why look at the kernel? If two inputs $x$ and $y$ have the same output, then their difference lies in the kernel, because linearity (with $a=1$ and $b=-1$) gives
 \[
 T(x-y)=T(x)-T(y)=0.
 \]
-Thus every collision can be translated into an invisible nonzero input.
+Call a pair of different inputs with the same output a \emph{collision}. Every collision $x\ne y$ therefore produces a nonzero vector $x-y$ in the kernel. For the map $P$, the inputs $(2,5)$ and $(2,7)$ collide, and their difference $(0,-2)$ lies in $\ker P$. The kernel collects in one place all the information that $T$ cannot see.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{theorem}\label{thm:kernel}
-A linear map is injective if and only if its kernel consists only of the zero vector.
+A linear map $T:\RR^n\to\RR^m$ is injective if and only if its kernel consists only of the zero vector, that is, $\ker T=\{0\}$.
 \end{theorem}
 \end{minipage}\par
 
 \begin{proof}
-If $T$ is injective and $T(x)=0$, then $T(x)=T(0)$. Injectivity gives $x=0$, so the kernel contains no other vector.
+Suppose first that $T$ is injective, and let $x\in\ker T$. Then $T(x)=0=T(0)$, and injectivity gives $x=0$. So the kernel contains no vector other than $0$.
 
-Conversely, suppose the only vector mapped to zero is zero. If $T(x)=T(y)$, linearity gives $T(x-y)=0$. The kernel assumption forces $x-y=0$, hence $x=y$. Therefore $T$ is injective.
+Conversely, suppose that $\ker T=\{0\}$, and let $x,y\in\RR^n$ satisfy $T(x)=T(y)$. Linearity gives $T(x-y)=T(x)-T(y)=0$, so $x-y$ lies in the kernel. Hence $x-y=0$, that is, $x=y$. Therefore $T$ is injective.
 \end{proof}
 
-The kernel theorem is a two-direction statement about a \emph{linear} map. In its first direction, linearity ensures $T(0)=0$, so an input with output zero can be compared with the zero input. In its second direction, linearity is needed to turn a collision into $T(x-y)=0$. For a nonlinear map, inspecting only inputs sent to zero may miss collisions elsewhere. For instance, $F(x)=x^2$ sends only zero to zero, yet $F(1)=F(-1)$.
+Both directions of the proof used linearity. The first direction needed $T(0)=0$, so that an input with output zero could be compared with the input $0$. The second needed linearity to turn the equation $T(x)=T(y)$ into $T(x-y)=0$. Without linearity the theorem fails. The map $F:\RR\to\RR$ with $F(x)=x^2$ sends only $0$ to $0$, yet it is not injective, because $F(1)=F(-1)$.
 
-This also separates solving a particular equation $T(x)=b$ from proving all targets attainable. A zero kernel says there cannot be two different solutions for any one target. It does not assert that a solution exists for every target. The inclusion $t\mapsto(t,0)$ from $\RR$ to $\RR^2$ is linear and injective, but no input maps to $(0,1)$. To see why counting equations alone cannot establish uniqueness, consider $T(x_1,x_2)=(x_1+x_2,2x_1+2x_2)$. It has two outputs but loses the nonzero vector $(1,-1)$. The second equation contains no new distinction beyond the first.
+\subsection*{Uniqueness is not existence}
+The kernel answers a question about uniqueness. Fix a target $b\in\RR^m$ and consider the equation $T(x)=b$. If $x_0$ is one solution, then the solutions are exactly the vectors $x_0+k$ with $k\in\ker T$. Indeed, each such vector is a solution, because $T(x_0+k)=T(x_0)+T(k)=b+0=b$. And every solution $x$ has this form: the vector $k=x-x_0$ satisfies $T(k)=T(x)-T(x_0)=b-b=0$, so $k$ lies in the kernel, and $x=x_0+k$. In particular, when $\ker T=\{0\}$, each equation $T(x)=b$ has at most one solution.
 
-For the earlier matrix $A$, apply its sum-and-difference rule twice:
+At most one is not the same as exactly one: a zero kernel does not promise that every target is reached. The map $t\mapsto(t,0)$ from $\RR$ to $\RR^2$ is linear (the check is the same as for $P$), and its kernel is $\{0\}$, because $(t,0)=(0,0)$ only when $t=0$. (Here we regard $\RR$ as $\RR^1$, the lists with one coordinate.) So this map is injective. But no input reaches $(0,1)$, so it is not surjective.
+
+It is tempting to think that two equations in two unknowns always have exactly one solution. Consider the map $T(x_1,x_2)=(x_1+x_2,\,2x_1+2x_2)$. Solving $T(x_1,x_2)=(b_1,b_2)$ means solving the two equations $x_1+x_2=b_1$ and $2x_1+2x_2=b_2$. The kernel of $T$ contains the nonzero vector $(1,-1)$, because $1+(-1)=0$ and $2+(-2)=0$. Every output has second coordinate equal to twice the first, so the second equation never says anything that the first did not already say. For the target $(2,4)$ there are infinitely many solutions, among them $(2,0)$ and $(1,1)$; these two differ by $(1,-1)$, a vector in the kernel. For the target $(1,0)$ there is no solution at all, because $0$ is not twice $1$. Counting equations is not enough. What decides the matter is whether the map loses information.
+
+\subsection*{Inverting the matrix of sums and differences}
+For the matrix $A$ of Section~\ref{ch10:sec:linearmaps}, apply its sum-and-difference rule twice:
 \begin{align*}
- A(Ax)&=A(x_1+x_2,x_1-x_2)\\
+ A(Ax)&=A(x_1+x_2,\ x_1-x_2)\\
  &=\big((x_1+x_2)+(x_1-x_2),\ (x_1+x_2)-(x_1-x_2)\big)\\
- &=(2x_1,2x_2)=2x.
+ &=(2x_1,\,2x_2)=2x.
 \end{align*}
-Therefore $Ax=0$ implies $2x=0$, hence $x=0$. The map is injective. Moreover, for any target $b$, taking $x=Ab/2$ gives $Ax=A(Ab)/2=b$. This proves surjectivity and explicitly constructs the inverse. We have proved reversibility without introducing determinants.
+So applying $A$ twice simply doubles every vector, and this one identity settles everything about $A$. If $Ax=0$, then $2x=A(Ax)=A0=0$, so $x=0$. Thus $\ker A=\{0\}$, and $A$ is injective by Theorem~\ref{thm:kernel}. For surjectivity, take any target $b\in\RR^2$ and try $x=\tfrac12Ab$. By linearity,
+\[
+Ax=A\bigl(\tfrac12Ab\bigr)=\tfrac12A(Ab)=\tfrac12\cdot2b=b.
+\]
+So every target is reached, and $A$ is a bijection. The map $b\mapsto\tfrac12Ab$ is its inverse: we have just checked that $A\bigl(\tfrac12Ab\bigr)=b$, and in the other order $\tfrac12A(Ax)=\tfrac12\cdot2x=x$.
+
+Written out in coordinates, the inverse sends $b=(b_1,b_2)$ to
+\[
+\tfrac12Ab=\left(\frac{b_1+b_2}{2},\ \frac{b_1-b_2}{2}\right).
+\]
+These are exactly the coefficients of $b$ in the basis $w_1=(1,1)$, $w_2=(1,-1)$ found in Section~\ref{ch10:sec:vectors}. That is no coincidence. The columns of $A$ are $w_1$ and $w_2$, so $Ax=x_1w_1+x_2w_2$, and solving $Ax=b$ means finding the coefficients of $b$ in this basis. Inverting $A$ and changing to the basis of its columns are the same problem, stated in two languages.

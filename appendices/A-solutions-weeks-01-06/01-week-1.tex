@@ -1,34 +1,46 @@
 \section{Week 1}
-\sol{1.1}{At $x=4$, $2(x+3)=2(4+3)=14$, whereas $2x+3=2\cdot4+3=11$. In the first expression we add three before doubling, so the added three is also doubled. In the second we double only the original input and then add three. The difference is three, not a contradiction: these are different functions of the same input.}
-\sol{1.2}{The conclusion asks for an odd sum. By the definition, we should aim to write that sum as twice an integer plus one.
+\sol{1.1}{At $x=4$,
+\[
+2(x+3)=2(4+3)=2\cdot7=14,\qquad\text{whereas}\qquad 2x+3=2\cdot4+3=8+3=11.
+\]
+In $2(x+3)$ we first add three to the input and then double the result, so the added three is doubled as well. In $2x+3$ we double only the input and add three afterwards, so the three is not doubled. Multiplying out confirms this: $2(x+3)=2x+6$, which is always exactly $3$ more than $2x+3$, whatever the value of $x$. At $x=4$ the difference is $14-11=3$.}
+\sol{1.2}{We must show that the sum has the form required by the definition of odd: twice an integer, plus one.
 
-Name the even input $a$ and the odd input $b$. Their definitions supply integers $k,\ell$ with $a=2k$ and $b=2\ell+1$. The witnesses may be different because the two inputs were not required to be equal. Substitute and regroup:
+Let $a$ be an even integer and $b$ an odd integer. By the definitions of even and odd, there are integers $k$ and $\ell$ with $a=2k$ and $b=2\ell+1$. We use two different letters because nothing says the two witnesses are equal. Substitute and regroup:
 \begin{align*}
  a+b&=2k+(2\ell+1)\\
  &=2k+2\ell+1\\
  &=2(k+\ell)+1.
 \end{align*}
-The number $k+\ell$ is an integer, so the final expression meets the definition of odd. It is the requested witness. For example, $a=4,b=-3$ have witnesses $k=2,\ell=-2$; the sum is one, witnessed by $k+\ell=0$. The example illustrates the proof but does not replace its arbitrary-input argument.}
-\sol{1.3}{The proposed calculation uses the same odd number twice. Squaring $2k+1$ therefore covers pairs of equal inputs only. It does not cover, for example, the product of three and five. Correct algebra can still have insufficient scope.
+The number $k+\ell$ is an integer, because a sum of integers is an integer. So $a+b$ is twice an integer plus one, which means that $a+b$ is odd. The witness for the oddness of the sum is $k+\ell$.
 
-For the general claim, name the inputs independently: $a=2k+1$ and $b=2\ell+1$, with integer $k,\ell$. Then distribute one bracket at a time:
+For example, $a=4$ and $b=-3$ have witnesses $k=2$ and $\ell=-2$, since $4=2\cdot2$ and $-3=2\cdot(-2)+1$. Their sum is $1$, and the proof's witness is $k+\ell=0$; indeed $1=2\cdot0+1$. The example illustrates the proof, but only the general argument covers every even integer and every odd integer.}
+\sol{1.3}{The assistant's calculation multiplies an odd number by \emph{itself}: writing both factors as $2k+1$, with the same $k$, forces the two factors to be equal. So the argument covers only products such as $3\cdot3$ or $(-5)\cdot(-5)$. It does not cover the product of two different odd integers, for example $3\cdot5$. The algebra in the argument may be correct, yet it proves a narrower statement than the one claimed.
+
+For the general claim, let $a$ and $b$ be odd integers. By the definition of odd, there are integers $k$ and $\ell$ with $a=2k+1$ and $b=2\ell+1$, where $k$ and $\ell$ may be different. Multiply out one bracket at a time, as in Section~\ref{ch01:sec:algebra}:
 \begin{align*}
  ab&=(2k+1)(2\ell+1)\\
  &=2k(2\ell+1)+(2\ell+1)\\
  &=4k\ell+2k+2\ell+1\\
  &=2(2k\ell+k+\ell)+1.
 \end{align*}
-The expression in parentheses is an integer because products and sums of integers are integers. This gives the defining form of an odd integer and proves the claim for every allowed pair. Setting $k=\ell$ now recovers the square case as one consequence, not as a substitute for the general proof.}
-\sol{1.4}{The sum is
-\[
- (2a_1+1)+(2a_2+1)+(2a_3+1)
- =(2\cdot2+1)+(2(-1)+1)+(2\cdot4+1)
- =5-1+9=13.
-\]
-There are three terms because the index runs from one through three, not because the upper limit is a multiplicative factor.}
-\sol{1.5}{A zero product requires $x=0$ or $x-2=0$. Thus the only candidates are $0$ and $2$. Substitution verifies both. Dividing by $x$ discards the valid candidate $0$, because division is permitted only when $x\ne0$. A division-based proof is complete only after separately checking the excluded case.}
+The number $2k\ell+k+\ell$ is an integer, because products and sums of integers are integers. So $ab$ is twice an integer plus one, and therefore $ab$ is odd. For instance, $3=2\cdot1+1$ and $5=2\cdot2+1$ give $k=1$ and $\ell=2$, so the witness is $2\cdot1\cdot2+1+2=7$, and indeed $3\cdot5=15=2\cdot7+1$. Setting $\ell=k$ in the general proof recovers the assistant's special case $(2k+1)^2$.}
+\sol{1.4}{The index $j$ takes the three values $1$, $2$, and $3$, so the sum has three terms:
+\begin{align*}
+ \sum_{j=1}^{3}(2a_j+1)&=(2a_1+1)+(2a_2+1)+(2a_3+1)\\
+ &=(2\cdot2+1)+(2\cdot(-1)+1)+(2\cdot4+1)\\
+ &=5+(-1)+9=13.
+\end{align*}
+As a check, the same sum can be regrouped as $2(a_1+a_2+a_3)+3=2\cdot5+3=13$.}
+\sol{1.5}{By the fact quoted in the exercise, $x(x-2)=0$ holds only if $x=0$ or $x-2=0$, that is, only if $x=0$ or $x=2$. Substituting shows that both values work: $0\cdot(0-2)=0$ and $2\cdot(2-2)=2\cdot0=0$. So the real solutions are exactly $0$ and $2$.
+
+Dividing both sides of $x(x-2)=0$ by $x$ gives $x-2=0$, and hence $x=2$. But division by $x$ is allowed only when $x\ne0$, so this step says nothing about the value $x=0$, and that value is in fact a solution. Division by $x$ therefore finds only the solution $2$. It gives a complete answer only if the case $x=0$ is checked separately.}
 \sol{1.6}{Use
 \[
- f(n)=(n-1)(n-2)\cdots(n-10).
+ f(n)=(n-1)(n-2)\cdots(n-10),
 \]
-At an integer $n$ from one through ten, one factor is zero. At $n=11$, all factors are positive, giving $10\cdot9\cdots1=3\,628\,800$. The finite observations do not determine the behavior of this formula outside the tested inputs.}
+the product of the ten factors $n-1$, $n-2$, \ldots, $n-10$. If $n$ is one of the integers $1,2,\ldots,10$, then one of the factors is $n-n=0$, so the whole product is $0$. At $n=11$ the factors are $10,9,\ldots,1$, all positive, so
+\[
+f(11)=10\cdot9\cdot8\cdot7\cdot6\cdot5\cdot4\cdot3\cdot2\cdot1=3\,628\,800\ne0.
+\]
+This formula agrees with the claim ``$f(n)=0$'' at all ten checked values but fails at $n=11$. Checking finitely many values cannot, on its own, establish a statement about every positive integer.}

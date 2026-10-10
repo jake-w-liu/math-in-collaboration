@@ -1,6 +1,8 @@
 \section{Week 16}
-\sol{16.1}{After unpacking \code{hg c}, the witness is \code{b : B} and \code{hb} proves \code{g b = c}. After unpacking \code{hf b}, the witness is \code{a : A} and \code{ha} proves \code{f a = b}. The final witness must belong to $A$ because the composition starts there; the line \code{refine Exists.intro a ?\_} proposes exactly this $a$. The remaining goal, restated by \code{show} as $g(f(a))=c$, is proved by rewriting $g(f(a))$ first with \code{ha}, which gives $g(b)$, and then with \code{hb}, which gives $c$.}
-\sol{16.2}{Represent union by disjunction of membership predicates:
+\sol{16.1}{The fact \code{hb : g b = c} says that $b$ is a preimage of the target $c$ under $g$; it is obtained by unpacking \code{hg c}. The fact \code{ha : f a = b} says that $a$ is a preimage of $b$ under $f$; it is obtained by unpacking \code{hf b}.
+
+The witness must lie in $A$ because of what the goal asks for. The theorem claims \code{Surj (fun x => g (f x))}, and the composition \code{fun x => g (f x)} takes its inputs from \code{A}, the domain of $f$. So after \code{intro c}, the goal asks for some \code{x} in \code{A} with $g(f(x))=c$. The proposed witness $a$ has the right type because it was obtained from \code{hf b}, which says that some element of \code{A} is sent to $b$ by $f$. The element $b$ would not do: it lies in $B$, and proposing it would be a type error. Once $a$ is proposed, the remaining goal, restated by \code{show} as $g(f(a))=c$, is proved by rewriting $f(a)$ to $b$ with \code{ha} and then $g(b)$ to $c$ with \code{hb}.}
+\sol{16.2}{An element lies in the union $S\cup T$ when it lies in $S$ or in $T$, so union is represented by the disjunction of the two membership predicates:
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 def join {A : Type} (s t : A -> Prop) : A -> Prop :=
@@ -14,8 +16,8 @@ theorem preimage_join {A B : Type} (f : A -> B)
 \end{lstlisting}
 \end{minipage}\par
 
-Both sides unfold to the proposition that $s(f(x))$ or $t(f(x))$ holds. This is the membership proof from Exercise~\ref{ex:3.4} expressed through definitions.}
-\sol{16.3}{The first and last components of the nested conjunction supply the two claims:
+As for \code{preimage\_meet}, both sides unfold to the same proposition. The left side \code{preimage f (join s t) x} becomes \code{join s t (f x)}, and then \code{Or (s (f x)) (t (f x))}. The right side \code{join (preimage f s) (preimage f t) x} becomes \code{Or (preimage f s x) (preimage f t x)}, and then the same \code{Or (s (f x)) (t (f x))}. So \code{rfl} proves the equivalence. In ordinary notation, the theorem is the identity $f^{-1}(S\cup T)=f^{-1}(S)\cup f^{-1}(T)$ of Exercise~\ref{ex:3.4}, whose proof was the same chain of definitions.}
+\sol{16.3}{Write the definition of \code{Second r v w} as \code{And P (And Q R)}, where $P$ is $w\ne v$, $Q$ says that there is no edge $v\to w$, and $R$ says that $v\to u\to w$ for some $u$. The first claim is $P$, the first component of \code{h}. The second claim is $R$, the second component of the second component:
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 theorem second_not_self {V : Type}
@@ -31,7 +33,27 @@ theorem second_route {V : Type}
 \end{lstlisting}
 \end{minipage}\par
 
-The projections reflect the grouping in the definition. Changing that grouping requires changing the projections, though not the underlying mathematical meaning.}
-\sol{16.4}{The new theorem assumes an impossible proposition as an additional input. It proves only that the conclusion follows \emph{if} that input were available, using the logical rule that falsehood implies every proposition. It does not provide a proof of the original theorem, whose hypothesis list did not include \code{False}. A statement diff exposes this change even if the proof contains no unfinished placeholder.}
-\sol{16.5}{First compare theorem signatures with the intended mathematical statement, including the types of every variable; this detects a changed domain. Next unfold the definitions used in the conclusion and compare their membership conditions; this detects a missing exclusion such as the first-neighbor condition. Finally run the checker, inspect completion warnings and proof dependencies, and investigate any placeholder axiom; this detects an unfinished proof. All three checks are needed because a correct proof of the wrong definition can have no placeholder.}
-\sol{16.6}{A Python enumeration can check all sign sequences at length four using its particular code and arithmetic. A Lean proof of a finite proposition might establish that a specified four-entry sequence satisfies an encoded correlation condition. A universal Lean theorem might quantify over every natural length and characterize all lengths admitting such a sequence. These are different scopes even when all programs finish without an error. For any of them, the encoded conditions must still match the intended correlation convention. A finite proposition in Lean does not become universal merely because it was formally proved.}
+The projections follow the grouping in the definition. If \code{Second} had been defined with the shape \code{And (And P Q) R} instead, the same two facts would be \code{h.left.left} and \code{h.right}. The mathematical meaning would be unchanged, but the projections would differ.}
+\sol{16.4}{The original theorem had a list of hypotheses and a conclusion. The new theorem has the same conclusion and one more hypothesis, \code{h : False}. Since \code{False} has no proof, nobody can ever supply this hypothesis, so the new theorem can never be applied. It says only that the conclusion would follow \emph{if} a proof of \code{False} were available, and that is true of every conclusion whatsoever, by the rule \code{False.elim}. The original question was whether the conclusion follows from the original hypotheses, and the new theorem says nothing about that. Lean's acceptance does not reveal the change. The new proof needs no \code{sorry}, and \code{\#print axioms} may report no axioms at all, as it does for \code{impossible\_context}. The change becomes visible only when the new statement is compared with the original one, hypothesis by hypothesis.}
+\sol{16.5}{\emph{Step 1: compare the statement with the intended one.} Examine the theorem's declaration, that is, its parameters and its conclusion, and fill in the two-column table of Section~\ref{ch16:sec:statement}, including the type of every variable. A changed domain, such as \code{Nat} where integers were meant, shows up here as a mismatch of types.
+
+\emph{Step 2: read the definitions.} Look up each definition that the statement uses and read its body, the part after \code{:=}. Compare its conditions with the mathematical definition. A missing exclusion, such as a version of \code{Second} without the condition \code{Not (r v w)}, shows up here and nowhere else, because the name of the definition stays the same.
+
+\emph{Step 3: check the proof.} Run Lean on the whole file, wait until it has finished, read every warning, and run \code{\#print axioms} on the theorem. An unfinished proof shows up as the warning \code{declaration uses 'sorry'} at the declaration that contains the gap, and as \code{sorryAx} in the axiom list of every theorem that depends on it.
+
+All three steps are needed. A complete proof without any \code{sorry}, but about a wrong definition, passes Step~3. A correct statement whose proof is unfinished passes Steps~1 and~2.}
+\sol{16.6}{The three kinds of check differ in what is checked and in how many cases are covered.
+\begin{itemize}
+\item \emph{A finite test in Python.} At length $4$, the program of Appendix~\ref{app:practical} runs through all $2^4=16$ sign sequences and finds that exactly $8$ of them have $C_1=C_2=C_3=0$. This covers $16$ cases and no others. Its answer also depends on the program being a correct translation of the definitions, and no checker compares the code with the definitions; only a careful reading can do that.
+\item \emph{A Lean proof about specific objects.} The periodic correlation at shift $1$ of the sequence $(1,1,1,-1)$ is $a_0a_1+a_1a_2+a_2a_3+a_3a_0=0$:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+theorem corr_shift_one :
+    (1 : Int) * 1 + 1 * 1 + 1 * (-1) + (-1) * 1 = 0 := by
+  rfl
+\end{lstlisting}
+\end{minipage}\par
+Lean checks this proof completely, but it covers one case: one sequence and one shift. Even here, the encoding must match the definition. The last product, $a_3a_0=(-1)\cdot1$, is the wrap-around term of the periodic correlation.
+\item \emph{A universal theorem in Lean.} The theorem \code{surj\_comp} holds for all types $A$, $B$, $C$ and all surjective functions $f$ and $g$ between them. One proof covers infinitely many cases. A far more ambitious example is the formal statement described in Section~\ref{ch14:sec:research}, which concerns circulant Hadamard matrices of every order.
+\end{itemize}
+These scopes stay different even when all three checks finish without an error. A proposition about specific objects does not become universal because it was proved in Lean: \code{corr\_shift\_one} says nothing about other sequences or other lengths. And in every case the encoded conditions must match the intended definition, for instance the periodic correlation rather than the aperiodic one.}

@@ -1,4 +1,20 @@
-\section{First prove the necessary direction}
-Assume a matching saturates $L$. Take any $S\subseteq L$. The matching assigns one acceptable task to each student in $S$, and these tasks are distinct. All are in $N(S)$. Therefore $N(S)$ contains at least $|S|$ elements, proving \eqref{eq:hall}.
+\section{First prove the necessary direction}\label{ch09:sec:necessary}
+We begin with the easier half of Theorem~\ref{thm:hall}: if a full assignment exists, then every group passes its test. The argument is the one that Section~\ref{ch08:sec:shortage} used for shortage sets, now written as a direct proof.
 
-Notice how little was needed. We did not inspect the rest of the graph. A candidate matching immediately provides the required distinct tasks. The harder direction must reverse this reasoning: a family of inequalities must force a coherent assignment.
+\begin{proof}[Proof that Hall's condition is necessary]
+Suppose that a matching $M$ saturates $L$, and let $S$ be any subset of $L$. Each student $s\in S$ lies on exactly one edge of $M$: on at least one because $M$ saturates $L$, and on at most one because no two edges of $M$ share an endpoint. Call the task at the other end of that edge $f(s)$. This defines a function $f:S\to N(S)$. Its values really do lie in $N(S)$: the pair $s$--$f(s)$ is an edge of the graph, so the task $f(s)$ is acceptable to $s$, which is a member of $S$.
+
+The function $f$ is injective. If two different students $s\ne s'$ had $f(s)=f(s')$, that task would be an endpoint of the two different edges $s$--$f(s)$ and $s'$--$f(s')$ of $M$, which a matching does not allow. As we saw in Chapter~\ref{ch:maps}, an injective function from a finite set $S$ to a finite set $N(S)$ produces $|S|$ different members of $N(S)$, so $|S|\le|N(S)|$. Since $S$ was an arbitrary subset of $L$, condition~\eqref{eq:hall} holds.
+\end{proof}
+
+When $S=\varnothing$, the function $f$ has no inputs at all, and the conclusion is simply $0\le0$.
+
+Here is the proof at work on the graph of Section~\ref{sec:matching-trace}, where
+\[
+N(a)=\{1,2\},\qquad N(b)=\{1\},\qquad N(c)=\{2,3\},
+\]
+and the matching $b$--$1$, $a$--$2$, $c$--$3$ saturates $L$. For the group $S=\{a,b\}$, the function $f$ sends $a$ to $2$ and $b$ to $1$. These are two different tasks, and both lie in $N(S)=\{1,2\}$. So $N(S)$ has at least two members, as Hall's condition requires.
+
+Notice how little the proof needed. It looked only at the edges of the matching that touch $S$, and it never asked how the matching was found. Read as a contrapositive, it says that if some group $S$ has $|N(S)|<|S|$, then no matching saturates $L$. This is why a shortage set is a certificate of impossibility. Anyone can check it by listing the tasks in $N(S)$ and counting them, without having to trust whoever found it.
+
+The other direction is harder, because it runs the opposite way. The inequalities in \eqref{eq:hall} say nothing directly about which student should receive which task. From them alone we must produce an actual assignment, in which the choices for all the students fit together at once.

@@ -1,5 +1,11 @@
 \section{Week 9}
-\sol{9.1}{Let $N(a)=N(b)=\{1\}$ and $N(c)=\{2,3\}$. Every student has a neighbor, and the full left set has all three tasks as neighbors. Nevertheless $S=\{a,b\}$ has only one neighbor. No assignment can give both $a$ and $b$ distinct acceptable tasks. Checking only individual students and the whole set misses this intermediate obstruction.}
+\sol{9.1}{Let
+\[
+N(a)=N(b)=N(c)=\{1,2\},\qquad N(d)=\{3,4\}.
+\]
+Every student accepts two tasks, and $N(L)=\{1,2,3,4\}$, so $|N(L)|=4=|L|$. The group $S=\{a,b,c\}$ has $N(S)=\{1,2\}$, so $|N(S)|=2<3=|S|$. A full assignment would give $a$, $b$ and $c$ three different tasks, each acceptable to one of them and therefore lying in $N(S)$. But $N(S)$ has only two members, so no matching saturates $L$.
+
+The tests for single students read $|N(x)|=2\ge1$, and the test for the whole class reads $4\ge4$. All of them pass. The shortage lies in the group of three students who compete for the same two tasks, and only the test for that group detects it. In fact, checking all sixteen groups shows that $\{a,b,c\}$ is the only group that fails.}
 \sol{9.2}{The complete check is
 \begin{center}
 \begin{tabular}{@{}lll@{}}\toprule
@@ -14,24 +20,56 @@ $\{b,c\}$ & $\{1,2,3\}$ & $3\ge2$\\
 $\{a,b,c\}$ & $\{1,2,3\}$ & $3\ge3$\\\bottomrule
 \end{tabular}
 \end{center}
-Both $\{a\}$ and $\{a,b\}$ are nonempty proper tight subsets. A matching is $a$--$1$, $b$--$2$, $c$--$3$. The table verifies the hypothesis; the matching itself is a shorter certificate of feasibility for this particular instance.}
-\sol{9.3}{Every member of $N(S)\cup N(T)$ either belongs to $N(S)$ or belongs to $N(T)$ without belonging to $N(S)$. Thus
+Every inequality holds, so the graph satisfies Hall's condition. A group is tight when the two sides of its inequality are equal, so the tight groups are $\varnothing$, $\{a\}$, $\{a,b\}$ and $\{a,b,c\}$. The empty group is excluded because it is empty, and the whole class $\{a,b,c\}$ because it is not proper. So the nonempty proper tight subsets are exactly $\{a\}$ and $\{a,b\}$.
+
+A matching that saturates $L$ is $a$--$1$, $b$--$2$, $c$--$3$. Each pair is an edge, because $1\in N(a)$, $2\in N(b)$ and $3\in N(c)$, and the three tasks are different. It is the only such matching: $a$ must take task~$1$, so $b$ must take task~$2$, and then $c$ must take task~$3$. Once this matching has been found, the necessary direction of Hall's theorem (Section~\ref{ch09:sec:necessary}) gives all eight inequalities at once. The table checks them directly.}
+\sol{9.3}{Write $X=N(S)$ and $Y=N(T)\setminus N(S)$. We show that $N(S)\cup N(T)=X\cup Y$ and that $X$ and $Y$ are disjoint.
+
+First, $X\cup Y\subseteq N(S)\cup N(T)$, because $X=N(S)$ and $Y\subseteq N(T)$. Conversely, let $t\in N(S)\cup N(T)$. If $t\in N(S)$, then $t\in X$. If $t\notin N(S)$, then $t$ must lie in $N(T)$, and so $t\in N(T)\setminus N(S)=Y$. In both cases $t\in X\cup Y$. Hence $N(S)\cup N(T)=X\cup Y$.
+
+Next, $X$ and $Y$ are disjoint, because by the definition of a set difference every member of $Y$ lies outside $N(S)=X$.
+
+For disjoint finite sets, the size of the union is the sum of the sizes (Chapter~\ref{ch:maps}). Therefore
 \[
- N(S)\cup N(T)=N(S)\ \mathbin{\dot\cup}\ (N(T)\setminus N(S)),
+|N(S)\cup N(T)|=|X|+|Y|=|N(S)|+|N(T)\setminus N(S)|.
 \]
-where the dotted union indicates disjointness. Counting a disjoint union adds its sizes. We did not assume that $N(S)$ and $N(T)$ themselves are disjoint; subtracting the overlap is what creates a disjoint decomposition.}
-\sol{9.4}{The difference $|N(S)|-|S|$ is an integer. If positive, it is at least one, giving $|N(S)|\ge|S|+1$. For arbitrary reals, positivity allows values strictly between zero and one. For example, $1.2>1$ does not imply $1.2\ge2$. The one-unit slack comes from integer counting.}
-\sol{9.5}{We will apply Hall's theorem, so we must establish its condition for an arbitrary set $S$ of students. If $S$ is empty, the condition reads $0\ge0$. The same counting argument below includes that case.
+Nowhere did we assume that $N(S)$ and $N(T)$ are disjoint. If they overlap, each common task is counted once, as a member of $N(S)$, and the set difference $N(T)\setminus N(S)$ leaves it out. In the example of Section~\ref{ch09:sec:inductive}, $N(S)=\{1,2\}$ and $N(\{c\})=\{2,3\}$. Their union $\{1,2,3\}$ has $3=2+|\{3\}|$ members, whereas $|N(S)|+|N(\{c\})|=4$ would count task~$2$ twice.}
+\sol{9.4}{The number $k=|N(S)|-|S|$ is a difference of two whole numbers, so it is an integer, and $k>0$ because $|N(S)|>|S|$. There is no integer strictly between $0$ and $1$, so $k\ge1$, that is, $|N(S)|\ge|S|+1$.
 
-Count the edges with left endpoint in $S$. Each student in $S$ accepts exactly $d$ tasks and therefore contributes exactly $d$ such edges. No edge has two left endpoints, so this counts each edge once. The total is $d|S|$.
+For arbitrary real numbers this step is not valid, because a positive real number can be smaller than $1$. For example, $1.2>1$, but $1.2\ge1+1=2$ is false. The extra unit in Case~2 comes from the fact that the sizes of finite sets are whole numbers.}
+\sol{9.5}{By Hall's theorem, it is enough to show that $|N(S)|\ge|S|$ for every set $S$ of students. Fix such a set $S$, and let $E_S$ be the set of edges whose student endpoint lies in $S$. We count $E_S$ in two ways.
 
-Every right endpoint of a counted edge lies in $N(S)$. Each task in that set is acceptable to at most $d$ students in the whole graph, and hence to at most $d$ members of $S$. Counting the same edges by their right endpoints therefore gives at most $d|N(S)|$. Combining the two counts,
+\emph{By students.} Each student of $S$ accepts exactly $d$ tasks, so it lies on exactly $d$ edges. Each edge has only one student endpoint, so every edge of $E_S$ is counted exactly once. Hence $|E_S|=d|S|$.
+
+\emph{By tasks.} The task endpoint of each edge in $E_S$ is acceptable to a member of $S$, so it lies in $N(S)$. Each task is acceptable to at most $d$ students in the whole graph, so it lies on at most $d$ edges of $E_S$. Adding over the tasks of $N(S)$ gives $|E_S|\le d|N(S)|$.
+
+Comparing the two counts,
 \[
- d|S|\le d|N(S)|.
+d|S|\le d|N(S)|.
 \]
-Divide by the positive number $d$ to obtain $|S|\le|N(S)|$. This holds for every subset of the finite left set. The graph is bipartite by the assignment model, so all the hypotheses of the finite Hall theorem are met. It supplies a matching saturating the students. If $d$ were zero, division and the conclusion would both require reconsideration.}
-\sol{9.6}{A model portfolio can use the feasible graph of Exercise~\ref{ex:9.2} with assignment $a$--$1$, $b$--$2$, $c$--$3$. Its comparison graph is the one in Exercise~\ref{ex:9.1}, with shortage certificate $S=\{a,b\}$ and $N(S)=\{1\}$.
+Since $d>0$, we may divide both sides by $d$; dividing by a positive number keeps the direction of an inequality. This gives $|S|\le|N(S)|$. The argument works for every $S\subseteq L$, including $S=\varnothing$, where both counts are $0$. So the graph satisfies Hall's condition, and Hall's theorem gives a matching that saturates $L$, which is a full assignment. For instance, with $d=2$, the students $a,b,c$ with $N(a)=\{1,2\}$, $N(b)=\{2,3\}$ and $N(c)=\{1,3\}$ satisfy the hypotheses, and $a$--$1$, $b$--$2$, $c$--$3$ is a full assignment.
 
-Here is a complete constructive sufficiency proof in the general finite setting. Assume $|N(S)|\ge|S|$ for every $S\subseteq L$ and start from the empty matching. If the current matching leaves a student $u$ unmatched, run the alternating search from $u$. If it reaches an unmatched task, take a simple alternating path to it and flip the path. This increases the matching size by one. Otherwise let $A,B$ be the reached left and right sets. The search rules give $N(A)=B$, as proved in Exercise~\ref{ex:8.6}. Every right vertex in $B$ is matched, since otherwise the search would have found an augmenting endpoint. Its matched left partner is reached. Conversely, every reached left vertex other than $u$ is reached through its matched partner. These pairings form a bijection between $B$ and $A\setminus\{u\}$, so $|N(A)|=|B|=|A|-1$, contradicting Hall's condition. Therefore a nonsaturating matching always admits an augmentation. Size can increase at most $|L|$ times, so the process ends with all students matched.
+The proof uses $d>0$ at exactly one point, the division. If $d=0$, the inequality $d|S|\le d|N(S)|$ reads $0\le0$ and says nothing about $|S|$ and $|N(S)|$. The conclusion fails too: when $d=0$, no student accepts any task, so there is no full assignment unless there are no students at all.}
+\sol{9.6}{Here is a model portfolio.
 
-Finally, maximality forbids adding one edge while leaving all present choices intact. Maximum size allows earlier choices to be revised. Ada--$1$ in Exercise~\ref{ex:8.1} demonstrates the distinction. The portfolio should state which definition is used whenever it calls a matching ``optimal.''}
+\textbf{(a) An assignment certificate.} For the graph of Exercise~\ref{ex:9.2}, with $N(a)=\{1\}$, $N(b)=\{1,2\}$ and $N(c)=\{2,3\}$, the matching $a$--$1$, $b$--$2$, $c$--$3$ saturates $L$. A reader checks it by confirming that each pair is an edge ($1\in N(a)$, $2\in N(b)$, $3\in N(c)$), that each student appears in exactly one pair, and that the three tasks are different.
+
+\textbf{(b) A shortage certificate.} For the graph of Exercise~\ref{ex:9.1}, with $N(a)=N(b)=N(c)=\{1,2\}$ and $N(d)=\{3,4\}$, take $S=\{a,b,c\}$. A reader checks it by listing the tasks that the members of $S$ accept and collecting them: $N(S)=\{1,2\}$, so $|N(S)|=2<3=|S|$. This proves that no full assignment exists. In a full assignment the three students of $S$ would receive three different tasks, each acceptable to a member of $S$ and therefore lying in $N(S)$, but $N(S)$ has only two members. This is the necessary direction of Hall's theorem (Section~\ref{ch09:sec:necessary}).
+
+\textbf{(c) A proof of sufficiency.} \emph{Claim: let $G$ be a finite bipartite graph with parts $L$ and $R$ such that $|N(S)|\ge|S|$ for every $S\subseteq L$. Then $G$ has a matching that saturates $L$.}
+
+\emph{Proof.} Start with the empty matching $M$. As long as some student $u$ is unmatched, carry out a round, as follows. Run the complete search of Section~\ref{ch08:sec:search} from $u$. The search first reaches $u$. From each reached student it follows every edge not in $M$ and reaches the task at the other end; when it reaches a task held by some student, it also reaches that task's owner. Each vertex is reached at most once, and the search remembers the vertex from which it was reached, its predecessor. The graph is finite, so the search ends.
+
+If the search reaches an unused task $t$, follow the predecessors back from $t$ to $u$. Each vertex was reached later than its predecessor, so no vertex is met twice, and the vertices form a path. Its edges alternate between edges not in $M$ and edges of $M$, and it runs from the unmatched student $u$ to the unused task $t$. So it is an augmenting path, and by Lemma~\ref{thm:augment}, flipping $M$ along it gives a matching with one more edge.
+
+Suppose instead that the search ends without reaching an unused task. Let $A$ be the set of reached students, including $u$, and let $B$ be the set of reached tasks. Every task in $B$ is held by some student, because no unused task was reached, and the search reached that owner, so the owner lies in $A$. The owner is not $u$, because $u$ is unmatched. Conversely, every student in $A$ other than $u$ was reached as the owner of a task in $B$. A matching gives each task at most one owner and each student at most one task, so sending each task of $B$ to its owner is a bijection from $B$ to $A\setminus\{u\}$. Hence $|B|=|A|-1$.
+
+Moreover, $N(A)=B$ (compare Exercise~\ref{ex:8.6}). Every reached task was reached along an edge from a reached student, so $B\subseteq N(A)$. Conversely, let $s\in A$ and let $t$ be a task that $s$ accepts. If the edge $s$--$t$ is not in $M$, the search followed it from $s$, so $t\in B$. If $s$--$t$ is in $M$, then $s$ is matched, so $s\ne u$, and $s$ was reached as the owner of its own task, which is $t$; again $t\in B$. Therefore
+\[
+|N(A)|=|B|=|A|-1<|A|,
+\]
+which contradicts Hall's condition for the set $A$. So this outcome never occurs, and every round adds one edge to $M$.
+
+Different edges of a matching contain different students, so $M$ never has more than $|L|$ edges, and there are at most $|L|$ rounds. The rounds stop only when every student is matched, so the final matching saturates $L$. If $L=\varnothing$, there are no rounds, and the empty matching saturates $L$. This completes the proof.
+
+\textbf{(d) Maximal and maximum matchings.} A matching is \emph{maximal} if no edge of the graph can be added to it without creating a shared endpoint, and \emph{maximum} if no matching in the graph has more edges. Every maximum matching is maximal, because an edge that could be added would produce a larger matching. The converse fails. Suppose Ada accepts tasks $1$ and $2$ and Ben accepts only task~$1$. The matching $\{\text{Ada--}1\}$ is maximal: adding Ada--$2$ would give Ada two tasks, and adding Ben--$1$ would give task~$1$ two owners. But it is not maximum, because $\{\text{Ada--}2,\ \text{Ben--}1\}$ has two edges (Exercise~\ref{ex:8.1}). A greedy procedure hands out tasks one at a time and never takes a task back, so it stops as soon as its matching is maximal, and that matching need not be maximum. This is how a greedy assignment can get stuck even when a full assignment exists. Getting stuck therefore proves nothing about impossibility. The augmenting-path repair revises earlier choices: here it follows the path Ben--$1$--Ada--$2$, moves Ada to task~$2$, and frees task~$1$ for Ben. Only a shortage certificate, as in part~(b), proves that no full assignment exists.}

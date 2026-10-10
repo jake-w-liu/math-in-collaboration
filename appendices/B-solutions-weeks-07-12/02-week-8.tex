@@ -1,13 +1,58 @@
 \section{Week 8}
-\sol{8.1}{Let Ada accept tasks $1,2$ and Ben accept only task $1$. The matching consisting of Ada--$1$ is maximal: Ben--$1$ shares the used task and Ada--$2$ shares the used student, so neither can simply be added. It is not maximum because the matching Ada--$2$, Ben--$1$ has size two. Maximal means no edge can be added without revising the current choices; maximum compares against every possible matching.}
-\sol{8.2}{The unmatched student is $c$. Use the alternating path
-\[
- c\ --\ 2\ --\ a\ --\ 1\ --\ b\ --\ 3.
-\]
-The edges $c$--$2$, $a$--$1$, and $b$--$3$ are outside the matching; $a$--$2$ and $b$--$1$ are inside it. Task $3$ is unmatched. Flipping the path gives $c$--$2$, $a$--$1$, $b$--$3$, a matching of size three. Each internal vertex exchanges one matched edge for another, while the endpoints become matched.}
-\sol{8.3}{Let $S$ be all three students. Their neighbor set is $N(S)=\{1,2\}$, so $|N(S)|=2<3=|S|$. Distinct assignments of all three would require three distinct members of a two-element set, which is impossible. Counting each student's two options separately counts the same tasks repeatedly; feasibility depends on the number of distinct options available to the group.}
-\sol{8.4}{The flip proof treats each internal vertex as incident to exactly two path edges, one matched and one unmatched. If a vertex appeared twice, it could meet two unmatched path edges, and flipping would then give it two partners, so the result would not be a matching.
+\sol{8.1}{The graph has three edges: Ada--$1$, Ada--$2$, and Ben--$1$. Take the matching $M=\{\text{Ada--}1\}$.
 
-To avoid repeated vertices, think of the search as moving along arrows: an unmatched edge may be used only from a student to a task, and a matched edge only from a task to its student. Call the resulting directed graph the \emph{alternating-search graph}. Every directed route in it from the unmatched root alternates correctly, because the arrows only allow the permitted moves. Take a shortest such route from the root to an unused task. If it visited some vertex twice, deleting the segment between the two visits would leave a shorter directed route with the same endpoints, just as for walks in Chapter~7, and it would still alternate because it still follows the arrows. That contradicts shortestness. So a shortest route has no repeated vertex and is an augmenting path. The predecessor records kept by the search produce such a path directly, because each vertex is recorded only once.}
-\sol{8.5}{Increasing a quantity by one at every step proves termination only if the quantity cannot grow forever: the natural numbers $0,1,2,\ldots$ increase by one at each step and never stop. Finiteness of $L$ supplies the needed ceiling. A matching uses each left vertex at most once, so its size is at most $|L|$. Starting with size $k$, and increasing it by one at each augmentation, allows at most $|L|-k$ augmentations. From the empty matching the bound is $|L|$. Without a finite upper bound, a quantity increasing by one can increase indefinitely; strict progress alone is not a termination proof.}
-\sol{8.6}{The search starts at one unmatched left vertex $u$; other matched and unmatched vertices are explored by the rules in Chapter~8. Every reached right vertex was reached from a reached left vertex along an edge, so $B\subseteq N(A)$. For the converse, let $a\in A$ and let $b$ be any neighbor of $a$. If $ab$ is unmatched, the search explores that left-to-right edge and reaches $b$. If $ab$ is matched, then $a\ne u$. The only way the search reaches this other left vertex is through its unique matched right partner, which must be $b$. Thus $b$ was already reached. In either case $b\in B$, proving $N(A)\subseteq B$. Exhaustion of the search is needed to say all eligible unmatched edges have been explored.}
+\emph{$M$ is maximal.} There are two edges outside $M$, and each shares an endpoint with Ada--$1$. The edge Ada--$2$ shares the endpoint Ada, and the edge Ben--$1$ shares the endpoint~$1$. So adding either edge to $M$ gives a set of edges that is not a matching.
+
+\emph{$M$ is not maximum.} The set $\{\text{Ada--}2,\ \text{Ben--}1\}$ is a matching: its two edges have different students and different tasks, so they share no endpoint. It has two edges, while $M$ has one.
+
+In fact $M$ is the only correct answer. The graph has exactly five matchings: the empty matching, $\{\text{Ada--}1\}$, $\{\text{Ada--}2\}$, $\{\text{Ben--}1\}$, and $\{\text{Ada--}2,\ \text{Ben--}1\}$. The empty matching is not maximal, since any edge can be added to it. Ben--$1$ can be added to $\{\text{Ada--}2\}$, and Ada--$2$ can be added to $\{\text{Ben--}1\}$. The matching $\{\text{Ada--}2,\ \text{Ben--}1\}$ is maximum, because no matching can have more edges than the $2$ students. The example shows the difference between the two words: a maximal matching cannot be enlarged while keeping all of its current edges, whereas a maximum matching is compared with every matching in the graph, including those that undo current choices.}
+\sol{8.2}{In the matching $\{a\text{--}2,\ b\text{--}1\}$, the student $c$ is unmatched, tasks $1$ and $2$ are used, and task~$3$ is unused. Search from $c$.
+\begin{itemize}
+\item Inspect $c$. Its only edge, $c$--$2$, is unmatched, so task~$2$ is reached with predecessor $c$. Task~$2$ is held by $a$, so $a$ is reached with predecessor~$2$.
+\item Inspect $a$. The edge $a$--$2$ is matched; the edge $a$--$1$ is unmatched, so task~$1$ is reached with predecessor $a$. Task~$1$ is held by $b$, so $b$ is reached with predecessor~$1$.
+\item Inspect $b$. The edge $b$--$1$ is matched; the edge $b$--$3$ is unmatched, so task~$3$ is reached with predecessor $b$. Task~$3$ is unused, and the search succeeds.
+\end{itemize}
+Following the predecessors back from task~$3$ gives the augmenting path
+\[
+c\;\text{--}\;2\;\text{--}\;a\;\text{--}\;1\;\text{--}\;b\;\text{--}\;3.
+\]
+Its edges $c$--$2$, $a$--$1$, and $b$--$3$ are unmatched, its edges $a$--$2$ and $b$--$1$ are matched, and its ends $c$ and $3$ are unmatched. Flipping removes $a$--$2$ and $b$--$1$ and adds the other three edges, which gives the matching
+\[
+\{a\text{--}1,\ b\text{--}3,\ c\text{--}2\}.
+\]
+It has three edges and saturates the set of students: each student receives an acceptable task, and the tasks $1$, $3$, $2$ are different. Both $a$ and $b$ changed tasks, $a$ from $2$ to $1$ and $b$ from $1$ to $3$, so that $c$ could receive the only task it accepts.}
+\sol{8.3}{Let $S$ be the set of all three students. Then $N(S)=\{1,2\}$, so $|N(S)|=2<3=|S|$, and $S$ is a shortage set. It certifies that no full assignment exists: a full assignment would give the three students three different tasks, all of them in $N(S)$, but $N(S)$ has only two members. Anyone can check this certificate by listing the tasks the three students accept and counting them.
+
+Each student has two options, but adding up the options, $2+2+2=6$, counts the same two tasks again and again. What matters is the number of \emph{different} tasks available to the group, and that number is $2$. No smaller group is a shortage set: one student accepts $2\ge1$ tasks, and any two students together accept $2\ge2$ tasks. Indeed, any two of the students can be given different tasks; the shortage appears only when all three compete.}
+\sol{8.4}{(a)~Write the augmenting path as $v_0,v_1,\ldots,v_k$. The proof uses the fact that its vertices are all different in two places. First, it concludes that an inner vertex $v_i$ lies on exactly two edges of the path, one matched and one unmatched, and that an end lies on exactly one; so after the flip each of these vertices lies on exactly one edge of the new matching. Second, it counts the edges of the path as $r+1$ unmatched and $r$ matched ones, all different. If a vertex appeared twice, it could lie on two unmatched edges of the walk, both of which the flip adds, and it would then have two partners.
+
+Here is an example. Take students $x$, $s$, $u$ and tasks $1$, $2$, $3$, with edges $x$--$1$, $s$--$1$, $s$--$2$, $s$--$3$, $u$--$1$, $u$--$2$, and the matching $M=\{s\text{--}1,\ u\text{--}2\}$. Student $x$ is unmatched and task~$3$ is unused. The walk
+\[
+x,\ 1,\ s,\ 2,\ u,\ 1,\ s,\ 3
+\]
+uses the edges $x$--$1$, $s$--$1$, $s$--$2$, $u$--$2$, $u$--$1$, $s$--$1$, $s$--$3$, which are unmatched, matched, unmatched, matched, unmatched, matched, unmatched in turn. So it is an alternating walk from an unmatched student to an unused task, but it visits task~$1$ and student $s$ twice. Flipping along it removes the matched edges $s$--$1$ and $u$--$2$ and adds the unmatched edges $x$--$1$, $s$--$2$, $u$--$1$, $s$--$3$. The result
+\[
+\{x\text{--}1,\ s\text{--}2,\ u\text{--}1,\ s\text{--}3\}
+\]
+is not a matching: task~$1$ lies on two of its edges, and so does student~$s$. Cutting out the part of the walk between the two visits to task~$1$ leaves $x,1,s,3$, which is an augmenting path; flipping along it gives the matching $\{x\text{--}1,\ s\text{--}3,\ u\text{--}2\}$.
+
+(b)~The lengths of the alternating walks from an unmatched student $x$ to an unused task form a nonempty set of natural numbers, so by the well-ordering property there is a shortest such walk, say $v_0,v_1,\ldots,v_k$ with $v_0=x$. Since $x$ is a student and $v_k$ is a task, $k\ge1$. The graph is bipartite, so the vertices of the walk alternate between students and tasks: $v_i$ is a student when $i$ is even and a task when $i$ is odd. The first edge is unmatched, because $x$ is unmatched, so the $m$th edge of the walk is unmatched when $m$ is odd and matched when $m$ is even.
+
+Suppose, for contradiction, that $v_i=v_j$ for some $i<j$. Since $v_i$ and $v_j$ are the same vertex, they lie on the same side, so $i$ and $j$ have the same parity, and $j-i$ is even. Cut out the entries $v_{i+1},\ldots,v_j$, as in the proof of Lemma~\ref{ch07:lem:shortest-walk}. What remains, $v_0,\ldots,v_i,v_{j+1},\ldots,v_k$, is a walk from $x$ to the same unused task, for the reason given in that proof. Its first $i$ edges are unchanged. Each later edge is an edge of the old walk moved forward by $j-i$ positions, which is an even number, so it is unmatched exactly when its new position is odd. Therefore the shorter walk is still alternating. It has length $k-(j-i)<k$, which contradicts the choice of a shortest walk. Hence a shortest walk repeats no vertex. It is an alternating path with at least one step whose ends are both unmatched, that is, an augmenting path.
+
+The search of Section~\ref{ch08:sec:search} produces such a path directly: its predecessor records never repeat a vertex, because each vertex is reached only once.}
+\sol{8.5}{The fact that a quantity increases by one at every step does not by itself rule out infinitely many steps. The counter $0,1,2,3,\ldots$ increases by one at every step and never stops. To conclude that a procedure stops, we also need a ceiling that the quantity can never pass.
+
+Finiteness of $L$ provides this ceiling. Each edge of a matching contains exactly one student, and no two edges of a matching contain the same student. So sending each edge to its student is an injective map from the matching to $L$, and a matching has at most $|L|$ edges. Suppose the procedure starts from a matching with $k$ edges. After $m$ steps the matching has $k+m$ edges, so $k+m\le|L|$, that is, $m\le|L|-k$. Hence at most $|L|-k$ augmentations can occur, and at most $|L|$ when the procedure starts from the empty matching. In the language of Habit~5, the nonnegative integer $|L|-|M|$ decreases by one at every step, so it cannot keep decreasing forever.}
+\sol{8.6}{The search reaches students and tasks by two moves: from a reached student $s$ along an unmatched edge $s$--$t$ to the task $t$, and from a reached used task to its owner. A task is reached only by the first move, and a student other than $x$ only by the second.
+
+\emph{$B\subseteq N(A)$.} Every task $t$ in $B$ was reached by the first move, from some student $s$ in $A$ along an edge $s$--$t$. So $s$ accepts $t$, and $t\in N(A)$.
+
+\emph{$N(A)\subseteq B$.} Let $t\in N(A)$, and choose a student $s\in A$ that accepts $t$.
+\begin{itemize}
+\item \emph{The edge $s$--$t$ is unmatched.} Because the search is complete, every reached student has been inspected, and inspecting $s$ follows every unmatched edge at $s$. So $t$ has been reached, and $t\in B$.
+\item \emph{The edge $s$--$t$ is matched.} Then $s$ is matched, so $s\ne x$, since $x$ is unmatched. A student other than $x$ is reached only by a move from the task it holds, and the task $s$ holds is $t$, its unique partner. So $t$ was reached before $s$, and $t\in B$.
+\end{itemize}
+In both cases $t\in B$. The two containments together give $N(A)=B$.
+
+Completeness is used only in the unmatched case, and there it is essential. In the three-student example of Section~\ref{ch08:sec:shortage}, a search that stopped right after reaching task~$1$ and its owner $a$ would have $A=\{c,a\}$ and $B=\{1\}$, while $N(A)=\{1,2\}$, because the unmatched edge $c$--$2$ was never followed.}

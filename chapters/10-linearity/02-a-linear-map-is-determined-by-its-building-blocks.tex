@@ -1,35 +1,64 @@
-\section{A linear map is determined by its building blocks}
-A map $T:\RR^n\to\RR^m$ is linear when it preserves addition and scalar multiplication. Equivalently, for all vectors $x,y$ and real scalars $a,b$,
+\section{A linear map is determined by its building blocks}\label{ch10:sec:linearmaps}
+Section~\ref{ch06:sec:structure} said that a map preserves addition when it sends the sum of two inputs to the sum of their outputs. A map $T:\RR^n\to\RR^m$ is \emph{linear} when it preserves both addition and multiplication by scalars:
 \[
-T(ax+by)=aT(x)+bT(y).
+T(x+y)=T(x)+T(y)\qquad\text{and}\qquad T(cx)=cT(x)
 \]
-For a linear map on the plane,
+for all vectors $x,y\in\RR^n$ and all scalars $c$. The two conditions can be combined into one: $T$ is linear exactly when
 \[
-T(x_1,x_2)=x_1T(e_1)+x_2T(e_2).
+T(ax+by)=aT(x)+bT(y)\qquad\text{for all $x,y\in\RR^n$ and all $a,b\in\RR$.}
 \]
-Knowing the two outputs $T(e_1),T(e_2)$ therefore tells us every output. This is a mathematical explanation of why a finite array can describe a transformation acting on infinitely many inputs.
+Indeed, if $T$ satisfies the two conditions, then $T(ax+by)=T(ax)+T(by)=aT(x)+bT(y)$. Conversely, the combined condition with $a=b=1$ is preservation of addition, and with $b=0$ it says $T(ax)=aT(x)$, because $ax+0y=ax$ and $aT(x)+0T(y)=aT(x)$. Splitting off one term at a time, a linear map sends every linear combination to the same combination of the outputs:
+\[
+T(a_1v_1+\cdots+a_kv_k)=a_1T(v_1)+\cdots+a_kT(v_k).
+\]
 
-Suppose $T(e_1)=(1,1)$ and $T(e_2)=(1,-1)$. Then
+Now apply this to the standard basis. For a linear map $T$ defined on the plane, writing $(x_1,x_2)=x_1e_1+x_2e_2$ gives
 \[
-T(x_1,x_2)=(x_1+x_2,x_1-x_2).
+T(x_1,x_2)=T(x_1e_1+x_2e_2)=x_1T(e_1)+x_2T(e_2).
 \]
-We record the two output vectors as columns of a matrix:
+In the same way, every linear map $T:\RR^n\to\RR^m$ satisfies
+\[
+T(x)=x_1T(e_1)+x_2T(e_2)+\cdots+x_nT(e_n).
+\]
+So the finitely many outputs $T(e_1),\ldots,T(e_n)$ determine every one of the infinitely many outputs of $T$. This is why a linear map can be recorded in a finite table of numbers.
+
+Suppose, for example, that $T(e_1)=(1,1)$ and $T(e_2)=(1,-1)$. Then
+\[
+T(x_1,x_2)=x_1(1,1)+x_2(1,-1)=(x_1+x_2,\,x_1-x_2).
+\]
+The two outputs $T(e_1)$ and $T(e_2)$ are the basis vectors $w_1$ and $w_2$ of Section~\ref{ch10:sec:vectors}. A \emph{matrix} is a rectangular table of numbers. We record $T$ by the matrix whose first column is $T(e_1)$ and whose second column is $T(e_2)$:
 \[
 A=\begin{pmatrix}1&1\\1&-1\end{pmatrix},\qquad
 Ax=\begin{pmatrix}x_1+x_2\\x_1-x_2\end{pmatrix}.
 \]
-An $m$-by-$n$ matrix has $m$ rows and $n$ columns. Its action is defined by
+Here $Ax$ stands for $T(x)$, the output of the map that $A$ records. We sometimes write a vector horizontally, as $(x_1,x_2)$, and sometimes vertically, as a column, as in this display. Both name the same ordered list. In a product $Ax$ we write $x$ as a column, so that each row of $A$ can be read against the column $x$ in the row rule below.
+
+An \emph{$m$-by-$n$ matrix} has $m$ rows and $n$ columns. We write $A_{ij}$ for the entry in row $i$ and column $j$; the first subscript always names the row. For the matrix $A$ above, $A_{12}=1$ and $A_{22}=-1$. In general, an $m$-by-$n$ matrix $A$ acts on a vector $x\in\RR^n$ and produces the vector $Ax\in\RR^m$ whose $i$th coordinate is
 \[
-(Ax)_i=\sum_{j=1}^n A_{ij}x_j\qquad(1\le i\le m).
+(Ax)_i=\sum_{j=1}^n A_{ij}x_j=A_{i1}x_1+A_{i2}x_2+\cdots+A_{in}x_n\qquad(1\le i\le m).
 \]
-The subscript $ij$ identifies the entry in row $i$, column $j$. The formula says to multiply entries in matching positions of a row and the input list, and then add those products. We will call this operation a dot product below.
+In words: to find the $i$th coordinate of $Ax$, multiply the entries of row $i$ by the matching coordinates of $x$, and add the products. We call this the \emph{row rule}. Section~\ref{ch10:sec:inner} gives this kind of sum of products its usual name, the dot product.
 
-For example, if a row is $(2,-1,3)$ and the input is $(4,5,0)$, the corresponding output coordinate is
+For example, take
 \[
- 2\cdot4+(-1)\cdot5+3\cdot0=3.
+M=\begin{pmatrix}2&-1&3\\1&0&1\end{pmatrix}\qquad\text{and}\qquad x=(4,5,0).
 \]
-The input must have three coordinates because that row has three entries. An $m$-by-$n$ matrix takes $n$-coordinate inputs and produces $m$-coordinate outputs. The two letters indicate possibly different sizes; a matrix need not be square.
+The first row gives $2\cdot4+(-1)\cdot5+3\cdot0=3$, and the second row gives $1\cdot4+0\cdot5+1\cdot0=4$, so $Mx=(3,4)$. The input must have three coordinates, because each row has three entries; the output has two coordinates, one for each row. Every $m$-by-$n$ matrix likewise takes inputs in $\RR^n$ to outputs in $\RR^m$, and the numbers $m$ and $n$ may differ. A matrix with $m=n$ is called \emph{square}.
 
-We sometimes write a vector horizontally as $(x_1,x_2)$ and sometimes vertically as a column. They name the same ordered data here. In a product $Ax$, we use the column convention so the displayed array agrees with the row-by-input formula.
+The row rule agrees with the way $A$ was built from its columns. For any $m$-by-$n$ matrix $A$, the $i$th coordinate of the combination
+\[
+x_1(\text{column $1$ of $A$})+x_2(\text{column $2$ of $A$})+\cdots+x_n(\text{column $n$ of $A$})
+\]
+is $x_1A_{i1}+x_2A_{i2}+\cdots+x_nA_{in}$, which is exactly $(Ax)_i$. So $Ax$ is this combination of the columns, with the coordinates of $x$ as coefficients. In the example,
+\[
+Mx=4(2,1)+5(-1,0)+0(3,1)=(8,4)+(-5,0)+(0,0)=(3,4),
+\]
+as before. Taking $x=e_j$ shows that $Ae_j$ is column $j$ of $A$. This is why we put $T(e_j)$ in column $j$. For any linear map $T:\RR^n\to\RR^m$, build the $m$-by-$n$ matrix $A$ whose column $j$ is $T(e_j)$, for $j=1,\ldots,n$. Since $Ax$ is the combination of the columns with coefficients $x_1,\ldots,x_n$, we get $Ax=x_1T(e_1)+\cdots+x_nT(e_n)$, and this equals $T(x)$. So the matrix $A$ records $T$ exactly; it is called the \emph{matrix of} $T$.
 
-\pauseq{Is $F(x_1,x_2)=(x_1+1,x_2)$ linear?}{No. Every linear map must send zero to zero: $T(0)=T(0+0)=T(0)+T(0)$ implies $T(0)=0$. Here $F(0,0)=(1,0)$. A translation adds a fixed vector to every input. It preserves differences between inputs but generally moves the zero vector. Such a rule is an example of an affine map; we need only the concrete distinction from a linear map here.}
+Conversely, every $m$-by-$n$ matrix $A$ gives a linear map $x\mapsto Ax$ from $\RR^n$ to $\RR^m$. For vectors $x,y$ and scalars $a,b$, each coordinate satisfies
+\[
+\sum_{j=1}^n A_{ij}(ax_j+by_j)=a\sum_{j=1}^n A_{ij}x_j+b\sum_{j=1}^n A_{ij}y_j,
+\]
+which says $A(ax+by)=aAx+bAy$. So linear maps from $\RR^n$ to $\RR^m$ and $m$-by-$n$ matrices are two descriptions of the same objects. For this reason we often say that a matrix maps $\RR^n$ to $\RR^m$.
+
+\pauseq{Is $F(x_1,x_2)=(x_1+1,x_2)$ linear?}{No. A linear map must send the zero vector to the zero vector. Indeed, if $T$ is linear, then $T(0)=T(0+0)=T(0)+T(0)$, because $0+0=0$; subtracting $T(0)$ from both sides gives $T(0)=0$. But $F(0,0)=(1,0)$. The map $F$ is a \emph{translation}: it adds the fixed vector $(1,0)$ to every input. It does preserve differences, since $F(x)-F(y)=x-y$, but it moves the zero vector, and that alone rules out linearity.}

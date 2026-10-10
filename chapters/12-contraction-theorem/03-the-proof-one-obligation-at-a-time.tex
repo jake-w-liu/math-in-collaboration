@@ -1,58 +1,79 @@
-\section{The proof, one obligation at a time}
-\begin{proof}
-First handle $q=0$. The contraction inequality gives $d(Tx,Ty)=0$ for every pair, so $T$ is constant. Choose $x_0\in X$ and set $c=T(x_0)$. Since $c\in X$, constancy gives $T(c)=T(x_0)=c$. Thus $c$ is fixed, and every iterate from $x_1$ onward equals $c$. No other fixed point is possible, because any fixed point $y$ satisfies $y=T(y)=c$. The residual estimate is exact because $d(z,Tz)=d(z,c)$. We now assume $0<q<1$.
+\section{The proof, one step at a time}\label{ch12:sec:proof}
+The proof follows the six steps of Section~\ref{ch12:sec:theorem}. Before them comes the special case $q=0$, which is handled separately for a simple reason: Step~2 relies on Proposition~\ref{ch11:prop:geometric-cauchy}, which was stated for $0<q<1$.
 
-\textbf{1. Construct the sequence and control one step.} Choose any $x_0\in X$ and define $x_{n+1}=T(x_n)$. The self-map assumption ensures that every iterate remains in $X$. Set $D=d(x_1,x_0)$. We claim
+\begin{proof}
+\textbf{The case $q=0$.} Here the contraction inequality says $d(Tx,Ty)\le0$ for all $x,y\in X$. Distances are never negative, so $d(Tx,Ty)=0$, and by the first requirement of a metric $Tx=Ty$. Thus $T$ sends every point to one and the same point: $T$ is constant. Since $X$ is nonempty, we may choose a point $p\in X$ and set $c=T(p)$. Then $c$ belongs to $X$, and because $T$ is constant, $T(c)=T(p)=c$. So $c$ is a fixed point. It is the only one, because every fixed point $y$ satisfies $y=T(y)=c$.
+
+For any starting point $x_0$, every iterate from $x_1$ on equals $c$, so the iterates converge to $c$. The a priori estimate \eqref{eq:apriori} holds as well: for $n\ge1$ its left side is $d(c,c)=0$, and for $n=0$ it reads $d(x_0,c)\le d(x_1,x_0)$, which is an equality because $x_1=c$. Finally, $Tz=c$ for every $z\in X$, so $d(z,c)=d(z,Tz)$, and the residual estimate \eqref{eq:residual} also holds with equality. This settles the case $q=0$. From now on we assume $0<q<1$.
+
+\textbf{Step 1: the steps shrink geometrically.} Since $X$ is nonempty, we can choose a starting point $x_0\in X$; it may be any point at all. Define $x_{n+1}=T(x_n)$ for every $n\in\NN$. Because $T$ maps $X$ into $X$, each iterate is again a point of $X$, so $T$ can be applied to it. This is where the self-map hypothesis is used. Write
 \[
-d(x_{n+1},x_n)\le q^nD\qquad(n\ge0).
+D=d(x_1,x_0)
 \]
-At $n=0$, this is equality. If the bound holds at $n$, the contraction inequality gives
+for the length of the first step. We prove by induction on $n$ that
+\[
+d(x_{n+1},x_n)\le q^nD\qquad\text{for every }n\in\NN.
+\]
+For $n=0$ both sides equal $D$, because $q^0=1$. Now suppose the inequality holds for some $n$. Since $x_{n+2}=T(x_{n+1})$ and $x_{n+1}=T(x_n)$, the contraction inequality applied to the two points $x_{n+1}$ and $x_n$ gives
 \[
 d(x_{n+2},x_{n+1})=d(Tx_{n+1},Tx_n)
-\le q\,d(x_{n+1},x_n)\le q^{n+1}D.
+\le q\,d(x_{n+1},x_n)\le q\cdot q^nD=q^{n+1}D.
 \]
-Induction proves the claim.
+The last inequality multiplies the induction hypothesis by the positive number $q$. This is the claim for $n+1$, which completes the induction.
 
-\textbf{2. Control every tail.} For $m>n$, apply the triangle inequality through the intermediate iterates and use the geometric-sum estimate from Chapter~11:
+\textbf{Step 2: the iterates form a Cauchy sequence.} Step~1 says that the iterates satisfy the hypothesis of Proposition~\ref{ch11:prop:geometric-cauchy}, with $D=d(x_1,x_0)$ and with our factor $q$. That proposition tells us that the iterates form a Cauchy sequence, and that
+\begin{equation*}
+d(x_m,x_n)\le\frac{Dq^n}{1-q}\qquad\text{whenever }m>n.
+\tag{$*$}
+\end{equation*}
+Recall where this bound comes from. To get from $x_n$ to $x_m$, we pass through the intermediate iterates $x_{n+1},\ldots,x_{m-1}$. The triangle inequality, used once for each intermediate point, bounds $d(x_m,x_n)$ by the total length of the single steps. Step~1 bounds each step, and the geometric sum bounds the total:
 \[
 d(x_m,x_n)\le\sum_{j=n}^{m-1}d(x_{j+1},x_j)
 \le D\sum_{j=n}^{m-1}q^j
 \le\frac{Dq^n}{1-q}.
 \]
-If $D=0$, then $x_1=x_0$, and since each iterate is obtained by applying $T$ to the previous one, all iterates are the same; the Cauchy conclusion is immediate. Otherwise, because $q^n\to0$ (Chapter~11), for each $\eps>0$ there is an $N$ such that $Dq^n/(1-q)<\eps$ for every $n\ge N$. Now take any $m,n\ge N$. If $m=n$, their distance is zero. Otherwise name them so that $m>n$; this is allowed because $d(x_m,x_n)=d(x_n,x_m)$. The bound gives $d(x_m,x_n)\le Dq^n/(1-q)<\eps$. Thus the sequence is Cauchy.
+The right side does not depend on $m$: however far beyond $x_n$ the sequence goes, it never gets further than $Dq^n/(1-q)$ from $x_n$. Since $q^n\to0$, this bound is smaller than any given tolerance once $n$ is large enough, and that is why the sequence is Cauchy. We will use $(*)$ again in Step~6.
 
-\textbf{3. Obtain a point in the space.} Completeness supplies $x_*\in X$ with $x_n\to x_*$. This is precisely where completeness is used. The preceding bounds alone would not ensure that a limit belongs to an incomplete space.
+\textbf{Step 3: completeness supplies a limit.} The space $X$ is complete, so the Cauchy sequence $x_0,x_1,x_2,\ldots$ converges to some point of $X$. Call this point $x_*$. This is the only place in the proof where completeness is used. It cannot be skipped: Section~\ref{ch12:sec:hypotheses} gives a contraction of the incomplete space $(0,1)$ whose iterates form a Cauchy sequence with no limit in the space.
 
-\textbf{4. Prove that the limit is fixed.} For every $n$,
-\begin{align*}
-d(Tx_*,x_*)&\le d(Tx_*,Tx_n)+d(Tx_n,x_*)\\
-&\le q\,d(x_*,x_n)+d(x_{n+1},x_*).
-\end{align*}
-For any $\eps>0$, choose $n$ so late that both distances on the final line are smaller than $\eps/(q+1)$. This is possible because both the sequence and its one-step shift converge to $x_*$. The displayed bound is then strictly smaller than $\eps$. A nonnegative number smaller than every positive $\eps$ must be zero; otherwise choose $\eps$ equal to that number.
+\textbf{Step 4: the limit is a fixed point.} We show that the number $d(Tx_*,x_*)$ is zero. Let $n$ be any natural number. Use the triangle inequality with the point $Tx_n$ as a stop on the way, then the contraction inequality for the pair $x_*,x_n$, and finally $Tx_n=x_{n+1}$:
+\[
+d(Tx_*,x_*)\le d(Tx_*,Tx_n)+d(Tx_n,x_*)
+\le q\,d(x_*,x_n)+d(x_{n+1},x_*).
+\]
+Both distances on the right become small when $n$ is large. To make this precise, let $\eps>0$. Because $x_n\to x_*$, the definition of convergence with tolerance $\eps/2$ supplies a threshold $N$ such that $d(x_k,x_*)<\eps/2$ for every $k\ge N$. Take $n=N$. Then both $n$ and $n+1$ are at least $N$. Since $q<1$, we have $q\,d(x_*,x_n)\le d(x_*,x_n)=d(x_n,x_*)<\eps/2$, and also $d(x_{n+1},x_*)<\eps/2$. Hence
+\[
+d(Tx_*,x_*)<\frac\eps2+\frac\eps2=\eps.
+\]
+The number $r=d(Tx_*,x_*)$ does not depend on $n$ or on $\eps$, and we have shown that it is smaller than every positive $\eps$. Such a number must be zero. Indeed, $r\ge0$, and if $r$ were positive, we could take $\eps=r$ and obtain $r<r$, which is impossible. So $d(Tx_*,x_*)=0$, and by the first requirement of a metric, $Tx_*=x_*$.
 
-More explicitly, the quantity on the left, $d(Tx_*,x_*)$, does not depend on $n$. We have shown that for \emph{each} positive tolerance we can choose a late enough $n$ making an upper bound smaller than that tolerance. If the left side had some positive value $\rho$, requesting the tolerance $\rho/2$ would give $\rho<\rho/2$, which is impossible. We are not replacing an approximate equality by an exact equality after a finite number of steps. Hence $d(Tx_*,x_*)=0$ and $Tx_*=x_*$.
+Notice what this argument does \emph{not} assume. It never claims that some iterate equals $x_*$; the iterates of $(x+1)/2$ from $x_0=0$ never reach $1$. Instead, it shows that a fixed number is smaller than every positive tolerance.
 
-\textbf{5. Prove uniqueness.} Suppose $y_*$ is another fixed point. Then
+\textbf{Step 5: there is only one fixed point.} Suppose $y_*$ is also a fixed point of $T$. Since $x_*=Tx_*$ and $y_*=Ty_*$, the contraction inequality gives
 \[
 d(x_*,y_*)=d(Tx_*,Ty_*)\le q\,d(x_*,y_*).
 \]
-Subtracting the rightmost quantity gives $(1-q)d(x_*,y_*)\le0$. Both factors are nonnegative and $1-q>0$, so the distance must be zero. Thus $x_*=y_*$.
+Subtracting $q\,d(x_*,y_*)$ from both sides gives $(1-q)\,d(x_*,y_*)\le0$. Dividing by the positive number $1-q$ gives $d(x_*,y_*)\le0$. Distances are never negative, so $d(x_*,y_*)=0$, and therefore $y_*=x_*$. As in Section~\ref{ch04:sec:unique}, this argument compares two hypothetical solutions and never needs to find one.
 
-This also settles the claim about \emph{every} initial point. Steps 1--4 worked for an arbitrary choice of $x_0$: whatever starting point we choose, its iterates converge to some fixed point. By uniqueness there is only one fixed point, so all starting points lead to the same $x_*$.
+Steps~1--5 also prove the convergence claim for \emph{every} starting point. The starting point $x_0$ in Step~1 was arbitrary, and Steps~1--4 showed that its iterates converge to a fixed point of $T$. By Step~5, $T$ has only one fixed point. So, whatever the starting point, the iterates converge to the same point $x_*$.
 
-\textbf{6. Certify the error.} Fix $n$. For any later $m$,
+\textbf{Step 6: the error bounds.} We begin with the a priori estimate. Fix $n$, and let $m$ be any index larger than $n$. The triangle inequality with $x_m$ as a stop, followed by $(*)$, gives
 \[
 d(x_n,x_*)\le d(x_n,x_m)+d(x_m,x_*)
 \le\frac{Dq^n}{1-q}+d(x_m,x_*).
 \]
-The last term can be made smaller than any positive tolerance. Therefore $d(x_n,x_*)\le Dq^n/(1-q)$: if the left side exceeded that bound, choose a tolerance smaller than the positive excess. This proves \eqref{eq:apriori}.
-
-The logical form is worth recognizing. We have a fixed quantity $A=d(x_n,x_*)$ and a proposed bound $B=Dq^n/(1-q)$. For every $\eta>0$, we can show $A<B+\eta$ by choosing a later $m$. If $A>B$, choose $\eta=(A-B)/2$; then $B+\eta<A$, contradicting that estimate. Therefore $A\le B$. An arbitrarily small leftover error is removed by this argument, not by pretending it was exactly zero at a finite step.
-
-For any $z\in X$, insert $Tz$ as an intermediate point and use $Tx_*=x_*$:
+Write $A=d(x_n,x_*)$ and $B=Dq^n/(1-q)$. Both numbers depend on $n$ but not on $m$. Let $\eta>0$, where $\eta$ is the Greek letter eta, used here for one more tolerance. Since $x_m\to x_*$, there is a threshold beyond which $d(x_m,x_*)<\eta$. If we choose $m$ larger than both $n$ and that threshold, the display gives $A<B+\eta$. So $A<B+\eta$ for every $\eta>0$. This forces $A\le B$: if $A$ were larger than $B$, then $\eta=A-B$ would be positive and would give $A<B+(A-B)=A$, which is impossible. Hence
 \[
-d(z,x_*)\le d(z,Tz)+d(Tz,Tx_*)
+d(x_n,x_*)\le\frac{Dq^n}{1-q}=\frac{q^n}{1-q}\,d(x_1,x_0),
+\]
+which is \eqref{eq:apriori}. Step~4 used the same idea in the special case $B=0$.
+
+For the residual estimate, let $z$ be any point of $X$. Use the triangle inequality with $Tz$ as a stop, then $x_*=Tx_*$ from Step~4, then the contraction inequality:
+\[
+d(z,x_*)\le d(z,Tz)+d(Tz,x_*)=d(z,Tz)+d(Tz,Tx_*)
 \le d(z,Tz)+q\,d(z,x_*).
 \]
-Subtract the final distance term and divide by $1-q>0$ to obtain \eqref{eq:residual}. All conclusions now follow.
+Subtracting $q\,d(z,x_*)$ from both sides gives $(1-q)\,d(z,x_*)\le d(z,Tz)$, and dividing by the positive number $1-q$ gives \eqref{eq:residual}. This completes the proof.
 \end{proof}
+
+\pauseq{Use the residual estimate \eqref{eq:residual} to give a second, one-line proof that $T$ has at most one fixed point.}{If $z$ is any fixed point, then $Tz=z$, so its residual $d(z,Tz)$ is $0$. The residual estimate gives $d(z,x_*)\le0/(1-q)=0$, so $z=x_*$. Every fixed point equals $x_*$.}

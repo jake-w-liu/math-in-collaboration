@@ -1,12 +1,32 @@
-\section{A complete trace}\label{sec:matching-trace}
-Let the acceptable tasks be
+\section{A complete run on a small example}\label{sec:matching-trace}
+Three students $a$, $b$, $c$ and three tasks $1$, $2$, $3$ are given, with acceptable tasks
 \[
 N(a)=\{1,2\},\qquad N(b)=\{1\},\qquad N(c)=\{2,3\}.
 \]
-A sequence of choices could first match $a$ to $1$ and $c$ to $2$. Student $b$ is unmatched. From $b$ the search reaches task $1$, then its matched student $a$, then task $2$, then its matched student $c$, then the unused task $3$. The augmenting path is
+We run the procedure of Section~\ref{ch08:sec:search}, taking the unmatched students as roots in the order $a$, $c$, $b$, and inspecting the edges at each student in increasing order of task number.
+\begin{enumerate}
+\item The matching starts empty. The search from $a$ follows the edge $a$--$1$ and finds that task~$1$ is unused. The augmenting path is the single edge $a$--$1$, and flipping along it gives $M=\{a\text{--}1\}$.
+\item The search from $c$ follows the edge $c$--$2$ and finds that task~$2$ is unused. Flipping gives $M=\{a\text{--}1,\ c\text{--}2\}$.
+\item Now $b$ is the only unmatched student, and the only task $b$ accepts is held by $a$. These first two rounds made exactly the choices of a greedy procedure, and a greedy procedure would now be stuck. The search from $b$ reaches the following vertices, in this order.
+\end{enumerate}
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}llX@{}}
+\toprule
+Vertex reached & Predecessor & Reason\\
+\midrule
+task $1$ & $b$ & inspecting $b$: the edge $b$--$1$ is unmatched\\
+$a$ & task $1$ & task $1$ is held by $a$\\
+task $2$ & $a$ & inspecting $a$: the edge $a$--$2$ is unmatched ($a$--$1$ is matched)\\
+$c$ & task $2$ & task $2$ is held by $c$\\
+task $3$ & $c$ & inspecting $c$: the edge $c$--$3$ is unmatched ($c$--$2$ is matched)\\
+\bottomrule
+\end{tabularx}
+\end{center}
+Task~$3$ is unused, so the search succeeds. Following the predecessors backward from task~$3$ gives $3$, $c$, $2$, $a$, $1$, $b$, and read forward this is the augmenting path
 \[
-b--1--a--2--c--3.
+b\;\text{--}\;1\;\text{--}\;a\;\text{--}\;2\;\text{--}\;c\;\text{--}\;3
 \]
+that we met after Lemma~\ref{thm:augment}. The picture shows the flip.
 
 \begin{center}
 \begin{tikzpicture}[x=0.88in,y=0.5in,every node/.style={font=\small}]
@@ -14,10 +34,18 @@ b--1--a--2--c--3.
  {\node[circle,draw=ink,minimum size=7mm,inner sep=1pt] (v\x) at (\x,0) {$\name$};}
 \draw[accent,dashed,thick] (v0)--(v1) (v2)--(v3) (v4)--(v5);
 \draw[ink,line width=1.2pt] (v1)--(v2) (v3)--(v4);
-\node[align=center] at (2.5,-.8) {Solid: remove the old matched edges.\\Dashed: add the new matched edges.};
+\node[align=center] at (2.5,-.8) {Solid: matched edges, removed by the flip.\\Dashed: unmatched edges, added by the flip.};
 \end{tikzpicture}
 \end{center}
 
-After the flip, the matching is $b$--$1$, $a$--$2$, $c$--$3$. An early choice was not irrevocable; the alternating structure described exactly how to revise it without creating a new conflict.
+After the flip, the matching is $\{b\text{--}1,\ a\text{--}2,\ c\text{--}3\}$. Every student is matched, so the procedure stops and reports this assignment. Anyone can check it: $1\in N(b)$, $2\in N(a)$, $3\in N(c)$, and the three tasks are different. The greedy choices $a$--$1$ and $c$--$2$ were not final. The augmenting path showed exactly how to revise them, and at no stage did a task have two owners.
 
-Now remove task $3$ from $c$'s options. The same search reaches all three students and only tasks $1,2$. It cannot augment, and $A=\{a,b,c\}$ satisfies $|N(A)|=2<3$. This is not merely a bad search order: it certifies that no full assignment exists.
+Now remove task~$3$ from $c$'s options, so that $N(c)=\{2\}$, and run the procedure again in the same order. The first two rounds are unchanged and give $M=\{a\text{--}1,\ c\text{--}2\}$. The search from $b$ again reaches task~$1$, then $a$, then task~$2$, then $c$. But now the only edge at $c$ is the matched edge $c$--$2$, so inspecting $c$ reaches nothing new. Every reached student has been inspected, and the search fails with
+\[
+A=\{b,a,c\},\qquad B=\{1,2\}.
+\]
+As Proposition~\ref{ch08:prop:shortage} predicts, $|B|=|A|-1$ and
+\[
+N(A)=N(a)\cup N(b)\cup N(c)=\{1,2\}\cup\{1\}\cup\{2\}=\{1,2\}=B.
+\]
+So $|N(A)|=2<3=|A|$, and $A$ is a shortage set. The failure is not the result of an unlucky order of choices. The three students together accept only two tasks, so no way of handing out tasks, in any order, could give all three of them different acceptable tasks.

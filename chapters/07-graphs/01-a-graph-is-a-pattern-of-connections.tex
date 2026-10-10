@@ -1,10 +1,41 @@
-\section{A graph is a pattern of connections}
-A finite simple undirected graph has a finite set $V$ of vertices and a set $E$ of edges. Each edge is an unordered pair of distinct vertices. ``Simple'' excludes loops and repeated edges. Coordinates in a drawing are not part of this definition: moving a vertex on the page does not change which pairs are joined.
+\section{A graph is a pattern of connections}\label{ch07:sec:graph}
+Many situations consist of objects, some pairs of which are connected: people and the handshakes between them, towns and the roads that join them, students and the classmates they know. To study such a situation mathematically, we keep only two pieces of information: which objects there are, and which pairs of them are connected. Everything else, such as how long a road is or where a town lies on a map, is set aside. The structure that remains is called a graph.
 
-Two vertices are neighbors when an edge joins them. The degree $\deg(v)$ is the number of neighbors of $v$. A graph with vertices $a,b,c,d$ and edges $\{a,b\},\{b,c\},\{c,a\},\{c,d\}$ has degrees $2,2,3,1$.
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}[Graph]\label{ch07:def:graph}
+A \emph{graph} consists of a finite set $V$, whose members are called \emph{vertices}, and a set $E$, whose members are called \emph{edges}. Each edge is a set $\{u,v\}$ of two different vertices $u$ and $v$. These two vertices are the \emph{endpoints} of the edge, and we say that the edge \emph{joins} them.
+\end{definition}
+\end{minipage}\par
+
+The full name of this kind of graph is a \emph{finite simple undirected graph}, and each of the three words records a choice.
+\begin{itemize}
+\item \emph{Finite}: the set $V$ of vertices is finite, in the sense of Section~\ref{ch03:sec:sets}. The set $E$ of edges is then finite too, because a finite set has only finitely many pairs of members.
+\item \emph{Undirected}: an edge has no direction. Since the order in which members of a set are listed does not matter, $\{u,v\}=\{v,u\}$, and the edge joins $u$ to $v$ exactly as much as it joins $v$ to $u$. Section~\ref{ch07:sec:sink} introduces edges that do have a direction.
+\item \emph{Simple}: no edge joins a vertex to itself, because the two endpoints of an edge must be different. Such an edge would be called a \emph{loop}. Also, two vertices are joined by at most one edge: $E$ is a set, and listing $\{u,v\}$ twice does not give it a second member, just as $\{1,1,3\}=\{1,3\}$. Some applications need loops or several edges between the same two vertices, but we will not.
+\end{itemize}
+Throughout this book, the word \emph{graph} on its own means a graph in the sense of Definition~\ref{ch07:def:graph}. Graphs whose edges have a direction are always called \emph{directed} graphs.
+
+We usually write the edge $\{u,v\}$ more briefly as $uv$. Since $\{u,v\}=\{v,u\}$, the names $uv$ and $vu$ denote the same edge. In Chapter~\ref{ch:start}, two letters written side by side meant a product. In this chapter, two vertex names written side by side mean an edge, and the context always makes clear which is intended.
+
+Here is an example that we will use throughout the chapter. Its vertex set is $V=\{a,b,c,d\}$, and its edge set is
+\[
+E=\{ab,\ bc,\ ca,\ cd\}.
+\]
+We call it the \emph{example graph} $G$. In a drawing, each vertex is a small circle, and each edge is a line between its two endpoints:
 \begin{center}
 \begin{tikzpicture}[every node/.style={circle,draw=ink,minimum size=6mm,inner sep=1pt},line width=.7pt]
 \node(a)at(0,0){$a$};\node(b)at(2,0){$b$};\node(c)at(1,1.5){$c$};\node(d)at(3,1.5){$d$};
 \draw(a)--(b)--(c)--(a);\draw(c)--(d);
 \end{tikzpicture}
 \end{center}
+A drawing is only a picture of a graph. The positions of the circles, the lengths and shapes of the lines, and any points where two lines happen to cross carry no information; a crossing point is not a vertex. If we moved the circle for $d$ to the far left of the page, we would get a different picture of the same graph, because the same pairs of vertices would still be joined. Chapter~\ref{ch:structure} made the matching point about names: two graphs joined by an isomorphism differ only in the names of their vertices, and they have the same pattern of connections.
+
+Two vertices $u$ and $v$ are \emph{neighbors}, or \emph{adjacent}, when $uv$ is an edge. The \emph{degree} of a vertex $v$, written $\deg(v)$, is the number of its neighbors. In the example graph, the neighbors of $c$ are $a$, $b$, and $d$, so $\deg(c)=3$. The four degrees are
+\[
+\deg(a)=2,\qquad\deg(b)=2,\qquad\deg(c)=3,\qquad\deg(d)=1.
+\]
+A vertex with no neighbors at all has degree $0$. It still belongs to the graph; it is simply not an endpoint of any edge.
+
+The degree of $v$ can also be read as the number of edges that have $v$ as an endpoint. Each neighbor $w$ of $v$ gives one such edge, namely $vw$. Different neighbors give different edges, and every edge with endpoint $v$ arises in this way from its other endpoint. Both halves of the word ``simple'' are needed here. If loops were allowed, a loop at $v$ would be an edge at $v$ that comes from no neighbor; if two edges could join the same pair of vertices, one neighbor could account for two edges. We will use this second reading of the degree in the next section.
+
+\pauseq{In a graph with $n$ vertices, can a vertex have degree larger than $n-1$?}{No. The neighbors of a vertex $v$ are vertices different from $v$, because the two endpoints of an edge are different. So the neighbors of $v$ lie among the other $n-1$ vertices, and $\deg(v)\le n-1$. This bound is reached exactly when $v$ is joined to every other vertex. In the example graph, which has $4$ vertices, the vertex $c$ has the largest possible degree, $3$.}

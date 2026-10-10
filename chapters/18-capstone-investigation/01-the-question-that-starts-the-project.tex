@@ -1,14 +1,21 @@
-\section{The question that starts the project}
-The contraction theorem assumes exact updates $x_{n+1}=T(x_n)$. A computation, a measurement-driven update, or a numerical subroutine may instead produce an approximate update. Does the iteration still approach the fixed point? If not, can its error be controlled?
+\section{The question that starts the project}\label{ch18:sec:question}
+The contraction theorem of Chapter~\ref{ch:contraction} is about exact updates: each new point is $x_{n+1}=T(x_n)$, computed without any error. Real computations are rarely that clean. A computer keeps only finitely many digits, so it has to round each value of $T$ before storing it; a calculator that keeps two decimal places might store $0.87$ where the exact value is $0.875$. A measuring instrument has limited precision, and a value produced by a separate numerical procedure is itself only approximate. In each case the new point is close to $T$ of the old point, but not equal to it. So we ask: does the iteration still approach the fixed point? And if it does not, can we at least say how far from the fixed point it can end up?
 
-This is a useful research-style question because it changes one clearly identified feature while retaining the earlier structure. It does not require inventing a subject from nothing. We will carry out the whole investigation as a worked example. The bounds we reach are standard consequences of the contraction theorem; what the chapter demonstrates is the process of investigating, from a first guess to a checked and correctly limited result.
+This is a good question for a first investigation. It changes one clearly identified feature of a theorem we already understand and keeps everything else, so we do not have to invent a subject from nothing. This chapter carries out the whole investigation as a worked example, from a first guess to a proved result whose limits are clearly stated. The bounds we reach are standard consequences of the contraction theorem, not new mathematics. What the chapter shows is how an investigation proceeds.
 
-Let $(X,d)$ be a nonempty complete metric space and let $T:X\to X$ satisfy
+\subsection*{The setting}
+Throughout the chapter, $(X,d)$ is a nonempty complete metric space, and $T:X\to X$ is a contraction with factor $q$, where $0<q<1$:
 \[
- d(Tx,Ty)\le q\,d(x,y),\qquad 0<q<1.
+ d(Tx,Ty)\le q\,d(x,y)\qquad\text{for all }x,y\in X.
 \]
-Theorem~\ref{thm:banach} gives a unique fixed point $x_*$. Suppose an approximate sequence $(y_n)$ in $X$ satisfies
+Asking for $q>0$ costs nothing. A contraction with factor $0$ satisfies $d(Tx,Ty)\le0\le\frac12d(x,y)$, so it is also a contraction with factor $1/2$. By Theorem~\ref{thm:banach}, $T$ has exactly one fixed point, which we call $x_*$.
+
+In place of the exact iterates we now have points $y_0,y_1,y_2,\ldots$ of $X$ and nonnegative numbers $\eps_0,\eps_1,\eps_2,\ldots$ such that
 \[
- d(y_{n+1},T(y_n))\le\eps_n,\qquad \eps_n\ge0.
+ d(y_{n+1},T(y_n))\le\eps_n\qquad\text{for every }n\in\NN.
 \]
-The errors may vary with $n$ and need not be random. Membership $y_n\in X$ remains an assumption: an error bound alone does not force an approximate point to stay in a constrained domain.
+The starting point $y_0$ may be any point of $X$. The point $y_{n+1}$ is what the update actually produced when it should have produced $T(y_n)$, and the number $\eps_n$ bounds the error made in that update. For short, we call $\eps_n$ the \emph{update error} at step~$n$; strictly speaking it is an upper bound for that error, and an upper bound is all we will need. If every $\eps_n$ is zero, then $y_{n+1}=T(y_n)$ for every $n$, and we are back to the exact iteration of Chapter~\ref{ch:contraction}.
+
+Apart from these bounds, we assume nothing about the errors. The bounds $\eps_n$ may change from step to step, the errors need not follow any pattern, and they are not assumed to be random.
+
+One more assumption is easy to overlook: every $y_n$ must be a point of $X$. An error bound alone cannot guarantee this. Suppose, for instance, that $X=[0,1]$ and a computed value comes out as $-0.001$. This number is very close to the interval, but it is not a point of $X$. The distance $d(y_{n+1},T(y_n))$ is then not even defined, because $d$ only measures distances between points of $X$, and $T$ cannot be applied at the next step. In an application, the requirement $y_n\in X$ has to be checked separately, just like the self-map condition of Section~\ref{ch12:sec:iteration}.

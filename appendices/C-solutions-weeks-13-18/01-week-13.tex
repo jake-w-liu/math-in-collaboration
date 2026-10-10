@@ -1,14 +1,36 @@
 \section{Week 13}
-\sol{13.1}{The expectation is $0(1/2)+2(1/3)+5(1/6)=2/3+5/6=3/2$. The possible values two and five are each at least $3/2$. The expectation is a weighted average, not necessarily a possible observed value.}
-\sol{13.2}{Two labelings place all three vertices on the same side, giving cut size zero. The other six labelings split one vertex from the other two, giving cut size two. The average over all eight equally likely labelings is $(2\cdot0+6\cdot2)/8=3/2$, half of the three edges. Cut size one or three never occurs for a triangle.}
-\sol{13.3}{Place vertex $1$ on the left by the tie rule. Vertex $2$ has one assigned neighbor on the left, so place it on the right. Vertex $3$ has its assigned neighbor $2$ on the right, so place it on the left. Vertex $4$ has both assigned neighbors, $1$ and $3$, on the left, so place it on the right. Every cycle edge crosses, giving a cut of size four. The general guarantee is only at least two, but the rule can do better on a particular instance.}
-\sol{13.4}{Let $A_1,\ldots,A_4$ be the bad events. Their union is the event that at least one bad event occurs. The union bound gives
+\sol{13.1}{First check that the probabilities add up to $1$: $\tfrac12+\tfrac13+\tfrac16=\tfrac36+\tfrac26+\tfrac16=1$. Using the formula $\E X=\sum_i x_i\Prob(X=x_i)$ from Section~\ref{ch13:sec:expectation},
 \[
- \Prob(A_1\cup A_2\cup A_3\cup A_4)
- \le\sum_{j=1}^{4}\Prob(A_j)\le4(0.2)=0.8.
+\E X=0\cdot\tfrac12+2\cdot\tfrac13+5\cdot\tfrac16=\tfrac46+\tfrac56=\tfrac96=\tfrac32.
 \]
-The complementary event, in which all four are avoided, therefore has probability at least $1-0.8=0.2$. Its probability is positive, so it contains at least one outcome. This is an existence proof, not a claim that every outcome avoids the bad events.
+Both of the values $2$ and $5$ are at least $3/2$. Proposition~\ref{ch13:prop:above-average} guarantees in advance that the variable takes some value at least $3/2$ with positive probability. The expectation $3/2$ is not itself a value of the variable: it is a weighted average of the values, not a possible result.}
+\sol{13.2}{A labeling gives each of the three vertices one of two labels, so there are $2^3=8$ labelings. Write a labeling by listing the labels of the three vertices in a fixed order. In two of the labelings, $000$ and $111$, all three vertices get the same label, so all three are on the same side and the cut has size $0$. In each of the other six, two vertices share a label and the third vertex has the other label. The two edges at the third vertex cross, and the edge joining the two vertices with the same label does not, so the cut has size $2$. The possible cut sizes are therefore $0$ and $2$; sizes $1$ and $3$ never occur. The average over all eight labelings is
+\[
+\frac{2\cdot0+6\cdot2}{8}=\frac{12}{8}=\frac32,
+\]
+which is half of the three edges, as in the proof of Theorem~\ref{thm:cut}. The average $3/2$ is not a possible cut size, but the labelings with cut size $2$ do at least as well as the average.}
+\sol{13.3}{There are $m=4$ edges, so at the start $C=0$, $U=4$, and $F=2$.
+\begin{itemize}
+\item Vertex $1$ has no placed neighbors, so $\ell=r=0$. The tie is broken by placing $1$ on the left. No edge is settled yet, so $C=0$, $U=4$, and $F=2$.
+\item Vertex $2$ has neighbors $1$ (on the left) and $3$ (not yet placed), so $\ell=1$, $r=0$. Place $2$ on the right. Edge $12$ is settled and crosses, so $C=1$, $U=3$, and $F=1+3/2=5/2$.
+\item Vertex $3$ has neighbors $2$ (on the right) and $4$ (not yet placed), so $\ell=0$, $r=1$. Place $3$ on the left. Edge $23$ crosses, so $C=2$, $U=2$, and $F=3$.
+\item Vertex $4$ has neighbors $3$ and $1$, both on the left, so $\ell=2$, $r=0$. Place $4$ on the right. Edges $34$ and $41$ cross, so $C=4$, $U=0$, and $F=4$.
+\end{itemize}
+Each increase of $F$ equals $|\ell-r|/2$, namely $0$, $1/2$, $1/2$, and $1$. The final cut is $L=\{1,3\}$, $R=\{2,4\}$, and all four edges cross, so its size is $4$. Theorem~\ref{thm:cut} guarantees only $m/2=2$. Here the construction does better than its guarantee and finds the largest possible cut, although, as the path example in Section~\ref{ch13:sec:construction} shows, it does not always do so.}
+\sol{13.4}{Let $A_1,A_2,A_3,A_4$ be the bad events. Their union is the event that at least one bad event occurs. The union bound (Proposition~\ref{ch13:prop:union}) gives
+\[
+\Prob(A_1\cup A_2\cup A_3\cup A_4)\le\sum_{j=1}^{4}\Prob(A_j)\le4\cdot0.2=0.8.
+\]
+So the complement of the union, which is the event that all four bad events are avoided, has probability at least $1-0.8=0.2$. This is positive, so by Section~\ref{ch13:sec:model} the complement contains an outcome of positive probability, and that outcome avoids all four bad events. The argument proves that such an outcome exists; it does not claim that every outcome avoids the bad events.
 
-With the bound $0.25$ instead, the same calculation only gives avoidance probability at least $1-4(0.25)=0$. Every event already has nonnegative probability, so this supplies no existence information. To show that the conclusion can genuinely fail, use a uniform four-outcome space and let each bad event contain one different outcome. Each has probability $1/4$, but their union is the whole space. No outcome avoids them all.}
-\sol{13.5}{Let $X=0$ with probability $1/2$ and $X=10$ with probability $1/2$. Its expectation is five, but one possible value is zero. For a finite probability space, at least one outcome of positive probability has value at least the expectation. Otherwise every positive-weight term would lie strictly below that average, and their weighted average would also lie strictly below it, a contradiction. The argument ensures existence, not uniform performance.}
-\sol{13.6}{Markov's inequality gives $\Prob(X\ge12)\le\E X/12=1/4$. Equality is attained by $X=12$ with probability $1/4$ and $X=0$ with probability $3/4$. The expectation is three and the event $X\ge12$ has probability exactly $1/4$. Nonnegativity is part of the inequality's hypothesis.}
+With the bound $0.25$, the same calculation gives only $\Prob(A_1\cup\cdots\cup A_4)\le4\cdot0.25=1$, and every event has probability at most $1$. So the argument proves nothing, and in fact the conclusion can fail. Take a uniform space with four outcomes $\omega_1,\omega_2,\omega_3,\omega_4$, and let $A_j=\{\omega_j\}$ for each $j$. Each bad event has probability $1/4=0.25$, but their union is the whole sample space, so no outcome avoids them all. The conclusion can also hold: in the same space, if $A_1=A_2=A_3=A_4=\{\omega_1\}$, then each bad event again has probability $1/4$, and $\omega_2$ avoids them all. So with the bound $0.25$, the information given does not decide the question.}
+\sol{13.5}{Toss one fair coin, and let $X$ be $0$ if it shows $0$ and $10$ if it shows $1$. Then $\E X=\tfrac12\cdot0+\tfrac12\cdot10=5$, but $X$ takes the value $0$ at an outcome of probability $1/2$. A large expectation does not make every value large.
+
+What the expectation does guarantee is stated in Proposition~\ref{ch13:prop:above-average}: in a finite probability space, $X(\omega)\ge\E X$ for at least one outcome $\omega$ of positive probability, and $X(\omega)\le\E X$ for at least one outcome $\omega$ of positive probability. Here the outcome where the coin shows $1$, with $X=10\ge5$, is the first kind, and the outcome where it shows $0$ is the second. The reason is that if $X(\omega)<\E X$ at every outcome of positive probability, then the weighted average of these values, which is $\E X$ itself, would also lie strictly below $\E X$, which is impossible. The guarantee is about the existence of one good outcome, not about every outcome.}
+\sol{13.6}{Markov's inequality (Proposition~\ref{ch13:prop:markov}) with $a=12$ gives
+\[
+\Prob(X\ge12)\le\frac{\E X}{12}=\frac3{12}=\frac14.
+\]
+For an example where equality holds, take a uniform space with four outcomes $\omega_1,\omega_2,\omega_3,\omega_4$, and let $X(\omega_1)=12$ and $X(\omega_2)=X(\omega_3)=X(\omega_4)=0$. Then $X$ is nonnegative, $\E X=12/4=3$, and $\Prob(X\ge12)=\Prob(\{\omega_1\})=1/4$, exactly the bound. So Markov's inequality cannot be improved in general.
+
+The example can be found by asking when the two estimates in the proof of Markov's inequality are equalities. The first sum equals $a\Prob(X\ge a)$ only if $X$ is exactly $a$ at every outcome of positive probability where $X\ge a$, and the second sum equals $0$ only if $X$ is $0$ at every outcome of positive probability where $X<a$. So, at outcomes of positive probability, $X$ should take only the values $0$ and $12$, and then $\E X=12\,\Prob(X=12)=3$ forces $\Prob(X=12)=1/4$.}

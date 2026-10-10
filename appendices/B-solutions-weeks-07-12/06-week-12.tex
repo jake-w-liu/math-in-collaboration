@@ -1,30 +1,83 @@
 \section{Week 12}
-\sol{12.1}{For $T(x)=(3x+1)/4$, subtraction gives $|T(x)-T(y)|=(3/4)|x-y|$. Thus $q=3/4$ is a contraction factor on the complete space $\RR$. The fixed-point equation gives $4x=3x+1$, so the fixed point is one. Starting at zero, subtract one at each step to get $x_{n+1}-1=(3/4)(x_n-1)$, hence $x_n=1-(3/4)^n$. The formula also verifies the starting value and recurrence directly.}
-\sol{12.2}{The residual certificate is
+\sol{12.1}{\emph{Contraction factor.} For all real $x$ and $y$,
+\[
+ T(x)-T(y)=\frac{3x+1}{4}-\frac{3y+1}{4}=\frac{3(x-y)}{4},
+ \qquad\text{so}\qquad |T(x)-T(y)|=\frac34|x-y|.
+\]
+Hence $T$ is a contraction of $\RR$ with factor $3/4$. No smaller factor works: if $q<3/4$, the pair $x=1$, $y=0$ gives $|T(1)-T(0)|=3/4>q=q\,|1-0|$. So the smallest contraction factor is $3/4$.
+
+\emph{Fixed point.} The equation $(3x+1)/4=x$ becomes $3x+1=4x$, so $x=1$. Indeed $T(1)=4/4=1$.
+
+\emph{Iterates.} From $x_0=0$ we get $x_1=1/4$, $x_2=7/16$ and $x_3=37/64$. The gaps to the fixed point are $1-x_n=1,\ 3/4,\ 9/16,\ 27/64$, each three quarters of the one before, which suggests $x_n=1-(3/4)^n$. We prove this by induction on $n$. For $n=0$, the formula gives $1-1=0=x_0$. Suppose $x_n=1-(3/4)^n$ for some $n$. Then
+\[
+ x_{n+1}=\frac{3x_n+1}{4}=\frac{3-3(3/4)^n+1}{4}=\frac{4-3(3/4)^n}{4}=1-\frac34\Bigl(\frac34\Bigr)^n=1-\Bigl(\frac34\Bigr)^{n+1},
+\]
+which is the formula for $n+1$. So $x_n=1-(3/4)^n$ for every $n\in\NN$.
+
+For comparison, the a priori estimate \eqref{eq:apriori} with $q=3/4$ and $D=1/4$ gives $|x_n-1|\le(3/4)^n\cdot4\cdot\frac14=(3/4)^n$. By the formula, this is exactly the true error, so here the a priori estimate is attained for every $n$.}
+\sol{12.2}{By the residual estimate \eqref{eq:residual},
 \[
  d(z,x_*)\le\frac{d(z,Tz)}{1-q}
- \le\frac{0.002}{1-0.75}=0.008.
+ \le\frac{0.002}{1-3/4}=4\cdot0.002=0.008.
 \]
-The residual is not itself a bound on the true error unless the factor $1/(1-q)$ is included or another argument justifies a stronger estimate.}
-\sol{12.3}{For $T(x)=(x^2+1)/3$ on $[1/3,2/3]$, the squared input lies in $[1/9,4/9]$, so the image lies in $[10/27,13/27]$. Both endpoints lie between $1/3=9/27$ and $2/3=18/27$, proving the self-map condition. For inputs in this smaller interval,
+So the theorem guarantees $d(z,x_*)\le0.008$.
+
+The residual bound $0.002$ is not itself an upper bound on the error in every case. For example, $T(x)=3x/4$ is a contraction of the nonempty complete space $\RR$ with factor $3/4$, and its fixed point is $0$. The point $z=0.008$ has $Tz=0.006$, so its residual is exactly $0.002$, while its distance to the fixed point is $0.008$, four times larger. This example also shows that the bound $0.008$ cannot be improved using only the information given.}
+\sol{12.3}{\emph{Self-map.} Let $1/3\le x\le2/3$. Squaring nonnegative numbers preserves their order, so $1/9\le x^2\le4/9$. Adding $1$ gives $10/9\le x^2+1\le13/9$, and dividing by $3$ gives $10/27\le T(x)\le13/27$. Since $1/3=9/27\le10/27$ and $13/27\le18/27=2/3$, the output $T(x)$ lies in $[1/3,2/3]$.
+
+\emph{Contraction factor.} For $x,y\in[1/3,2/3]$ we have $0\le x+y\le4/3$, so
 \[
- |T(x)-T(y)|=\frac{|x-y||x+y|}{3}
- \le\frac49|x-y|.
+ |T(x)-T(y)|=\frac{|x-y|\,|x+y|}{3}
+ \le\frac{4/3}{3}\,|x-y|=\frac49|x-y|.
 \]
-Thus a contraction factor is $4/9$, smaller than the factor $2/3$ used on $[0,1]$. The interval $[1/3,2/3]$ is closed in $\RR$, hence complete, so the contraction theorem applies there too. It gives a fixed point in $[1/3,2/3]$, which must be the same point as before, because the fixed point in $[0,1]$ is unique.
+So $4/9$ is a contraction factor on this interval, smaller than the factor $2/3$ used on $[0,1]$.
 
-Why can this improve a certificate after the first step? Starting from $x_0=0$, the first iterate is $x_1=1/3$, and from then on every iterate lies in $[1/3,2/3]$. So the smaller factor applies to $x_1,x_2,\ldots$ For the point $z=x_2=10/27$, whose residual is $19/2187$, the stability factor changes from $1/(1-2/3)=3$ to $1/(1-4/9)=9/5$, and the certificate improves from $19/729\approx0.026$ to $19/1215\approx0.016$. The improvement is legitimate only because we checked that the points really lie in the smaller interval; merely writing a smaller interval does not prove that membership.}
-\sol{12.4}{For $T(x)=x/2$ on $(0,1)$, the map is a self-map with factor $1/2$, but the space is incomplete and its real fixed point zero lies outside it. For the identity on $\RR$, the factor one is not strictly below one and every point is fixed, so uniqueness fails. For $T(x)=x+1$ on $\RR$, the same factor-one boundary admits no fixed point. For $T(x)=x/2+1$ restricted to $[0,1]$, the contraction estimate holds but the map is not a self-map: $T(1)=3/2$. In each example the remaining hypotheses do hold, which is what makes the example informative. The space $(0,1)$ is nonempty and $x\mapsto x/2$ maps it into itself with factor $1/2$; only completeness fails. The space $\RR$ is nonempty and complete, and both $x\mapsto x$ and $x\mapsto x+1$ map it into itself; only the strict factor $q<1$ fails. The space $[0,1]$ is nonempty and complete, and $x\mapsto x/2+1$ satisfies the contraction inequality with $q=1/2$; only the self-map condition fails. These examples violate different hypotheses and should not be described as counterexamples to the theorem itself.}
-\sol{12.5}{The fixed-point equation $x=ax+b$ gives $x_*=b/(1-a)$; the denominator is nonzero because $|a|<1$. The map has contraction factor $|a|$ on $\RR$. Subtracting the fixed-point equation from the recurrence yields $x_{n+1}-x_*=a(x_n-x_*)$, hence $x_n-x_*=a^n(x_0-x_*)$. If $a<0$ and the starting error is nonzero, its sign alternates at each step while its magnitude decreases by the factor $|a|$. If the starting error is zero, all iterates are already fixed.}
-\sol{12.6}{The contraction theorem supplies both fixed points, because the two maps are self-maps of the same nonempty complete space and have contraction factors at most $q<1$. Their identities are $T(x_T)=x_T$ and $S(x_S)=x_S$.
+\emph{Where the iterates lie.} The first iterate is $x_1=T(0)=1/3$, which lies in $[1/3,2/3]$. If some $x_n$ lies in $[1/3,2/3]$, then so does $x_{n+1}=T(x_n)$, by the self-map property just proved. By induction, every iterate from $x_1$ on lies in $[1/3,2/3]$. The starting point $x_0=0$ does not, which is why the smaller factor becomes available only after the first step.
 
-We need to compare points obtained from different maps, while the contraction bound compares outputs of the same map. Insert the intermediate point $T(x_S)$ to separate those two issues:
+\emph{The improved certificate.} The interval $[1/3,2/3]$ is nonempty, and it is complete, because Section~\ref{ch11:sec:complete} showed that every closed interval $[a,b]$ is complete. So Theorem~\ref{thm:banach} applies to $T$ on $[1/3,2/3]$ with $q=4/9$. It gives a fixed point in $[1/3,2/3]$. Since $[1/3,2/3]$ is part of $[0,1]$ and $T$ has only one fixed point in $[0,1]$, this is the same point $x_*$ as in Section~\ref{ch12:sec:example}. The point $z=x_2=10/27$ lies in $[1/3,2/3]$, and its residual is $19/2187$, as computed in Section~\ref{ch12:sec:example}. Since $1/(1-4/9)=9/5$, the residual estimate gives
+\[
+ d(x_2,x_*)\le\frac95\cdot\frac{19}{2187}=\frac{171}{10935}=\frac{19}{1215}\approx0.016,
+\]
+which improves the earlier certificate $19/729\approx0.026$. (The true error, found in Section~\ref{ch12:sec:example}, is about $0.0116$.)
+
+The improvement is justified because all three facts it depends on were checked: $T$ maps $[1/3,2/3]$ into itself, the factor $4/9$ works for all pairs of points of that interval, and both $x_2$ and $x_*$ lie in it. Using the factor $4/9$ for a point outside the interval, such as $x_0=0$, would not be justified.}
+\sol{12.4}{\emph{The map $x/2$ on $(0,1)$: completeness fails.} The space is nonempty, since it contains $1/2$. It is a self-map, because $0<x<1$ gives $0<x/2<1/2<1$. The contraction inequality holds with factor $1/2$, because $|x/2-y/2|=|x-y|/2$. Completeness fails: as Section~\ref{ch11:sec:complete} showed, the sequence $2^{-(n+1)}$ is a Cauchy sequence in $(0,1)$ whose only possible limit, $0$, does not belong to $(0,1)$.
+
+\emph{The maps $x$ and $x+1$ on $\RR$: no factor below one.} The space $\RR$ is nonempty and complete (Section~\ref{ch11:sec:complete}). Both maps send real numbers to real numbers, so both are self-maps of $\RR$. For both, $|T(x)-T(y)|=|x-y|$ for all $x$ and $y$. So the inequality holds with $q=1$, but with no $q<1$: for $x=1$ and $y=0$ we would need $1\le q$. The failed hypothesis is the requirement $q<1$.
+
+\emph{The map $x+1/x$ on $[1,\infty)$: no factor below one.} The space is nonempty, since it contains $1$. It is a self-map, because $x\ge1$ gives $x+1/x>x\ge1$. Section~\ref{ch12:sec:hypotheses} showed that every pair of different points moves strictly closer, so the inequality holds with $q=1$, but that no single factor $q<1$ works. It remains to prove that $[1,\infty)$ is complete. We show that it is closed in $\RR$, exactly as Section~\ref{ch11:sec:complete} did for $[0,1]$. Suppose that numbers $x_n\ge1$ converge in $\RR$ to a number $L$, and suppose $L<1$. The tolerance $(1-L)/2$ is positive, so for a late enough index $|x_n-L|<(1-L)/2$, and then
+\[
+ x_n<L+\frac{1-L}{2}=\frac{1+L}{2}<1,
+\]
+which contradicts $x_n\ge1$. So $L\ge1$, that is, $L\in[1,\infty)$. Thus $[1,\infty)$ is closed in the complete space $\RR$, and by Proposition~\ref{ch11:prop:closed-complete} it is complete.
+
+\emph{The map $x/2+1$ on $[0,1]$: the self-map condition fails.} The interval $[0,1]$ is nonempty and complete (Section~\ref{ch11:sec:complete}). For all $x,y\in[0,1]$, $|T(x)-T(y)|=|x-y|/2$, so the contraction inequality holds with factor $1/2$. But $T(1)=3/2$ does not lie in $[0,1]$, so $T$ is not a map from $[0,1]$ to itself.
+
+In each example exactly one hypothesis fails, so none of them contradicts Theorem~\ref{thm:banach}. Together they show that no hypothesis can simply be dropped.}
+\sol{12.5}{\emph{Fixed point.} The equation $x=ax+b$ becomes $(1-a)x=b$. Since $|a|<1$, we have $a\ne1$, so $1-a\ne0$ and we may divide: $x_*=b/(1-a)$. (Also, $|T(x)-T(y)|=|a|\,|x-y|$, so $T$ is a contraction of $\RR$ with factor $|a|$, and Theorem~\ref{thm:banach} confirms that this is the only fixed point.)
+
+\emph{The error formula.} Subtract the equation $x_*=ax_*+b$ from the recurrence $x_{n+1}=ax_n+b$. The constants $b$ cancel, leaving
+\[
+ x_{n+1}-x_*=a(x_n-x_*).
+\]
+Now induct on $n$. For $n=0$ the formula reads $x_0-x_*=a^0(x_0-x_*)$, which is true because $a^0=1$ (when $a=0$, read $a^0$ as $1$, as in \eqref{eq:apriori}). If $x_n-x_*=a^n(x_0-x_*)$ for some $n$, then
+\[
+ x_{n+1}-x_*=a(x_n-x_*)=a\cdot a^n(x_0-x_*)=a^{n+1}(x_0-x_*),
+\]
+which is the formula for $n+1$.
+
+\emph{How the iterates move.} In every case $|x_n-x_*|=|a|^n\,|x_0-x_*|$, so the distance to the fixed point shrinks by the factor $|a|$ at each step. If $x_0=x_*$, every iterate equals $x_*$, and if $a=0$, every iterate from $x_1$ on equals $x_*$. Otherwise the sign of $a^n$ decides on which side of $x_*$ the iterate $x_n$ lies. If $0<a<1$, every power $a^n$ is positive, so all iterates lie on the same side of $x_*$ as $x_0$ and approach it from that side. If $a<0$, then $a^n$ is positive for even $n$ and negative for odd $n$, so the iterates jump from one side of $x_*$ to the other at every step, while the jumps get shorter. For example, $a=-1/2$ and $b=3/2$ give the fixed point $1$, and the iterates from $x_0=0$ are $0,\ 3/2,\ 3/4,\ 9/8,\ 15/16,\ldots$, alternately below and above $1$.}
+\sol{12.6}{By Theorem~\ref{thm:banach}, applied to each map separately, $T$ and $S$ have fixed points $x_T$ and $x_S$, so $T(x_T)=x_T$ and $S(x_S)=x_S$.
+
+We must compare points that come from two different maps, while the contraction inequality compares two outputs of the \emph{same} map. So insert the intermediate point $T(x_S)$, which separates the change of input from the change of map:
 \begin{align*}
  d(x_T,x_S)
  &=d(T(x_T),S(x_S))\\
  &\le d(T(x_T),T(x_S))+d(T(x_S),S(x_S))\\
  &\le q\,d(x_T,x_S)+\eta.
 \end{align*}
-The first term uses the contraction property of $T$. The second uses the assumed discrepancy bound at the allowed input $x_S$. Writing $D=d(x_T,x_S)$, the result is $D\le qD+\eta$. Subtract $qD$ to get $(1-q)D\le\eta$, then divide by $1-q>0$. Thus $d(x_T,x_S)\le\eta/(1-q)$.
+The first term is bounded by the contraction inequality for $T$. The second is bounded by the hypothesis $d(Tx,Sx)\le\eta$ with $x=x_S$. Write $r=d(x_T,x_S)$. Then $r\le qr+\eta$. Subtracting $qr$ gives $(1-q)r\le\eta$, and dividing by the positive number $1-q$ gives $r\le\eta/(1-q)$. Thus $d(x_T,x_S)\le\eta/(1-q)$.
 
-The proof explains why a uniform comparison of maps can control their fixed points: one inserted point isolates the change of input from the change of map.}
+The residual estimate gives the same result in one line. Apply \eqref{eq:residual} to the map $T$ and the point $z=x_S$. Since $x_S=S(x_S)$, the residual of $x_S$ for $T$ is $d(x_S,T(x_S))=d(S(x_S),T(x_S))\le\eta$, so $d(x_S,x_T)\le\eta/(1-q)$. In words, the fixed point of $S$ is an approximate fixed point of $T$.
+
+Notice that the contraction property of $S$ is used only to guarantee that $x_S$ exists. The result says that if two contractions with the same factor differ by at most $\eta$ at every point, then their fixed points differ by at most $\eta/(1-q)$: a small change in the map causes only a small change in the fixed point, as long as $q$ is not close to $1$.}

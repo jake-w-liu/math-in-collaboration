@@ -1,13 +1,45 @@
-\section{When the contrapositive reveals a usable representation}
-Now reverse the statement: if $n^2$ is even, must $n$ be even? The equation $n^2=2k$ is less convenient because it does not directly express $n$ as twice an integer. A different approach is to suppose $n$ is not even.
+\section{When the contrapositive reveals a usable representation}\label{ch04:sec:contrapositive}
+Now reverse the claim of the previous section: if $n^2$ is even, must the integer $n$ be even? Working forward from the hypothesis gives $n^2=2w$ for some integer $w$. But this equation describes $n^2$, not $n$. Taking square roots only produces $\sqrt{2w}$ or $-\sqrt{2w}$, and neither is visibly twice an integer. The forward direction stalls.
 
-Every integer is either even or odd, but not both. This follows from division by two with remainder $0$ or $1$, a basic integer-arithmetic fact. Thus the contrapositive says: if $n$ is odd, then $n^2$ is odd. Write $n=2k+1$ and calculate
-\begin{align*}
-n^2&=(2k+1)(2k+1)\\
-&=4k^2+4k+1\\
-&=2(2k^2+2k)+1.
-\end{align*}
-The final expression is odd. Therefore $n^2$ cannot be even when $n$ is odd. Combining this with the first direction, proved in the previous section, gives a result we will use repeatedly, so we record it with a label.
+So look at the contrapositive instead (Section~\ref{ch02:sec:contrapositive}):
+\begin{center}
+\emph{If $n$ is not even, then $n^2$ is not even.}
+\end{center}
+An implication and its contrapositive are equivalent, so proving this statement proves the original one. At first the new hypothesis seems no better. ``The integer $n$ is not even'' tells us only what $n$ is \emph{not}, and there is nothing to calculate with. It would help a great deal to know that an integer which is not even must be odd, because then we could write $n=2k+1$ and square it. Chapter~\ref{ch:start} promised that every integer is either even or odd, but not both. We now prove this. Both halves of the proof use a method called \emph{proof by contradiction}, so we begin with that method.
+
+\subsection*{What a contradiction permits, and what it does not}
+To prove a claim by contradiction, temporarily suppose that the claim is false, and keep all the original hypotheses. Then reason from this supposition until you reach a \emph{contradiction}: some statement and its negation both follow. If the supposition were true, everything correctly deduced from it and from the hypotheses would be true as well. But a statement and its negation cannot both be true. So the supposition is false, and the claim is true. The last step uses the principle from Section~\ref{ch02:sec:contrapositive} that every statement is either true or false: once ``the claim is false'' has been ruled out, the only possibility left is that the claim is true.
+
+Chapter~\ref{ch:logic} already contained a short argument of this kind, in its discussion of vacuous truth. Suppose some integer $n$ were both even and odd. Then $n=2k$ and $n=2\ell+1$ for some integers $k$ and $\ell$, so $2k=2\ell+1$. Subtracting $2\ell$ from both sides gives $2(k-\ell)=1$, and dividing by two gives $k-\ell=1/2$. Now $k-\ell$ is an integer, because a difference of integers is an integer, while $1/2$ is not an integer. So the same number would be an integer and not an integer. That is a statement together with its negation, so the supposition is impossible: \emph{no integer is both even and odd.}
+
+Notice how definite the conclusion of such an argument must be. If the supposition led only to something that ``looks unlikely'' or ``seems strange,'' nothing would be proved. A proof by contradiction is finished only when it reaches a genuine impossibility. The supposition is also temporary. Inside the argument we may use it freely, but once the contradiction has been reached it is discarded, and nothing that was deduced from it counts as an established fact afterward.
+
+\subsection*{Every integer is even or odd}
+The other half of the fact, that every integer is even or odd, needs a property of the positive integers that we accept as a starting fact, without proof, just as Section~\ref{ch01:sec:notation} accepted that every nonnegative real number has exactly one nonnegative square root.
+
+\begin{center}
+\emph{Well-ordering property: every nonempty set of positive integers has a smallest member.}
+\end{center}
+For example, the positive integers whose square is larger than $50$ form a nonempty set, since $10^2=100>50$. Its smallest member is $8$, because $7^2=49$ is not larger than $50$, while $8^2=64$ is. The property is easy to believe. If a set of positive integers contains some number $b$, test the numbers $1,2,\ldots,b$ one at a time and stop at the first one that belongs to the set. The search must stop, at $b$ if not before, and the number where it stops is the smallest member, since every smaller positive integer was tested and rejected. Each part of the property matters. The empty set has no smallest member, because it has no members at all. The set of negative integers has no smallest member either, because for every negative integer $n$, the integer $n-1$ is negative and smaller. Nor does the set of positive rational numbers, because for every positive fraction $r$, the fraction $r/2$ is positive and smaller.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lemma}\label{ch04:lem:even-or-odd}
+Every integer is either even or odd, and no integer is both.
+\end{lemma}
+\end{minipage}\par
+
+\begin{proof}
+We showed above that no integer is both even and odd. It remains to show that every integer $n$ is even or odd. If $n=0$, then $n$ is even, since $0=2\cdot0$.
+
+Next we show that every positive integer is even or odd. Suppose, for contradiction, that some positive integer is neither even nor odd. Then the set of such positive integers is nonempty, so by the well-ordering property it has a smallest member; call it $m$. The integer $m$ is not $1$, because $1=2\cdot0+1$ is odd. So $m\ge2$, and $m-1$ is a positive integer smaller than $m$. Since $m$ is the \emph{smallest} positive integer that is neither even nor odd, the integer $m-1$ is even or odd. If $m-1=2k$ for an integer $k$, then $m=2k+1$, so $m$ is odd. If $m-1=2k+1$ for an integer $k$, then $m=2k+2=2(k+1)$, so $m$ is even. Either way $m$ is even or odd, which contradicts the way $m$ was chosen. Hence every positive integer is even or odd.
+
+Finally, let $n$ be negative. Then $-n$ is a positive integer, so by the previous paragraph $-n=2k$ or $-n=2k+1$ for some integer $k$. In the first case $n=-2k=2(-k)$, so $n$ is even. In the second case $n=-2k-1=2(-k-1)+1$, so $n$ is odd. For instance, $7=2\cdot3+1$, and correspondingly $-7=2\cdot(-4)+1$.
+\end{proof}
+
+The contradiction in this proof is of a different kind from the one before it. No false equation such as $k-\ell=1/2$ appears. Instead, the number $m$ turns out to have a property that it was chosen \emph{not} to have. A proof that begins ``choose the smallest \ldots'' often ends this way. The next section uses the same pattern with a smallest denominator, and Chapter~\ref{ch:induction} uses it to explain why proof by induction works.
+
+\subsection*{Back to the contrapositive}
+With Lemma~\ref{ch04:lem:even-or-odd} available, we can finish the argument we started. The next section needs the result twice, so we record it as a lemma.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lemma}\label{thm:parity-square}
@@ -15,11 +47,18 @@ For every integer $n$, the integer $n$ is even if and only if $n^2$ is even.
 \end{lemma}
 \end{minipage}\par
 
-The strategic lesson is specific: the negation of the desired conclusion supplied a more useful representation than the original hypothesis did. Contraposition is not a ritual to apply whenever a proof feels difficult.
+\begin{proof}
+Let $n$ be an integer. If $n$ is even, then $n^2$ is even, by the direct proof in Section~\ref{ch04:sec:directions}.
 
-\subsection*{What a contradiction permits, and what it does not}
-To prove a claim by contradiction, temporarily suppose the claim is false. Retain the original hypotheses. If their consequences force a statement and its denial, the temporary supposition cannot hold. We then conclude the claim is true. This is ordinary classical reasoning, the setting of this book.
+For the other direction we prove the contrapositive: if $n$ is not even, then $n^2$ is not even. So suppose $n$ is not even. By Lemma~\ref{ch04:lem:even-or-odd}, $n$ is odd, so $n=2k+1$ for some integer $k$. Then
+\begin{align*}
+n^2&=(2k+1)(2k+1)\\
+&=4k^2+4k+1\\
+&=2(2k^2+2k)+1.
+\end{align*}
+Since $2k^2+2k$ is an integer, $n^2$ is odd. By Lemma~\ref{ch04:lem:even-or-odd} again, an odd integer is not even, so $n^2$ is not even.
+\end{proof}
 
-For example, suppose an integer were both even and odd. Then $2k=2\ell+1$ for integers $k,\ell$, and subtraction would give $2(k-\ell)=1$. Division gives $k-\ell=1/2$, impossible because the left side is an integer. The contradiction is that the same number would be an integer and equal to a noninteger. Saying merely ``that looks unlikely'' would not finish the proof.
+The lesson is specific. The original hypothesis, $n^2=2w$, gave us nothing to calculate with. The contrapositive's hypothesis, once Lemma~\ref{ch04:lem:even-or-odd} had turned ``not even'' into ``odd,'' gave the representation $n=2k+1$, which we could square. Switching to the contrapositive is worth trying when the negation of the conclusion is easier to unpack than the hypothesis. It is not a ritual to perform whenever a proof feels difficult.
 
-In the next argument the contradiction is not a false numerical equality. It is a conflict with a deliberately chosen \emph{smallest} denominator. We will explain why that choice exists before using it. A contradiction can violate a selection property just as decisively as it can violate arithmetic.
+\pauseq{The proof of Lemma~\ref{thm:parity-square} used Lemma~\ref{ch04:lem:even-or-odd} twice. Which half of Lemma~\ref{ch04:lem:even-or-odd} was used each time?}{The first use needs ``every integer is even or odd'': it turns the hypothesis ``$n$ is not even'' into ``$n$ is odd,'' which gives the representation $n=2k+1$. The second use needs ``no integer is both'': the calculation shows that $n^2$ is odd, and we must still conclude that $n^2$ is not even, which is what the contrapositive promises.}

@@ -1,10 +1,34 @@
-\section{Walks, paths, and shortest objects}
-A walk is a sequence of vertices in which consecutive vertices are joined by edges. It may repeat vertices and edges. A path is a walk with no repeated vertices. The length of a walk is its number of steps, that is, the number of edges traversed, counting an edge again each time it is used. This is one less than the number of listed vertices. For example, in the graph displayed above, $a,c,b,c,d$ is a walk of length four that uses the edge $bc$ twice, and $a,c,d$ is a path of length two.
+\section{Walks, paths, and shortest objects}\label{ch07:sec:walks}
+How can we travel from one vertex to another by moving along edges? To answer this precisely, we need names for routes through a graph.
 
-If any walk joins two vertices, a shortest walk between them has no repeated vertex. Indeed, if the same vertex occurs twice, delete the part of the walk between those occurrences. The remaining sequence is still a walk with the same endpoints and has fewer edges, contradicting shortestness. Thus connected vertices admit a path.
+A \emph{walk} from a vertex $u$ to a vertex $w$ is a finite sequence of vertices $v_0,v_1,\ldots,v_k$ that starts at $v_0=u$, ends at $v_k=w$, and in which each two consecutive vertices are joined by an edge: $v_{i-1}v_i$ is an edge for every $i=1,\ldots,k$. The \emph{length} of the walk is $k$, the number of steps it takes. This is one less than the number of entries in the list. A walk may visit the same vertex more than once and may use the same edge more than once; each use of an edge counts as a separate step. A \emph{path} is a walk in which no vertex appears twice. A single vertex $v_0$, with no steps at all, counts as a walk and a path of length $0$ from $v_0$ to itself.
 
-For a concrete deletion in the displayed graph, consider the walk $a,c,b,c,d$. The vertex $c$ appears twice. Remove the segment that goes from the first $c$ through $b$ back to the second $c$, and retain $a,c,d$. The edge from $c$ to $d$ was already present after the second visit, so the shortened walk is legitimate.
+In the example graph $G$, the sequence $a,c,b,c,d$ is a walk of length $4$ from $a$ to $d$. Each consecutive pair is an edge: $ac$, $cb$, $bc$, and $cd$. The walk uses the edge $bc$ twice, once from $c$ to $b$ and once back, and it visits $c$ twice, so it is not a path. The sequence $a,c,d$ is a path of length $2$ from $a$ to $d$. The sequence $a,d$ is not a walk at all, because $ad$ is not an edge. Since edges have no direction, reading a walk backward gives a walk in the opposite direction: $d,c,a$ is a walk from $d$ to $a$. We call two vertices \emph{connected} when there is a walk from one to the other.
 
-In a general walk, equal visits at positions $i<j$ permit the same deletion. The edge that followed position $j$ can now follow position $i$ because those two vertices are identical. If position $j$ was the endpoint, simply stop at position $i$. In either case the endpoints are unchanged and at least one edge is removed. A shortest walk cannot admit this operation. This explains both why a repeated vertex is the obstruction and why removing it preserves the required kind of object.
+A walk that repeats a vertex contains a detour that can be cut out. In the walk $a,c,b,c,d$, the vertex $c$ appears in positions $1$ and $3$, counting positions from $0$. Between these two visits the walk makes the round trip $c,b,c$, which ends where it began. Delete this round trip, keeping a single copy of $c$, and what remains is $a,c,d$. The step from $c$ to $d$ used to follow the second visit to $c$; now it follows the first visit. It is still a legitimate step, because both visits are at the same vertex $c$. The shortened walk still runs from $a$ to $d$, and it is two steps shorter. The next lemma uses this operation to show that a walk of smallest possible length can never repeat a vertex.
 
-The distance between two connected vertices is the length of a shortest path. The shortest choice is useful not because short objects are aesthetically preferable, but because a removable detour would contradict that choice. This is a recurring way in which an extremal object supplies additional structure for free.
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lemma}\label{ch07:lem:shortest-walk}
+Let $u$ and $w$ be vertices of a graph, and suppose that there is a walk from $u$ to $w$. Then there is a walk from $u$ to $w$ of smallest possible length, and every such shortest walk is a path. In particular, there is a path from $u$ to $w$.
+\end{lemma}
+\end{minipage}\par
+
+\begin{proof}
+The length of a walk is a natural number. The set of lengths of walks from $u$ to $w$ is nonempty, because at least one such walk exists. By the well-ordering property (Section~\ref{ch04:sec:contrapositive}, extended to natural numbers in Section~\ref{ch05:sec:not-circular}), this set has a smallest member $L$. Now let $v_0,v_1,\ldots,v_L$ be any walk from $u$ to $w$ of this smallest length $L$.
+
+Suppose, for contradiction, that some vertex appears twice in this walk: $v_i=v_j$ for some positions $i<j$. Delete the entries $v_{i+1},\ldots,v_j$, leaving the sequence
+\[
+v_0,\ \ldots,\ v_i,\ v_{j+1},\ \ldots,\ v_L.
+\]
+If $j=L$, nothing comes after $v_i$, and the sequence simply ends at $v_i$. We check that this new sequence is a walk from $u$ to $w$.
+\begin{itemize}
+\item Each pair of consecutive entries is joined by an edge. Every such pair was already consecutive in the original walk, except for the new pair $v_i,v_{j+1}$, which occurs only when $j<L$. Since $v_i=v_j$, the edge $v_iv_{j+1}$ is the same as $v_jv_{j+1}$, which is an edge of the original walk.
+\item The sequence starts at $v_0=u$.
+\item It ends at $w$. If $j<L$, its last entry is $v_L=w$. If $j=L$, its last entry is $v_i=v_j=v_L=w$.
+\end{itemize}
+Its length is $L-(j-i)$, because $j-i$ entries were deleted. Since $j>i$, this is less than $L$, which contradicts the choice of $L$ as the smallest length. Hence no vertex appears twice. Since the shortest walk was arbitrary, every shortest walk from $u$ to $w$ is a path.
+\end{proof}
+
+When $u$ and $w$ are connected, the \emph{distance} from $u$ to $w$ is the length of a shortest walk from $u$ to $w$. By Lemma~\ref{ch07:lem:shortest-walk}, this is also the length of a shortest path from $u$ to $w$: a shortest walk is itself a path, and no path can be shorter than the shortest walk, because every path is a walk. In the example graph, the distance from $a$ to $d$ is $2$. The path $a,c,d$ has length $2$, and no shorter walk exists: a walk of length $0$ would need $a=d$, and a walk of length $1$ would need $ad$ to be an edge. Notice that establishing this distance took two facts, a walk of length $2$ and a reason why no shorter walk exists.
+
+The proof of Lemma~\ref{ch07:lem:shortest-walk} never built a path step by step. It chose a walk that was as short as possible and showed that this choice already has the property we wanted, because any repeated vertex would allow a cut that produces an even shorter walk. An object chosen to be as small or as large as possible in some measured respect is called \emph{extremal}, and an argument that starts from such a choice is called an \emph{extremal argument}. We have met this idea before: Chapter~\ref{ch:proof} chose a fraction for $\sqrt2$ with the smallest possible denominator, and Chapter~\ref{ch:induction} chose a smallest counterexample. The next two sections give two more examples, a longest path and a vertex with as many outgoing edges as possible.

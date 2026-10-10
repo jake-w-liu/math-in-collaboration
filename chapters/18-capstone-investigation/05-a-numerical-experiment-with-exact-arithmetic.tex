@@ -1,32 +1,61 @@
-\section{A numerical experiment with exact arithmetic}
-Choose $T(x)=(3x+1)/4$, whose fixed point is $1$, and use the biased update
+\section{A numerical experiment with exact arithmetic}\label{ch18:sec:experiment}
+Now we test the theorem on a concrete example and compute everything exactly. Take $T(x)=(3x+1)/4$ on $\RR$, the map of Exercise~\ref{ex:12.1}. It is a contraction with factor $q=3/4$, because $|T(x)-T(y)|=\frac34|x-y|$, and its fixed point is $1$, because $(3\cdot1+1)/4=1$. Add a bias of $1/100$ at every update:
 \[
  y_{n+1}=\frac{3y_n+1}{4}+\frac1{100},\qquad y_0=0.
 \]
-The constants are $q=3/4$ and $\eta=1/100$. The approximate recurrence is affine:
+Every update error is $\eta=1/100$. Since $\frac{3y_n+1}4+\frac1{100}=\frac34y_n+\frac14+\frac1{100}$ and $\frac14+\frac1{100}=\frac{26}{100}=\frac{13}{50}$, the recurrence can be written as
 \[
  y_{n+1}=\frac34 y_n+\frac{13}{50}.
 \]
-Its own fixed point $y$ solves $y=\frac34y+\frac{13}{50}$, so $\frac14y=\frac{13}{50}$ and $y=26/25$. As in Chapter~5, track the distance from this point: put $z_n=y_n-26/25$. Subtracting $26/25=\frac34\cdot\frac{26}{25}+\frac{13}{50}$ from the recurrence gives
+Like $T$ itself, the update multiplies by $3/4$ and then adds a constant. Its own fixed point $y$ solves $y=\frac34y+\frac{13}{50}$, so $\frac14y=\frac{13}{50}$ and $y=\frac{26}{25}$. As in Section~\ref{ch05:sec:recurrence}, where we tracked the difference between each term and the fixed point instead of the term itself, put $z_n=y_n-\frac{26}{25}$. Subtracting the equation $\frac{26}{25}=\frac34\cdot\frac{26}{25}+\frac{13}{50}$ from the recurrence gives
 \[
  z_{n+1}=\frac34 z_n,\qquad z_0=0-\frac{26}{25}=-\frac{26}{25},
 \]
-so $z_n=-\frac{26}{25}\left(\frac34\right)^n$ by induction, and therefore
+so $z_n=-\frac{26}{25}\left(\frac34\right)^n$ by induction. (This is the formula of Exercise~\ref{ex:12.5}, with $a=3/4$.) Therefore
 \[
- y_n=\frac{26}{25}\left(1-\left(\frac34\right)^n\right).
+ y_n=\frac{26}{25}\left(1-\left(\frac34\right)^n\right)\qquad\text{for every }n\in\NN.
 \]
-To apply Theorem~\ref{thm:inexact}, note that the initial error is $e_0=|0-1|=1$, the contraction factor is $q=3/4$, and every update error equals $\eta=1/100$, so $\eta/(1-q)=(1/100)/(1/4)=1/25$.
-The theorem's error certificate is
+Since $(3/4)^n\to0$, the points converge to $26/25$, not to the fixed point $1$ of $T$.
+
+To apply Theorem~\ref{thm:inexact}, note that the starting error is $e_0=|0-1|=1$, the contraction factor is $q=3/4$, and every update error is at most $\eta=1/100$, so that $\eta/(1-q)=(1/100)/(1/4)=1/25$. Part~2 of the theorem gives the error certificate
 \[
  \abs{y_n-1}\le
  \left(\frac34\right)^n+
- \frac1{25}\left(1-\left(\frac34\right)^n\right).
+ \frac1{25}\left(1-\left(\frac34\right)^n\right)\qquad\text{for every }n\in\NN.
 \]
-Notice that the true error can first decrease toward zero and later increase toward $1/25$. A plot that stops near the smallest error would obscure the bias. The formula and bound tell us what a finite plot alone cannot establish.
+(At $n=0$ it simply says $1\le1$.) Recall from Section~\ref{ch12:sec:theorem} that an error certificate is a guaranteed bound computed from known quantities. The closed form gives the true error as well: $y_n-1=\frac1{25}-\frac{26}{25}\left(\frac34\right)^n$. The table compares the two. The values of $y_n$ are exact fractions; the table shows them rounded to four decimal places.
+\begin{center}
+\begin{tabular}{@{}rrrr@{}}\toprule
+$n$ & $y_n$ & true error $|y_n-1|$ & certificate\\\midrule
+0 & 0.0000 & 1.0000 & 1.0000\\
+1 & 0.2600 & 0.7400 & 0.7600\\
+2 & 0.4550 & 0.5450 & 0.5800\\
+4 & 0.7109 & 0.2891 & 0.3438\\
+8 & 0.9359 & 0.0641 & 0.1361\\
+11 & 0.9961 & 0.0039 & 0.0805\\
+12 & 1.0071 & 0.0071 & 0.0704\\
+16 & 1.0296 & 0.0296 & 0.0496\\
+20 & 1.0367 & 0.0367 & 0.0430\\
+30 & 1.0398 & 0.0398 & 0.0402\\\bottomrule
+\end{tabular}
+\end{center}
+The true error first decreases, reaching its smallest value, about $0.0039$, at $n=11$. Between $n=11$ and $n=12$ the points pass the fixed point $1$, and from then on the error grows again, towards $1/25=0.04$. Someone who stopped at $n=11$ would be tempted to conclude that the iteration converges to $1$. Only the formula shows that the points overshoot and settle at $26/25$, and only the theorem guarantees, before any computing, that the error can never exceed the certificate.
 
-A short program in Appendix~\ref{app:practical} carries out this experiment with exact rational arithmetic: it computes the iterates, checks the closed form at every index, and compares the exact error with the exact certificate. Decimals are used only for display. Changing the pattern of the update errors gives further experiments: compare a constant bias, errors of alternating sign, and errors that tend to zero. The theorem predicts a bound in all three cases, but convergence to the original fixed point only when the errors tend to zero.
+The program in Appendix~\ref{app:practical} (in the part on the biased iteration) carries out this experiment with exact fractions. For each $n$ from $0$ to $8$, it computes $y_n$, checks the closed form, and checks that the true error is at most the certificate. Because the arithmetic is exact, these checks involve no rounding. Changing \code{range(9)} to \code{range(31)} in the program extends the run to $n=30$, far enough to see the error grow again. Like every finite computation, the run checks only the indices it reaches; the proofs cover every $n$.
 
-\subsection*{What ``sharp'' means in this example}
-Suppose someone proposes replacing the eventual error factor $1/(1-q)$ by a smaller constant $K$ that should work for every allowed iteration with this fixed $q$. Choose $\eta>0$ in the constant-bias example. Its actual error tends to $\eta/(1-q)$, which is strictly larger than $K\eta$. Thus sufficiently late errors exceed the proposed smaller bound. One permitted example refutes the universal improvement.
+Changing the pattern of the update errors gives further experiments, again starting from $y_0=0$. With errors of alternating sign, $y_{n+1}=\frac{3y_n+1}{4}+\frac{(-1)^n}{100}$, the points end up jumping back and forth around $1$, coming closer and closer to the two values $1-\frac1{175}$ and $1+\frac1{175}$. With update errors that tend to zero, such as $\frac1{100(n+1)}$ at step $n$, the points converge to $1$. Compare these outcomes with what Theorem~\ref{thm:inexact} promises. All three patterns have update errors at most $1/100$, so the certificate above holds in all three cases. The theorem guarantees convergence to $1$ only for the third pattern. For the alternating errors the theorem says nothing either way about convergence; there the computation, or a separate argument, has to decide.
 
-This does not say the original bound is attained in every application. In the biased example approaching $26/25$, the iteration starts below the fixed point $1$ while the bias pushes it upward, so these two effects partly cancel; the certificate, built from the triangle inequality, adds their sizes instead. Concretely, the true error is $\bigl|\frac1{25}-\frac{26}{25}\bigl(\frac34\bigr)^n\bigr|$, while the certificate equals $\frac1{25}+\frac{24}{25}\bigl(\frac34\bigr)^n$, so the certificate is conservative. A bound is sharp over a class when the class contains an example preventing a uniformly stronger bound. For a particular smaller class with additional structure, an improvement may still be possible. That distinction supplies a precise next research question: what extra assumption would rule out the example that obstructs an improved constant?
+\subsection*{Sharp, but not always attained}
+Section~\ref{ch18:sec:sharp} showed that the factor $1/(1-q)$ is sharp: no smaller factor works for every iteration whose update errors are at most $\eta$. The present example points the same way. Its errors approach $|26/25-1|=1/25=\eta/(1-q)$, so for any $K<1/(1-q)$ they are eventually larger than $K\eta$.
+
+Sharpness does not mean that the certificate equals the true error in every example. Here it does not, at any step after the start. Written out, the certificate is
+\[
+ \left(\frac34\right)^n+\frac1{25}-\frac1{25}\left(\frac34\right)^n=\frac1{25}+\frac{24}{25}\left(\frac34\right)^n,
+\]
+while the true error is $\bigl|\frac1{25}-\frac{26}{25}\bigl(\frac34\bigr)^n\bigr|$. For $n\ge1$ the certificate is strictly larger. To see why, split the true error into its two sources:
+\[
+ y_n-1=-\left(\frac34\right)^n+\frac1{25}\left(1-\left(\frac34\right)^n\right).
+\]
+The first term is what remains of the starting error. It is negative, because $y_0=0$ lies below the fixed point $1$. The second term is the accumulated bias. It is positive, because the bias pushes upward. The two terms partly cancel. The certificate was obtained with the triangle inequality, which ignores signs and simply adds the sizes of the two terms. A bound that is larger than the true error in a particular example is called \emph{conservative} for that example.
+
+So a bound can be sharp for a whole class of examples and still be conservative for one particular member of the class. For a smaller class with extra structure, a better bound may be possible. This suggests a precise next question: which extra assumption would rule out the examples that force the factor $1/(1-q)$, and what is the best factor under that assumption? The alternating errors above suggest one assumption worth studying: their points end up only $\frac1{175}$ away from $1$, far less than the $\frac1{25}$ that the certificate allows, because errors of opposite signs partly cancel.

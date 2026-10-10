@@ -1,23 +1,45 @@
-\section{Searching while preserving a trace}
-Choose an unmatched student $x$. Explore from a student to a task along an edge not currently matched; from a matched task, continue to the unique student occupying it. If an unused task is reached, the recorded predecessor links give an augmenting path. Repeated vertices need not be explored again. Since there are finitely many vertices, this exploration terminates.
+\section{Searching for an augmenting path}\label{ch08:sec:search}
+Let $M$ be a matching and let $x$ be an unmatched student. How can we find an augmenting path that starts at $x$, or find out that there is none? Think about what such a path must look like. It leaves $x$ along an unmatched edge to some task. If that task is unused, the path can stop there. If the task is used, the path must continue along a matched edge, and a used task lies on only one matched edge, the one joining it to its owner. So the next vertex has to be the owner. From the owner the path continues along an unmatched edge to another task, and so on. This suggests exploring the graph with two kinds of moves:
+\begin{itemize}
+\item from a student $s$, move to any task $t$ for which $s$--$t$ is an unmatched edge;
+\item from a used task $t$, move to its owner.
+\end{itemize}
 
-One may use breadth-first search, which explores by increasing path length, but the proof only needs a complete search of the reachable vertices under these alternating rules. Keeping predecessor links is essential for reconstruction: a statement that ``a task was reached'' is less useful than a path showing how assignments can be repaired.
+\subsection*{The search}
+The search keeps track of which vertices it has \emph{reached}. When it reaches a new vertex, it also records the vertex it came from, called the \emph{predecessor} of the new vertex. To \emph{inspect} a reached student $s$ means to look at every unmatched edge $s$--$t$ and, for each task $t$ that has not been reached yet, to do the following: mark $t$ as reached with predecessor $s$; if $t$ is unused, stop, because the search has succeeded; if $t$ is used, mark its owner as reached with predecessor $t$. The search itself runs as follows.
+\begin{enumerate}
+\item Mark the root $x$ as reached. It has no predecessor.
+\item Choose a reached student that has not been inspected yet, and inspect it.
+\item Repeat step~2 until the search succeeds, or until every reached student has been inspected. In the second case the search has \emph{failed}.
+\end{enumerate}
+A vertex that has already been reached is never marked a second time. This keeps the search from going round in circles, and it means that each vertex is reached at most once and each student is inspected at most once. Since the graph has finitely many vertices and edges, the search always ends.
 
-A beginner's pseudocode is:
+Suppose the search succeeds at an unused task $t$. Follow the predecessors backward from $t$: the predecessor of $t$ is a student; the predecessor of that student, unless it is $x$, is the task that student holds; and so on. Every vertex was reached later than its predecessor, so going backward we meet the vertices in order of decreasing time of arrival. Hence no vertex is met twice, and the backward walk must end at $x$, the only reached vertex without a predecessor. Read forward, these vertices form a path from $x$ to $t$. Every step into a task used an unmatched edge, and every step into a student used a matched edge, so the path is alternating. Both of its ends, $x$ and $t$, are unmatched. So it is an augmenting path, and Lemma~\ref{thm:augment} lets us flip along it. Section~\ref{sec:matching-trace} carries out this search on a small example.
+
+The rule above does not say which uninspected student to choose next. A common choice is to inspect the students in the order in which they were reached; the search is then called \emph{breadth-first search}. Nothing in this chapter depends on the order. What does matter is that the search keeps going until every reached student has been inspected.
+
+\subsection*{The whole procedure}
+Repeating the search gives a procedure for the assignment problem. In outline:
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
-Start with the empty matching.
-Choose a student who is still unmatched.
-Explore alternating paths from that student.
-If an unused task is reached, flip along the path.
-If no unused task is reachable, return an obstruction.
-Repeat until every student is matched.
+Start with the empty matching M.
+While some student is unmatched:
+    choose an unmatched student x and search from x;
+    if the search succeeds:
+        flip M along the augmenting path it found;
+    if the search fails:
+        stop, and report the set A of students it reached.
+If the loop ends because every student is matched, report M.
 \end{lstlisting}
 \end{minipage}\par
+Every pass through the loop that does not stop the procedure adds one edge to $M$, and $M$ never has more than $|L|$ edges. So, as at the end of Section~\ref{ch08:sec:augment}, the procedure stops after at most $|L|$ flips. Notice that when a search fails, the procedure does not merely report failure. It reports a set of students. Section~\ref{ch08:sec:shortage} shows that this set proves that no matching saturates $L$.
 
-The last line of the failure branch is deliberately stronger than ``return failure.'' We now derive the promised obstruction.
+\subsection*{What a failed search guarantees}
+The argument of Section~\ref{ch08:sec:shortage} uses only one feature of a failed search: it has left no allowed move unexplored. When the search fails, the reached vertices have the following two properties.
+\begin{enumerate}
+\item[(C1)] If $s$ is a reached student and $s$--$t$ is an unmatched edge, then $t$ has been reached.
+\item[(C2)] Every reached task is used, and its owner has been reached.
+\end{enumerate}
+Property~(C1) holds because a failed search has inspected every reached student, and inspecting $s$ follows every unmatched edge at $s$. Property~(C2) holds because reaching an unused task would have ended the search with success, and because the owner of a used task is marked as reached at the moment the task is.
 
-\subsection*{What ``the search is complete'' means}
-Reachability is defined by the allowed search moves, not by a guess about a promising path. From the root student, inspect every unmatched acceptable edge. For each reached occupied task, record its owner and inspect that owner's unmatched acceptable edges. Continue until an unused task is found or there is nothing newly reachable to inspect. Do not ignore an available branch merely because another branch looks more promising.
-
-Recording a predecessor means remembering which earlier vertex first led to each new vertex. Following these records backward reconstructs the route. A vertex already recorded need not be recorded again; this prevents endless exploration around a cycle. There are finitely many vertices to record. If no unused task is found after all recorded vertices have been inspected, no allowed search move has been left unexplored. The proof of impossibility below needs this last fact, not merely the fact that one attempted route stopped.
+A search that follows only the routes that look promising, or that gives up when its first route is blocked, can stop while (C1) is still false. Its failure tells us nothing about the problem, because an augmenting path might use an edge that it never tried. We call a search \emph{complete} when it keeps going until every reached student has been inspected, as the search above does.

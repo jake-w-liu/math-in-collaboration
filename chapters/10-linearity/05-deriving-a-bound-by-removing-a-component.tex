@@ -1,17 +1,38 @@
-\section{Deriving a bound by removing a component}
-We want to compare the size of a dot product with the lengths of its two inputs. For $u=(3,1)$ and $v=(1,1)$, the dot product is four and their squared lengths are ten and two. The proposed bound becomes $4\le\sqrt{10}\sqrt2$, or, after squaring nonnegative quantities, $16\le20$.
-
-How could we find a general reason? Subtract a multiple $t v$ from $u$. Its squared length cannot be negative, no matter which real number $t$ we choose. The useful choice will remove the component that has a nonzero dot product with $v$. Solve the equation
+\section{Deriving a bound by removing a component}\label{ch10:sec:cs}
+How large can a dot product be, compared with the lengths of the two vectors? A natural guess is
 \[
- (u-tv)\cdot v=0.
+|u\cdot v|\le\norm{u}_2\norm{v}_2.
 \]
-Distribution gives $u\cdot v-t(v\cdot v)=0$. When $v\ne0$, its squared length $v\cdot v$ is positive, so solving for $t$ gives
-\[
- t=\frac{u\cdot v}{v\cdot v}.
-\]
-So the coefficient used in the proof below is not a lucky guess: it is the solution of a simple equation. In our example $t=4/2=2$, so $u-tv=(1,-1)$, whose dot product with $(1,1)$ is indeed zero.
+Let us test it on $u=(3,1)$ and $v=(1,1)$. Here $u\cdot v=4$, $\norm{u}_2=\sqrt{10}$ and $\norm{v}_2=\sqrt2$, so the guess claims that $4\le\sqrt{10}\sqrt2$. To check this without decimals, compare squares. For nonnegative numbers $p$ and $q$, we have $p\le q$ exactly when $p^2\le q^2$. Section~\ref{sec:magnitude} showed that $0\le p\le q$ implies $p^2\le q^2$. Conversely, if $p>q\ge0$, the strict version of the same rule gives $p^2>q^2$, so $p^2\le q^2$ rules out $p>q$. Here the squares are $16$ and $10\cdot2=20$, and $16\le20$, so the guess holds in this example.
 
-The residual vector $u-tv$ is what remains after subtracting the chosen multiple. Its squared length is two in the example. The proof below turns the nonnegativity of this residual into the desired bound. Absolute value around $u\cdot v$ is needed because a dot product can be negative, whereas the product of two lengths is nonnegative.
+How could we find a reason that works for all vectors? Start from a fact that holds for every real number $t$: the vector $u-tv$ has a nonnegative squared length,
+\[
+(u-tv)\cdot(u-tv)\ge0.
+\]
+Each choice of $t$ gives a different inequality, and we want an informative one. A good choice removes from $u$ its part along $v$, so that what is left over, $u-tv$, is orthogonal to $v$. So we solve
+\[
+(u-tv)\cdot v=0.
+\]
+By linearity in the first argument, this equation says $u\cdot v-t(v\cdot v)=0$. When $v\ne0$, positivity gives $v\cdot v>0$, so we may divide by $v\cdot v$ and obtain
+\[
+t=\frac{u\cdot v}{v\cdot v}.
+\]
+This is the value of $t$ used in the proof below. With this $t$, the vector $tv$ is called the \emph{component} of $u$ along $v$, and $u-tv$ is the \emph{residual}: what remains of $u$ after its component along $v$ is removed. In our example $t=4/2=2$, so the component is $2v=(2,2)$ and the residual is $u-2v=(3,1)-(2,2)=(1,-1)$. The residual has dot product $1-1=0$ with $v=(1,1)$, as planned, and its squared length is $2$. The picture below shows this example: the residual meets the dashed line through $v$ at a right angle.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.15,>=Stealth]
+\draw[->,gray] (-0.3,0)--(3.8,0);
+\draw[->,gray] (0,-0.3)--(0,2.8);
+\draw[dashed,gray] (-0.3,-0.3)--(2.7,2.7);
+\draw[->,thick] (0,0)--(3,1) node[right]{$u=(3,1)$};
+\draw[->] (0,0)--(2,2) node[above left]{$2v=(2,2)$};
+\draw[->,very thick] (0,0)--(1,1) node[above left]{$v$};
+\draw[->,thick] (2,2)--(3,1) node[midway,above right]{$u-2v$};
+\draw (1.85,1.85)--(2,1.7)--(2.15,1.85);
+\end{tikzpicture}
+\end{center}
+
+The theorem below bounds the absolute value $|u\cdot v|$. That is more informative than a bound on $u\cdot v$ alone, because a dot product can be negative. By Section~\ref{sec:magnitude}, the inequality $|u\cdot v|\le\norm{u}_2\norm{v}_2$ says that $u\cdot v$ lies between $-\norm{u}_2\norm{v}_2$ and $\norm{u}_2\norm{v}_2$.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{theorem}[Cauchy--Schwarz inequality]\label{thm:cs}
@@ -19,50 +40,72 @@ For all $u,v\in\RR^n$, $|u\cdot v|\le\norm{u}_2\norm{v}_2$.
 \end{theorem}
 \end{minipage}\par
 
-\noindent\textit{Plan.} The squared length of $u-tv$ is nonnegative for every real $t$. Choose $t$ to remove as much of the component along $v$ as possible.
+\noindent\textit{Plan.} The squared length of $u-tv$ is nonnegative for every real $t$. Expand it, and then substitute the value of $t$ found above.
 \begin{proof}
-If $v=0$, both sides of the inequality are zero and it holds. Assume $v\ne0$, so $v\cdot v>0$. For any real $t$, expand one argument at a time:
+If $v=0$, then $u\cdot v=0$ and $\norm{v}_2=0$, so both sides of the inequality are zero and it holds. Assume from now on that $v\ne0$, so that $v\cdot v>0$. For any real $t$, expand the squared length of $u-tv$, using linearity first in the first argument and then in the second:
 \begin{align*}
  (u-tv)\cdot(u-tv)
- &=u\cdot(u-tv)-t\,v\cdot(u-tv)\\
+ &=u\cdot(u-tv)-t\bigl(v\cdot(u-tv)\bigr)\\
  &=u\cdot u-t(u\cdot v)-t(v\cdot u)+t^2(v\cdot v)\\
  &=u\cdot u-2t(u\cdot v)+t^2(v\cdot v).
 \end{align*}
-The last step uses symmetry of the dot product. The left side is a squared length, so the resulting expression is nonnegative.
-Choose $t=(u\cdot v)/(v\cdot v)$, which is defined because the denominator is positive. Substitution yields
+The last step uses symmetry, $v\cdot u=u\cdot v$. The left side is a squared length, so by positivity the right side is nonnegative for every real $t$.
+
+Now choose $t=(u\cdot v)/(v\cdot v)$, which is defined because $v\cdot v>0$. Then $t(u\cdot v)=(u\cdot v)^2/(v\cdot v)$, and
+\[
+t^2(v\cdot v)=\frac{(u\cdot v)^2}{(v\cdot v)^2}\,(v\cdot v)=\frac{(u\cdot v)^2}{v\cdot v}.
+\]
+Substituting these two expressions gives
 \begin{align*}
-0&\le u\cdot u-2\frac{(u\cdot v)^2}{v\cdot v}
- +\frac{(u\cdot v)^2}{v\cdot v}\\
+0&\le u\cdot u-2\,\frac{(u\cdot v)^2}{v\cdot v}+\frac{(u\cdot v)^2}{v\cdot v}\\
 &=u\cdot u-\frac{(u\cdot v)^2}{v\cdot v}.
 \end{align*}
-Move the fraction to the left and multiply by the positive quantity $v\cdot v$:
+Add the fraction to both sides and multiply by the positive number $v\cdot v$:
 \[
-(u\cdot v)^2\le(u\cdot u)(v\cdot v).
+(u\cdot v)^2\le(u\cdot u)(v\cdot v)=\norm{u}_2^2\,\norm{v}_2^2.
 \]
-Both sides are nonnegative. Taking nonnegative square roots gives the stated inequality, because $\sqrt{(u\cdot v)^2}=|u\cdot v|$.
+Finally, $|u\cdot v|$ and $\norm{u}_2\norm{v}_2$ are nonnegative numbers whose squares are $(u\cdot v)^2$ and $\norm{u}_2^2\norm{v}_2^2$, because $|a|^2=a^2$ for every real number $a$. Nonnegative numbers compare in the same way as their squares, so $|u\cdot v|\le\norm{u}_2\norm{v}_2$.
 \end{proof}
 
-When does the inequality become an equality? For $v\ne0$, the answer is: exactly when $u$ is a scalar multiple of $v$.
+\subsection*{When does equality hold?}
+When is $|u\cdot v|$ exactly equal to $\norm{u}_2\norm{v}_2$? For $v\ne0$, the answer is: exactly when $u$ is a scalar multiple of $v$.
 
-To see this, look again at the proof. With the chosen $t$, it showed that $\norm{u-tv}_2^2=u\cdot u-(u\cdot v)^2/(v\cdot v)$. Multiplying by the positive number $v\cdot v$ gives
+The proof already contains the reason. With the chosen $t$, it showed that the squared length of the residual is
+\[
+\norm{u-tv}_2^2=u\cdot u-\frac{(u\cdot v)^2}{v\cdot v}.
+\]
+Multiplying by $v\cdot v$ gives
 \[
  (u\cdot u)(v\cdot v)-(u\cdot v)^2
  =(v\cdot v)\,\norm{u-tv}_2^2.
 \]
-The left side measures the gap between the two sides of the squared inequality. Since $v\cdot v>0$, the gap is zero exactly when the residual vector $u-tv$ is zero, that is, when $u=tv$. Conversely, if $u=sv$ for some number $s$, then $t=(sv\cdot v)/(v\cdot v)=s$, so the residual is $u-sv=0$ and the gap vanishes. For example, $u=(2,2)$ and $v=(1,1)$ give $u\cdot v=4$ and $\norm{u}_2\norm{v}_2=\sqrt8\sqrt2=4$: equality. For $u=(3,1)$ and $v=(1,1)$ the gap is $20-16=4$, which equals $(v\cdot v)\norm{u-2v}_2^2=2\cdot2$. Nothing extra was assumed to obtain the equality case; it was already contained in the proof. If $v=0$, equality holds for every $u$, as the proof's separate first case already showed. This equality condition explains when the bound loses no information. It is often worth studying equality before trying to improve a bound.
+The left side is the gap between the two sides of the squared inequality. Two nonnegative numbers are equal exactly when their squares are equal, so equality holds in the theorem exactly when this gap is zero. Since $v\cdot v>0$, the gap is zero exactly when $\norm{u-tv}_2=0$, that is, when the residual $u-tv$ is the zero vector, which means $u=tv$. So if equality holds, then $u$ is a multiple of $v$. Conversely, suppose that $u=sv$ for some number $s$. Then
+\[
+t=\frac{(sv)\cdot v}{v\cdot v}=\frac{s(v\cdot v)}{v\cdot v}=s,
+\]
+so the residual is $u-sv=0$, the gap is zero, and equality holds.
+
+For example, $u=(2,2)$ and $v=(1,1)$ give $u\cdot v=4$ and $\norm{u}_2\norm{v}_2=\sqrt8\sqrt2=2\sqrt2\cdot\sqrt2=4$. This is equality, as expected, since $u=2v$. For $u=(3,1)$ and $v=(1,1)$ the gap is $20-16=4$, and indeed $(v\cdot v)\norm{u-2v}_2^2=2\cdot2=4$. When $v=0$, both sides of the inequality are zero, so equality holds for every $u$. Altogether, equality holds exactly when $v=0$ or $u$ is a scalar multiple of $v$.
+
+Section~\ref{ch09:sec:taste} recommended asking, of every bound, what happens when it is attained. Here the answer tells us two things. First, the bound is as good as possible: no constant factor smaller than $1$ can be placed in front of its right-hand side. When $u=v\ne0$, both sides equal $\norm{v}_2^2$, so a smaller right-hand side, such as $0.9\,\norm{u}_2\norm{v}_2$, would fail for these vectors. Second, the gap measures how far $u$ is from being a multiple of $v$: it equals $v\cdot v$ times the squared length of the residual.
 
 \subsection*{From the dot-product bound to a distance bound}
-The next chapter needs the fact that a route through an intermediate point is never shorter than the direct route. Cauchy--Schwarz gives its algebraic form quickly. Expand
+In the plane, walking from one point to another by way of a third point is never shorter than walking there directly. Chapter~\ref{ch:limits} needs this fact in $\RR^n$, and Cauchy--Schwarz gives it quickly. For any $u,v\in\RR^n$, expand using linearity in each argument and symmetry:
 \begin{align*}
  \norm{u+v}_2^2
  &=(u+v)\cdot(u+v)\\
+ &=u\cdot u+u\cdot v+v\cdot u+v\cdot v\\
  &=\norm{u}_2^2+2(u\cdot v)+\norm{v}_2^2\\
  &\le\norm{u}_2^2+2|u\cdot v|+\norm{v}_2^2\\
  &\le\norm{u}_2^2+2\norm{u}_2\norm{v}_2+\norm{v}_2^2\\
  &=(\norm{u}_2+\norm{v}_2)^2.
 \end{align*}
-The first inequality uses $a\le|a|$ for a real number; the second uses Cauchy--Schwarz. Both lengths in the final comparison are nonnegative, so taking square roots preserves the inequality. We obtain the \emph{triangle inequality}
+The first inequality uses $a\le|a|$ for every real number $a$. The second uses Cauchy--Schwarz. The last line is the expansion $(p+q)^2=p^2+2pq+q^2$. Both $\norm{u+v}_2$ and $\norm{u}_2+\norm{v}_2$ are nonnegative, and nonnegative numbers compare in the same way as their squares. We obtain the \emph{triangle inequality}
 \[
  \norm{u+v}_2\le\norm{u}_2+\norm{v}_2.
 \]
-Exercise~\ref{ex:10.5} asks you to reconstruct this argument on your own.
+To see where the name comes from, take three points $x,y,z\in\RR^n$ and put $u=x-y$ and $v=y-z$. Then $u+v=x-z$, and the inequality becomes
+\[
+\norm{x-z}_2\le\norm{x-y}_2+\norm{y-z}_2.
+\]
+In the plane, $\norm{x-z}_2$ is the ordinary distance between the points $x$ and $z$, by Pythagoras' theorem. So the inequality says that in the triangle with corners $x$, $y$, $z$, the side from $x$ to $z$ is at most as long as the other two sides together. Exercise~\ref{ex:10.5} asks you to rebuild this argument on your own.

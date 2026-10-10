@@ -1,24 +1,56 @@
-\section{Cauchy sequences do not need a known destination}
-A sequence is Cauchy when its sufficiently late terms are mutually close:
+\section{Cauchy sequences do not need a known destination}\label{ch11:sec:cauchy}
+To prove that a sequence converges, the definition asks us to name the limit first. Often we do not know it. In Chapter~\ref{ch:contraction}, for example, a sequence is produced by applying the same rule again and again, and the point it approaches is exactly the unknown we are trying to find. The following condition speaks only about the terms themselves. It is named after the French mathematician Augustin-Louis Cauchy (1789--1857).
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}[Cauchy sequence]\label{ch11:def:cauchy}
+A sequence $x_0,x_1,x_2,\ldots$ in a metric space $(X,d)$ is a \emph{Cauchy sequence} if, for every tolerance $\eps>0$, there is a threshold $N$ such that any two terms from $x_N$ onward are within distance $\eps$ of each other:
 \[
-\forall\eps>0\ \exists N\ \forall m,n\ge N:\quad d(x_m,x_n)<\eps.
+\forall\eps>0\ \exists N\in\NN\ \forall m,n\ge N:\quad d(x_m,x_n)<\eps.
 \]
-The destination does not appear. This is useful when we are trying to prove that an iterative construction has a limit rather than starting with a known candidate.
+\end{definition}
+\end{minipage}\par
 
-Every convergent sequence is Cauchy. Here is the argument with both late indices visible. Given $\eps>0$, ask convergence for the smaller tolerance $\eps/2$. It supplies one threshold $N$ such that every term with index at least $N$ is within $\eps/2$ of $x_*$. Now choose any $m,n\ge N$. Both comparisons are available, so
+Compare this with the definition of convergence. There, the late terms had to be close to one fixed point $x_*$. Here, they have to be close to one another, and no limit point appears at all. The game has the same order as before: the skeptic names $\eps$, the prover names $N$, and then the skeptic may pick \emph{any two} indices $m$ and $n$ from $N$ onward.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{proposition}\label{ch11:prop:convergent-cauchy}
+Every convergent sequence in a metric space is a Cauchy sequence.
+\end{proposition}
+\end{minipage}\par
+
+\begin{proof}
+Suppose $x_n\to x_*$, and let $\eps>0$ be given. Apply the definition of convergence with the smaller tolerance $\eps/2$. It supplies a threshold $N$ such that $d(x_n,x_*)<\eps/2$ for every $n\ge N$. Now let $m$ and $n$ be any two indices with $m,n\ge N$. Both $x_m$ and $x_n$ are within $\eps/2$ of $x_*$. The triangle inequality with $x_*$ as the stopping point, together with symmetry, gives
 \[
  d(x_m,x_n)\le d(x_m,x_*)+d(x_*,x_n)
  <\frac\eps2+\frac\eps2=\eps.
 \]
-The same threshold works for \emph{every pair} of later terms, proving the Cauchy condition. We split the tolerance in half because the triangle inequality will add two errors. The converse requires an additional property of the space: mutual closeness does not by itself put a destination inside the allowed set.
+The same threshold $N$ works for every pair of indices from $N$ on, so the sequence is Cauchy.
+\end{proof}
 
-Small consecutive changes alone do not imply the Cauchy condition. Let $s_n=\sum_{j=1}^n1/j$, with $s_0=0$. Then $s_{n+1}-s_n=1/(n+1)\to0$. But for $n\ge1$,
+We asked for the tolerance $\eps/2$ rather than $\eps$ because the triangle inequality adds two distances, and two errors of size less than $\eps/2$ add up to less than $\eps$. Splitting a tolerance into pieces in this way is a standard move, and it will return in later chapters.
+
+The converse, ``every Cauchy sequence converges,'' is not true in every metric space. The terms of a Cauchy sequence crowd together, but the point they crowd around may be missing from the space. Section~\ref{ch11:sec:complete} gives an example and names the spaces in which the converse does hold.
+
+\subsection*{Small steps are not enough}
+It is tempting to think that a sequence whose consecutive terms get closer and closer must be Cauchy. It need not be. Consider the \emph{harmonic sums}
 \[
-s_{2n}-s_n=\sum_{j=n+1}^{2n}\frac1j\ge n\frac1{2n}=\frac12.
+s_0=0,\qquad s_n=1+\frac12+\frac13+\cdots+\frac1n=\sum_{j=1}^n\frac1j\quad(n\ge1).
 \]
-There are $n$ terms, each at least $1/(2n)$. No threshold can make all tail differences smaller than $1/4$. Thus the sequence is not Cauchy. We need control of accumulated changes, not just individual steps.
+The first few are $s_1=1$, $s_2=3/2$, $s_3=11/6$ and $s_4=25/12$. Each step adds one more term, so $s_{n+1}-s_n=1/(n+1)$, and Section~\ref{ch11:sec:convergence} showed that these step sizes tend to $0$. Yet the sums do not settle down. Look at $n=4$:
+\[
+s_8-s_4=\frac15+\frac16+\frac17+\frac18\ge\frac18+\frac18+\frac18+\frac18=\frac12.
+\]
+Each of the four terms is at least $1/8$, the smallest of them. The same reasoning works for every $n\ge1$. The difference $s_{2n}-s_n=\frac1{n+1}+\cdots+\frac1{2n}$ has $n$ terms, and each of them is at least the last and smallest one, $1/(2n)$. Hence
+\[
+s_{2n}-s_n=\sum_{j=n+1}^{2n}\frac1j\ge n\cdot\frac1{2n}=\frac12.
+\]
+However late we start, doubling the index adds at least $1/2$. Each single step is small, but many small steps add up.
 
-\subsection*{One step versus any two late steps}
-For the harmonic sums, inspect $n=4$: the difference $s_8-s_4$ contains the four terms $1/5,1/6,1/7,1/8$, each at least $1/8$, so the difference is at least $1/2$. A single step after index four is smaller, but many small steps accumulate.
+To prove that the harmonic sums are not Cauchy, negate the definition, as we did for convergence in Section~\ref{ch11:sec:convergence}:
+\[
+\exists\eps>0\ \forall N\in\NN\ \exists m,n\ge N:\quad d(x_m,x_n)\ge\eps.
+\]
+For the harmonic sums, take $\eps=1/2$, and let $N$ be any proposed threshold. Choose $n=\max\{N,1\}$, the larger of $N$ and $1$, so that $n\ge1$, and choose $m=2n$. Both indices are at least $N$, and $|s_m-s_n|=s_{2n}-s_n\ge1/2$. So no threshold works for the tolerance $1/2$, and the sequence is not Cauchy.
 
-To refute the Cauchy condition, fix the tolerance $1/4$ once and for all. For \emph{any} proposed threshold $N$, choose an integer $n\ge\max\{N,1\}$ and set $m=2n$. Both indices are at least $N$, yet their distance is at least $1/2$, not below $1/4$. This is the exact negation of eventual control over every late pair. We did not need to prove a formula for the infinite sum or even discuss such a sum.
+Proposition~\ref{ch11:prop:convergent-cauchy} says that being convergent implies being Cauchy. Its contrapositive, in the sense of Section~\ref{ch02:sec:contrapositive}, says that a sequence that is not Cauchy does not converge. So the harmonic sums do not converge to any real number.
+
+What the harmonic sums lack is control over many steps taken together, not over single steps. Section~\ref{ch11:sec:geometric} shows that steps which shrink by a fixed factor at every stage provide exactly this control.

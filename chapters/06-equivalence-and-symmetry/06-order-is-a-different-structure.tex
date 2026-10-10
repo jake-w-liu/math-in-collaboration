@@ -1,23 +1,37 @@
-\section{Order is a different structure}
-Equivalence relations describe sameness. A different kind of relation describes \emph{comparison}: one object is smaller than, below, or contained in another. Write $x\preceq y$ for such a relation, read ``$x$ is below $y$.'' It is a \emph{partial order} when it satisfies three requirements for all allowed $x,y,z$:
+\section{Order is a different structure}\label{ch06:sec:order}
+Equivalence relations describe sameness. A different kind of relation describes \emph{comparison}: one object is smaller than another, or lies below it, or is contained in it. Write $x\preceq y$ for such a relation on a set $A$, and read it as ``$x$ is below $y$.''
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}[Partial order]\label{ch06:def:partial-order}
+A relation $\preceq$ on a set $A$ is a \emph{partial order} if it has the following three properties.
 \begin{itemize}
-\item \emph{Reflexivity:} $x\preceq x$.
-\item \emph{Antisymmetry:} if $x\preceq y$ and $y\preceq x$, then $x=y$.
-\item \emph{Transitivity:} if $x\preceq y$ and $y\preceq z$, then $x\preceq z$.
+\item \emph{Reflexivity:} $x\preceq x$ for every $x\in A$.
+\item \emph{Antisymmetry:} for all $x,y\in A$, if $x\preceq y$ and $y\preceq x$, then $x=y$.
+\item \emph{Transitivity:} for all $x,y,z\in A$, if $x\preceq y$ and $y\preceq z$, then $x\preceq z$.
 \end{itemize}
-Reflexivity and transitivity are the same requirements as for an equivalence relation, but symmetry has been replaced by antisymmetry. Symmetry says that a relation always goes both ways; antisymmetry says that it goes both ways only between an object and itself. The usual order $\le$ on the real numbers is a partial order.
+\end{definition}
+\end{minipage}\par
 
-Set inclusion $\subseteq$ is also a partial order on any collection of sets. Unlike $\le$ on numbers, it need not compare every pair: neither $\{1\}$ nor $\{2\}$ contains the other. That is why the word \emph{partial} appears in the name.
+Reflexivity and transitivity are the same requirements as for an equivalence relation, but symmetry has been replaced by antisymmetry. Symmetry says that the relation always goes both ways. Antisymmetry says that it goes both ways only between an object and itself. The usual order $\le$ on the real numbers is a partial order: $x\le x$; if $x\le y$ and $y\le x$, then $x=y$; and if $x\le y$ and $y\le z$, then $x\le z$. The strict order $<$ is not a partial order in this sense, because it is not reflexive: $1<1$ is false.
 
-Because some pairs may be incomparable, there are two different notions of a ``largest'' element of a collection, and they must not be confused.
+Set inclusion $\subseteq$ is also a partial order on any collection of sets. Every set is a subset of itself. If $X\subseteq Y$ and $Y\subseteq X$, then $X=Y$, because two sets are equal exactly when each is contained in the other (Section~\ref{ch03:sec:sets}). And if $X\subseteq Y$ and $Y\subseteq Z$, then every member of $X$ lies in $Y$ and hence in $Z$, so $X\subseteq Z$.
+
+Two elements $x$ and $y$ are \emph{comparable} if $x\preceq y$ or $y\preceq x$. Under $\le$, any two real numbers are comparable. Under inclusion, this can fail: neither of $\{1\}$ and $\{2\}$ contains the other. That is why the word \emph{partial} appears in the name. A partial order is not required to compare every pair, although some partial orders, such as $\le$, do.
+
+\subsection*{Maximal and maximum}
+Because some pairs may be incomparable, there are two different notions of a ``largest'' element of a collection, and they must not be confused. Let $\mathcal C$ be a collection of elements of $A$, and let $x$ belong to $\mathcal C$.
 \begin{itemize}
-\item An element $x$ is \emph{maximal} if nothing in the collection lies strictly above it: there is no $y$ in the collection with $x\preceq y$ and $y\ne x$.
-\item An element $x$ is a \emph{maximum} if everything in the collection lies below it: $y\preceq x$ for every $y$ in the collection.
+\item The element $x$ is \emph{maximal} in $\mathcal C$ if nothing in $\mathcal C$ lies strictly above it: there is no $y$ in $\mathcal C$ with $x\preceq y$ and $y\ne x$.
+\item The element $x$ is a \emph{maximum} of $\mathcal C$ if everything in $\mathcal C$ lies below it: $y\preceq x$ for every $y$ in $\mathcal C$.
 \end{itemize}
-A maximum is always maximal, but not conversely. In the collection $\{\{1\},\{2\}\}$, ordered by inclusion, both members are maximal, because neither lies inside the other. Neither member is a maximum, because neither contains the other. A collection can therefore have several maximal elements and no maximum.
+A maximum is always maximal. To see this, let $x$ be a maximum, and suppose $y$ is in $\mathcal C$ with $x\preceq y$. Since $x$ is a maximum, also $y\preceq x$, and antisymmetry gives $y=x$. So nothing in $\mathcal C$ lies strictly above $x$. The same use of antisymmetry shows that a collection has at most one maximum: if $x$ and $x'$ are both maxima, then $x'\preceq x$ and $x\preceq x'$, so $x=x'$.
 
-A related but different distinction appears in Chapter~8. There, a partial assignment of tasks can be \emph{maximal under inclusion}---no single new pair can be added to it---without having the largest possible \emph{number} of pairs. In that chapter the word ``maximum'' will mean ``largest number of pairs,'' not ``contains every other assignment''; two assignments of the largest size need not contain one another. In both settings the lesson is the same: being impossible to improve by one obvious step is weaker than being best overall.
+The converse fails. Take the collection $\{\{1\},\{2\}\}$, ordered by inclusion. Both members are maximal, because neither lies inside the other. Neither member is a maximum, for the same reason. A collection can therefore have several maximal elements and no maximum.
+
+With numbers we never see this difference. When every two elements are comparable, a maximal element $x$ is automatically a maximum. Indeed, take any $y$ in the collection. Either $y\preceq x$, which is what we want, or $x\preceq y$; in the second case maximality forces $y=x$, and then $y\preceq x$ by reflexivity. So the distinction between maximal and maximum is new precisely because inclusion, and many other natural orders, leave some pairs incomparable.
+
+A related but different distinction appears in Chapter~\ref{ch:matching}. There, a partial assignment of tasks, called a matching, is \emph{maximal} when it is maximal under inclusion: no single new pair can be added to it. It can be maximal without having the largest possible \emph{number} of pairs. In that chapter the word \emph{maximum} will mean ``largest number of pairs,'' not ``contains every other assignment.'' Two assignments of the largest size need not contain one another. In both settings the lesson is the same: being impossible to improve by one obvious step is weaker than being best overall.
 
 \begin{principle}{Habit 6: ask what a change of description preserves}
-Before quotienting, normalizing, or identifying objects, specify the relation and the preserved property. Before applying a formula to equivalence classes, check independence of representatives. A short well-definedness check can prevent an entire argument from being about the wrong object.
+Before you treat different objects as the same, or replace an object by a convenient standard form, say exactly which relation you are using and which property the change preserves. Before you apply a formula to equivalence classes, check that the result does not depend on the representatives. When an argument, yours or an assistant's, says ``without loss of generality,'' ask which symmetry justifies it. A short check of this kind can keep a whole argument from being about the wrong object.
 \end{principle}

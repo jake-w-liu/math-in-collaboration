@@ -1,32 +1,93 @@
-\section{Expectation is a weighted average}
-A random variable $X$ is simply a real-valued function on $\Omega$. Its expectation is
+\section{Expectation is a weighted average}\label{ch13:sec:expectation}
+Often we care less about the outcome itself than about a number computed from it: how many coins show $1$, the score of the student who was picked, how many edges of a graph have some property.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}[Random variable and expectation]\label{ch13:def:expectation}
+A \emph{random variable} on a finite probability space is a function $X:\Omega\to\RR$. Its \emph{expectation}, or \emph{expected value}, is the number
 \[
 \E X=\sum_{\omega\in\Omega}p(\omega)X(\omega).
 \]
-The word random describes how an input outcome is chosen; once the outcome is specified, $X(\omega)$ is an ordinary number.
+\end{definition}
+\end{minipage}\par
 
-For the two-coin experiment, let $X$ count how many labels are one. Its values are $X(00)=0$, $X(01)=1$, $X(10)=1$, and $X(11)=2$. The expectation is
+Despite its name, a random variable is an ordinary function, in the sense of Chapter~\ref{ch:maps}. The word ``random'' refers to the way its input is chosen. Once the outcome $\omega$ is known, $X(\omega)$ is an ordinary number. The expectation is a weighted average of these numbers: the value at each outcome is weighted by the probability of that outcome. In a uniform model every weight is $1/|\Omega|$, so
 \[
- \E X=\tfrac14\cdot0+\tfrac14\cdot1+\tfrac14\cdot1+\tfrac14\cdot2=1.
+\E X=\frac1{|\Omega|}\sum_{\omega\in\Omega}X(\omega),
 \]
-This is the average of values, not an additional outcome. To see that the average need not itself occur, take one fair coin and a variable that is zero for label zero and two for label one. Its expectation is still one, although it never takes value one.
+which is the ordinary average of Section~\ref{ch07:sec:pigeonhole}, taken over all the outcomes. A random variable that takes the same value $c$ at every outcome is called \emph{constant}, and its expectation is $\sum_\omega p(\omega)c=c\sum_\omega p(\omega)=c$.
 
-The sum $X+Y$ of two random variables means the function whose value at an outcome $\omega$ is $X(\omega)+Y(\omega)$. The same outcome is used for both evaluations. In the expectation calculation that follows, distributing the sum of these two ordinary values is therefore legitimate even when the variables are dependent.
+For the two-coin experiment, let $X$ count how many coins show $1$. Its values are $X(00)=0$, $X(01)=1$, $X(10)=1$, and $X(11)=2$, so
+\[
+\E X=\tfrac14\cdot0+\tfrac14\cdot1+\tfrac14\cdot1+\tfrac14\cdot2=1.
+\]
+The two middle terms have the same value of $X$, and we could have combined them into the single term $\tfrac12\cdot1$. Combining terms in this way works in general. For a number $x$, write $\Prob(X=x)$ for the probability of the event $\{\omega\in\Omega:X(\omega)=x\}$. If the different values of $X$ are $x_1,\ldots,x_k$, group the terms of the sum defining $\E X$ according to the value of $X$. The group for the value $x_i$ is the sum of the terms $p(\omega)x_i$ over the outcomes with $X(\omega)=x_i$. Taking out the common factor $x_i$ leaves the sum of the probabilities of these outcomes, so the group equals $x_i\Prob(X=x_i)$. Therefore
+\[
+\E X=\sum_{i=1}^{k}x_i\,\Prob(X=x_i).
+\]
+For the two coins this reads $\E X=0\cdot\tfrac14+1\cdot\tfrac12+2\cdot\tfrac14=1$. This is also the calculation we would make in the non-uniform space $\{0,1,2\}$ of Section~\ref{ch13:sec:model}, which records only the number of coins showing $1$ and describes the same tosses. Because of this formula, a random variable is often described just by listing its values and their probabilities, as in ``a random variable that equals $0$ or $2$, each with probability $1/2$.'' Any finite probability space that produces these values with these probabilities gives the same expectation.
 
-For random variables $X,Y$, finite-sum algebra gives
+In the two-coin example, the expectation $1$ happens to be one of the values of $X$. It need not be. Toss one fair coin, and let $Z$ be $0$ if the coin shows $0$ and $2$ if it shows $1$. Then $\E Z=\tfrac12\cdot0+\tfrac12\cdot2=1$, but $Z$ never equals $1$. The expectation summarizes all the values; it does not predict the value you will see.
+
+\subsection*{Linearity}
+Random variables on the same space can be added, and multiplied by numbers, one outcome at a time. The sum $X+Y$ is the random variable whose value at $\omega$ is $X(\omega)+Y(\omega)$; both $X$ and $Y$ are evaluated at the same outcome. For a real number $c$, the random variable $cX$ has the value $cX(\omega)$ at $\omega$.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{proposition}[Linearity of expectation]\label{ch13:prop:linearity}
+Let $X$ and $Y$ be random variables on the same finite probability space, and let $c$ be a real number. Then
+\[
+\E(X+Y)=\E X+\E Y\qquad\text{and}\qquad\E(cX)=c\,\E X.
+\]
+\end{proposition}
+\end{minipage}\par
+
+\begin{proof}
+Multiply out each term, and then split the finite sum into two sums:
 \begin{align*}
-\E(X+Y)&=\sum_\omega p(\omega)(X(\omega)+Y(\omega))\\
-&=\sum_\omega p(\omega)X(\omega)+\sum_\omega p(\omega)Y(\omega)\\
-&=\E X+\E Y.
+\E(X+Y)&=\sum_\omega p(\omega)\bigl(X(\omega)+Y(\omega)\bigr)\\
+&=\sum_\omega\bigl(p(\omega)X(\omega)+p(\omega)Y(\omega)\bigr)\\
+&=\sum_\omega p(\omega)X(\omega)+\sum_\omega p(\omega)Y(\omega)=\E X+\E Y.
 \end{align*}
-Likewise $\E(cX)=c\E X$. These identities require no independence between $X$ and $Y$. Their values may be tightly related; distributing a finite sum is still valid.
+Splitting is allowed because a finite sum may be added up in any order. For the second identity, take the common factor $c$ out of every term: $\E(cX)=\sum_\omega p(\omega)cX(\omega)=c\sum_\omega p(\omega)X(\omega)=c\,\E X$.
+\end{proof}
 
-There is one more property of finite averages that we need. If $X(\omega)\le Y(\omega)$ for every outcome, then $\E X\le\E Y$. Each weight $p(\omega)$ is nonnegative, so multiplying the pointwise inequality by that weight preserves its direction. Adding all these inequalities gives the expectation comparison. This is called \emph{monotonicity of expectation}. It is the justification whenever we take expectations of an inequality.
+Applying the first identity repeatedly (formally, by induction on $m$) gives
+\[
+\E(X_1+\cdots+X_m)=\E X_1+\cdots+\E X_m
+\]
+for any finite number of random variables on the same space. For example, with two coins let $X_1$ be the result of the first coin and $X_2$ the result of the second. Each of them equals $1$ at two of the four outcomes, so $\E X_1=\E X_2=1/2$. Their sum $X_1+X_2$ is the number of coins showing $1$, and its expectation is $1/2+1/2=1$, as we found directly above.
 
-The word \emph{pointwise} means ``for each fixed input outcome separately.'' It does not mean only on average. A pointwise inequality implies an average inequality by this argument, but the reverse implication is generally false.
+The proof never asked how $X$ and $Y$ are related, and linearity holds even when they are as closely linked as possible. Toss one fair coin, let $X$ be its result, and let $Y=1-X$, so that $Y$ is $1$ exactly when $X$ is $0$. Knowing $X$ tells us $Y$ completely. Still, $X+Y$ is the constant $1$, so $\E(X+Y)=1=\tfrac12+\tfrac12=\E X+\E Y$. This is what makes linearity so useful: to find the expected value of a complicated count, we can split the count into simple pieces and add their expectations, without first working out how the pieces affect one another.
 
-The averaging fact from Chapter~7 has a weighted version: \emph{at least one outcome $\omega$ with $p(\omega)>0$ satisfies $X(\omega)\ge\E X$.} Suppose not. Then $X(\omega)<\E X$ for every outcome of positive probability. Multiply each of these inequalities by its positive weight $p(\omega)$ and add them; outcomes of probability zero contribute nothing to either side. The result is
+\subsection*{Comparing expectations}
+\par\noindent\begin{minipage}{\linewidth}
+\begin{proposition}[Monotonicity of expectation]\label{ch13:prop:monotone}
+Let $X$ and $Y$ be random variables on the same finite probability space. If $X(\omega)\le Y(\omega)$ for every outcome $\omega$, then $\E X\le\E Y$.
+\end{proposition}
+\end{minipage}\par
+
+\begin{proof}
+For each outcome $\omega$, multiply the inequality $X(\omega)\le Y(\omega)$ by $p(\omega)$. Since $p(\omega)\ge0$, the inequality keeps its direction: $p(\omega)X(\omega)\le p(\omega)Y(\omega)$. Adding these inequalities over all outcomes gives $\E X\le\E Y$.
+\end{proof}
+
+An inequality that holds at every outcome separately, like the hypothesis $X(\omega)\le Y(\omega)$ here, is called a \emph{pointwise} inequality. Monotonicity says that a pointwise inequality survives averaging. Whenever we ``take expectations of both sides'' of an inequality, this proposition is the justification. The reverse step is not allowed: $\E X\le\E Y$ does not imply that $X\le Y$ pointwise. In the one-coin example with $Y=1-X$ above, $\E X=\E Y=1/2$, but when the coin shows $1$ we have $X=1$ and $Y=0$.
+
+\subsection*{Some outcome is at least the average}
+The averaging principle (Proposition~\ref{ch07:prop:average}) says that among finitely many numbers, at least one is at least their average and at least one is at most their average. An expectation is a weighted average, and the same is true for it.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{proposition}\label{ch13:prop:above-average}
+Let $X$ be a random variable on a finite probability space. Then some outcome $\omega$ with $p(\omega)>0$ satisfies $X(\omega)\ge\E X$, and some outcome $\omega$ with $p(\omega)>0$ satisfies $X(\omega)\le\E X$.
+\end{proposition}
+\end{minipage}\par
+
+\begin{proof}
+Suppose, for contradiction, that $X(\omega)<\E X$ for every outcome $\omega$ with $p(\omega)>0$. There is at least one such outcome, because the probabilities add up to $1$ and so cannot all be $0$. Multiply each of these strict inequalities by its positive weight, to get $p(\omega)X(\omega)<p(\omega)\,\E X$. An outcome with $p(\omega)=0$ gives $0$ on both sides instead. Now add over all outcomes. At least one of the inequalities being added is strict, so the total is strict (if $x<y$ and $x'\le y'$, then $x+x'<y+x'\le y+y'$). This gives
 \[
 \E X=\sum_{\omega}p(\omega)X(\omega)<\sum_{\omega}p(\omega)\,\E X=\E X\cdot\sum_\omega p(\omega)=\E X,
 \]
-so $\E X<\E X$, which is impossible. In the two-coin example, $\E X=1$ and the outcomes $01$, $10$, and $11$ all have $X\ge1$. Notice that the argument proves that a good outcome exists without telling us which one it is.
+so $\E X<\E X$, which is impossible. The second claim is proved in the same way, with every inequality reversed.
+\end{proof}
+
+The proposition asks for an outcome with $p(\omega)>0$, so that the outcome it finds is one that can actually occur. An outcome of probability $0$ contributes nothing to $\E X$, so the expectation carries no information about it.
+
+In the two-coin example, $\E X=1$, and the outcomes $01$, $10$, and $11$ all have $X\ge1$. In the one-coin example with values $0$ and $2$, $\E Z=1$, and only the outcome in which the coin shows $1$ has $Z\ge1$. The proposition promises at least one such outcome and nothing more. Like the pigeonhole principle, its proof shows that a good outcome exists without telling us which one it is. Section~\ref{ch13:sec:cut} uses the proposition to prove that a certain object exists, and Section~\ref{ch13:sec:construction} shows how, in that example, a good outcome can actually be found.

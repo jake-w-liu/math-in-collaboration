@@ -1,25 +1,62 @@
 \section{Week 5}
-\sol{5.1}{For $n=0$, the empty sum is zero and $n(n+1)/2=0$. Suppose the formula holds at $k\ge0$. Then
+\sol{5.1}{We use induction on $n$.
+
+\emph{Base case.} For $n=0$ the sum $\sum_{j=1}^{0}j$ has no terms, so it is the empty sum, which is $0$. The right side is $0\cdot(0+1)/2=0$ as well.
+
+\emph{Induction step.} Let $k$ be a natural number, and assume the induction hypothesis $\sum_{j=1}^{k}j=k(k+1)/2$. Split off the last term of the sum for $k+1$:
 \begin{align*}
  \sum_{j=1}^{k+1}j
  &=\sum_{j=1}^{k}j+(k+1)\\
- &=\frac{k(k+1)}2+(k+1)\\
- &=\frac{k(k+1)+2(k+1)}2
- =\frac{(k+1)(k+2)}2.
+ &=\frac{k(k+1)}2+(k+1) &&\text{by the induction hypothesis}\\
+ &=\frac{k(k+1)}2+\frac{2(k+1)}2\\
+ &=\frac{k(k+1)+2(k+1)}2\\
+ &=\frac{(k+1)(k+2)}2.
 \end{align*}
-This is exactly the formula at $k+1$. The base and transition establish it for every natural number.}
-\sol{5.2}{The proposed formula is $y_n=3\cdot2^n$. At zero it gives three, as required. If it holds at $n$, then $y_{n+1}=2y_n=2(3\cdot2^n)=3\cdot2^{n+1}$. Induction proves the formula. The exponent counts how many doublings have occurred, not the number of terms in a sum.}
+In the third line we wrote $k+1$ as $2(k+1)/2$, so that both terms have denominator $2$. In the last line we factored out the common factor $k+1$. The result is the formula with $k+1$ in place of $n$, because $(k+1)\bigl((k+1)+1\bigr)/2=(k+1)(k+2)/2$. By induction, the formula holds for every $n\in\NN$.}
+\sol{5.2}{The first terms are $y_1=2\cdot3=6$, $y_2=2\cdot6=12$ and $y_3=2\cdot12=24$. Each term is twice the one before, so $y_n$ should be the starting value $3$ doubled $n$ times. This suggests the formula $y_n=3\cdot2^n$, in which the exponent $n$ counts the doublings.
+
+\emph{Base case.} At $n=0$ the formula gives $3\cdot2^0=3\cdot1=3$, which is $y_0$.
+
+\emph{Induction step.} Let $n$ be a natural number, and assume that $y_n=3\cdot2^n$. Then
+\[
+ y_{n+1}=2y_n=2\cdot(3\cdot2^n)=3\cdot2^{n+1}.
+\]
+This is the formula at $n+1$. By induction, $y_n=3\cdot2^n$ for every $n\in\NN$.}
 \sol{5.3}{The divisions are
 \[
  1071=2\cdot462+147,\qquad
  462=3\cdot147+21,\qquad
  147=7\cdot21+0.
 \]
-The quotients are $2,3,7$, and the remainders are $147,21,0$. Replacing a pair by its divisor and remainder preserves its common divisors. At the end the common divisors are exactly the divisors of $21$, so the greatest common divisor is $21$. The last nonzero remainder, not the last quotient, gives the answer.}
-\sol{5.4}{Encode plus and minus as $+1$ and $-1$. The initial product is $+1$. Flipping two entries multiplies the product by $(-1)^2=1$, so it remains $+1$. A configuration with exactly three minus signs has product $(-1)^3=-1$. Since the invariant differs, that configuration is unreachable by any number of allowed moves.}
-\sol{5.5}{Subtract the candidate fixed point one:
+The quotients are $2,3,7$, and the remainders are $147,21,0$. The successive pairs are
 \[
- x_{n+1}-1=\frac{x_n+1}{2}-1=\frac{x_n-1}{2}.
+(1071,462),\quad(462,147),\quad(147,21),\quad(21,0).
 \]
-Induction gives $x_n-1=2^{-n}(x_0-1)$: it holds at zero, and each update halves the preceding expression. For every finite $n$, $2^{-n}$ is positive and hence nonzero. If $x_0-1\ne0$, their product cannot be zero. Thus approaching one does not mean reaching one after finitely many exact updates.}
-\sol{5.6}{Starting from $P(0)$ and moving by two reaches $0,2,4,\ldots$ only. It gives no information about odd indices. Add the starting case $P(1)$; the same transition then gives $1,3,5,\ldots$. Every natural number lies in one of these two chains, so both starting cases together cover the full domain.}
+The second number of the last pair is $0$, so the algorithm stops and outputs $21$. By Lemma~\ref{ch05:lem:euclid-step}, no step changes the greatest common divisor, so
+\[
+\gcd(1071,462)=\gcd(462,147)=\gcd(147,21)=\gcd(21,0)=21.
+\]
+As a check, $1071=21\cdot51$ and $462=21\cdot22$. Notice that the answer is the last nonzero remainder, not the last quotient.}
+\sol{5.4}{No. Replace each plus sign by $1$ and each minus sign by $-1$, and consider the product of the five numbers, as in Section~\ref{ch05:sec:invariant}. The starting row has product $1^5=1$. A legal move flips two signs, so it multiplies the product by $(-1)\cdot(-1)=1$; the product does not change. By induction on the number of moves, every row that can be reached has product $1$. A row with exactly three minus signs and two plus signs has product $(-1)^3\cdot1^2=-1$. So no sequence of legal moves, however long, produces such a row.
+
+The same argument can be phrased in terms of counting. A legal move changes the number of minus signs by $+2$, $-2$ or $0$, so that number starts at $0$ and always stays even. Three is odd, so a row with exactly three minus signs is never reached.}
+\sol{5.5}{First rewrite the rule in terms of the error. Subtracting $1$ from both sides of $x_{n+1}=(x_n+1)/2$ gives, for every $n\in\NN$,
+\[
+ x_{n+1}-1=\frac{x_n+1}{2}-1=\frac{x_n+1-2}{2}=\frac{x_n-1}{2}.
+\]
+Now we prove $x_n-1=2^{-n}(x_0-1)$ by induction on $n$.
+
+\emph{Base case.} At $n=0$ the right side is $2^{0}(x_0-1)=1\cdot(x_0-1)=x_0-1$, which is the left side.
+
+\emph{Induction step.} Let $n$ be a natural number, and assume that $x_n-1=2^{-n}(x_0-1)$. Then
+\[
+ x_{n+1}-1=\frac{x_n-1}{2}=\frac{2^{-n}(x_0-1)}{2}=2^{-(n+1)}(x_0-1),
+\]
+using the halving rule above, then the induction hypothesis, then $2^{-n}/2=2^{-(n+1)}$. This is the formula at $n+1$, which completes the induction.
+
+\emph{The error is never zero.} Suppose that $x_0\ne1$, and let $n$ be any natural number. The number $2^{-n}=1/2^n$ is positive, so it is not zero, and $x_0-1$ is not zero by assumption. A product of two nonzero real numbers is never zero, so $x_n-1=2^{-n}(x_0-1)\ne0$. The size of the error, $2^{-n}\abs{x_0-1}$, halves at every step, so the terms come as close to $1$ as we like; but unless the sequence starts at $1$, no term is ever exactly equal to $1$.}
+\sol{5.6}{The base case gives $P(0)$. The step with $k=0$ then gives $P(2)$, the step with $k=2$ gives $P(4)$, and so on. So the proof covers exactly the even numbers $0,2,4,\ldots$. It says nothing about the odd numbers, because each use of the step moves from an even number to the next even number. Indeed, the statement $P(n)$: ``$n$ is even'' satisfies $P(0)$ and the step from $P(k)$ to $P(k+2)$, yet $P(1)$ is false. So no conclusion about odd numbers can follow from these two facts alone.
+
+Add the base case $P(1)$. The same step then gives $P(3)$ from $k=1$, $P(5)$ from $k=3$, and so on, so every odd number is covered as well. Since every natural number is even or odd, the two chains together cover every natural number.
+
+To turn the picture of two chains into a proof by ordinary induction, let $Q(m)$ be the statement ``$P(2m)$ and $P(2m+1)$ are both true.'' The base case $Q(0)$ says that $P(0)$ and $P(1)$ hold, and these are exactly the two base cases. If $Q(m)$ holds, the step with $k=2m$ gives $P(2m+2)$ and the step with $k=2m+1$ gives $P(2m+3)$; together these say $Q(m+1)$. By induction, $Q(m)$ holds for every $m\in\NN$. Every natural number $n$ equals $2m$ or $2m+1$ for some $m\in\NN$, so $P(n)$ is true for every natural number $n$.}

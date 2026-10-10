@@ -1,9 +1,26 @@
-\section{The smallest amount of Python needed}
-The programs in this appendix use Python~3.10 or later and only its standard library, so no additional packages need to be installed. The following vocabulary is enough to read them; the official tutorial explains lists and sets in more detail~\cite{pystructures}.
+\section{The smallest amount of Python needed}\label{appD:sec:python}
+The programs in this appendix are written in Python, a free programming language that runs on all common operating systems; any version from Python~3.10 on will do. The programs use only Python's \emph{standard library}, the collection of tools that comes with every Python installation, so nothing else has to be installed. This section explains just enough of the language to read the programs and run them. The official Python tutorial explains lists, sets and dictionaries in more detail~\cite{pystructures}.
 
-A \emph{list} is an ordered collection written in square brackets. In \code{a = [1, 1, 1, -1]}, the first entry is \code{a[0]}, not \code{a[1]}. Python starts list indices at zero. A \emph{set} records membership without repeated elements; \code{\{0, 1\}} is the set containing zero and one. The empty set is written \code{set()}, because empty braces have a different meaning in Python. The expression \code{len(a)} is the number of entries.
+\subsection*{Running a program}
+A Python program is a plain text file whose name ends in \code{.py}, for example \code{signs.py}. Write it in a plain text editor; a word processor adds formatting that Python cannot read. To run the program, open a \emph{terminal}, a window for typing commands to the computer. Move to the folder that contains the file by typing \code{cd} followed by the location of that folder, and then type
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+python3 signs.py
+\end{lstlisting}
+\end{minipage}\par
+On some systems the command is \code{python} instead of \code{python3}. The command \code{python3 -{}-version} shows which version of Python is installed.
 
-A loop repeats a block for successive values. Indentation identifies the repeated block. For example:
+Short calculations can also be typed directly into Python. Type \code{python3} in the terminal with no file name. Python then shows its own prompt, usually \code{>{}>{}>}, and carries out each line as soon as you press Enter; typing \code{2 + 2} there displays \code{4}. Type \code{exit()} to return to the terminal. Keep the two prompts apart. The terminal's prompt expects commands that start programs, such as \code{python3 signs.py}, while Python's prompt expects lines of Python. The characters \code{>{}>{}>} belong to the prompt, so never type them yourself or copy them into a program file. An error caused by typing into the wrong prompt tells you nothing about the mathematics you wanted to test.
+
+\subsection*{Names, numbers and lists}
+The line \code{x = 5} stores the value $5$ under the name \code{x}. Later lines can use \code{x}, and a later line \code{x = x + 1} replaces the stored value by $6$. So the sign \code{=} in Python is an instruction to store a value. It is not a claim that two things are equal; read as an equation, $x=x+1$ would be false for every number. To \emph{test} whether two values are equal, Python uses a double sign \code{==}. The test \code{2 + 2 == 4} has the value \code{True}, and \code{2 + 2 == 5} has the value \code{False}. The other comparisons are written \code{<}, \code{<=}, \code{>}, \code{>=}, and \code{!=} for ``is not equal to.''
+
+Arithmetic uses \code{+}, \code{-}, \code{*} for multiplication, and \code{/} for division. Two stars denote a power, so \code{2 ** 10} is $2^{10}=1024$. The function \code{abs} gives the absolute value: \code{abs(-3)} is $3$. The sign \code{\%} gives the remainder of Section~\ref{ch05:sec:euclid}: \code{17 \% 5} is $17\bmod 5=2$, and \code{-7 \% 5} is $3$, because $-7=(-2)\cdot5+3$. As in that section, the remainder on division by a positive number is never negative. The command \code{print} displays values on the screen, separated by spaces: \code{print(x, x + 1)} displays \code{6 7} when \code{x} holds $6$.
+
+A \emph{list} is an ordered collection of values, written in square brackets. In \code{a = [1, 1, 1, -1]}, the first entry is \code{a[0]}, not \code{a[1]}: Python numbers the positions of a list from zero, just as Chapter~\ref{ch:signs} numbers the entries of a sign sequence. So \code{a[3]} is the last entry, $-1$. The \emph{length} \code{len(a)}, the number of entries, is $4$. Two operations change a list. The line \code{a.append(9)} adds the entry $9$ at the end of \code{a}, and \code{a.pop()} removes the last entry of \code{a} and hands it back as its value.
+
+\subsection*{Loops}
+A \code{for} loop repeats a block of lines once for each value in a range. The block consists of the indented lines below the line that begins with \code{for}; Python uses this indentation, not brackets, to tell where the block ends. For example:
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 a = [1, 1, 1, -1]
@@ -13,10 +30,10 @@ for j in range(3):
 print(value)
 \end{lstlisting}
 \end{minipage}\par
+Here \code{range(3)} produces the values $0,1,2$: it starts at zero and stops just before $3$. So the indented line runs three times, with $j=0$, $j=1$ and $j=2$, and each time it adds one product to the running total stored in \code{value}. The products are $a_0a_1=1$, $a_1a_2=1$ and $a_2a_3=-1$, so \code{value} goes from $0$ to $1$, then $2$, then $1$, and the program prints $1$. This is the aperiodic correlation $A_1$ of $(1,1,1,-1)$ computed in Section~\ref{ch14:sec:aperiodic}. With two numbers, \code{range(1, 14)} produces $1,2,\ldots,13$: it starts at the first number and again stops just before the second.
 
-The values of \code{j} are $0,1,2$; the upper endpoint in \code{range(3)} is excluded. The successive additions are $1,1,-1$, so the printed result is one, the aperiodic correlation $A_1$. The expression \code{value = value + ...} updates a stored variable; it is not a mathematical equality asserted for a fixed value on both sides. Python uses \code{==} to test equality.
-
-A function packages a calculation. The following educational example assumes valid indices:
+\subsection*{Functions}
+A \emph{function} packages a calculation so that it can be used again with different inputs.
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 def correlation(a, shift):
@@ -26,5 +43,33 @@ def correlation(a, shift):
     return value
 \end{lstlisting}
 \end{minipage}\par
+The line beginning with \code{def} gives the function a name, \code{correlation}, and names its two inputs, \code{a} and \code{shift}. The indented lines below it carry out the calculation, and the line beginning with \code{return} gives the result. For a list \code{a} of length $n$ and a shift $s$, the loop runs $j$ through $0,1,\ldots,n-s-1$, which is exactly the summation range in the definition of $A_s$ (Definition~\ref{ch14:def:aperiodic}). For example, \code{correlation([1, 1, 1, -1], 1)} is $1$ and \code{correlation([1, 1, 1, -1], 3)} is $-1$, the values of $A_1$ and $A_3$ found in Section~\ref{ch14:sec:aperiodic}. The function computes $A_s$ correctly only when \code{a} is a list of signs and the shift satisfies $1\le s\le n-1$, the shifts allowed in the definition. It does not check this itself; if you give it a shift of $0$, it returns $n$ without complaint. In the programs of Section~\ref{appD:sec:experiments} the same calculation, written more compactly, is called \code{aperiodic}, and the periodic correlation of Chapter~\ref{ch:signs} gets a function of its own, called \code{periodic}, so that the two kinds of correlation cannot be confused.
 
-The line beginning \code{def} names the function and its inputs, the indented lines describe the calculation, and the \code{return} line gives the output. For example, \code{correlation([1, 1, 1, -1], 1)} returns $1$. This short version assumes that its inputs make sense: \code{a} should be a nonempty list of signs and \code{shift} should satisfy $1\le\text{\code{shift}}<\text{\code{len(a)}}$. The programs below keep the aperiodic and periodic correlations as two differently named functions, so that the two conventions of Chapter~14 cannot be confused.
+\subsection*{Decisions and other loops}
+A line \code{if} \emph{condition}\code{:} is followed by an indented block, which is carried out only when the condition is true. Conditions can be combined with the words \code{and}, \code{or} and \code{not}, which have the meanings of Section~\ref{ch02:sec:connectives}. A \code{while} loop repeats its block as long as its condition is true. After the following lines, for example, \code{n} holds $8$, the first natural number whose square is at least $50$:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+n = 0
+while n * n < 50:
+    n = n + 1
+\end{lstlisting}
+\end{minipage}\par
+Inside a loop, \code{break} leaves the innermost loop containing it at once, and \code{continue} skips the rest of the block and goes on with the next pass. The special value \code{None} means ``no value here.'' The test \code{x is None} asks whether \code{x} holds this special value, and \code{x is not None} asks the opposite.
+
+\subsection*{Tuples, sets and dictionaries}
+A \emph{tuple} is like a list but is written with round brackets, as in \code{(1, -1, 1)}, and cannot be changed after it has been made. Its entries are numbered from zero, as in a list, so a tuple is a natural way to store a sign sequence $(a_0,a_1,\ldots,a_{n-1})$. A function that has to give back several values at once can return them as a tuple.
+
+A \emph{set} records membership only, as in Section~\ref{ch03:sec:sets}: order and repetition do not matter. The set containing $1$ and $2$ is written \code{\{1, 2\}}, and \code{\{1, 2, 2\}} is the same set. The test \code{2 in s} is \code{True} when $2$ is a member of the set \code{s}, and \code{not in} tests the opposite. The union $s\cup t$ is written \code{s | t}, so \code{\{1, 2\} | \{2, 3\}} is \code{\{1, 2, 3\}}. The empty set is written \code{set()}, because empty braces \code{\{\}} mean something else in Python: an empty dictionary.
+
+A \emph{dictionary} is a table that pairs each \emph{key} with a value. After \code{owner = \{\}} creates an empty table, the line \code{owner[3] = 0} records the pair ``key $3$, value $0$,'' and afterwards \code{owner[3]} looks the value up. The test \code{3 in owner} asks whether the key $3$ has an entry. Asking for \code{owner[5]} when the key $5$ has no entry stops the program with an error, whereas \code{owner.get(5)} simply gives \code{None}. Python prints the table as \code{\{3: 0\}}, listing each key, a colon, and its value.
+
+\subsection*{Adding up and checking many cases at once}
+Python can write a sum much as mathematics does. The loop above can be replaced by the single expression
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+sum(a[j] * a[j + 1] for j in range(3))
+\end{lstlisting}
+\end{minipage}\par
+which reads like $\sum_{j=0}^{2}a_ja_{j+1}$ and has the same value, $1$. In the same way, \code{all(}\emph{test} \code{for s in range(1, n))} is \code{True} when the test holds for every $s$ with $1\le s\le n-1$, and \code{False} as soon as it fails for one of them. When the range contains no values at all, as \code{range(1, 1)} does, the result is \code{True}: a statement about every member of an empty collection is vacuously true (Section~\ref{ch02:sec:contrapositive}). Finally, \code{sum(1 for x in xs if }\emph{test}\code{)} adds $1$ for each member \code{x} of the list \code{xs} that passes the test, so it counts those members.
+
+Two more conventions appear in the programs below. Python ignores everything on a line after the sign \code{\#}, so this sign introduces a comment for human readers. And a line \code{from fractions import Fraction} makes one tool from the standard library available to the program, here the tool \code{Fraction} for exact rational arithmetic, which Section~\ref{appD:sec:fractions} describes.

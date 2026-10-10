@@ -1,13 +1,29 @@
-\section{A checker is not the same as an explanation}
-Lean is a programming language and a \emph{proof assistant}: a program that checks proofs. In Lean, every proposition has a corresponding type, and a proof of the proposition is an object of that type. When you write a proof, Lean checks that the object you built really has the type you claimed. Most proofs are written with \emph{tactics}, which are instructions that build the proof object step by step. The official introductions explain these ideas in more detail~\cite{leanprop,leantactics}.
+\section{A checker is not the same as an explanation}\label{ch15:sec:checker}
+Lean is a programming language and a \emph{proof assistant}: a program that checks proofs. You write a statement and its proof in a precise formal language, and Lean examines every step. If a step does not follow from what came before, Lean reports an error at that step. If Lean accepts the whole proof without any error or warning, then every step has been checked.
 
-Our aim is not to memorize a catalogue of tactics. It is to make the discipline of Chapter~4 explicit: which objects and hypotheses are available, and what exactly remains to be established? The examples below reproduce mathematics already learned, so that a difficulty with Lean's notation can be told apart from a difficulty with the mathematics.
+The language rests on one idea. Every expression in Lean has a \emph{type}, which says what kind of object it is. The number $3$, read as a natural number, has the type of natural numbers; a function from natural numbers to natural numbers has a function type. Lean treats propositions in the same way: each proposition is itself a type, and a proof of the proposition is an object of that type. Checking a proof therefore comes down to checking that an object really has the type claimed for it. In practice, proofs are rarely written out as objects directly. They are written with \emph{tactics}, instructions that build the proof object step by step, much as the sentences of a written proof build an argument. The official introductions explain these ideas in more detail~\cite{leanprop,leantactics}.
 
-To run the examples yourself, install Lean using the official instructions, which use the VS Code editor with the Lean~4 extension~\cite{leaninstall}. The examples in Chapters~15 and~16 use only Lean's built-in libraries, not the large mathematical library Mathlib, and they have been checked with Lean version~4.19.0.
+A checker is not the same as an explanation. When Lean accepts a proof, you know that every step is valid. You do not yet know why the argument works, which step carries the main idea, or whether the statement says what you meant it to say. That understanding is still your job. It matters even more when a formal proof comes from an AI assistant, because a proof that Lean accepts can still be a proof of the wrong statement; Chapter~\ref{ch:lean2} gives examples. For this reason, every Lean proof in this chapter is placed beside the ordinary argument it encodes.
+
+The aim is not to memorize a catalogue of tactics. It is to make the proof state of Section~\ref{ch04:sec:directions} explicit: at each moment of a proof, which objects and facts are available, and what exactly remains to be shown? The examples prove facts that you already know from Chapters~\ref{ch:logic} and~\ref{ch:maps}. That way, a difficulty with Lean's notation can be told apart from a difficulty with the mathematics.
+
+To run the examples yourself, install Lean by following the official instructions~\cite{leaninstall}. They set up the free editor VS Code together with its Lean~4 extension. The examples in Chapters~\ref{ch:lean1} and~\ref{ch:lean2} use only the libraries that come with Lean itself, not the large mathematical library Mathlib, and they are written for Lean version~4.19.0.
 
 \subsection*{From a mathematical sentence to a file}
-A Lean file is an ordinary text file whose name ends in \code{.lean}, for example \code{proofs.lean}. It contains \emph{declarations}: some define objects or meanings, and others state and prove results. All the examples in Chapters~15 and~16 can be collected in one such file. Appendix~\ref{app:practical} shows how to start it. Its first line, \code{import Std}, makes Lean's standard library available. A line \code{namespace MathCourse} then groups our names so that they do not collide with names defined elsewhere, and a closing \code{end MathCourse} ends that group. This \code{end} closes a group of names; it has nothing to do with the end of a proof.
+A Lean file is an ordinary text file whose name ends in \code{.lean}, for example \code{proofs.lean}. It contains \emph{declarations}: some define new objects, and others state and prove results. All the examples in Chapters~\ref{ch:lean1} and~\ref{ch:lean2} can go into one file of the following shape; Appendix~\ref{app:practical} gives more detail.
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+import Std
 
-You can check the file in two ways. In the editor, Lean checks the file continuously and shows, beside each line of a proof, what has been established so far and what remains to be proved. From a terminal---a window for typing commands to installed programs---the command \code{lean proofs.lean} asks Lean to check the whole file at once. Lean proof lines are typed into the file, not into the terminal.
+namespace MathCourse
 
-You can read the mathematics in this chapter before installing anything. Once Lean is installed, compare the hypotheses and goal that the editor displays after each line with the explanations given here; learning to read those displays is one of the main goals of this chapter.
+-- the definitions and theorems go here
+
+end MathCourse
+\end{lstlisting}
+\end{minipage}\par
+The first line, \code{import Std}, makes Lean's standard library available. The line \code{namespace MathCourse} starts a group of names. Every definition and theorem between it and \code{end MathCourse} receives the prefix \code{MathCourse}, so that, for example, the full name of the definition \code{twice} in the next section is \code{MathCourse.twice}. This keeps our names from colliding with names that Lean's libraries already use. The word \code{end} here closes the group of names; it has nothing to do with the end of a proof. Lines beginning with \code{-{}-} are \emph{comments}, which Lean ignores.
+
+There are two ways to check the file. In the editor, Lean checks the file continuously as you type. When the cursor is inside a proof, a panel beside the file, called the \emph{infoview}, shows the proof state at that point: the facts that are available and what remains to be proved. Alternatively, from a terminal---a window for typing commands to installed programs---the command \code{lean proofs.lean} checks the whole file at once. If it prints nothing, every declaration was accepted. The proofs themselves are always typed into the file, never into the terminal.
+
+You can read this chapter before installing anything. Once Lean is installed, move the cursor through each proof one line at a time and compare the proof state in the infoview with the explanation in the text. Learning to read these displays is one of the main goals of the chapter.

@@ -1,23 +1,55 @@
-\section{Structure-preserving maps}
-A structure is a set together with specified operations or relations. The integers have addition, multiplication, and order. A graph has vertices and adjacency. A space with distance has points and a distance function. When learning a new subject, ask what its objects carry in addition to membership in a set.
+\section{Structure-preserving maps}\label{ch06:sec:structure}
+A \emph{structure} on a set is extra information that the set carries, such as an operation or a relation. An \emph{operation} on a set $S$ takes two elements of $S$ and returns an element of $S$. In the language of Section~\ref{ch03:sec:sets}, it is a function from $S\times S$ to $S$. Addition of integers and addition of residue classes are operations. The integers carry several structures at once: addition, multiplication, and the order $\le$. A \emph{graph}, studied in Chapter~\ref{ch:graphs}, is a set of points, called \emph{vertices}, together with the information of which pairs of vertices are joined; joined vertices are called \emph{adjacent}. A set with a distance, studied in Chapter~\ref{ch:limits}, carries a number measuring how far apart any two of its points are. When you meet a new subject, ask what its objects carry beyond being members of a set.
 
-For objects with addition, a map $T$ preserves addition when
+For sets that have an addition, a map $T$ \emph{preserves addition} when
 \[
-T(x+y)=T(x)+T(y).
+T(x+y)=T(x)+T(y)\qquad\text{for all $x$ and $y$ in its domain.}
 \]
-This is part of the definition of a linear map in Chapter~10. For a graph, an isomorphism is a bijective renaming of vertices that preserves adjacency in both directions. The general word \emph{isomorphism} means a reversible map preserving the specified structure; what must be preserved depends on the subject.
+The sum on the left is computed in the domain and the sum on the right in the codomain, and these may be different kinds of addition. The map $G$ from $\ZZ/4\ZZ$ to $\ZZ/2\ZZ$ at the end of Section~\ref{ch06:sec:well-defined} is an example. For a simpler one, the map $T:\ZZ\to\ZZ$ with $T(x)=3x$ preserves addition, because $3(x+y)=3x+3y$. The map $U:\ZZ\to\ZZ$ with $U(x)=x+1$ does not: $U(x+y)=x+y+1$, while $U(x)+U(y)=x+y+2$. Preserving addition is part of the definition of a linear map in Chapter~\ref{ch:linear}.
 
-A symmetry is an isomorphism from an object to itself. Rotating four positions cyclically is a symmetry of their circular arrangement. Label the positions $0,1,2,3$ and set $r(i)=i+1\pmod4$. Applying $r$ four times returns to the original position. Its inverse is rotation by three positions, because $1+3\equiv0\pmod4$.
+For graphs, the structure is adjacency. An \emph{isomorphism} from one graph to another is a bijection $f$ from the vertices of the first graph to the vertices of the second that preserves adjacency in both directions: for all vertices $u$ and $v$ of the first graph, $u$ and $v$ are adjacent exactly when $f(u)$ and $f(v)$ are adjacent. In the acquaintance example of Section~\ref{ch06:sec:differences}, the map with $f(\text{Alice})=1$, $f(\text{Ben})=2$, $f(\text{Chen})=3$ is an isomorphism onto the pattern in which $1$ is linked to $2$ and $2$ to $3$. The bijection with $g(\text{Alice})=2$, $g(\text{Ben})=1$, $g(\text{Chen})=3$ is not an isomorphism: Ben and Chen know each other, but $g(\text{Ben})=1$ and $g(\text{Chen})=3$ are not linked. Both directions are needed. If $1$, $2$, and $3$ were all linked to one another, the map $f$ would still send linked people to linked numbers, but it would send Alice and Chen, who have never met, to the linked pair $1$ and $3$.
 
-The symmetries of an object, taken together, have four useful features.
+In general, an \emph{isomorphism} is a bijection that preserves the structure and whose inverse also preserves it. What must be preserved depends on the subject: adjacency for graphs, addition for sets with an addition, distance for sets with a distance. Two objects joined by an isomorphism are called \emph{isomorphic}. They differ only in the names of their elements.
+
+\subsection*{Symmetries}
+A \emph{symmetry} of an object is an isomorphism from the object to itself. Picture four seats around a round table, labeled $0$, $1$, $2$, $3$ in order. As the structure, take the information of which seats are next to each other: $0$ and $1$, $1$ and $2$, $2$ and $3$, and $3$ and $0$. Moving everyone one seat along is a symmetry. As a map on seat labels, it is
+\[
+r(i)=(i+1)\bmod4,
+\]
+so $r(0)=1$, $r(1)=2$, $r(2)=3$, and $r(3)=0$. Neighboring seats go to neighboring seats, and the two pairs of opposite seats, $0,2$ and $1,3$, go to opposite seats. Applying $r$ four times brings every seat back to where it started. The inverse of $r$ is rotation by three seats, because moving one seat and then three more is a full turn: $1+3=4\equiv0\pmod4$.
+
+The symmetries of an object, taken together, have four useful features. Let $f$, $g$, and $h$ be symmetries.
 \begin{itemize}
-\item \emph{Closure.} Doing one symmetry and then another is again a symmetry of the same object: each step preserves the structure, so both steps together preserve it too. The combined operation stays inside the collection.
-\item \emph{Associativity.} For three symmetries, $(f\circ g)\circ h=f\circ(g\circ h)$. Both sides mean ``apply $h$, then $g$, then $f$,'' so the brackets do not matter.
-\item \emph{Identity.} Doing nothing, the identity map, is a symmetry, and composing it with any symmetry leaves that symmetry unchanged.
-\item \emph{Inverses.} Every symmetry can be undone by another symmetry in the collection.
+\item \emph{Closure.} Doing $g$ and then $f$ is again a symmetry. The composition $f\circ g$ is a bijection, because compositions of injective maps are injective (Theorem~\ref{thm:injcomp}) and compositions of surjective maps are surjective (Exercise~\ref{ex:3.2}). It preserves the structure, because $g$ preserves it and then $f$ preserves it again. Its inverse, which first undoes $f$ and then undoes $g$, preserves the structure for the same reason.
+\item \emph{Associativity.} $(f\circ g)\circ h=f\circ(g\circ h)$. For every input $x$, both sides give $f(g(h(x)))$: the left side is $(f\circ g)(h(x))=f(g(h(x)))$, and the right side is $f((g\circ h)(x))=f(g(h(x)))$. Both mean ``apply $h$, then $g$, then $f$,'' so the brackets do not matter.
+\item \emph{Identity.} Doing nothing, that is, the identity map $\id$, is a symmetry, and $f\circ\id=\id\circ f=f$.
+\item \emph{Inverses.} A symmetry $f$ is a bijection, so it has an inverse $f^{-1}$ (Section~\ref{ch03:sec:injsurj}), and $f\circ f^{-1}=f^{-1}\circ f=\id$. Since an isomorphism preserves the structure in both directions, $f^{-1}$ is again a symmetry.
 \end{itemize}
-These four features occur so often that they have a name. A \emph{group} is a nonempty set together with an operation that combines any two of its elements into an element of the same set, in such a way that the operation is associative, there is an identity element, and every element has an inverse. Symmetries under composition form a group. So do the integers under addition: the sum of two integers is an integer, addition is associative, $0$ is the identity, and $-a$ undoes $a$.
+These four features occur so often that they have a name.
 
-The definition does not require that the order of combination is irrelevant. When $f\circ g=g\circ f$ for all elements, the group is called \emph{commutative}. The integers under addition are commutative, but many groups of symmetries are not. For example, rearrangements of three objects form a group under composition, and swapping the first two objects and then the last two does not give the same rearrangement as performing those two swaps in the opposite order.
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}[Group]\label{ch06:def:group}
+A \emph{group} is a set $S$ together with an operation $*$ on $S$, which combines any two elements $x,y\in S$ into an element $x*y\in S$, such that the following hold.
+\begin{itemize}
+\item \emph{Associativity:} $(x*y)*z=x*(y*z)$ for all $x,y,z\in S$.
+\item \emph{Identity:} there is an element $e\in S$ with $e*x=x*e=x$ for every $x\in S$.
+\item \emph{Inverses:} for every $x\in S$ there is an element $y\in S$ with $x*y=y*x=e$.
+\end{itemize}
+\end{definition}
+\end{minipage}\par
 
-Let us see the four features in the smallest interesting example. For the four rotations, write $r_0,r_1,r_2,r_3$, where $r_j$ rotates by $j$ positions. Applying $r_3$ and then $r_2$ rotates by five positions, which is the same as rotating by one position, so $r_2\circ r_3=r_1$. In general, composing two rotations adds their amounts modulo four, so the result is always one of $r_0,r_1,r_2,r_3$; this verifies closure. The identity is $r_0$; the inverse of $r_1$ is $r_3$; and $r_2$ is its own inverse. These particular rotations also commute, because addition of their amounts does. We do not need any general group theory to use these transformations, but naming the pattern helps us recognize it when it appears in other places.
+Closure is built into the definition, because an operation on $S$ must return an element of $S$. The four features above say that the symmetries of an object form a group under composition. The integers form a group under addition: the sum of two integers is an integer, addition is associative, $0$ is an identity, and $-a$ is an inverse of $a$. So does $\ZZ/m\ZZ$ under the addition of Section~\ref{ch06:sec:well-defined}. Its identity is $[0]_m$, and $[-a]_m$ is an inverse of $[a]_m$, because $[a]_m+[-a]_m=[0]_m$. Associativity is inherited from the integers: both $([a]_m+[b]_m)+[c]_m$ and $[a]_m+([b]_m+[c]_m)$ equal $[a+b+c]_m$. Not every operation gives a group. The integers under multiplication have the identity $1$, but $2$ has no inverse, because no integer $y$ satisfies $2y=1$.
+
+The definition does not require that the order of combination be irrelevant. A group in which $x*y=y*x$ for all $x$ and $y$ is called \emph{commutative}. The integers under addition form a commutative group, but many groups of symmetries are not commutative. Here is an example. Place three letters in a row as $ABC$. Let $s$ swap the letters in the first two positions, and let $t$ swap the letters in the last two positions. Doing $s$ and then $t$ gives
+\[
+ABC\ \to\ BAC\ \to\ BCA,
+\]
+while doing $t$ and then $s$ gives
+\[
+ABC\ \to\ ACB\ \to\ CAB.
+\]
+The results differ, so $t\circ s\ne s\circ t$. The rearrangements of three positions, that is, the bijections from a three-element set to itself, are the symmetries of a set that carries no extra structure. They form a group under composition, and this group is not commutative.
+
+Now let us see the four features in the rotations of the table. Write $r_0,r_1,r_2,r_3$, where $r_j$ moves everyone $j$ seats along, so that $r_j(i)=(i+j)\bmod4$ and $r_1$ is the map $r$ from before. Applying $r_3$ and then $r_2$ moves everyone five seats, which is the same as moving one seat, so $r_2\circ r_3=r_1$. In general, composing two rotations adds their amounts modulo four, so the result is always one of $r_0,r_1,r_2,r_3$; this is closure. The identity is $r_0$. The rotations $r_1$ and $r_3$ are inverses of each other, and $r_2$ is its own inverse. These particular symmetries also commute, because addition of their amounts does. The rotations are not the only symmetries of the table. For instance, the reflection that keeps seats $0$ and $2$ in place and swaps seats $1$ and $3$ also keeps neighbors next to each other. But the four rotations already form a group on their own.
+
+Naming the pattern helps us recognize it elsewhere. The rotation $r_j$ behaves exactly like the residue class $[j]_4$: composing rotations adds their amounts modulo four, just as adding classes adds representatives modulo four. In the language of this section, the map sending $[j]_4$ to $r_j$, for $j=0,1,2,3$, is an isomorphism from the group $\ZZ/4\ZZ$ to the group of rotations.

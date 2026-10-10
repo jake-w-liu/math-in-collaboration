@@ -1,10 +1,29 @@
-\section{What the two error estimates are for}
-The a priori estimate predicts how many steps may be needed before computing all of them. For $T(x)=(x+1)/2$, $x_0=0$, we have $q=1/2$ and $D=1/2$, so the bound is $2^{-n}$. At $n=10$, it is $1/1024<0.001$. The exact formula from Chapter~5 shows that this bound is attained.
+\section{What the two error estimates are for}\label{ch12:sec:estimates}
+\subsection*{Predicting how many steps are enough}
+The a priori estimate \eqref{eq:apriori} can be used before the iteration is run, to decide how many steps will be enough. Take $T(x)=(x+1)/2$ on $\RR$, which is a contraction with factor $q=1/2$, and start from $x_0=0$. The first step gives $x_1=1/2$, so $D=d(x_1,x_0)=1/2$, and \eqref{eq:apriori} becomes
+\[
+|x_n-1|\le\frac{(1/2)^n}{1-1/2}\cdot\frac12=2^{-n}.
+\]
+Suppose we want an error below $0.001=1/1000$. Since $2^9=512$ and $2^{10}=1024$, the bound $2^{-n}$ is still larger than $1/1000$ at $n=9$, but at $n=10$ it equals $1/1024$, which is smaller. So ten steps are guaranteed to be enough. In this example the estimate cannot be improved: the formula $x_n=1-2^{-n}$ of Section~\ref{ch05:sec:recurrence} shows that the error is exactly $2^{-n}$, so the bound is attained for every $n$, and nine steps really are too few.
 
-The residual $d(z,Tz)$ measures failure to satisfy the fixed-point equation. The residual estimate can certify a point obtained by any method, not just the prescribed iteration. It is especially useful when the exact solution is unknown but one update can be evaluated reliably. A small residual is meaningful only together with the stability factor $1/(1-q)$. As $q$ approaches one, the same residual permits a larger solution error.
+Usually the bound is not attained. It is built from the first step and the worst-case factor $q$, so the true error is often much smaller, and the estimate may ask for more steps than are actually necessary. It errs on the safe side, which is what a guarantee should do.
 
-For an iterate $x_n$ with $n\ge1$, one also has
+\subsection*{Certifying an approximation found by any method}
+The residual estimate \eqref{eq:residual} works in the opposite direction. We already have a candidate point $z$, found in any way we like, and we want a guarantee about its error. We do not need to know the fixed point $x_*$. We only need to compute $Tz$, which is usually easy, and then the residual $d(z,Tz)$. Dividing it by $1-q$ gives an error certificate for $z$.
+
+The residual by itself, however, is not a bound on the error. It must be multiplied by $1/(1-q)$, and this factor can be large. For example, $T(x)=0.99x+0.01$ is a contraction of $\RR$ with factor $q=0.99$, since $|T(x)-T(y)|=0.99\,|x-y|$, and its fixed point is $1$, since $0.99+0.01=1$. The point $z=0$ has the small residual $|0-T(0)|=0.01$, yet its error is $|0-1|=1$, a hundred times larger. The residual estimate gives exactly the right answer, $0.01/(1-0.99)=1$. A small residual guarantees a small error only when $q$ is not too close to $1$.
+
+\subsection*{Using the length of the latest step}
+For an iterate $x_n$ with $n\ge1$, there is a third bound, which uses the step just taken:
 \[
 d(x_n,x_*)\le\frac{q}{1-q}\,d(x_n,x_{n-1}).
 \]
-Indeed, its residual is $d(x_n,x_{n+1})\le qd(x_{n-1},x_n)$, and then \eqref{eq:residual} applies. This is an a posteriori estimate: it uses the observed size of the latest step.
+To prove it, note that the residual of $x_n$ is $d(x_n,Tx_n)=d(x_n,x_{n+1})$. Since $x_n=Tx_{n-1}$ and $x_{n+1}=Tx_n$, the contraction inequality gives
+\[
+d(x_n,x_{n+1})=d(Tx_{n-1},Tx_n)\le q\,d(x_{n-1},x_n)=q\,d(x_n,x_{n-1}).
+\]
+Now the residual estimate with $z=x_n$ gives $d(x_n,x_*)\le d(x_n,x_{n+1})/(1-q)\le q\,d(x_n,x_{n-1})/(1-q)$.
+
+This is called an \emph{a posteriori estimate}, from the Latin for ``from what comes after,'' because it can be evaluated only after the step from $x_{n-1}$ to $x_n$ has been computed. It uses the step lengths actually observed rather than a prediction made at the start, so later in a computation it is usually far sharper than the a priori estimate. Section~\ref{ch12:sec:example} compares the estimates on an example.
+
+\pauseq{Show that the a priori estimate \eqref{eq:apriori} follows quickly from the residual estimate \eqref{eq:residual} together with Step~1 of the proof.}{Apply the residual estimate to $z=x_n$. Its residual is $d(x_n,Tx_n)=d(x_n,x_{n+1})=d(x_{n+1},x_n)$, which Step~1 bounds by $q^nD$. So $d(x_n,x_*)\le q^nD/(1-q)$, which is \eqref{eq:apriori}. In particular, for $n=0$ the two estimates say exactly the same thing, $d(x_0,x_*)\le d(x_0,Tx_0)/(1-q)$.}

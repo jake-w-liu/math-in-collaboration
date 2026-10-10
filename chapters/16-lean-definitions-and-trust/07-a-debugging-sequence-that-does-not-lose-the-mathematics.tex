@@ -1,4 +1,54 @@
-\section{A debugging sequence that does not lose the mathematics}
-When a line fails, first freeze the statement. Read the goal and the types of the available facts. Translate both into ordinary mathematics. Decide whether the issue is a false claim, a missing lemma, a mismatch of domains, or merely an expression written in a different form. Only then ask for a tactic repair.
+\section{A debugging sequence that does not lose the mathematics}\label{ch16:sec:debugging}
+When Lean rejects a line, it is tempting to try one tactic after another, or to ask an assistant for anything that compiles. Either habit can end with a file that Lean accepts and a statement that nobody wanted. Finding and removing the cause of an error is called \emph{debugging}. The following sequence keeps the mathematics in view while you debug.
+\begin{enumerate}
+\item \emph{Keep the statement fixed.} Do not edit the theorem's statement while you look for the problem.
+\item \emph{Read the proof state.} Look at the goal, the available facts, and the error message.
+\item \emph{Translate into ordinary mathematics.} Say in words what the goal claims and what each fact says.
+\item \emph{Diagnose.} Decide which of four situations you are in.
+\begin{itemize}
+\item The goal follows from the available facts, but something is written in a different form from the one the tactic expects.
+\item The goal is true, but the proof needs a fact that is not yet available: a \emph{missing lemma}.
+\item A variable ranges over a different set from the intended one: a \emph{mismatch of domains}.
+\item The goal does not follow from the available facts. Most often this is because it is simply false.
+\end{itemize}
+\item \emph{Respond to the diagnosis.} A difference of form usually needs a one-line change, such as a \code{show} line. For a missing lemma, find one, read its exact statement and hypotheses, and check that the hypotheses hold in your situation before you use it. For a mismatch of domains, go back to the statement contract and decide which domain was intended; if the statement has to change, change it on purpose and say so. If the goal does not follow from the facts, stop looking for tactics, because no tactic can derive it. First ask whether an earlier step caused the problem. In Section~\ref{ch15:sec:exists}, for example, offering the witness $2$ left the false goal $2+1=4$, and the remedy was a better witness. If the goal already fails at the very start of the proof, then the statement itself is false. Look for a counterexample, an instance in which every hypothesis holds and the conclusion fails, and take it back to the statement.
+\end{enumerate}
+Used in this way, Lean's messages give feedback on your mathematics. They do not push you into a blind search for any statement at all that will compile.
 
-For a syntax issue, a one-line correction may be enough. For a missing theorem, request its exact statement and hypotheses. For a false target, stop trying to automate the proof and construct a counterexample. For a representation mismatch, justify the translation before rewriting. This sequence uses Lean as feedback without letting its error messages dictate an unprincipled search for any statement that will compile.
+\subsection*{Two worked examples}
+\emph{A difference of form.} Suppose the line \code{show g (f a) = c} is left out of the proof of \code{surj\_comp}. Lean then reports at the \code{rw} line that it did not find the pattern \code{f a}, and it shows the goal \code{(fun x => g (f x)) a = c}. Translated, the goal says $(g\circ f)(a)=c$, and the facts $f(a)=b$ and $g(b)=c$ prove it. So the goal is true and the facts suffice; the only trouble is that \code{f a} is not written in the goal, as Section~\ref{ch16:sec:surj} explained. The one-line repair \code{show g (f a) = c} changes the form of the goal but not its meaning, and the statement of the theorem is untouched.
+
+\emph{A false statement.} Suppose we set out to prove \code{Surj (fun n : Nat => n + 1)}, the claim that the map $n\mapsto n+1$ on the natural numbers is surjective. After \code{intro y}, the goal is
+\begin{center}
+$\exists$\,\code{x, (fun n => n + 1) x = y}
+\end{center}
+For every natural number $y$, we must find a natural number $x$ with $x+1=y$. Suppose that every tactic we try fails. Before trying more, translate the goal and test a small case. For $y=0$ we would need $x+1=0$, and no natural number $x$ satisfies this, because $x+1\ge1$. So the goal is false when $y=0$. The problem cannot come from an earlier step, because \code{intro y} only named an arbitrary target. Hence the statement itself is false, and the target $0$ is a counterexample. No tactic will ever close this goal. An assistant that was asked only to make the file compile could succeed only by changing the statement, for example by adding a hypothesis, as in Section~\ref{ch16:sec:irrelevant}.
+
+What should happen next depends on what was intended, and only a person can decide that. If the claim was meant to be about natural numbers, it is false, and Lean can prove that it is false:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+theorem not_surj_succ :
+    Not (Surj (fun n : Nat => n + 1)) := by
+  intro h
+  cases h 0 with
+  | intro n hn =>
+    exact Nat.succ_ne_zero n hn
+\end{lstlisting}
+\end{minipage}\par
+In Lean, \code{Not P} is defined to mean \code{P -> False}. So \code{intro h} assumes that the map is surjective and leaves the goal \code{False}. Applying \code{h} to the target \code{0} and unpacking the result gives a natural number \code{n} and a proof \code{hn} that $n+1=0$; the infoview shows \code{hn} in the unreduced form \code{(fun n => n + 1) n = 0}, which Lean treats as the same proposition. The last step needs a lemma from Lean's library. Its exact statement is that \code{Nat.succ\_ne\_zero n} proves $n+1\ne0$ for every natural number \code{n}. (Lean prints this as \code{n.succ} $\ne$ \code{0}, where \code{n.succ}, the \emph{successor} of \code{n}, is another way of writing \code{n + 1}.) Since $n+1\ne0$ means \code{Not (n + 1 = 0)}, that is, \code{n + 1 = 0 -> False}, applying the lemma to \code{hn} produces a proof of \code{False}, which is the goal.
+
+If instead the claim was meant to be about integers, then the domain was mistranslated. Over $\ZZ$, the map $n\mapsto n+1$ is surjective: the target $y$ is reached by the input $y-1$. The repair is to change \code{Nat} to \code{Int}. This is a deliberate change of the statement, and it should be recorded as one:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+theorem succ_surj_int : Surj (fun n : Int => n + 1) := by
+  intro y
+  refine Exists.intro (y - 1) ?_
+  show y - 1 + 1 = y
+  exact Int.sub_add_cancel y 1
+\end{lstlisting}
+\end{minipage}\par
+The structure is that of \code{surj\_comp}: introduce a target, propose a witness, restate the goal in reduced form. The library lemma \code{Int.sub\_add\_cancel a b} proves $(a-b)+b=a$ for all integers $a$ and $b$, and with $a=y$ and $b=1$ it is exactly the goal. The same step would fail for natural numbers. With truncated subtraction (Section~\ref{ch15:sec:exists}), the proposed witness for the target $0$ would be $0-1=0$, and $(0-1)+1=0+1=1$, not $0$.
+
+If you run \code{\#print axioms} on these two theorems, Lean lists \code{propext}, which the library lemmas \code{Nat.succ\_ne\_zero} and \code{Int.sub\_add\_cancel} use. As Section~\ref{ch16:sec:axioms} explained, this is one of the standard axioms, and its appearance is no cause for concern.
+
+Both repairs keep the mathematics in view. The first records a counterexample and turns it into a theorem; the second corrects a translation and says so. Neither one hides a change of statement inside a proof that merely compiles.

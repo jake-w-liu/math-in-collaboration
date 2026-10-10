@@ -1,12 +1,26 @@
-\section{Testing the first guess}
-A natural first guess is that small errors in each update do no lasting harm. Here is how a short exchange with an AI assistant might test that guess before anyone tries to prove it.
+\section{Testing the first guess}\label{ch18:sec:guess}
+A natural first guess is that small update errors do no lasting harm: if every $\eps_n$ is small, the points $y_n$ should still converge to $x_*$. Before trying to prove a guess, it pays to try to break it. Here is how a short exchange with an AI assistant might do that.
 
-\textbf{Reader:} I expect small update errors still to give convergence to $x_*$. Try to disprove this before proving it.
+\textbf{Reader:} I expect that small update errors still give convergence to $x_*$. Before I try to prove this, try to disprove it.
 
-\textbf{Assistant:} A constant bias can move the limiting value. For $T(x)=qx$ on $\RR$, the update $y_{n+1}=qy_n+\eta$ tends toward $\eta/(1-q)$, not zero, when $\eta>0$.
+\textbf{Assistant:} A constant bias can shift the limit. Take $T(x)=qx$ on $\RR$, whose fixed point is $0$, and add the same small number $\eta>0$ at every update: $y_{n+1}=qy_n+\eta$. Then $y_n$ approaches $\eta/(1-q)$, not $0$, however small $\eta$ is.
 
-\textbf{Reader:} Then the target should be an error bound. Can the same idea also distinguish bounded errors from errors that tend to zero?
+\textbf{Reader:} Then convergence is the wrong target. Is there an error bound that still holds? And can it tell apart errors that stay bounded from errors that tend to zero?
 
-\textbf{Assistant:} First bound the distance at the next step by $q$ times the present distance plus the update error. Then unfold the recurrence.
+\textbf{Assistant:} Start by bounding the distance from the next point to $x_*$ by $q$ times the present distance plus the update error. Then apply that bound over and over.
 
-The assistant has proposed a mechanism. We now derive it independently, prove the unfolded form, and test whether its constant can be improved. The revised question is more informative than the initial conjecture: it separates stability, convergence, and bias.
+The assistant's answer contains two claims, and neither has been checked yet. The first is a counterexample, and its hypotheses are easy to verify. Since $|T(x)-T(y)|=|qx-qy|=q|x-y|$, the map $T(x)=qx$ is a contraction of $\RR$ with factor $q$, and its only fixed point is $0$. The error made in each update is
+\[
+ |y_{n+1}-T(y_n)|=|qy_n+\eta-qy_n|=\eta,
+\]
+so every update error is $\eps_n=\eta$, and $\eta$ can be chosen as small as we like. The conclusion is plausible from a small case. With $q=1/2$, $\eta=1$ and $y_0=0$, the points are
+\[
+ 0,\ 1,\ \tfrac32,\ \tfrac74,\ \tfrac{15}8,\ \tfrac{31}{16},\ \ldots,
+\]
+which seem to approach $2=\eta/(1-q)$ rather than the fixed point $0$. A few terms do not prove a limit, so Section~\ref{ch18:sec:sharp} proves an exact formula for $y_n$.
+
+The second claim is a plan for a proof. Section~\ref{ch18:sec:onestep} carries it out: we derive the bound on the next distance ourselves, prove by induction what we get by applying it over and over, and then ask whether the resulting constant can be improved.
+
+The counterexample has changed the question, and the new question is more informative than the original guess. Instead of asking only whether $y_n$ converges to $x_*$, we now ask three separate things. How far from $x_*$ can the points be? Does that distance tend to zero? And if it does not, where do the points end up? The constant bias shows that these questions can have different answers: the distance stays bounded but does not tend to zero, because the points settle near a different point. Habit~2 asks us to keep track of exactly this kind of change. The hypotheses are the same as before, but the conclusion has been replaced by a weaker one, an error bound, together with a separate question about when convergence survives.
+
+\pauseq{A calculator keeps two decimal places and always rounds down. It runs the update $x\mapsto(x+1)/2$, whose fixed point is $1$, starting from $0$. Each rounding error is less than $0.01$. Do the stored values converge to $1$?}{No. The stored values are $0,\ 0.5,\ 0.75,\ 0.87,\ 0.93,\ 0.96,\ 0.98,\ 0.99,\ 0.99,\ \ldots$. For instance, $(0.75+1)/2=0.875$ is stored as $0.87$. Once the value $0.99$ is reached, the exact update gives $(0.99+1)/2=0.995$, which is stored as $0.99$ again. From then on the values never change, and they stay at distance $0.01$ from the fixed point. Rounding down acts like a small bias that always pushes in the same direction, just as in the assistant's example.}

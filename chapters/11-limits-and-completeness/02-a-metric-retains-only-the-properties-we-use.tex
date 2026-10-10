@@ -1,29 +1,51 @@
-\section{A metric retains only the properties we use}
-A function on $X\times X$ takes a pair of points as input. We write its output as $d(x,y)$ and want that output to behave as a distance. The following definition specifies what this means.
+\section{A metric keeps only the properties we use}\label{ch11:sec:metric}
+Let $X$ be a set. We call its members \emph{points}, even when they are numbers or vectors. A distance on $X$ should assign a real number $d(x,y)$ to each pair of points $x,y\in X$. In the language of Section~\ref{ch03:sec:functions}, $d$ is a function from $X\times X$ to $\RR$: it takes a pair $(x,y)$ as its input and returns a real number. The following definition lists the three properties that such a function must have before we call it a distance.
 \par\noindent\begin{minipage}{\linewidth}
 \begin{definition}[Metric]\label{def:metric}
-A metric on a set $X$ assigns a real number $d(x,y)$ to every pair $x,y\in X$ and satisfies these requirements for all $x,y,z\in X$:
+A \emph{metric} on a set $X$ assigns a real number $d(x,y)$ to every pair of points $x,y\in X$ and satisfies these requirements for all $x,y,z\in X$:
 \begin{enumerate}
 \item $d(x,y)\ge0$, and $d(x,y)=0$ holds exactly when $x=y$.
 \item $d(x,y)=d(y,x)$.
 \item $d(x,z)\le d(x,y)+d(y,z)$.
 \end{enumerate}
-A set together with a specified metric is called a metric space and is written $(X,d)$.
+A set together with a chosen metric is called a \emph{metric space} and is written $(X,d)$. The number $d(x,y)$ is called the \emph{distance} between $x$ and $y$.
 \end{definition}
 \end{minipage}\par
 
-The first requirement rules out negative distances and prevents different points from having zero distance. The second says that reversing the comparison does not change its value. The third is the triangle inequality: a detour through $y$ bounds the direct distance from $x$ to $z$.
+The first requirement says that distances are never negative, that every point is at distance zero from itself, and that two different points are always a positive distance apart. The second, called \emph{symmetry}, says that the distance from $x$ to $y$ equals the distance from $y$ to $x$. The third is the triangle inequality of Section~\ref{ch11:sec:distance}, now demanded of $d$: going from $x$ to $z$ by way of a third point $y$ is never shorter than going directly.
 
-To \emph{use} a metric already given in a theorem, we may use all three requirements. To \emph{propose} a new metric, we must check all three. These are the two directions of using a definition from Chapter~1. Merely naming a formula ``distance'' does not establish that it meets them.
+Like every definition, this one can be used in the two directions described in Section~\ref{ch01:sec:definition}. If we are told that $d$ is a metric, we may \emph{unpack} the definition and use any of the three requirements in an argument. If we want to show that a new formula is a metric, we must \emph{recognize} it as one, which means checking all three requirements. Calling a formula a distance does not make it one, as the next question shows.
 
-The real line with $d(x,y)=|x-y|$ is an example. In $\RR^n$, the Euclidean distance is $\norm{x-y}_2$, whose triangle inequality was derived at the end of Chapter~10 (see also Exercise~\ref{ex:10.5}). Another useful choice is
+\pauseq{On the real line, let $d(x,y)=(x-y)^2$. Is $d$ a metric?}{No. The first two requirements hold: a square is never negative, $(x-y)^2=0$ exactly when $x=y$, and $(y-x)^2=(x-y)^2$. The triangle inequality fails. Take $x=0$, $y=1$ and $z=2$. Then $d(x,z)=4$, while $d(x,y)+d(y,z)=1+1=2$, so the route through $y$ comes out \emph{shorter} than the direct route. One counterexample is enough to show that $d$ is not a metric.}
+
+\subsection*{Examples}
+The real line with $d(x,y)=|x-y|$ is a metric space. The absolute value is never negative, and $|x-y|=0$ exactly when $x-y=0$, that is, when $x=y$. Symmetry, $|x-y|=|y-x|$, and the triangle inequality $|x-z|\le|x-y|+|y-z|$ were both proved in Section~\ref{ch11:sec:distance}. When we treat the real line as a metric space without naming a metric, this is the metric we mean.
+
+The set $\RR^n$ of vectors $x=(x_1,\ldots,x_n)$ from Section~\ref{ch10:sec:vectors} carries several useful metrics. The first is the \emph{Euclidean distance} $d_2(x,y)=\norm{x-y}_2$, the length of the difference vector. In the plane, where $n=2$, it is the ordinary straight-line distance; from $(0,0)$ to $(3,4)$ it is $\sqrt{3^2+4^2}=5$. Its first requirement holds because a length is never negative and is zero only for the zero vector, and $x-y$ is the zero vector exactly when $x=y$. Symmetry holds because $y-x$ has the coordinates of $x-y$ with every sign changed, and changing signs does not change the squares under the root. The triangle inequality was proved in Chapter~\ref{ch:linear}, right after the Cauchy--Schwarz inequality (Theorem~\ref{thm:cs}; see also Exercise~\ref{ex:10.5}). There we showed $\norm{u+v}_2\le\norm{u}_2+\norm{v}_2$ for all vectors $u$ and $v$, and taking $u=x-y$ and $v=y-z$, so that $u+v=x-z$, gave $\norm{x-z}_2\le\norm{x-y}_2+\norm{y-z}_2$. In our new notation this reads $d_2(x,z)\le d_2(x,y)+d_2(y,z)$.
+
+Another useful choice is
 \[
-d_\infty(x,y)=\max_{1\le j\le n}|x_j-y_j|.
+d_\infty(x,y)=\max_{1\le j\le n}|x_j-y_j|,
 \]
-It records the worst coordinate error. For every coordinate $j$,
+the largest of the $n$ numbers $|x_1-y_1|,\ldots,|x_n-y_n|$. The symbol $\infty$ in the subscript is just part of the traditional name. This metric records the worst error in any single coordinate. For $x=(1,5)$ and $y=(4,3)$, the coordinate differences have sizes $3$ and $2$, so $d_\infty(x,y)=3$, while $d_2(x,y)=\sqrt{9+4}=\sqrt{13}\approx3.61$.
+
+Here is the proof of the triangle inequality for $d_\infty$. Let $x,y,z\in\RR^n$ and fix a coordinate $j$. The triangle inequality for real numbers gives the first step below. For the second step, note that $|x_j-y_j|$ is one of the numbers whose largest is $d_\infty(x,y)$, so $|x_j-y_j|\le d_\infty(x,y)$; in the same way, $|y_j-z_j|\le d_\infty(y,z)$. Thus
 \[
 |x_j-z_j|\le|x_j-y_j|+|y_j-z_j|\le d_\infty(x,y)+d_\infty(y,z).
 \]
-The right side does not depend on $j$, so it bounds the largest of the left sides too, which is $d_\infty(x,z)$. This proves the triangle inequality. The other two requirements are checked in Exercise~\ref{ex:11.3}. This example shows that a distance can be selected to match the question being controlled.
+The right side is the same number for every $j$. So it is at least as large as each of the numbers $|x_1-z_1|,\ldots,|x_n-z_n|$, and in particular at least as large as the largest of them, which is $d_\infty(x,z)$. This proves $d_\infty(x,z)\le d_\infty(x,y)+d_\infty(y,z)$. Exercise~\ref{ex:11.3} checks the other two requirements.
 
-A norm measures the size of a vector, is nonnegative and zero exactly at the zero vector, and satisfies $\norm{cx}=|c|\norm{x}$, and the triangle inequality. It produces a metric by $d(x,y)=\norm{x-y}$. A general metric space need not allow addition of points. Our later proof will be stronger if it uses only distances when vector subtraction is unnecessary.
+Which metric to use depends on the question. If a measuring instrument must get \emph{every} coordinate right to within $0.01$, the condition $d_\infty(x,y)\le0.01$ says exactly that. A bound on $d_2(x,y)$ would instead control all the coordinate errors together, through the sum of their squares.
+
+\subsection*{Norms, and spaces without addition}
+Both metrics on $\RR^n$ are built from a way of measuring the size of a single vector. For $d_2$ the size is the Euclidean length, since $d_2(x,y)=\norm{x-y}_2$. For $d_\infty$ it is the largest coordinate size $\norm{x}_\infty=\max_j|x_j|$, since $d_\infty(x,y)=\norm{x-y}_\infty$. Measures of size like these are called norms. Precisely, a \emph{norm} on $\RR^n$ assigns to each vector $x$ a real number $\norm{x}$ such that, for all vectors $x,y$ and every real number $c$,
+\begin{enumerate}
+\item $\norm{x}\ge0$, with equality exactly when $x$ is the zero vector;
+\item $\norm{cx}=|c|\,\norm{x}$;
+\item $\norm{x+y}\le\norm{x}+\norm{y}$.
+\end{enumerate}
+The Euclidean length $\norm{x}_2$ is a norm. Its first property was noted in Chapter~\ref{ch:linear}, the second holds because $\sqrt{c^2x_1^2+\cdots+c^2x_n^2}=\sqrt{c^2}\,\norm{x}_2=|c|\,\norm{x}_2$, and the third is the triangle inequality proved there. The largest coordinate size $\norm{x}_\infty$ is also a norm, as you can check coordinate by coordinate in the same way. In the other direction, every norm produces a metric by the rule $d(x,y)=\norm{x-y}$. The first requirement of a metric comes from the first property of the norm. Symmetry comes from the second property with $c=-1$, because $y-x=(-1)(x-y)$. The triangle inequality comes from the third property, because $x-z=(x-y)+(y-z)$.
+
+A metric, however, does not need points to be added or subtracted at all. It needs only one number $d(x,y)$ for each pair of points. For this reason the rest of the chapter works in a general metric space. The arguments then apply also to sets in which addition makes no sense, or in which a sum can fall outside the set.
+
+The most common way to obtain such a set is to take part of a larger metric space. If $(X,d)$ is a metric space and $C$ is a subset of $X$, then $d$, used only for pairs of points of $C$, is a metric on $C$. (In the language of Section~\ref{ch03:sec:injsurj}, this is the restriction of $d$ to $C\times C$.) Indeed, the three requirements hold for all points of $X$, so in particular they hold for all points of $C$. For example, the interval $[0,1]$ with distance $|x-y|$ is a metric space. Its points can be added as real numbers, but a sum can leave the interval, as $0.7+0.6=1.3$ does. Arguments that use only distances never meet this difficulty.

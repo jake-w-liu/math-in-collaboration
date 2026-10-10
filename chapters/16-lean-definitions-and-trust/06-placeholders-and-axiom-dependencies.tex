@@ -1,15 +1,23 @@
-\section{Placeholders and axiom dependencies}
-While a proof is being developed, Lean allows a gap to be filled temporarily with the word \code{sorry}. Lean then accepts the declaration, with a warning, by treating the missing step as if it had been assumed. Such a declaration is not a completed proof. To find out whether a theorem secretly depends on a gap of this kind, use the command
+\section{Placeholders and axiom dependencies}\label{ch16:sec:axioms}
+While a proof is being developed, Lean allows a gap to be filled temporarily with the word \code{sorry}. Lean then accepts the declaration, but it prints the warning \code{declaration uses 'sorry'}, and it treats the missing step as if it had been assumed. Such a declaration is not a completed proof. The warning appears only at the declaration that contains \code{sorry}. If a second theorem is proved by using the first one, it gets no warning of its own, even though it now rests on the same gap.
+
+To find out whether a theorem depends on a gap anywhere, directly or through other theorems, use the command
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 #print axioms theoremName
 \end{lstlisting}
 \end{minipage}\par
-which lists every \emph{axiom}---every statement accepted without proof---that the theorem's proof ultimately relies on. A theorem that used \code{sorry} anywhere in its dependencies shows the axiom \code{sorryAx} in this list.
+with the theorem's name in place of \code{theoremName}. It lists every \emph{axiom}, that is, every statement accepted without proof, on which the theorem's proof ultimately relies. A \code{sorry} anywhere among the theorem's dependencies shows up in this list as the axiom \code{sorryAx}.
 
-Not every axiom signals a problem. Lean's foundations include a few standard axioms that ordinary mathematics uses routinely: \code{propext} (logically equivalent propositions are equal), \code{Quot.sound} (used to build quotient objects such as the residue classes of Chapter~6), and \code{Classical.choice} (which supports proofs by contradiction and choices of objects whose existence has been proved). Seeing these in the list is normal. The research repository of Chapter~7, for example, explicitly permits exactly these three axioms for its formal proof of Seymour's conjecture~\cite{oaiconfig}. What matters is to know what each listed axiom means~\cite{leanaxioms}.
+Not every axiom signals a problem. Lean's foundations include three standard axioms that ordinary mathematics uses all the time:
+\begin{itemize}
+\item \code{propext}, short for \emph{propositional extensionality}: two propositions that are logically equivalent are equal;
+\item \code{Quot.sound}: in a quotient, the set of equivalence classes of Section~\ref{ch06:sec:residues}, two related elements have the same class; for example, $[1]_4=[5]_4$ in $\ZZ/4\ZZ$, because $5-1$ is divisible by $4$;
+\item \code{Classical.choice}: once it has been proved that an object of some kind exists, Lean may pick one, even when no particular one can be described. Proofs by contradiction about arbitrary statements rely on it.
+\end{itemize}
+Seeing these in the list is normal. Many results in Lean's library use \code{propext}, and Section~\ref{ch16:sec:debugging} meets two of them. The research repository of Section~\ref{ch07:sec:seymour} explicitly permits exactly these three axioms in its formal proof of Seymour's conjecture~\cite{oaiconfig}. What matters is to know what each listed axiom says~\cite{leanaxioms}, and to notice an axiom that does not belong, such as \code{sorryAx}.
 
-For the examples in Chapters~15 and~16, the commands
+For three of the examples in Chapters~\ref{ch:lean1} and~\ref{ch:lean2}, the commands
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 #print axioms MathCourse.inj_comp
@@ -17,8 +25,17 @@ For the examples in Chapters~15 and~16, the commands
 #print axioms MathCourse.preimage_meet
 \end{lstlisting}
 \end{minipage}\par
-report that these theorems depend on no axioms at all: their proofs use only the rules of Lean's logic and our own definitions.
+report that these theorems do not depend on any axioms: their proofs use only the rules of Lean's logic and our own definitions. Because the commands use the full names, with the prefix \code{MathCourse}, they can be placed after the line \code{end MathCourse}.
 
-An axiom list is not a substitute for reading the theorem's statement. The impossible-context theorem of the previous section depends on no axioms, yet it assumes \code{False} as a hypothesis. Conversely, a theorem may use a standard axiom without assuming anything about its desired conclusion. Both the assumptions written in the statement and the dependencies of the proof must be understood.
+An axiom list is not a substitute for reading the theorem's statement. The theorems \code{impossible\_context} and \code{surj\_comp\_assumed} of Section~\ref{ch16:sec:irrelevant} depend on no axioms at all, yet the first assumes \code{False} and the second assumes its own conclusion. In the other direction, a theorem whose list includes \code{Classical.choice} may be perfectly sound. To trust a theorem, you need to know both the assumptions written in its statement and the axioms on which its proof depends.
 
-When you check a file, read everything Lean reports: errors, warnings (a \code{sorry} produces a warning, not an error), and the output of any \code{\#print axioms} commands. Wait until checking has finished before concluding that there are no problems; an editor that has not yet reached a line shows no error there. Larger projects, or proofs from sources you do not trust, call for the stronger validation procedures described in the official documentation~\cite{leanvalidate}.
+When you check a file, read everything Lean reports: errors, warnings (a \code{sorry} produces a warning, not an error), and the output of any \code{\#print axioms} commands. Wait until Lean has finished checking the whole file before concluding that there are no problems. In the editor, a line that Lean has not yet reached shows no error, whether or not it contains one. Larger projects, and proofs from sources you do not trust, call for the stronger checking procedures described in the official documentation~\cite{leanvalidate}. Chapter~\ref{ch:bridge} describes the procedure used for the formal proof of Seymour's conjecture.
+
+\subsection*{How far a check reaches}
+Checks also differ in how many cases they cover. Compare three of them.
+\begin{itemize}
+\item A Python program, such as the one in Appendix~\ref{app:practical}, can run through all $2^4=16$ sign sequences of length $4$ and report that exactly $8$ of them have $C_1=C_2=C_3=0$ (Section~\ref{ch14:sec:experiment}). This covers $16$ cases. The answer is only as reliable as the program. No checker compares the code with the definition of $C_s$, so a slip in the code, for instance in the wrap-around, would go unnoticed unless someone read the code carefully against the definition. And the run says nothing about any other length.
+\item A Lean proof of a statement about specific objects, such as \code{twice\_two} in Section~\ref{ch15:sec:symbols}, is checked by Lean step by step. But it covers only the case it states: it proves \code{twice 2 = 4}, and nothing about \code{twice 3}.
+\item A Lean proof of a universal statement, such as \code{surj\_comp}, covers every case at once: all types $A$, $B$, $C$, and all surjective functions between them. There are infinitely many such cases, and no program could test them one by one.
+\end{itemize}
+In all three, the result concerns the statement as it was written. A Python function or a Lean definition that encodes the wrong quantity, for instance the aperiodic correlation where the periodic one was meant, gives a correct answer to the wrong question.

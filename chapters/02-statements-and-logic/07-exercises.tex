@@ -1,7 +1,14 @@
 \section*{Exercises}
-\begin{exercise}\label{ex:2.1}State the converse and contrapositive of ``If $x=3$, then $x^2=9$,'' for real $x$. Decide which are true.\end{exercise}
-\begin{exercise}\label{ex:2.2}Negate: ``For every integer $n$, there is an integer $m$ with $m>n$ and $m$ even.'' Preserve the domain and negate the conjunction correctly.\end{exercise}
-\begin{exercise}\label{ex:2.3}Decide whether $\forall x\in\RR\ \exists y\in\RR:\ x+y=0$ and $\exists y\in\RR\ \forall x\in\RR:\ x+y=0$ are true. Supply a witness or a refutation.\end{exercise}
-\begin{exercise}\label{ex:2.4}Refute: ``If a real number satisfies $x^2>4$, then $x>2$.'' Repair the conclusion without restricting the domain.\end{exercise}
-\begin{exercise}\label{ex:2.5}Two students each accept at least one task, but cannot receive distinct acceptable tasks. Give an example. What stronger condition would detect its failure?\end{exercise}
-\begin{exercise}\label{ex:2.6}For each positive $\eps$, choose a positive integer $N$ such that every integer $n\ge N$ satisfies $1/n<\eps$. Explain both why $N$ may depend on $\eps$ and why it must not depend on the later input $n$.\end{exercise}
+Exercises~\ref{ex:2.1}--\ref{ex:2.4} are core exercises, and Exercises~\ref{ex:2.5} and~\ref{ex:2.6} are transfer exercises. Complete solutions are in Appendix~\ref{app:sola}.
+\begin{exercise}\label{ex:2.1}For a real number $x$, consider the implication ``If $x=3$, then $x^2=9$.'' State its converse and its contrapositive. Decide which of the three statements are true, and justify each answer.\end{exercise}
+\begin{exercise}\label{ex:2.2}Negate the statement ``For every integer $n$, there is an integer $m$ with $m>n$ and $m$ even.'' Keep the domain of each variable unchanged, and take care when you negate the ``and.'' Give the negation both in words and in symbols.\end{exercise}
+\begin{exercise}\label{ex:2.3}Decide whether each of the statements
+\[
+\forall x\in\RR\ \exists y\in\RR:\ x+y=0
+\qquad\text{and}\qquad
+\exists y\in\RR\ \forall x\in\RR:\ x+y=0
+\]
+is true. For a true statement, explain how to choose $y$. For a false statement, show that no choice of $y$ works.\end{exercise}
+\begin{exercise}\label{ex:2.4}Find a counterexample to the claim ``If a real number $x$ satisfies $x^2>4$, then $x>2$.'' Then repair the claim by changing only its conclusion, so that the repaired claim is true for every real number $x$. Choose a conclusion that describes exactly which real numbers satisfy $x^2>4$.\end{exercise}
+\begin{exercise}\label{ex:2.5}Give an example of two students and a list of tasks in which each student accepts at least one task, but the two students cannot be given different acceptable tasks. Then find a stronger condition that involves \emph{groups} of students and can be checked by counting. It should fail in your example, and it should hold whenever all the students can be given different acceptable tasks. Explain why it must hold in that case.\end{exercise}
+\begin{exercise}\label{ex:2.6}For each positive real number $\eps$, find a positive integer $N$ such that every integer $n\ge N$ satisfies $1/n<\eps$. Explain why $N$ may depend on $\eps$, and why it must not depend on the integer $n$ that is tested afterwards.\end{exercise}

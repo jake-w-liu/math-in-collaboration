@@ -1,27 +1,58 @@
-\section{A sequence with small echoes}
-A sign sequence of positive length $n$ is a list $a=(a_0,\ldots,a_{n-1})$ with each entry equal to $1$ or $-1$. Its aperiodic autocorrelation at a shift $s$ with $1\le s<n$ is
+\section{A sequence with small echoes}\label{ch14:sec:aperiodic}
+Sequences of signs appeared in Section~\ref{ch06:sec:wlog}; in this chapter they are the main characters. A \emph{sign sequence} of length $n$, where $n\ge1$, is a list $a=(a_0,a_1,\ldots,a_{n-1})$ in which every entry is $1$ or $-1$. As in Python (Appendix~\ref{app:practical}), we number the positions from $0$, so the last entry is $a_{n-1}$.
+
+Think of the sequence as a pattern of pulses, and of a copy of it delayed by $s$ steps as an echo. If the pattern matches its own echoes only weakly, then a receiver that hears the pattern can tell exactly when it arrived. For this reason sequences of this kind are used in radar and in digital communication. To measure how well the pattern matches its echo, write the sequence down, write a copy shifted $s$ places to the right underneath it, and look at the positions where the two rows overlap. For $a=(1,1,1,-1)$ and $s=1$:
+\[
+\begin{array}{rrrrr}
+1&1&1&-1&\\
+ &1&1&1&-1
+\end{array}
+\]
+In each overlapping position, multiply the two entries. The product $a_ja_{j+s}$ is $1$ when the two entries agree and $-1$ when they differ. Adding these products gives a single number.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}[Aperiodic autocorrelation]\label{ch14:def:aperiodic}
+Let $a$ be a sign sequence of length $n$. For each shift $s$ with $1\le s\le n-1$, the \emph{aperiodic autocorrelation} of $a$ at shift $s$ is
 \[
 A_s(a)=\sum_{j=0}^{n-1-s}a_j a_{j+s}.
 \]
-Slide the sequence by $s$ positions, multiply overlapping entries, and add the products. ``Aperiodic'' means entries beyond the endpoints are not wrapped around. At shift zero, the analogous sum is $n$, because every sign has square one.
+\end{definition}
+\end{minipage}\par
 
-For $a=(1,1,1,-1)$,
-\begin{align*}
-A_1&=(1)(1)+(1)(1)+(1)(-1)=1,\\
-A_2&=(1)(1)+(1)(-1)=0,\\
-A_3&=(1)(-1)=-1.
-\end{align*}
-A Barker sequence is a sign sequence with $|A_s|\le1$ at every nonzero aperiodic shift. Thus this example qualifies. The definition makes sense at length one as well: there are no nonzero shifts to check, so the condition holds vacuously.
-
-Every $A_s$ is a sum of $n-s$ signs and therefore has the same parity as $n-s$. To see this, if $r$ summands are negative, the sum is $(n-s-r)-r=n-s-2r$. Hence a Barker sequence must have $A_s=0$ when $n-s$ is even, and $A_s=1$ or $-1$ when $n-s$ is odd. The definition has immediately produced an arithmetic restriction.
+When it is clear which sequence we mean, we write $A_s$ instead of $A_s(a)$. Since each product is $+1$ for an agreement and $-1$ for a disagreement, $A_s$ is the number of overlapping positions where the sequence agrees with its shifted copy, minus the number where it disagrees. The prefix ``auto'' means that the sequence is compared with itself. The word ``aperiodic'' means that nothing wraps around: entries pushed past the end of the list simply drop off, as the last $-1$ in the picture does. Shifts of $n$ or more are left out because the copy would no longer overlap the original at all. Shift zero is left out for a different reason. At shift zero every entry would be compared with itself, and the sum would be $a_0^2+a_1^2+\cdots+a_{n-1}^2=n$, because every sign has square one. That value is the same for every sequence of length $n$, so it tells us nothing.
 
 \subsection*{Decode the summation limits before computing}
-At shift $s$, a term $a_j a_{j+s}$ is available only while both indices belong to $0,1,\ldots,n-1$. Starting at $j=0$, the last allowed $j$ satisfies $j+s=n-1$, or $j=n-1-s$. There are therefore $n-s$ terms, including both endpoints of that index range.
+The term $a_ja_{j+s}$ makes sense only when both positions $j$ and $j+s$ belong to the list $0,1,\ldots,n-1$. The sum starts at $j=0$. It must stop when the second position reaches the end of the list, that is, when $j+s=n-1$, or $j=n-1-s$. So $j$ takes the values $0,1,\ldots,n-1-s$, and there are $(n-1-s)-0+1=n-s$ terms. This agrees with the picture: shifting by $s$ places leaves an overlap of $n-s$ positions.
 
-For a length-five sequence and shift two, the sum is
+For a sequence of length five and shift two, the sum is
 \[
- A_2=a_0a_2+a_1a_3+a_2a_4.
+ A_2=a_0a_2+a_1a_3+a_2a_4,
 \]
-There is no term $a_3a_5$ in an aperiodic correlation, because $a_5$ is outside the list. At the largest allowed shift $s=n-1$, only $a_0a_{n-1}$ remains. Checking these endpoint cases is an effective way to detect an incorrect summation limit.
+with $5-2=3$ terms. There is no term $a_3a_5$, because $a_5$ is not in the list. At the largest shift, $s=n-1$, a single term $a_0a_{n-1}$ remains. Checking the first term, the last term, and the number of terms in a small case like this is a quick way to catch a wrong summation limit.
 
-The subscript on $A_s$ records the shift, whereas subscripts on $a_j$ record positions. The uppercase quantity is a sum built from the lowercase entries. Keeping these roles distinct helps when several indices appear in one calculation.
+Notice that the two kinds of subscript play different roles. The subscript on $A_s$ records a shift, whereas the subscript on $a_j$ records a position in the list. The uppercase quantity is a sum built from the lowercase entries. Keeping these roles apart helps when several indices appear in one calculation.
+
+\subsection*{A first example, and the sequences we are looking for}
+For $a=(1,1,1,-1)$ there are three shifts to check:
+\begin{align*}
+A_1&=a_0a_1+a_1a_2+a_2a_3=(1)(1)+(1)(1)+(1)(-1)=1,\\
+A_2&=a_0a_2+a_1a_3=(1)(1)+(1)(-1)=0,\\
+A_3&=a_0a_3=(1)(-1)=-1.
+\end{align*}
+At shift one, for instance, the picture above shows two agreements and one disagreement, and $2-1=1$.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}[Barker sequence]\label{ch14:def:barker}
+A \emph{Barker sequence} is a sign sequence $a$ of length $n$ with $|A_s(a)|\le1$ for every shift $s$ with $1\le s\le n-1$.
+\end{definition}
+\end{minipage}\par
+
+So a Barker sequence matches each of its echoes as weakly as possible. The sequence $(1,1,1,-1)$ is a Barker sequence, since its correlations are $1$, $0$, and $-1$. These sequences are named after R.~H.~Barker, who studied them in 1953 as synchronization patterns for digital communication. The definition also makes sense for $n=1$. A sequence of length one has no shifts to check, so the condition holds vacuously (Section~\ref{ch02:sec:contrapositive}), and both $(1)$ and $(-1)$ are Barker sequences.
+
+Why does the definition ask for ``at most one'' rather than ``zero''? Because $A_s$ often cannot be zero. It is a sum of $n-s$ terms, each equal to $1$ or $-1$. If $m$ of these terms equal $-1$, then the other $n-s-m$ terms equal $1$, and
+\[
+A_s=(n-s-m)-m=(n-s)-2m.
+\]
+Subtracting the even number $2m$ does not change whether a number is even or odd. So $A_s$ is even when $n-s$ is even, and odd when $n-s$ is odd; in particular, $A_s$ can be zero only when $n-s$ is even. For a Barker sequence this fixes every correlation up to its sign. The only even integer with absolute value at most one is $0$, and the only odd ones are $1$ and $-1$. Hence a Barker sequence has $A_s=0$ whenever $n-s$ is even, and $A_s=1$ or $A_s=-1$ whenever $n-s$ is odd. In the example of length four, $n-s$ equals $3$, $2$, $1$ for $s=1,2,3$, and the correlations $1$, $0$, $-1$ follow exactly this pattern.
+
+\pauseq{Is $(1,1,-1,-1)$ a Barker sequence?}{No. At shift two, $n-s=2$ is even, so a Barker sequence would need $A_2=0$. But $A_2=a_0a_2+a_1a_3=(1)(-1)+(1)(-1)=-2$. The other two correlations, $A_1=1-1+1=1$ and $A_3=(1)(-1)=-1$, are fine, but a single bad shift is enough to fail the definition.}

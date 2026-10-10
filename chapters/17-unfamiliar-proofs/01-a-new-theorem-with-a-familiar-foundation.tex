@@ -1,16 +1,22 @@
-\section{A new theorem, with a familiar foundation}
-Imagine encountering the following sentence in a paper:
+\section{A new theorem on a familiar foundation}\label{ch17:sec:start}
+Imagine meeting the following sentence in a research paper:
 \begin{quote}
 Every sequence in a complete, totally bounded metric space has a convergent subsequence.
 \end{quote}
-You know what a metric, completeness, and convergence mean from Chapters~11--12. ``Totally bounded'' and ``subsequence'' are new. One unhelpful response is to decide that a complete course in topology must come first. A more useful response asks what these two ideas do in this particular argument. Here is how a productive first exchange with an AI assistant might go.
+Most of its words are familiar. Chapter~\ref{ch:limits} defined metric spaces, convergence, Cauchy sequences and completeness, and Chapter~\ref{ch:contraction} used all of them in a long proof. Two expressions are new: ``totally bounded'' and ``subsequence.''
 
-\textbf{Reader:} State the proof's mechanism without using any new theorem names.
+One possible response is to decide that a whole course on the subject must come first. The property in the conclusion, that every sequence has a convergent subsequence, is a form of what mathematicians call \emph{compactness}, and a branch of mathematics called topology has a large general theory of it. A more useful response is to ask what the two new ideas do in this particular argument, and to learn exactly that much. Here is how a productive first exchange with an AI assistant might go.
 
-\textbf{Assistant:} Repeatedly keep infinitely many terms inside a smaller region. Choose later and later terms from those nested selections. They become Cauchy; completeness supplies their limit.
+\textbf{Reader:} I know metric spaces, Cauchy sequences and completeness. Describe how the proof of this statement works, without quoting any theorem I may not know.
 
-\textbf{Reader:} Which missing facts make those steps legitimate?
+\textbf{Assistant:} Keep infinitely many terms of the sequence inside a small region, then inside a smaller one, and so on. Pick later and later terms from these nested selections. The picked terms form a Cauchy sequence, and completeness supplies their limit.
 
-\textbf{Assistant:} We need finite coverings by small balls, the fact that one of finitely many classes containing infinitely many indices must itself be infinite, and a way to choose strictly increasing indices.
+\textbf{Reader:} Which facts do those steps rely on that I may not have met yet?
 
-The assistant's answers give a proposed dependency map, not yet a proof. We will now supply every missing mathematical link. No general theorem about compactness is needed. The minimum background is relative to this chosen proof; another proof may require a different collection of concepts.
+\textbf{Assistant:} Three. You need to know that the space can be covered by finitely many small balls; that if infinitely many indices are split into finitely many groups, some group still contains infinitely many of them; and how to choose indices that keep increasing.
+
+The assistant's first answer is compressed, and you are not expected to follow every phrase of it yet. Together, its two answers propose a \emph{dependency map} of the proof, in the sense of Section~\ref{ch12:sec:theorem}: a list of the steps of the proof and of the facts that each step relies on. Once we mark which entries of such a map we already know and which are new to us, we call it a \emph{prerequisite map}. The new entries are the missing pieces, and they are all we need to learn.
+
+A proposed map is not yet a proof. Sections~\ref{ch17:sec:balls}, \ref{ch17:sec:pigeonhole} and~\ref{ch17:sec:subsequence} supply the three missing pieces, each in a short self-contained lesson that we call a \emph{capsule}. Section~\ref{ch17:sec:proof} then assembles the complete proof. None of the general theory of compactness is needed. What counts as the minimum background depends on the proof you choose to read: a different proof of the same theorem could need a different collection of concepts.
+
+The reader's side of the exchange is an example of a \emph{minimal-background request}. It says what the reader already knows, names one particular proof, and asks only for the concepts that this proof needs. A good request of this kind also asks the assistant to show, right after each new concept, the step of the proof where it is used. That keeps the conversation tied to one argument instead of drifting into a survey of a whole subject.

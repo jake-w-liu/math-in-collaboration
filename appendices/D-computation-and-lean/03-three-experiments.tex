@@ -1,6 +1,6 @@
-\section{Three experiments}
+\section{Three experiments}\label{appD:sec:experiments}
 \subsection*{Counting sign sequences}
-The following program reproduces the table of Chapter~14. The function \code{product([1, -1], repeat=n)} from the standard library produces all $2^n$ sign sequences of length $n$, one at a time, as tuples.
+The following program produces the table of Section~\ref{ch14:sec:experiment}.
 \begin{lstlisting}
 from itertools import product
 
@@ -24,20 +24,31 @@ for n in range(1, 14):
     circ = sum(1 for a in seqs if is_circulant_row(a))
     print(n, barker, circ)
 \end{lstlisting}
-Each output line gives a length $n$, the number of Barker sequences of that length, and the number of sequences whose periodic correlations vanish at every nonzero shift. Read the code against the definitions: \code{range(n - s)} runs $j$ from $0$ to $n-1-s$, exactly the summation range of $A_s$, and \code{\%} is Python's remainder operator, which performs the wrap-around in $C_s$. The expression \code{all(...)} is true when the test holds for every shift $s$ with $1\le s<n$; for $n=1$ there are no such shifts, so the test holds vacuously, just as in the definition. Raising the upper limit $14$ makes the program slower by a factor of about two for each additional length.
+The first line makes the tool \code{product}, from the part of the standard library called \code{itertools}, available to the program. Called as \code{product([1, -1], repeat=n)}, it produces all $2^n$ sign sequences of length $n$, one at a time, each as a tuple; for $n=2$ these are \code{(1, 1)}, \code{(1, -1)}, \code{(-1, 1)} and \code{(-1, -1)}. The line \code{seqs = list(...)} collects them into one list.
+
+Before trusting the output, read each function against the definition it is meant to carry out.
+\begin{itemize}
+\item In \code{aperiodic}, the range \code{range(n - s)} runs $j$ through $0,1,\ldots,n-1-s$, exactly the summation range of $A_s$ in Definition~\ref{ch14:def:aperiodic}.
+\item In \code{periodic}, the index $j$ runs through all of $0,1,\ldots,n-1$, and \code{(j + s) \% n} is the position $(j+s)\bmod n$ of Definition~\ref{ch14:def:periodic}. This is where the wrap-around happens.
+\item The test \code{is\_barker(a)} is \code{True} exactly when $\abs{A_s}\le1$ for every shift $s$ with $1\le s\le n-1$, because \code{range(1, len(a))} produces exactly these shifts. This is Definition~\ref{ch14:def:barker}. For $n=1$ there are no such shifts, so \code{all(...)} is vacuously \code{True}, and both sequences of length one count as Barker sequences, just as in Chapter~\ref{ch:signs}.
+\item In the same way, \code{is\_circulant\_row(a)} is \code{True} exactly when $C_s=0$ for every shift $s$ with $1\le s\le n-1$.
+\end{itemize}
+For each length $n$ from $1$ to $13$, the main loop stores in \code{barker} the number of Barker sequences of length $n$, and in \code{circ} the number of sequences whose periodic correlations vanish at every nonzero shift. Each line of output therefore contains three numbers: the length, the number of Barker sequences, and the number of sequences with $C_s=0$ for $1\le s\le n-1$. The thirteen lines agree with the thirteen rows of the table. For example, the fourth line is \code{4 8 8}: of the $16$ sign sequences of length four, eight are Barker sequences, and eight have all three periodic correlations $C_1$, $C_2$, $C_3$ equal to zero.
+
+To go further, raise the upper limit \code{14}. Each additional length doubles the number of sequences, and each sequence takes a little longer to check, so the running time slightly more than doubles with every length added.
 
 \subsection*{An assignment search that returns a certificate}
-The next function carries out the augmenting-path method of Chapter~8. Students are numbered $0,1,2,\ldots$, and \code{options[s]} is the set of tasks acceptable to student \code{s}.
+The next function carries out the procedure of Section~\ref{ch08:sec:search}. Students are numbered $0,1,2,\ldots$, and \code{options} is a list whose entry \code{options[s]} is the set $N(s)$ of tasks acceptable to student \code{s}.
 \begin{lstlisting}
 def assign(options):
-    """options[s] is the set of tasks acceptable to student s.
-    Returns ("assignment", task_of) or ("shortage", A, N(A))."""
+    # options[s] is the set of tasks acceptable to student s.
+    # Returns ("assignment", task_of) or ("shortage", A, N(A)).
     owner = {}     # task -> student who currently holds it
     task_of = {}   # student -> task that student currently holds
     for root in range(len(options)):
         came_from = {}        # task -> student from which it was reached
         reached = [root]      # students reached by the search
-        to_explore = [root]
+        to_explore = [root]   # reached students not yet inspected
         free_task = None
         while to_explore and free_task is None:
             student = to_explore.pop()
@@ -50,10 +61,12 @@ def assign(options):
                     break
                 reached.append(owner[task])
                 to_explore.append(owner[task])
-        if free_task is None:
-            needed = set().union(*(options[s] for s in reached))
+        if free_task is None:     # the search failed
+            needed = set()        # will become N(A)
+            for s in reached:
+                needed = needed | options[s]
             return ("shortage", reached, needed)
-        task = free_task      # flip the augmenting path back to the root
+        task = free_task          # flip the augmenting path back to the root
         while task is not None:
             student = came_from[task]
             old_task = task_of.get(student)
@@ -65,25 +78,65 @@ def assign(options):
 print(assign([{1, 2}, {1}, {2, 3}]))
 print(assign([{1, 2}, {1}, {2}]))
 \end{lstlisting}
-Each student in turn becomes the root of a search. The search follows an unmatched acceptable edge from a student to a task, skipping the task that student already holds; from an occupied task it continues to the task's owner. The dictionary \code{came\_from} records the predecessor of each reached task, and a task already recorded is never explored again. If an unused task is found, the final loop walks back along the recorded predecessors and flips the path: each student on it moves to the task that was reached from them, and the root receives a task for the first time. If the search ends without finding an unused task, the function returns the reached students $A$ and the set $N(A)$ of all their acceptable tasks, which by the argument of Chapter~8 has exactly one member fewer than $A$.
+Here is how the function matches the procedure of Chapter~\ref{ch:matching}.
 
-The two test lines use the examples of Chapter~8 with students $a,b,c$ numbered $0,1,2$ and the tasks keeping their names $1,2,3$. The first prints an assignment pairing $a$ with $2$, $b$ with $1$, and $c$ with $3$. The second, in which task $3$ has been removed from $c$'s options, prints a shortage: all three students are reached, but together they accept only the two tasks $1$ and $2$. Either answer can be checked by hand without trusting the program: an assignment by inspecting each pair, a shortage by counting.
+\emph{The matching.} Two dictionaries describe the current matching $M$: \code{owner[t]} is the student who holds task \code{t}, and \code{task\_of[s]} is the task that student \code{s} holds. A task without an entry in \code{owner} is unused, and a student without an entry in \code{task\_of} is unmatched. Both dictionaries start empty, so $M$ starts as the empty matching. The students then take turns as the root of a search, in the order $0,1,2,\ldots$. When a student's turn comes, it is still unmatched, because a flip moves only students who already hold a task, apart from the root of that flip, which receives its first task.
+
+\emph{The search.} The dictionary \code{came\_from} records each reached task together with its predecessor, the student from which it was reached. The list \code{reached} holds the reached students, and \code{to\_explore} holds those that have been reached but not yet inspected. A list used as a condition counts as true when it is not empty, so the \code{while} loop runs as long as some reached student is waiting to be inspected and no unused task has been found. Each pass takes a student from \code{to\_explore} and inspects it, as in Section~\ref{ch08:sec:search}. The \code{continue} line skips a task that has already been reached, and also the task that the student holds, since the edge to that task is matched. Any other acceptable task is marked as reached, with the current student as its predecessor. If the task is unused, the search has succeeded: \code{break} ends the inspection, and the \code{while} loop stops too, because \code{free\_task} is no longer \code{None}. If the task is used, its owner is marked as reached and waits to be inspected. The owner cannot have been reached before, because a student other than the root is reached only through the task it holds, and each task is reached only once. The program does not need to record the predecessor of such a student separately: it is the task the student holds, which \code{task\_of} already records. Because \code{pop()} always takes the most recently reached student, the students are not inspected in the order of breadth-first search. As Section~\ref{ch08:sec:search} explains, the order does not matter, as long as the search continues until it succeeds or every reached student has been inspected.
+
+\emph{The flip.} If an unused task was found, the last loop flips $M$ along the augmenting path, walking backward from the unused task to the root. At each step, \code{student} is the predecessor of the current task. This student gives up its old task, saved as \code{old\_task}, and takes the current task. The walk then continues from \code{old\_task}, which is the task from which this student was reached. When the walk arrives at the root, \code{old\_task} is \code{None}, because the root held no task, and the loop stops. The two dictionaries now describe the matching obtained by flipping $M$ along the augmenting path, which by Lemma~\ref{thm:augment} has one more edge than $M$.
+
+\emph{A failed search.} If the search ends without finding an unused task, it has inspected every reached student, so it is complete in the sense of Section~\ref{ch08:sec:search}. Let $A$ be the set of reached students. The three lines that build \code{needed} collect every task accepted by some student of $A$, so \code{needed} is the set $N(A)$. By Proposition~\ref{ch08:prop:shortage}, $N(A)$ has exactly one member fewer than $A$, so $A$ is a shortage set. The function returns $A$ and $N(A)$ at once, without trying the remaining students, because a shortage set already proves that no matching gives every student a task (Section~\ref{ch08:sec:shortage}).
+
+The two test lines use the examples of Section~\ref{sec:matching-trace}, with the students $a,b,c$ numbered $0,1,2$ and the tasks keeping their names $1,2,3$. A word in quotation marks, such as \code{"shortage"}, is a piece of text that labels the kind of answer. The program displays
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+('assignment', {0: 2, 1: 1, 2: 3})
+('shortage', [2, 0, 1], {1, 2})
+\end{lstlisting}
+\end{minipage}\par
+In the first line, the dictionary \code{\{0: 2, 1: 1, 2: 3\}} pairs student~$0$, that is $a$, with task~$2$, then $b$ with task~$1$, and $c$ with task~$3$. This is the same assignment as in Section~\ref{sec:matching-trace}, reached by a different route, because the program takes the roots in the order $a,b,c$ rather than $a,c,b$. After $a$ takes task~$1$, the search from $b$ reaches task~$1$, its owner $a$, and the unused task~$2$; the flip moves $a$ to task~$2$ and gives task~$1$ to $b$. The search from $c$ then finds the unused task~$3$ among $c$'s own options. In the second test, task~$3$ has been removed from $c$'s options. The list \code{[2, 0, 1]} contains the reached students $c$, $a$, $b$, in the order in which the search reached them, and \code{\{1, 2\}} is the set of tasks they accept: three students, but only two tasks. Either answer can be checked by hand without trusting the program, an assignment by inspecting each pair and a shortage by counting.
 
 \subsection*{The biased iteration with exact fractions}
-The last program checks the experiment of Chapter~18. It computes the iterates of $y_{n+1}=(3y_n+1)/4+1/100$ exactly, confirms the closed form, and compares each error with the certificate of Theorem~\ref{thm:inexact}.
+The last program checks the numerical experiment of Chapter~\ref{ch:capstone}. It computes the iterates of the biased update
+\[
+y_{n+1}=\frac{3y_n+1}{4}+\frac1{100},\qquad y_0=0,
+\]
+with exact fractions. For each index $n$ from $0$ to $20$, it checks the closed form $y_n=\frac{26}{25}\bigl(1-(\frac34)^n\bigr)$ and the bound of Theorem~\ref{thm:inexact}, which here reads
+\[
+\abs{y_n-1}\le\Bigl(\frac34\Bigr)^n e_0+\eta\,\frac{1-(3/4)^n}{1-3/4},
+\qquad e_0=\abs{y_0-1}=1,\quad \eta=\frac1{100}.
+\]
 \begin{lstlisting}
 from fractions import Fraction
 
-q = Fraction(3, 4)
-eta = Fraction(1, 100)
-y = Fraction(0)
-for n in range(9):
+q = Fraction(3, 4)        # contraction factor of T(x) = (3x + 1)/4
+eta = Fraction(1, 100)    # the bias added at every update
+y = Fraction(0)           # the starting point y_0
+e0 = abs(y - 1)           # initial error; the fixed point of T is 1
+for n in range(21):
     closed = Fraction(26, 25) * (1 - q**n)
-    assert y == closed
+    assert y == closed                  # closed form, checked exactly
     error = abs(y - 1)
-    bound = q**n * 1 + eta * (1 - q**n) / (1 - q)
-    assert error <= bound
-    print(n, y, error, bound)
-    y = (3 * y + 1) / 4 + eta
+    bound = q**n * e0 + eta * (1 - q**n) / (1 - q)
+    assert error <= bound               # bound, checked exactly
+    print(n, round(float(error), 4), round(float(bound), 4))
+    y = (3 * y + 1) / 4 + eta           # the biased update gives y_{n+1}
 \end{lstlisting}
-A line \code{assert} stops the program with an error if its condition is false, so a run that prints all nine rows has confirmed both the closed form and the bound at each displayed index. The row for $n=1$ reads \code{1 13/50 37/50 19/25}, matching the hand check in the solution to Exercise~\ref{ex:18.6}. Do not run Python with its optimization option \code{-O}, which silently skips \code{assert} lines. Of course, a finite run confirms the formulas only at the indices it reaches; the proofs in Chapter~18 cover every index.
+A line \code{assert} \emph{condition} does nothing when the condition is true, and stops the program with an error message when it is false. So if the program runs to the end and displays all $21$ lines, the closed form and the bound have both been confirmed, in exact arithmetic, for $n=0,1,\ldots,20$. Python skips \code{assert} lines when it is started with the option \code{-O}, so run this program in the usual way, as described in Section~\ref{appD:sec:python}, without that option. At $n=0$ the bound says only $e_0\le e_0$; Theorem~\ref{thm:inexact} is needed from $n=1$ on.
+
+The function \code{float} converts a fraction to the nearest floating-point number, and \code{round(}\dots\code{, 4)} rounds the result to four decimal places. Both happen only inside the \code{print} line, after the exact checks, so rounding affects what is displayed and nothing else. Here is part of the output:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+0 1.0 1.0
+1 0.74 0.76
+2 0.545 0.58
+...
+10 0.0186 0.0941
+11 0.0039 0.0805
+12 0.0071 0.0704
+...
+20 0.0367 0.043
+\end{lstlisting}
+\end{minipage}\par
+The row for $n=1$ shows the decimal forms of the exact values $37/50$ and $19/25$ found by hand in the solution to Exercise~\ref{ex:18.6}. The middle column shows what Chapter~\ref{ch:capstone} predicts: the true error falls until $n=11$ and then rises again toward $1/25=0.04$, while the bound in the last column decreases at every step toward the same limit $1/25$. Remember that a finite run confirms the formulas only at the indices it reaches; the proofs in Chapter~\ref{ch:capstone} cover every index.

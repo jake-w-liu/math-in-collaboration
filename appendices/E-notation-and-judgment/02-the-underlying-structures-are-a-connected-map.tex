@@ -1,6 +1,29 @@
-\section{The underlying structures are a connected map}
-A set tells us which objects are allowed. A relation specifies how pairs are connected or compared. An operation combines objects. A map translates one description into another. Additional structure determines which questions make sense: addition permits linear combinations, order permits extremal choices, distance permits approximation, and probability permits weighted averaging.
+\section{The structures behind the book, and what each one allows}\label{appE:sec:structures}
+Almost every object in this book is a set with something extra attached. The set says which objects a question is about (Chapter~\ref{ch:maps}). A \emph{relation} says which pairs of objects are linked or compared; ``is congruent to modulo $m$'' and ``is adjacent to'' are examples (Section~\ref{ch06:sec:differences}). An \emph{operation}, such as addition, combines two objects into a third (Section~\ref{ch06:sec:structure}). A function, also called a map, sends each object of one set to an object of another, and so lets us carry a question from one description to another.
 
-Ask what information a proof actually uses. Hall's theorem uses a finite adjacency relation and cardinalities, not coordinates of the vertices. The contraction theorem uses distances and completeness, not vector addition. Cauchy--Schwarz uses the algebra and positivity of a dot product. The sign-sequence argument translates pair products into row orthogonality and then into a counting restriction. Seeing what is \emph{not} used helps identify possible generalizations without guessing them indiscriminately.
+The extra structure decides which questions can even be asked.
+\begin{itemize}
+\item Addition and scaling let us form linear combinations of vectors (Chapter~\ref{ch:linear}).
+\item An order, such as the usual order of the natural numbers, lets us choose a smallest or largest object, such as a shortest walk or a longest directed path in a graph (Chapter~\ref{ch:graphs}).
+\item A distance lets us say that one point approximates another, and so lets us speak of limits (Chapter~\ref{ch:limits}).
+\item A probability on a finite set of outcomes lets us take weighted averages (Chapter~\ref{ch:probability}).
+\end{itemize}
+Without the right structure, such a question has no meaning. In a set with no distance, for instance, the phrase ``$x_n$ gets close to $x_*$'' says nothing.
 
-A representation change is useful only when its correspondence is controlled. An inverse converts equal outputs to equal inputs. A quotient forgets distinctions shown to be irrelevant. A matrix represents a linear action in chosen coordinates. An indicator turns a counting question into a sum of zero-one values. These are different constructions, but each creates a language in which a desired step becomes easier to express and justify.
+Habit~3 (Chapter~\ref{ch:maps}) asks which information a proof actually uses. For the main theorems of the book the answers are short, and they are revealing.
+\begin{itemize}
+\item The proofs of Hall's theorem (Chapter~\ref{ch:hall}) use only which students accept which tasks, and how many members various finite sets have. They never use what the students and the tasks actually are. That is why the theorem applies to every finite bipartite graph, whatever its vertices stand for.
+\item The proof of the contraction theorem (Theorem~\ref{thm:banach}) works entirely with distances: it uses the contraction inequality, the triangle inequality, and completeness. It never adds two points or multiplies a point by a number. That is why it works in metric spaces that have no addition at all.
+\item The proof of the Cauchy--Schwarz inequality (Theorem~\ref{thm:cs}) uses only three properties of the dot product: linearity in each argument, symmetry, and positivity. Any other product with these three properties satisfies the same inequality, with the same proof.
+\item Chapter~\ref{ch:signs} first translates a condition on a sign sequence, that all its periodic correlations at nonzero shifts are zero, into a condition on a matrix: different rows of its circulant matrix are orthogonal (Proposition~\ref{ch14:prop:rows}). Two arguments then restrict the order of such a matrix, that is, its number of rows. Adding up all the correlations shows that the order of the matrix is a perfect square, and this argument relies on the circulant pattern. Comparing three rows shows that the order is divisible by four when it is greater than $2$ (Lemma~\ref{thm:hadamardorder}). This second argument uses only two facts, that the entries are $\pm1$ and that different rows are orthogonal, so it holds for every Hadamard matrix, circulant or not.
+\end{itemize}
+Noticing what a proof does \emph{not} use tells you where its conclusion might reach further. It is a guide for guessing, not a proof: every proposed extension still has to be checked against the argument, line by line.
+
+Many steps in the book change the description of a problem without changing the problem itself, and Habit~6 (Chapter~\ref{ch:structure}) asks what such a change preserves. A new description helps only when we know exactly what it keeps and what it throws away. Here are four changes of description from the book.
+\begin{itemize}
+\item \emph{An inverse loses nothing.} If $f$ has an inverse $h$, then $f(x)=f(y)$ gives $x=h(f(x))=h(f(y))=y$. Equal outputs come only from equal inputs, so a question about inputs can be answered by looking at outputs (Section~\ref{ch03:sec:injsurj}).
+\item \emph{A quotient forgets on purpose.} Passing from an integer $a$ to its residue class $[a]_m$ forgets everything about $a$ except its remainder on division by $m$. This is safe only for rules that give the same answer for every representative of a class, which is why well-definedness has to be checked (Section~\ref{ch06:sec:well-defined}).
+\item \emph{A matrix turns a linear map into a table of numbers.} Column $j$ of the matrix records where the map sends the standard basis vector $e_j$ (Section~\ref{ch10:sec:linearmaps}), and composing two linear maps corresponds to multiplying their matrices (Section~\ref{ch10:sec:product}).
+\item \emph{An indicator turns an event into a number}, $1$ when the event occurs and $0$ when it does not. Counting how many events occur then becomes adding numbers, and linearity of expectation applies (Section~\ref{ch13:sec:indicators}).
+\end{itemize}
+These constructions are quite different, but each one gives a language in which the step we need is easier to state and to justify.

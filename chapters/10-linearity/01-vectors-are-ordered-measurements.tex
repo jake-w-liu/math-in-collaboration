@@ -1,25 +1,69 @@
-\section{Vectors are ordered measurements}
-Throughout the coordinate examples, $n$ is a positive integer. A vector in $\RR^n$ is an ordered list of $n$ real numbers. For $n=2$, write $x=(x_1,x_2)$. The coordinates might record two resource amounts or the location of a point. Order matters: $(1,3)$ and $(3,1)$ usually describe different data.
+\section{Vectors are ordered measurements}\label{ch10:sec:vectors}
+Let $n$ be a positive integer. A \emph{vector} in $\RR^n$ is an ordered list $x=(x_1,x_2,\ldots,x_n)$ of $n$ real numbers, and the numbers $x_1,\ldots,x_n$ are its \emph{coordinates}. So $\RR^n$ is the set of all such lists. For $n=2$ the vectors are ordered pairs $(x_1,x_2)$ of real numbers. We picture $(x_1,x_2)$ as the point of the plane that lies $x_1$ units to the right of a fixed point, the \emph{origin}, and $x_2$ units above it. The coordinates need not describe a position, though. A shop could record $3$ kilograms of flour and $5$ kilograms of sugar as the vector $(3,5)$. Order matters: as with the ordered pairs of Section~\ref{ch03:sec:sets}, $(1,3)$ and $(3,1)$ are different vectors, and for the shop they describe different stock. Two vectors are equal exactly when they agree in every coordinate.
 
-Add vectors coordinate by coordinate and multiply them by a real scalar $c$:
+Vectors are added coordinate by coordinate. To multiply a vector by a real number $c$, multiply every coordinate by $c$:
+\begin{gather*}
+(x_1,\ldots,x_n)+(y_1,\ldots,y_n)=(x_1+y_1,\ldots,x_n+y_n),\\
+c(x_1,\ldots,x_n)=(cx_1,\ldots,cx_n).
+\end{gather*}
+For example, $(1,3)+(2,-1)=(3,2)$ and $2(1,3)=(2,6)$. In this setting a real number such as $c$ is called a \emph{scalar}, because multiplying by it rescales the vector. The \emph{zero vector} has every coordinate equal to zero. We write it simply as $0$ and let the context tell us whether $0$ means a number or a vector. The \emph{negative} of $x$ is $-x=(-1)x=(-x_1,\ldots,-x_n)$, and subtraction means adding the negative: $x-y=x+(-y)=(x_1-y_1,\ldots,x_n-y_n)$. Because every coordinate is handled separately, the familiar rules of arithmetic carry over from numbers to vectors. For instance, $x+y=y+x$, $x+0=x$, $x-x=0$, and $c(x+y)=cx+cy$, because each of these equations holds in every coordinate.
+
+A \emph{linear combination} of vectors $v_1,\ldots,v_k$ is a vector of the form
 \[
-(x_1,x_2)+(y_1,y_2)=(x_1+y_1,x_2+y_2),\qquad c(x_1,x_2)=(cx_1,cx_2).
+a_1v_1+a_2v_2+\cdots+a_kv_k,
 \]
-The zero vector has all coordinates zero. Subtraction is addition of the negative vector. An expression $a_1v_1+\cdots+a_kv_k$ is a linear combination of vectors $v_1,\ldots,v_k$ with scalar coefficients $a_1,\ldots,a_k$.
-
-The vectors $e_1=(1,0)$ and $e_2=(0,1)$ are building blocks for the plane:
+where $a_1,\ldots,a_k$ are scalars, called the \emph{coefficients} of the combination. Here the subscripts on $v_1,\ldots,v_k$ number the vectors in a list; each $v_j$ is a whole vector, not a coordinate. For example,
 \[
-(x_1,x_2)=x_1e_1+x_2e_2.
+2(1,3)-(2,-1)=(2,6)+(-2,1)=(0,7)
 \]
-This expression is unique, since equality of ordered pairs forces equality in each coordinate. A list that expresses every vector uniquely by linear combinations is a basis. The point of a basis is not that its vectors are intrinsically special; it provides a coordinate description that can be transformed or chosen to suit a problem.
+is a linear combination of $(1,3)$ and $(2,-1)$ with coefficients $2$ and $-1$.
 
-\subsection*{Why the two words in ``unique representation'' matter}
-With $e_1=(1,0)$ and $e_2=(0,1)$, the vector $(3,-2)$ is $3e_1-2e_2$. Existence of such a representation for every vector means the building blocks \emph{span} the plane. Uniqueness means the same vector cannot be made from two different coefficient lists.
-
-The single vector $(1,1)$ does not span the plane: every multiple has equal coordinates, so it cannot make $(1,0)$. The list $(1,0),(0,1),(1,1)$ does span it, but does not give unique coefficients. The vector $(1,1)$ can be made as one copy of the third vector or as one copy each of the first two. A basis requires both spanning and uniqueness.
-
-An equivalent test for uniqueness is that a combination equaling zero must have all coefficients zero; this property is called \emph{linear independence}. To see the connection, subtract two representations of the same vector. The differences of their coefficients make a combination equal to zero. If only zero coefficients can do this, the two original coefficient lists agree. Conversely, a nonzero coefficient list making zero would give a second representation of the zero vector besides the all-zero list. For the list $(1,0),(0,1),(1,1)$, subtracting the two representations of $(1,1)$ found above gives
+In the plane, the vectors $e_1=(1,0)$ and $e_2=(0,1)$ serve as building blocks. Every vector is a linear combination of them, because
 \[
-(-1)(1,0)+(-1)(0,1)+1\cdot(1,1)=(0,0),
+x_1e_1+x_2e_2=(x_1,0)+(0,x_2)=(x_1,x_2).
 \]
-a combination equal to zero whose coefficients are not all zero. So this list is not linearly independent, which is another way of saying that it does not give unique coefficients.
+Moreover, the coefficients are forced. If $(x_1,x_2)=a_1e_1+a_2e_2$, the same calculation shows that the right side is $(a_1,a_2)$. Two ordered pairs are equal only when their entries agree, so $a_1=x_1$ and $a_2=x_2$.
+
+A list of vectors in $\RR^n$ is called a \emph{basis} of $\RR^n$ when every vector of $\RR^n$ can be written as a linear combination of the list in exactly one way. We have just shown that $e_1,e_2$ is a basis of $\RR^2$. The same argument works in $\RR^n$ for the vectors $e_1,\ldots,e_n$, where $e_j$ has a $1$ in position $j$ and a $0$ in every other position. This list is called the \emph{standard basis} of $\RR^n$. In $\RR^3$, for instance, $(4,5,0)=4e_1+5e_2+0e_3$.
+
+\subsection*{Two requirements: reaching every vector, and reaching it only once}
+The definition of a basis makes two separate demands. First, every vector must have a representation, as $(3,-2)=3e_1-2e_2$ does in the standard basis. A list \emph{spans} $\RR^n$ if every vector of $\RR^n$ is a linear combination of the list. Second, the representation must be \emph{unique}: the same vector must never arise from two different lists of coefficients. A basis is a list that does both.
+
+Neither demand implies the other. The single vector $(1,1)$ passes the uniqueness test: a vector that it does make, it makes in only one way, because $a(1,1)=b(1,1)$ forces $a=b$. But it does not span the plane, because every multiple $a(1,1)=(a,a)$ has equal coordinates, so no multiple equals $(1,0)$. In the other direction, the list $(1,0),(0,1),(1,1)$ does span the plane, since already
+\[
+(x_1,x_2)=x_1(1,0)+x_2(0,1)+0(1,1).
+\]
+But it does not give unique coefficients. The vector $(1,1)$ can be made as $0(1,0)+0(0,1)+1(1,1)$, and also as $1(1,0)+1(0,1)+0(1,1)$.
+
+Uniqueness has a convenient test. A list $v_1,\ldots,v_k$ is called \emph{linearly independent} if the only linear combination of it that equals the zero vector is the one whose coefficients are all zero:
+\[
+a_1v_1+\cdots+a_kv_k=0\quad\text{implies}\quad a_1=a_2=\cdots=a_k=0.
+\]
+A list is linearly independent exactly when no vector can be written as a combination of the list in two different ways. To see why, suppose first that the list is linearly independent and that some vector $x$ has two representations,
+\[
+x=a_1v_1+\cdots+a_kv_k\qquad\text{and}\qquad x=b_1v_1+\cdots+b_kv_k.
+\]
+Subtract the second from the first and collect the terms that contain each $v_j$:
+\[
+(a_1-b_1)v_1+\cdots+(a_k-b_k)v_k=x-x=0.
+\]
+By independence, every difference $a_j-b_j$ is zero, so the two representations were the same after all. Conversely, if the list is not linearly independent, then some combination with at least one nonzero coefficient equals $0$. The combination with all coefficients zero also equals $0$, so the zero vector has two different representations.
+
+For the list $(1,0),(0,1),(1,1)$, subtracting the second representation of $(1,1)$ found above from the first gives
+\[
+(-1)(1,0)+(-1)(0,1)+1(1,1)=(0,0),
+\]
+a combination equal to zero whose coefficients are not all zero. So this list is not linearly independent, which is another way of saying that it does not give unique coefficients. In short, a basis is a list that spans and is linearly independent.
+
+\pauseq{Is the list $(1,2),(2,4)$ a basis of $\RR^2$?}{No, and it fails both requirements. It is not linearly independent, because $2(1,2)+(-1)(2,4)=(0,0)$. It does not span the plane either: every combination $a(1,2)+b(2,4)=(a+2b,\,2a+4b)$ has second coordinate equal to twice its first, so $(1,0)$ is never reached.}
+
+\subsection*{A basis can be chosen to fit the problem}
+The standard basis is not the only basis of the plane. Take $w_1=(1,1)$ and $w_2=(1,-1)$. Which coefficients $a$ and $b$ give $aw_1+bw_2=(x_1,x_2)$? Since $aw_1+bw_2=(a+b,\,a-b)$, comparing coordinates shows that we need
+\[
+a+b=x_1\qquad\text{and}\qquad a-b=x_2.
+\]
+Adding these two equations gives $2a=x_1+x_2$, and subtracting the second from the first gives $2b=x_1-x_2$. So the only possible coefficients are
+\[
+a=\frac{x_1+x_2}{2}\qquad\text{and}\qquad b=\frac{x_1-x_2}{2},
+\]
+and these coefficients do work, since with them $a+b=x_1$ and $a-b=x_2$. Every vector of the plane therefore has exactly one representation, and $w_1,w_2$ is a basis. For instance, $(3,1)=2w_1+1w_2$. In this basis, the coefficients of a vector are half the sum and half the difference of its usual coordinates. The vectors themselves have not changed; only the way we describe them has. Choosing a description that suits the question is a theme of this chapter, and this particular basis will return several times.

@@ -1,14 +1,80 @@
-\section{Residues: a small model of a large idea}
-Fix a positive integer $m$. Say $a\equiv b\pmod m$ when $m$ divides $a-b$. This means that $a$ and $b$ differ by a whole number of periods of length $m$. For $m=4$, we have $1\equiv5\equiv-3\pmod4$.
-
-This is an equivalence relation. Reflexivity follows because $a-a=0=m\cdot0$. If $a-b=mk$, then $b-a=m(-k)$, proving symmetry. If $a-b=mk$ and $b-c=m\ell$, then $a-c=m(k+\ell)$, proving transitivity.
-
-The equivalence class $[a]_m$ consists of all integers equivalent to $a$. Every class has \emph{exactly one} representative among $0,1,\ldots,m-1$. One exists because division with remainder writes $a=qm+r$ with $0\le r<m$, and then $a-r=qm$, so $a\equiv r\pmod m$. For example, $-7=(-2)\cdot4+1$, so $-7$ is in the same class modulo four as $1$. There is only one such representative, because two different numbers in the range $0,\ldots,m-1$ differ by a positive amount less than $m$, which cannot be a multiple of $m$. Hence there are exactly $m$ classes. They form the set $\ZZ/m\ZZ$. The notation can initially be read simply as ``integers with differences by multiples of $m$ ignored.'' We do not need the general theory of quotient objects to use this example correctly.
-
-For modulus four, the class $[1]_4$ is the entire set
+\section{Residues: a small model of a large idea}\label{ch06:sec:residues}
+Fix a positive integer $m$. For integers $a$ and $b$, we write
 \[
- \{\ldots,-7,-3,1,5,9,\ldots\}.
+a\equiv b\pmod m,
 \]
-The integer one is a \emph{representative}: one member used to name that set. Five is another representative, so $[1]_4=[5]_4$, even though $1\ne5$. Three levels must stay separate: the integer, the set of integers equivalent to it, and the collection of all such sets.
+and say that $a$ is \emph{congruent to $b$ modulo $m$}, when $m$ divides $a-b$, that is, when $a-b=mk$ for some integer $k$. (Divisibility was defined in Section~\ref{ch05:sec:euclid}.) In words, $a$ and $b$ differ by a whole number of steps of size $m$. A clock gives an everyday example with $m=12$: the times 15:00 and 3:00 put the hour hand in the same place, because $15-3=12$. For $m=4$, we have $1\equiv5\pmod4$, since $5-1=4\cdot1$, and $1\equiv-3\pmod4$, since $1-(-3)=4\cdot1$.
 
-Why do these classes form nonoverlapping groups? If a number $z$ belonged both to the class of $a$ and to the class of $b$, symmetry and transitivity would give $a\sim z\sim b$, hence $a\sim b$. Any number related to $a$ would then be related to $b$, and conversely. The two classes would be identical. Thus classes can be equal or disjoint, but cannot overlap only partially. Reflexivity ensures every number belongs to its own class, so none is omitted.
+Congruence modulo $m$ is an equivalence relation on $\ZZ$. We check the three properties of Definition~\ref{ch06:def:equivalence}, for arbitrary integers $a$, $b$, $c$.
+\begin{itemize}
+\item \emph{Reflexivity.} $a-a=0=m\cdot0$, so $a\equiv a\pmod m$.
+\item \emph{Symmetry.} If $a-b=mk$ for an integer $k$, then $b-a=m(-k)$, and $-k$ is an integer.
+\item \emph{Transitivity.} If $a-b=mk$ and $b-c=m\ell$ for integers $k$ and $\ell$, then
+\[
+a-c=(a-b)+(b-c)=mk+m\ell=m(k+\ell),
+\]
+and $k+\ell$ is an integer.
+\end{itemize}
+
+\subsection*{Residue classes}
+The equivalence class of an integer $a$ under this relation is called its \emph{residue class modulo $m$} and is written $[a]_m$. It consists of all integers congruent to $a$, that is, all integers of the form $a+mk$ with $k$ an integer:
+\[
+[a]_m=\{x\in\ZZ:x\equiv a\pmod m\}=\{a+mk:k\in\ZZ\}.
+\]
+For modulus four, the class of $1$ is
+\[
+[1]_4=\{\ldots,-7,-3,1,5,9,\ldots\}:
+\]
+start at $1$ and move up or down in steps of four. Any member of a class can be used to name the class, and a member used in this way is called a \emph{representative} of the class. The integer $5$ is another representative of the same class. Starting at $5$ and moving in steps of four reaches exactly the same integers, so $[5]_4=[1]_4$, even though $5\ne1$. Keep three levels apart here: the integer $1$; the set $[1]_4$ of all integers congruent to it; and the collection of all residue classes modulo four, which we describe at the end of this section.
+
+Compare $[1]_4$ with $[2]_4=\{\ldots,-6,-2,2,6,10,\ldots\}$: these two classes have no member in common. Compare $[1]_4$ with $[5]_4$: these two are equal. Two residue classes never overlap only partly, and the same is true for the classes of every equivalence relation.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{proposition}\label{ch06:prop:classes}
+Let $\sim$ be an equivalence relation on a set $A$, and let $x,y\in A$.
+\begin{enumerate}
+\item[(a)] $x\in[x]$.
+\item[(b)] $[x]=[y]$ if and only if $x\sim y$.
+\item[(c)] The classes $[x]$ and $[y]$ are either equal or disjoint.
+\end{enumerate}
+\end{proposition}
+\end{minipage}\par
+
+\begin{proof}
+(a) By reflexivity, $x\sim x$, and this says that $x\in[x]$.
+
+(b) First suppose $[x]=[y]$. By part (a), $x\in[x]$, so $x\in[y]$, which means $x\sim y$.
+
+Conversely, suppose $x\sim y$. We prove two containments. Let $z\in[x]$, so that $z\sim x$. Together with $x\sim y$, transitivity gives $z\sim y$, so $z\in[y]$. This proves $[x]\subseteq[y]$. For the reverse containment, symmetry turns $x\sim y$ into $y\sim x$. Now let $z\in[y]$, so that $z\sim y$. Together with $y\sim x$, transitivity gives $z\sim x$, so $z\in[x]$. This proves $[y]\subseteq[x]$, and the two containments give $[x]=[y]$.
+
+(c) Suppose $[x]$ and $[y]$ are not disjoint. Then some element $z$ belongs to both, so $z\sim x$ and $z\sim y$. Symmetry turns $z\sim x$ into $x\sim z$, and transitivity applied to $x\sim z$ and $z\sim y$ gives $x\sim y$. By part (b), $[x]=[y]$. So two classes that share even a single element are equal.
+\end{proof}
+
+Each of the three properties of an equivalence relation does a job in this proof. Reflexivity puts every element into its own class, so no element is left out. Symmetry and transitivity make sure that classes cannot overlap partly. A division of a set into nonempty pieces that do not overlap and together cover the whole set is called a \emph{partition} of the set. Proposition~\ref{ch06:prop:classes} therefore says that the equivalence classes of any equivalence relation form a partition. The birth-month classes of Section~\ref{ch06:sec:differences} are an example.
+
+For congruence, part (b) gives a test that we will use again and again:
+\[
+[a]_m=[b]_m\quad\text{exactly when}\quad a\equiv b\pmod m,\ \text{that is, when $m$ divides $a-b$.}
+\]
+For example, $[1]_4=[5]_4$ because $4$ divides $5-1$. On the other hand, $[1]_4\ne[2]_4$, because $2-1=1$ is not a multiple of four, and by part (c) these two classes have no member in common.
+
+\subsection*{A standard name for each class}
+Every residue class modulo $m$ contains \emph{exactly one} of the integers $0,1,\ldots,m-1$.
+
+\emph{At least one.} Let $a$ be any integer. Division with remainder (Section~\ref{ch05:sec:euclid}) gives integers $q$ and $r$ with $a=qm+r$ and $0\le r<m$. Then $a-r=qm$, so $r\equiv a\pmod m$, and $r$ belongs to $[a]_m$. For example, $-7=(-2)\cdot4+1$, so $1$ is a member of $[-7]_4$ that lies in $\{0,1,2,3\}$.
+
+\emph{At most one.} Suppose $r$ and $s$ both belong to $[a]_m$, where $0\le r<s\le m-1$. Then $s\equiv a$ and $r\equiv a$. Symmetry turns the second into $a\equiv r$, and transitivity gives $s\equiv r\pmod m$, so $m$ divides $s-r$. But $0<s-r\le m-1$. A positive multiple $mk$ of $m$ has $k\ge1$, so it is at least $m$. Thus $s-r$ is not a multiple of $m$, and we have a contradiction. A class therefore cannot contain two different integers from the list $0,1,\ldots,m-1$.
+
+It follows that there are exactly $m$ residue classes modulo $m$, namely
+\[
+[0]_m,\ [1]_m,\ \ldots,\ [m-1]_m.
+\]
+Every class is one of these: if $r$ is the member of $[a]_m$ in the list, then $r\equiv a$, so $[a]_m=[r]_m$ by the test above. And no two of them are equal, since $[r]_m=[s]_m$ for different $r$ and $s$ in the list would put two integers from the list into one class.
+
+The set of all residue classes modulo $m$ is written $\ZZ/m\ZZ$. Read the notation as ``the integers, with differences that are multiples of $m$ ignored.'' For example,
+\[
+\ZZ/4\ZZ=\{[0]_4,[1]_4,[2]_4,[3]_4\}
+\]
+is a set with four elements, and each of those elements is itself an infinite set of integers. This is the third of the three levels mentioned earlier. More generally, the set of all equivalence classes of an equivalence relation on a set $A$ is called the \emph{quotient} of $A$ by the relation, and $\ZZ/m\ZZ$ is the quotient of $\ZZ$ by congruence modulo $m$.
+
+\pauseq{Which of the integers $0,1,\ldots,6$ belongs to the class $[-20]_7$? Name two other representatives of the same class.}{Division with remainder gives $-20=(-3)\cdot7+1$ with $0\le1<7$, so the answer is $1$, and $[-20]_7=[1]_7$. Any integer of the form $1+7k$ is another representative, for instance $8$ and $-6$. Notice that the remainder is $1$, not $-6$: division with remainder always produces a remainder between $0$ and $m-1$, even for a negative number.}

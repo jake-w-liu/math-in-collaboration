@@ -1,28 +1,44 @@
-\section{The sum of all correlations reveals a square}
-Let $r=\sum_{j=0}^{n-1}a_j$ be the row sum. Add every periodic correlation, including shift zero. By definition, each $C_s$ is itself a sum over $j$, so the total is a double sum. A finite sum may be added in any order, so we may add over $s$ first for each fixed $j$, and then pull out the factor $a_j$, which does not depend on $s$:
+\section{The sum of all correlations reveals a square}\label{ch14:sec:square}
+Which lengths $n$ allow a sign sequence whose periodic correlations at all nonzero shifts are zero? A first restriction comes from adding up all the periodic correlations at once. The total turns out to depend only on the sum of the entries. Let
+\[
+r=\sum_{j=0}^{n-1}a_j=a_0+a_1+\cdots+a_{n-1}
+\]
+be the sum of the entries of $a$. Each row of the circulant matrix contains every entry of $a$ once, so $r$ is also the sum of the entries in any row, and we call it the \emph{row sum}. For $(1,1,1,-1)$, the row sum is $r=2$.
+
+What do we get if we add up all the periodic correlations, including $C_0$? Each $C_s$ is itself a sum over $j$, so the total is a double sum of $n\cdot n=n^2$ products. A finite sum may be added in any order. So instead of adding, for each $s$, all the terms with that $s$, we may add, for each $j$, all the terms with that $j$:
 \begin{align*}
 \sum_{s=0}^{n-1}C_s
 &=\sum_{s=0}^{n-1}\sum_{j=0}^{n-1}a_j a_{(j+s)\bmod n}
  =\sum_{j=0}^{n-1}\sum_{s=0}^{n-1}a_j a_{(j+s)\bmod n}\\
 &=\sum_{j=0}^{n-1}a_j\left(\sum_{s=0}^{n-1}a_{(j+s)\bmod n}\right)\\
-&=\sum_{j=0}^{n-1}a_j\left(\sum_{k=0}^{n-1}a_k\right)\\
-&=r^2.
+&=\sum_{j=0}^{n-1}a_j\left(\sum_{k=0}^{n-1}a_k\right)
+ =\sum_{j=0}^{n-1}a_j\,r=r\sum_{j=0}^{n-1}a_j=r^2.
 \end{align*}
-In the second line, for each fixed $j$, the indices $(j+s)\bmod n$ run through every position exactly once. This is the specific symmetry that justifies the reindexing.
+Here is what happens at each step.
+\begin{itemize}
+\item In the second line, $a_j$ does not depend on $s$, so it is a common factor of all the terms in the inner sum and can be pulled out in front of it.
+\item The third line is the key step. Fix $j$. As $s$ runs through $0,1,\ldots,n-1$, the position $(j+s)\bmod n$ runs through $j,j+1,\ldots,n-1$ and then wraps around to $0,1,\ldots,j-1$. It visits every position exactly once. For example, with $n=4$ and $j=2$, the values $s=0,1,2,3$ give the positions $2,3,0,1$. So the inner sum is the sum of all the entries of $a$, added in a different order, and that is $r$.
+\item Finally, $r$ is the same number for every $j$, so it can be pulled out of the outer sum, which leaves $r\cdot r$.
+\end{itemize}
+For $(1,1,1,-1)$ the identity says $4+0+0+0=2^2$. It holds for every sequence, not only for special ones. The sequence $(1,1,-1,-1)$ has row sum $r=0$ and periodic correlations $C_0=4$, $C_1=0$, $C_2=-4$, $C_3=0$, which add up to $0=0^2$.
 
-One way to see the whole count is to use three abstract entries $a_0,a_1,a_2$. The three periodic correlations list these products:
+Another way to see the whole count is to use three unknown entries $a_0,a_1,a_2$. The three periodic correlations consist of these products:
 \begin{align*}
  C_0&=a_0a_0+a_1a_1+a_2a_2,\\
  C_1&=a_0a_1+a_1a_2+a_2a_0,\\
  C_2&=a_0a_2+a_1a_0+a_2a_1.
 \end{align*}
-Together they contain each ordered product $a_j a_k$ once. Expanding $(a_0+a_1+a_2)^2$ gives those same nine ordered products, so the totals agree. For general $n$, each fixed first index $j$ meets every second index exactly once as the shift varies. That is why the total is $(\sum_j a_j)^2$, rather than, for example, $\sum_j a_j^2$.
+Together they contain each of the nine products $a_ja_k$, with $j$ and $k$ between $0$ and $2$, exactly once. Here $a_0a_1$ and $a_1a_0$ count as two different products, because they come from different pairs $(j,k)$. Multiplying out $(a_0+a_1+a_2)(a_0+a_1+a_2)$ gives the same nine products, so the two totals agree. For general $n$, the same thing happens: each first index $j$ meets every second index exactly once as the shift varies. That is why the total is $\bigl(\sum_j a_j\bigr)^2$, and not, for example, $\sum_j a_j^2$.
 
-This identity itself does not require signs; the same finite rearrangement holds for real entries. The restriction to signs is used afterward to identify $C_0=n$ and to make the row sum an integer. Separating those roles tells us which part of the argument might generalize.
+The identity does not use the fact that the entries are signs. The same rearrangement works for any real numbers $a_0,\ldots,a_{n-1}$. The signs are used only afterward, to know that $C_0=n$ and that the row sum is an integer. Keeping track of which hypothesis is used where tells us which parts of the argument would still work in a more general setting.
 
-If all nonzero $C_s$ vanish, the left side is just $C_0=n$. Hence
+Now suppose that $C_s=0$ for every shift $s$ with $1\le s\le n-1$. Then the left side of the identity is just $C_0=n$, and therefore
 \[
 n=r^2.
 \tag{14.2}\label{eq:squareorder}
 \]
-The integer $r$ is a sum of signs, so the order $n$ must be a square. This is a proved necessary condition, valid for every positive length, not a pattern extrapolated from an experiment.
+Since $r$ is a sum of signs, it is an integer. So the length $n$ must be a perfect square, that is, the square of an integer. By Section~\ref{ch14:sec:circulant}, the same is true of the order of every circulant Hadamard matrix. In the language of Section~\ref{ch02:sec:implication}, being a perfect square is a \emph{necessary} condition for the order of a circulant Hadamard matrix.
+
+Notice what kind of statement this is. The argument never used a particular value of $n$, so it holds for every length at once. No list of computed examples, however long, could give a conclusion of that kind.
+
+\pauseq{Which lengths $n$ with $1\le n\le13$ pass the square test? Has one of them already been ruled out by another argument?}{The perfect squares in this range are $1$, $4$, and $9$. Length $9$ is odd, so by the pause at the end of Section~\ref{ch14:sec:periodic} no periodic correlation of a sequence of length $9$ can be zero. So passing the square test does not mean that a sequence of that length exists; it only means that this particular test cannot rule the length out.}

@@ -1,5 +1,15 @@
-\section{The function-composition proof returns}
-We define injectivity explicitly, rather than assume knowledge of a library name:
+\section{Composition of injective functions in Lean}\label{ch15:sec:injcomp}
+Our next example is Theorem~\ref{thm:injcomp}: if $f:A\to B$ and $g:B\to C$ are injective, then so is $g\circ f$. Stating it in Lean needs a little more notation for functions.
+
+\subsection*{Arrows and implicit parameters}
+If \code{A} and \code{B} are types, then \code{A -> B} is the type of functions from \code{A} to \code{B}, and \code{f : A -> B} is the Lean form of $f:A\to B$. A function of two inputs has two arrows in its type. The type \code{A -> B -> C} means \code{A -> (B -> C)}: a function of this type takes an input of type \code{A} and returns a function, which in turn takes an input of type \code{B} and returns an output of type \code{C}. For example, Lean's addition function \code{Nat.add} has type \code{Nat -> Nat -> Nat}. Applied to $2$, it gives \code{Nat.add 2}, the function $n\mapsto 2+n$, and applying that function to $3$ gives $5$. This is why several inputs are written one after another, separated by spaces, as in \code{Nat.add 2 3}. It is also why application groups to the left: \code{f x y} means \code{(f x) y}, so \code{f} is applied to \code{x} first, and the result is applied to \code{y}.
+
+Implications behave in the same way. A proof of \code{P -> Q -> R} takes a proof of $P$ and then a proof of $Q$, and returns a proof of $R$.
+
+The sets $A$, $B$, $C$ of a mathematical statement become types in Lean. The word \code{Type} means ``a type of objects,'' as opposed to a proposition, so \code{A B C : Type} says that \code{A}, \code{B} and \code{C} are types whose elements are mathematical objects. In the declarations below these parameters are written in curly braces, as \code{\{A B : Type\}}. Braces mark \emph{implicit} parameters, which Lean works out by itself from the other inputs. When we write \code{Inj f}, for instance, Lean already knows that \code{f : A -> B}, so it can work out \code{A} and \code{B} for itself, and we do not have to write them. Parameters in round brackets are \emph{explicit} and must be written at every use. Implicit parameters are still part of the statement; they are simply not repeated.
+
+\subsection*{The definition and the theorem}
+The mathematical library Mathlib has its own name for injectivity, but we write the definition ourselves, so that every part of it is visible. Here is the definition from Section~\ref{ch03:sec:injsurj}, followed by the theorem.
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 def Inj {A B : Type} (f : A -> B) : Prop :=
@@ -15,13 +25,19 @@ theorem inj_comp {A B C : Type}
 \end{lstlisting}
 \end{minipage}\par
 
-The word \code{forall} is ASCII notation for the universal quantifier. \code{Type} denotes a type of mathematical objects. Curly braces mark parameters Lean can usually infer from other inputs: if it knows the type of $f$, it can infer its input and output types. The definition \code{Inj} says exactly what the earlier mathematical definition said.
+Read the definition first. For each function \code{f : A -> B}, it defines \code{Inj f} to be a proposition; that is what the type \code{Prop} after the last colon says. The word \code{forall} is Lean's keyboard spelling of $\forall$, so \code{forall x y : A} means ``for all $x$ and $y$ in $A$.'' The rest, \code{f x = f y -> x = y}, says that if the outputs agree, then the inputs agree. Equals signs bind more tightly than arrows, so this is read as \code{(f x = f y) -> (x = y)}. Altogether, \code{Inj f} is the statement $\forall x,y\in A,\ f(x)=f(y)\Rightarrow x=y$, the form of the definition that we used in the proofs of Chapter~\ref{ch:maps}. In the infoview, Lean prints \code{forall} as $\forall$.
 
-Read its body in order. \code{forall x y : A} means take any two inputs of the domain. The remaining expression \code{f x = f y -> x = y} says that equality of their outputs implies equality of those inputs. Thus the declared hypothesis \code{hg : Inj g} can be applied to two elements of \code{B} and a proof that their \code{g} outputs agree.
+Next read the theorem's statement. It has implicit parameters \code{A}, \code{B}, \code{C}, explicit functions \code{f} and \code{g}, and two hypotheses, \code{hf : Inj f} and \code{hg : Inj g}. Its claim is \code{Inj (fun x => g (f x))}. The function \code{fun x => g (f x)} sends $x$ to $g(f(x))$; it is the composition $g\circ f$, written without giving it a name.
 
-In the proof, those two elements are \code{f x} and \code{f y}, not \code{x} and \code{y}. The evidence \code{h} concerns their final outputs. This accounts for all three arguments in \code{hg (f x) (f y) h}. Its result is the intermediate equality that \code{hf} can then use.
+To follow the proof we need one more fact: a proof of a ``for all'' statement is used like a function. Since \code{hg : Inj g} proves $\forall x,y\in B,\ g(x)=g(y)\Rightarrow x=y$, applying \code{hg} to two elements \code{b1} and \code{b2} of \code{B} gives a proof of \code{g b1 = g b2 -> b1 = b2}. Applying that, in turn, to a proof \code{e} of \code{g b1 = g b2} gives \code{hg b1 b2 e}, a proof of \code{b1 = b2}. So \code{hg} takes three inputs, two elements of \code{B} and evidence that their values under $g$ agree, and it returns evidence that the two elements are equal. The same holds for \code{hf}, with elements of \code{A}.
 
-The first proof line introduces arbitrary inputs and an equality of final outputs. The expression \code{hg (f x) (f y) h} supplies two inputs of $g$ and the evidence that their outputs agree. It returns equality of the intermediate values. The final application of \code{hf} then returns equality of the original inputs. These are the same two steps as Theorem~\ref{thm:injcomp}.
+Now the proof, line by line.
+\begin{itemize}
+\item The goal starts as \code{Inj (fun x => g (f x))}. Because \code{Inj} is defined as a ``for all'' statement followed by an implication, the tactic \code{intro} can look inside the definition, just as it opened the implication \code{P -> R} in Section~\ref{ch15:sec:implication}. The line \code{intro x y h} introduces two arbitrary elements \code{x} and \code{y} of \code{A} and a hypothesis \code{h} saying that their outputs under the composition agree. The goal becomes \code{x = y}. On paper: ``Take any $x,y\in A$ and assume $g(f(x))=g(f(y))$.''
+\item In \code{hg (f x) (f y) h}, the two elements of \code{B} are \code{f x} and \code{f y}, not \code{x} and \code{y}, and \code{h} is the evidence that their values under $g$ agree. The result is a proof of \code{f x = f y}, which the line records as \code{hxy}. On paper: ``Injectivity of $g$ gives $f(x)=f(y)$.''
+\item Finally, \code{hf x y hxy} applies injectivity of $f$ to \code{x}, \code{y} and \code{hxy}, and returns exactly the goal \code{x = y}. On paper: ``Injectivity of $f$ then gives $x=y$.''
+\end{itemize}
+The Lean proof and the proof of Theorem~\ref{thm:injcomp} take the same two steps in the same order.
 
 If you run this proof in the editor, you will see that Lean displays the hypothesis \code{h} as
 \par\noindent\begin{minipage}{\linewidth}
@@ -29,6 +45,6 @@ If you run this proof in the editor, you will see that Lean displays the hypothe
 h : (fun x => g (f x)) x = (fun x => g (f x)) y
 \end{lstlisting}
 \end{minipage}\par
-rather than as \code{g (f x) = g (f y)}. The expression \code{(fun x => g (f x)) x} means ``apply the rule $x\mapsto g(f(x))$ to the input $x$,'' and evaluating that application gives \code{g (f x)}. This evaluation step is called \emph{beta-reduction}. Lean regards an expression and its beta-reduced form as the same proposition when it checks that a proof has the right type, which is why \code{hg (f x) (f y) h} is accepted. Some tactics, however, look for the literal written form of an expression, and Chapter~16 shows a case where we must first ask Lean to display the reduced form.
+rather than as \code{g (f x) = g (f y)}. The expression \code{(fun x => g (f x)) x} means ``apply the rule $x\mapsto g(f(x))$ to the input $x$,'' and evaluating that application gives \code{g (f x)}. This evaluation step is called \emph{beta-reduction}. When Lean checks that a proof has the right type, it treats an expression and its beta-reduced form as the same proposition. That is why \code{hg} accepts \code{h} as evidence that \code{g (f x) = g (f y)}. Some tactics, however, look for the literal written form of an expression, and Chapter~\ref{ch:lean2} shows a case where we must first ask Lean to display the reduced form.
 
-If Lean rejects the application, inspect the actual types of \code{h}, \code{hf}, and \code{hg}. A common mistake is to apply \code{hf} directly to equality after $g$, skipping the intermediate equality that injectivity of $g$ must establish.
+When Lean rejects an application, compare the types of its pieces. A common mistake is to skip the middle step and write \code{exact hf x y h}. Lean rejects this line with an ``application type mismatch'' error, because \code{hf} needs evidence that \code{f x = f y}, while \code{h} is evidence about the outputs of $g$. The missing step is exactly the one that injectivity of $g$ supplies.

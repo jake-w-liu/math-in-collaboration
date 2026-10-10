@@ -1,20 +1,32 @@
-\section{Distance begins with absolute value}
-Recall the magnitude notation from Chapter~2. The absolute value $|x|$ is $x$ when $x\ge0$ and $-x$ when $x<0$. In particular, $|-3|=3$: the minus sign in the definition makes a negative input positive. Distance between real numbers is $|x-y|$. For $x=-2$ and $y=3$, it is $|-5|=5$, the same as $|y-x|$.
+\section{Distance begins with absolute value}\label{ch11:sec:distance}
+Recall from Section~\ref{sec:magnitude} that the absolute value $|x|$ of a real number $x$ is $x$ when $x\ge0$ and $-x$ when $x<0$. For instance, $|4|=4$ and $|-3|=-(-3)=3$. The \emph{distance} between two real numbers $x$ and $y$ is $|x-y|$, the length of the stretch of the number line between them. For $x=-2$ and $y=3$ it is $|-2-3|=|-5|=5$: walking from $-2$ to $3$ takes two units to reach $0$ and three more to reach $3$. The order of the two numbers does not matter, since $|y-x|=|3-(-2)|=|5|=5$ as well. In general $y-x=-(x-y)$, and changing the sign of a number does not change its absolute value, so $|y-x|=|x-y|$.
 
-We now use this familiar distance to understand a more general idea. The plan is not to learn a new kind of arithmetic. It is to isolate the properties of distance that an argument needs, so the argument can work on objects other than single real numbers.
+This chapter starts from this familiar distance and asks which of its properties our arguments actually use. Once those few properties are written down, any argument that relies only on them works just as well for other objects, such as the vectors of Chapter~\ref{ch:linear}, provided they come with a distance that has the same properties.
 
-The triangle inequality is
+The most important of these properties is the \emph{triangle inequality}: for all real numbers $x$ and $y$,
 \[
 |x+y|\le|x|+|y|.
 \]
-To derive it, note that $-|x|\le x\le|x|$ and $-|y|\le y\le|y|$. Adding gives $-(|x|+|y|)\le x+y\le|x|+|y|$, which is equivalent to the inequality. Replacing $x$ by $a-b$ and $y$ by $b-c$ gives
+For example, $x=5$ and $y=-2$ give $|x+y|=3$, which is less than $|x|+|y|=7$. When $x$ and $y$ have the same sign, the two sides are equal.
+
+To prove the inequality, recall another rule from Section~\ref{sec:magnitude}: for a number $b\ge0$, the statement $|x|\le b$ holds exactly when $-b\le x\le b$. Taking $b=|x|$, the true statement $|x|\le|x|$ becomes $-|x|\le x\le|x|$. In the same way, $-|y|\le y\le|y|$. Two inequalities in the same direction may be added: if $p\le r$ and $s\le t$, then $p+s\le r+s\le r+t$. Adding the left-hand inequalities and then the right-hand ones gives
+\[
+-(|x|+|y|)\le x+y\le|x|+|y|.
+\]
+Now use the same rule in the other direction, with $x+y$ in place of $x$ and the nonnegative number $b=|x|+|y|$. It turns this pair of inequalities into $|x+y|\le|x|+|y|$.
+
+The triangle inequality is most often used in a second form. Given three real numbers $a$, $b$ and $c$, take $x=a-b$ and $y=b-c$. Then $x+y=a-c$, because the two copies of $b$ cancel, and the triangle inequality becomes
 \[
 |a-c|\le|a-b|+|b-c|.
 \]
-The sum of the two leg lengths is an upper bound on the direct distance, not generally a lower bound. This is why triangle inequalities appear so often in error estimates: introduce an intermediate quantity that is easier to compare with each endpoint.
+Read as a statement about distances, it says that the distance from $a$ to $c$ is at most the distance from $a$ to $b$ plus the distance from $b$ to $c$. Going from $a$ to $c$ by way of a stopping point $b$ is never shorter than going directly. For $a=0$, $b=5$ and $c=2$, the direct distance is $2$, while the route through $b$ has length $5+3=8$. When $b$ lies between $a$ and $c$, as in $a=0$, $b=1$, $c=2$, the two sides are equal.
 
-If $|x-a|\le\eps$ and $|y-b|\le\delta$, then
+This second form explains why the triangle inequality appears in almost every error estimate in this chapter. To show that two quantities $a$ and $c$ are close, it is often easier to find a third quantity $b$ that is close to each of them, and then to add the two small distances.
+
+Here is a first instance. Suppose $x$ approximates a number $a$ with error at most $\eps$, and $y$ approximates a number $b$ with error at most $\delta$, where $\delta$ (the Greek letter delta) is a second tolerance: $|x-a|\le\eps$ and $|y-b|\le\delta$. How well does $x+y$ approximate $a+b$? Regroup the difference as $(x+y)-(a+b)=(x-a)+(y-b)$ and apply the triangle inequality:
 \[
 |(x+y)-(a+b)|\le |x-a|+|y-b|\le\eps+\delta.
 \]
-Errors add in this estimate. We have not assumed they actually point in the same direction, so the bound may be conservative. A valid upper bound need not be attained in every example.
+So when approximations are added, their error bounds add. For example, take $a=2$, $b=5$, $\eps=0.01$ and $\delta=0.02$. Then $x+y$ is within $0.03$ of $7$. This bound is reached when both errors point the same way: $x=2.01$ and $y=5.02$ give $x+y=7.03$. When the errors point in opposite directions, they partly cancel: $x=2.01$ and $y=4.98$ give $x+y=6.99$, only $0.01$ away from $7$. We are told the sizes of the errors but not their directions, so $\eps+\delta$ is the best guarantee available. An upper bound of this kind promises that the error is never larger; it does not say that the error is always that large.
+
+\pauseq{Suppose $|x-a|\le\eps$ and $|y-b|\le\delta$. Does it follow that $|(x-y)-(a-b)|\le\eps-\delta$? If not, what bound is correct?}{No. Take $a=b=0$, $x=\eps$ and $y=-\delta$. Both hypotheses hold, and $(x-y)-(a-b)=\eps+\delta$, which is larger than $\eps-\delta$ because $\delta>0$. The correct bound is $\eps+\delta$. To prove it, write $(x-y)-(a-b)=(x-a)+\bigl(-(y-b)\bigr)$ and apply the triangle inequality. Since $|-(y-b)|=|y-b|$, the result is $|(x-y)-(a-b)|\le|x-a|+|y-b|\le\eps+\delta$. Subtracting two approximations does not subtract their errors; in the worst case the errors still add.}

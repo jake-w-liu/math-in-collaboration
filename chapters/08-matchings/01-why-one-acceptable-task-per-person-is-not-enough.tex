@@ -1,8 +1,42 @@
-\section{Why one acceptable task per person is not enough}
-Two students, Ada and Ben, each accept task $1$. Neither accepts any other task. Individually both have an acceptable choice. Together they cannot receive distinct tasks. The problem is collective competition for the same resource.
+\section{Why one acceptable task per person is not enough}\label{ch08:sec:model}
+Two students, Ada and Ben, each accept task~$1$, and neither accepts any other task. Looked at one at a time, each student has an acceptable task. Together, however, they cannot be given different tasks, because there is only one task that either of them will take. Neither student's list of options is the problem on its own; the trouble is that the two students compete for the same task. This is the kind of example that Exercise~\ref{ex:2.5} asked you to build.
 
-Now suppose Ada accepts tasks $1,2$, while Ben accepts only $1$. A solution exists: Ada receives $2$ and Ben receives $1$. But a greedy procedure that gives Ada task $1$ immediately gets stuck. The failure of that procedure is not a proof of impossibility. It only says the current assignment cannot be extended without revising an earlier choice.
+Now change the example a little. Suppose Ada accepts tasks $1$ and $2$, while Ben still accepts only task~$1$. This time a solution exists: Ada receives task~$2$ and Ben receives task~$1$. But suppose we hand out tasks \emph{greedily}: we go through the students one at a time, give each of them some acceptable task that is still free, and never change a task once it has been given. If we start with Ada and happen to give her task~$1$, then nothing is left for Ben, and the procedure is stuck. Getting stuck in this way does not prove that the problem has no solution; we have just seen a solution. It shows only that the tasks handed out so far cannot be completed to a full assignment unless some earlier choice is changed. This chapter shows how to change earlier choices in a controlled way, and what we learn when even that fails.
 
-A bipartite graph models the problem. Its vertices are split into disjoint sets $L$ and $R$, and every edge joins one vertex in $L$ to one in $R$. Let $L$ be students, $R$ tasks, and an edge indicate acceptability. The word bipartite means that edges never connect two students or two tasks in this model.
+\subsection*{The graph of acceptable pairs}
+To study such problems precisely, we describe them by a graph in the sense of Definition~\ref{ch07:def:graph}. The vertices are the students and the tasks, and an edge joins a student to a task exactly when the student accepts that task. In this graph no edge joins two students, and no edge joins two tasks. Graphs of this shape have a name.
 
-A matching is a collection of edges with no shared endpoints. It assigns distinct tasks to the students that it covers. A matching \emph{saturates} $L$ when every student is covered. It need not use every task. This distinction matters when there are more tasks than students.
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}[Bipartite graph]\label{ch08:def:bipartite}
+A graph is \emph{bipartite}, with \emph{parts} $L$ and $R$, if its vertex set is the union of two disjoint sets $L$ and $R$ and every edge has one endpoint in $L$ and the other endpoint in $R$.
+\end{definition}
+\end{minipage}\par
+
+The letters stand for ``left'' and ``right,'' because we usually draw the vertices of $L$ in a column on the left and those of $R$ in a column on the right. Throughout this chapter, $L$ is the set of students and $R$ is the set of tasks. An edge with endpoints $s\in L$ and $t\in R$ means that student $s$ accepts task $t$. In Chapter~\ref{ch:graphs} this edge would be written $st$, but that is hard to read when the vertices are called Ada or $1$, so we write it $s$--$t$ instead, with the student first. Here is the graph of the second example:
+\begin{center}
+\begin{tikzpicture}[every node/.style={font=\small},line width=.7pt]
+\node[rectangle,rounded corners,draw=ink,minimum width=11mm,minimum height=6mm] (ada) at (0,1) {Ada};
+\node[rectangle,rounded corners,draw=ink,minimum width=11mm,minimum height=6mm] (ben) at (0,0) {Ben};
+\node[circle,draw=ink,minimum size=6mm,inner sep=1pt] (t1) at (3,1) {$1$};
+\node[circle,draw=ink,minimum size=6mm,inner sep=1pt] (t2) at (3,0) {$2$};
+\draw[ink] (ada)--(t1) (ada)--(t2) (ben)--(t1);
+\node at (0,-0.75) {students $L$};
+\node at (3,-0.75) {tasks $R$};
+\end{tikzpicture}
+\end{center}
+Its three edges are Ada--$1$, Ada--$2$, and Ben--$1$. As in Chapter~\ref{ch:graphs}, the point where two lines cross in the drawing is not a vertex.
+
+The neighbors of a student $s$ are exactly the tasks that $s$ accepts. We write $N(s)$ for this set of tasks. In the example, $N(\text{Ada})=\{1,2\}$ and $N(\text{Ben})=\{1\}$.
+
+\subsection*{Matchings}
+An assignment selects some of the edges: the pairs of a student and a task that are actually carried out. The requirement that no task goes to two students, and that no student receives two tasks, says that the selected edges never share an endpoint.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}[Matching]\label{ch08:def:matching}
+A \emph{matching} in a graph is a set $M$ of edges of the graph, no two of which share an endpoint. A vertex is \emph{matched} by $M$ if it is an endpoint of some edge of $M$, and \emph{unmatched} otherwise. Two vertices joined by an edge of $M$ are \emph{partners}. In a bipartite graph with parts $L$ and $R$, a matching \emph{saturates} $L$ if every vertex of $L$ is matched.
+\end{definition}
+\end{minipage}\par
+
+A matched vertex lies on exactly one edge of $M$: on at least one because it is matched, and on at most one because no two edges of $M$ share an endpoint. So a matched vertex has exactly one partner. In our setting, a matched student holds exactly one task, its partner, and a matched task is held by exactly one student, which we call its \emph{owner}. For tasks we also say \emph{used} instead of matched and \emph{unused} instead of unmatched. The empty set of edges is a matching as well: it has no edges at all, so certainly no two of its edges share an endpoint. It leaves every vertex unmatched.
+
+In the second example, $\{\text{Ada--}2,\ \text{Ben--}1\}$ is a matching that saturates $L$. The set $\{\text{Ada--}1,\ \text{Ben--}1\}$ is not a matching, because both of its edges have the endpoint~$1$. A matching that saturates $L$ is exactly a solution of the assignment problem: every student receives a task that the student accepts, and no two students receive the same task. Such a matching need not use every task. When there are more tasks than students, some tasks are always left unused.

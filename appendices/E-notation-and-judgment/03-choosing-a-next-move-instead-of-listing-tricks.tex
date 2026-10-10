@@ -1,8 +1,35 @@
-\section{Choosing a next move instead of listing tricks}
-When a universal claim is doubtful, look for a small or boundary counterexample before trying a long proof. The false function-composition converse failed on one unused intermediate input. The false convergence claim failed with a constant bias. Small examples were selected to expose a missing mechanism, not to accumulate reassuring cases.
+\section{Choosing the next move}\label{appE:sec:next-move}
+Mathematics can look like a long list of tricks, each of which has to be memorized. In practice it helps far more to recognize the kind of situation you are in. Four situations come up again and again in this book, and each one suggests a natural next move.
 
-When existence is difficult, ask what a failure would force. A failed assignment search exposes a shortage. A minimum counterexample can impose extra structure. An average can certify that at least one acceptable object exists. These approaches prove existence in different ways; choose according to whether the objects admit a repair process, an extremal reduction, or a useful average.
+\subsection*{When a general claim looks doubtful}
+Look for a counterexample before you try to prove the claim. Start with small cases and boundary cases: zero, the empty set, the smallest allowed input, two objects that happen to be equal. A useful counterexample is rarely found by trying cases at random. It is built to break the step that the claim seems to need. Two examples from the book show how.
+\begin{itemize}
+\item Proposition~\ref{thm:compconverse} shows that $g\circ f$ can be injective although $g$ is not. The composition only ever applies $g$ to outputs of $f$, so the counterexample gives $g$ an extra input, $2$, that $f$ never reaches, and lets $g$ send it to the same output as $1$.
+\item In Section~\ref{ch18:sec:guess}, the guess that small update errors still give convergence to the fixed point fails for a constant bias. Adding the same small amount $\eta$ at every update of $x\mapsto qx$ moves the limit from $0$ to $\eta/(1-q)$.
+\end{itemize}
+In both cases the counterexample did more than refute a claim. It showed which feature a correct statement has to take into account: the outputs that $f$ actually reaches, and errors that never die out.
 
-When a formula is complicated, ask what quantity the argument actually needs to control. An explicit fixed point may be unnecessary if a residual bound gives the required accuracy. A full classification may be unnecessary if a necessary condition already rules out the application. Conversely, do not let an easier surrogate replace the original target without recording that change.
+\subsection*{When you need to show that something exists}
+A direct construction is often out of reach. Ask instead what a failure would force. The book turns that question into a proof in three different ways.
+\begin{itemize}
+\item \emph{Search and repair.} The search of Chapter~\ref{ch:matching} looks for an augmenting path. If it finds one, the matching can be enlarged. If it fails, the failed search produces a group of students who together accept too few tasks (Proposition~\ref{ch08:prop:shortage}), and then no full assignment can exist. Either outcome tells us something, which is the point of Habit~7 (Chapter~\ref{ch:matching}).
+\item \emph{An extremal choice.} Choose an object that is as large or as small as possible, and show that it must already have the property you want. A longest directed path in a finite acyclic oriented graph ends at a sink, because an arrow leaving its last vertex would give either a longer path or a directed cycle (Theorem~\ref{thm:sink}). In the same spirit, a smallest counterexample, if one existed, would have extra properties that lead to a contradiction (Section~\ref{ch05:sec:not-circular}).
+\item \emph{An average.} If a random variable on a finite probability space were smaller than its expectation at every outcome of positive probability, then the expectation, which is the weighted average of those values, would be smaller than itself, which is impossible. So at some outcome it is at least as large as its expectation (Proposition~\ref{ch13:prop:above-average}). This is how Theorem~\ref{thm:cut} shows that every graph with $m$ edges has a cut of size at least $m/2$, without constructing the cut. Habit~8 (Chapter~\ref{ch:probability}) describes this approach.
+\end{itemize}
+Which approach fits depends on the problem. Can a partial solution be repaired one step at a time? Is there a natural quantity to make as large or as small as possible? Is there an average that you can compute exactly?
 
-When a bound appears, examine equality and stability. The Cauchy--Schwarz equality case identifies aligned vectors. The inexact-iteration example shows that $1/(1-q)$ is not merely an algebraic inconvenience. A mathematically informed question asks both ``Can this constant be improved?'' and ``Which example would prevent an improvement?''
+\subsection*{When a formula is complicated}
+Ask which quantity the argument really needs to control. Often it is less than the whole formula.
+\begin{itemize}
+\item To know how close a point $z$ is to the fixed point of a contraction, you do not need to find the fixed point. The residual estimate of Theorem~\ref{thm:banach} bounds the error by $d(z,Tz)/(1-q)$, and $Tz$ is usually easy to compute. In Section~\ref{ch12:sec:example}, this certified that $x_2=10/27$ lies within $19/729$ of the fixed point of $T(x)=(x^2+1)/3$ before the fixed point had been found.
+\item To show that no circulant Hadamard matrix of order $12$ exists, you do not need the complete classification reported in Section~\ref{ch14:sec:research}. The necessary condition of Proposition~\ref{thm:circulantnecessary} already rules it out: an order greater than $1$ must have the form $4u^2$, and $12$ lies strictly between $4\cdot1^2=4$ and $4\cdot2^2=16$.
+\end{itemize}
+There is a risk on the other side, too. If you replace the original question by an easier one, say so and keep a record of the change, as Habit~2 (Chapter~\ref{ch:logic}) asks. Proposition~\ref{thm:circulantnecessary} answers the question for order $12$, but it says nothing about whether the orders $16,36,64,\ldots$ that it allows are actually possible.
+
+\subsection*{When a bound appears}
+Ask when the bound is attained, and whether its constant could be lowered (Section~\ref{ch09:sec:taste}).
+\begin{itemize}
+\item The Cauchy--Schwarz inequality $|u\cdot v|\le\norm{u}_2\norm{v}_2$ holds with equality exactly when $v=0$ or $u$ is a multiple of $v$ (Section~\ref{ch10:sec:cs}). Because equality occurs for nonzero vectors, for example when $u=v\ne0$, the constant factor $1$ on the right cannot be replaced by anything smaller.
+\item In the constant-bias example of Section~\ref{ch18:sec:sharp}, the error bound of Theorem~\ref{thm:inexact}, part~2, holds with equality at every step. So the factor $1/(1-q)$ in that bound is sharp: it describes how errors really accumulate, and no cleverer proof can replace it by a smaller number.
+\end{itemize}
+A bound is fully understood only when you can answer two questions about it: ``Can this constant be improved?'' and, if not, ``Which example prevents any improvement?''

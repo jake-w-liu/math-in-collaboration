@@ -1,9 +1,9 @@
-\section{How to enter the first proof}
-A mathematical writer often begins with ``let'' or ``take.'' Here ``let $a$ and $b$ be any odd integers'' means: give names to arbitrary allowed inputs. It does not mean choose your favorite two examples. We must use only their stated properties so that the argument works whichever odd integers were supplied.
+\section{How to enter the first proof}\label{ch01:sec:first-proof}
+Proofs use a few small words in a precise way. A proof often begins with ``let'' or ``take.'' The sentence ``Let $a$ and $b$ be odd integers'' means: give the names $a$ and $b$ to two odd integers that could be \emph{any} odd integers at all. It does not mean ``choose your two favorite examples.'' Since we do not know which odd integers $a$ and $b$ are, the proof may use only the fact that they are odd integers. That is exactly why the finished argument works whichever odd integers are supplied.
 
-The word ``some'' has a different job. Once $a$ is given and is known to be odd, \emph{some} integer $k$ makes $a=2k+1$ true. We need not know its numerical value to use its existence. ``By the definition'' tells us where that information came from. ``Hence'' or ``therefore'' announces a deduction; the reason for the deduction must still be available.
+The word ``some'' does a different job. Once an odd integer $a$ has been given, the definition tells us that $a=2k+1$ for \emph{some} integer $k$. We do not need to know the numerical value of $k$; it is enough to know that such an integer exists and to give it a name. The phrase ``by the definition'' tells the reader where that information came from. Words such as ``hence'' and ``therefore'' announce a deduction, and the reader should always be able to see the reason that justifies it.
 
-Read the next result in three passes. First identify the input conditions and the promised output. Then read the plan to see why a particular representation is being chosen. Finally follow the proof, checking both the arithmetic and the last return to the definition. The plan explains how we might find the proof; the proof is the argument that actually establishes the claim.
+Read the next result in three passes. First, identify what is assumed and what is promised. Second, read the plan to see why a particular way of writing the numbers is chosen. Third, follow the proof line by line, checking the arithmetic and making sure that the last step really matches the definition of even. The plan describes how one might discover the proof. The proof is the argument that actually establishes the claim.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{proposition}\label{thm:odd-sum}
@@ -11,23 +11,23 @@ The sum of any two odd integers is even.
 \end{proposition}
 \end{minipage}\par
 
-\noindent\textit{Plan.} Represent each input so that oddness is visible. Rearrange their sum until the definition of evenness is visible.
+\noindent\textit{Plan.} Write each odd integer in the form given by the definition of odd, so that its oddness is visible. Then rearrange the sum until it has the form required by the definition of even: twice an integer.
 \begin{proof}
-Let the two odd integers be $a$ and $b$. By the definition of oddness, there are integers $k$ and $\ell$ with $a=2k+1$ and $b=2\ell+1$. The letters $k$ and $\ell$ need not denote the same integer. Substituting gives
+Let $a$ and $b$ be odd integers. By the definition of odd (Definition~\ref{def:parity}), there are integers $k$ and $\ell$ with $a=2k+1$ and $b=2\ell+1$. The integers $k$ and $\ell$ may be equal or different; the argument does not depend on which. Substituting these expressions gives
 \begin{align*}
-a+b&=(2k+1)+(2\ell+1) &&\text{use the two representations}\\
-&=2k+2\ell+2 &&\text{regroup the four terms}\\
-&=2(k+\ell+1) &&\text{factor out }2.
+a+b&=(2k+1)+(2\ell+1) &&\text{substitute for $a$ and $b$}\\
+&=2k+2\ell+2 &&\text{regroup the terms and add $1+1$}\\
+&=2(k+\ell+1) &&\text{factor out $2$.}
 \end{align*}
-The quantity $k+\ell+1$ is an integer because sums of integers are integers. Hence $a+b$ is twice an integer. This is exactly the definition of evenness.
+The number $k+\ell+1$ is an integer, because a sum of integers is an integer. Hence $a+b$ is twice an integer. By the definition of even, $a+b$ is even.
 \end{proof}
 
-The final sentence matters. It connects the expression to the property we promised. A proof should not end simply because the algebra looks tidy. It should end because the required conclusion has been reached.
+The final sentence matters. It connects the expression we computed to the property we promised. A proof should not end simply because the algebra looks tidy. It ends when the required conclusion has been reached.
 
-To see how one general line covers many examples, return to $a=7$ and $b=-3$. Their witnesses are $k=3$ and $\ell=-2$. The proof constructs the evenness witness $k+\ell+1=2$, and indeed $7+(-3)=4=2\cdot2$. The numerical check is not a second proof. It lets us inspect what each symbol in the general proof was doing.
+To see how one general argument covers many particular cases, take the two odd integers from Section~\ref{ch01:sec:definition}: $a=7$ and $b=-3$. Their witnesses are $k=3$ and $\ell=-2$. The proof builds the witness $k+\ell+1=3+(-2)+1=2$ for the evenness of the sum, and indeed $7+(-3)=4=2\cdot2$. This numerical check is not a second proof. It lets us see what each symbol in the general proof was doing.
 
-The proof does not say that every sum is even. Its conclusion is conditional on \emph{both} inputs being odd. If one input is not odd, this particular result makes no promise. Learning to keep the assumptions attached to a result is as important as remembering the result itself.
+Notice what the proposition does \emph{not} say. It does not say that every sum is even. Its conclusion is promised only when \emph{both} numbers are odd. If one of them is even, for example in $2+3=5$, the proposition makes no promise at all. Keeping the hypotheses attached to a result is as important as remembering the result itself.
 
 \begin{principle}{Habit 1: choose a representation that exposes the target}
-If the goal is evenness, try to display a factor of two. If the goal is an assignment, display who receives what. If the goal is an error bound, display the difference between the approximation and the target. When an assistant proposes a representation, ask why it helps before letting it continue the calculation.
+Before calculating, ask what form the answer must take. Then choose a way of writing the objects, a \emph{representation}, in which that form can appear. If the goal is to show that a number is even, try to display a factor of $2$. The same habit will return in later chapters with other targets. To show that every person in a group can be given a different acceptable task, write down who receives which task. To show that an approximation is close to the true value, write down the difference between them. When an assistant proposes a representation, ask why it helps before letting it continue the calculation.
 \end{principle}

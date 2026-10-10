@@ -1,32 +1,73 @@
-\section{Double counting begins with one precise collection}
-Let us first count the displayed graph in a deliberately redundant way. Edge $ab$ contributes the two records $(a,ab)$ and $(b,ab)$. Edge $bc$ contributes $(b,bc)$ and $(c,bc)$. Edges $ca$ and $cd$ contribute two records each as well. There are eight records altogether.
+\section{Double counting begins with one precise collection}\label{ch07:sec:double}
+Add up the degrees in the example graph $G$: $2+2+3+1=8$. The graph has four edges, and $8$ is exactly twice $4$. This is no accident. It is worth seeing why in this small case before we state the general fact.
 
-Now reorganize those same records by their vertex. There are two beginning with $a$, two with $b$, three with $c$, and one with $d$. Their total is $2+2+3+1=8$. Nothing has been counted differently; the records have only been grouped differently. The general theorem names this common collection explicitly so that we can check there are neither omissions nor duplicate records within either grouping.
+Consider every pair $(v,e)$ in which $v$ is a vertex, $e$ is an edge, and $v$ is an endpoint of $e$. Because an edge is the set of its two endpoints, ``$v$ is an endpoint of $e$'' simply means $v\in e$. The table below has one row for each vertex of $G$ and one column for each edge. An entry $1$ marks a pair $(v,e)$ with $v\in e$, and an entry $0$ means that $v$ is not an endpoint of $e$.
+\begin{center}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+ & $ab$ & $bc$ & $ca$ & $cd$ & row total\\
+\midrule
+$a$ & $1$ & $0$ & $1$ & $0$ & $2$\\
+$b$ & $1$ & $1$ & $0$ & $0$ & $2$\\
+$c$ & $0$ & $1$ & $1$ & $1$ & $3$\\
+$d$ & $0$ & $0$ & $0$ & $1$ & $1$\\
+\midrule
+column total & $2$ & $2$ & $2$ & $2$ & $8$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Now count the entries equal to $1$ in two ways. Row by row, the row of a vertex has a $1$ for each edge at that vertex, so its total is the degree of the vertex, and the row totals add up to $2+2+3+1=8$. Column by column, every edge has exactly two endpoints, so every column total is $2$, and the four columns give $2+2+2+2=8$. Both totals count the same eight entries, so they must agree. Nothing was counted differently: the same entries were grouped in two different ways.
 
-The notation $\sum_{v\in V}$ means add one term for every vertex in $V$, rather than for a consecutive integer index. Finite sums may be grouped and reordered by the arithmetic rules from Chapter~1.
+This method, counting one collection of objects in two ways and setting the two answers equal, is called \emph{double counting}. Its essential step is to describe the collection precisely. Then we can check that each grouping counts every member exactly once, with nothing left out and nothing counted twice.
+
+To state the general result we need one piece of notation. Chapter~\ref{ch:start} wrote sums such as $\sum_{j=1}^{4}a_j$, whose index runs through consecutive integers. The notation $\sum_{v\in V}\deg(v)$ means: add the number $\deg(v)$ once for each vertex $v$ in $V$. For the example graph,
+\[
+\sum_{v\in V}\deg(v)=\deg(a)+\deg(b)+\deg(c)+\deg(d)=2+2+3+1=8.
+\]
+The order in which the vertices are taken does not matter, because a finite sum may be reordered and regrouped freely (Section~\ref{ch01:sec:letters}). In the same way, $\sum_{e\in E}2$ adds the number $2$ once for each edge, so it equals $2|E|$. Recall from Section~\ref{ch03:sec:sets} that $|E|$ is the number of members of $E$, that is, the number of edges.
 
 \par\noindent\begin{minipage}{\linewidth}
-\begin{theorem}\label{thm:handshake}
-In a finite simple undirected graph, $\sum_{v\in V}\deg(v)=2|E|$, where $|E|$ is the number of edges.
+\begin{theorem}[Handshake theorem]\label{thm:handshake}
+In every graph with vertex set $V$ and edge set $E$,
+\[
+\sum_{v\in V}\deg(v)=2|E|.
+\]
 \end{theorem}
 \end{minipage}\par
 
+The name comes from a party. Make each guest a vertex, and join two guests by an edge when they shook hands. Then $\deg(v)$ is the number of hands that guest $v$ shook, and the theorem says that the total of these numbers is twice the number of handshakes: every handshake is counted once by each of the two people involved.
+
 \begin{proof}
-Count pairs $(v,e)$ in which $v$ is an endpoint of the edge $e$. Fixing a vertex $v$ gives $\deg(v)$ such pairs, so counting by vertices gives the sum on the left. Fixing an edge gives exactly two pairs, one for each endpoint, so counting by edges gives $2|E|$. Both counts refer to the same collection, so they are equal.
+Let $P$ be the set of all pairs $(v,e)$ with $v\in V$, $e\in E$, and $v\in e$. We count $P$ in two ways.
+
+First group the pairs by their vertex. For a fixed vertex $v$, the pairs in $P$ with first entry $v$ are the pairs $(v,e)$ in which $e$ is an edge with endpoint $v$. As Section~\ref{ch07:sec:graph} showed, there are exactly $\deg(v)$ such edges. Every pair in $P$ has exactly one first entry, so it lies in exactly one of these groups. Adding the sizes of the groups therefore counts each pair exactly once, and $|P|=\sum_{v\in V}\deg(v)$.
+
+Next group the pairs by their edge. For a fixed edge $e=\{u,w\}$, the pairs in $P$ with second entry $e$ are $(u,e)$ and $(w,e)$. These are two different pairs, because $u\ne w$. Again every pair lies in exactly one group, so $|P|=\sum_{e\in E}2=2|E|$.
+
+Both expressions are equal to $|P|$, so they are equal to each other.
 \end{proof}
 
-The theorem has a surprising consequence: \emph{in every finite simple graph, the number of vertices of odd degree is even.} In the displayed graph the odd-degree vertices are $c$ and $d$, two of them. Here is why it must always happen.
+Look back at where the proof used the word ``simple.'' The group of an edge has exactly two members because the two endpoints of an edge are different. The group of a vertex $v$ has exactly $\deg(v)$ members because of the second reading of the degree, which needed both halves of ``simple.''
 
-Suppose exactly $k$ vertices have odd degree. Split the degree sum into two parts: the degrees that are even and the degrees that are odd.
+The handshake theorem has a consequence that is not at all obvious from a drawing. In the example graph, the vertices of odd degree are $c$, of degree $3$, and $d$, of degree $1$: there are two of them. The number two here is no coincidence either.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{proposition}\label{ch07:prop:odd}
+In every graph, the number of vertices of odd degree is even.
+\end{proposition}
+\end{minipage}\par
+
+\begin{proof}
+Let $k$ be the number of vertices of odd degree. By Lemma~\ref{ch04:lem:even-or-odd}, every degree is either even or odd, and not both. So we can split the degree sum into two parts: the sum $S_{\mathrm{even}}$ of the even degrees and the sum $S_{\mathrm{odd}}$ of the odd degrees. Then $S_{\mathrm{even}}+S_{\mathrm{odd}}=2|E|$ by the handshake theorem.
 \begin{itemize}
-\item The even degrees add up to an even number, because a sum of even numbers is even.
-\item The whole degree sum equals $2|E|$, so it is even.
-\item Therefore the odd degrees also add up to an even number: it is the difference of two even numbers.
+\item $S_{\mathrm{even}}$ is even, because a sum of even numbers is even: a factor $2$ can be taken out of every term. (If no degree is even, $S_{\mathrm{even}}$ is the empty sum $0$, which is even too.)
+\item Therefore $S_{\mathrm{odd}}=2|E|-S_{\mathrm{even}}$ is the difference of two even numbers, and so it is even: $2x-2y=2(x-y)$.
 \end{itemize}
-Now write each odd degree in the form $2\ell_i+1$, using the definition from Chapter~1. Adding $k$ such numbers gives
+Now write the $k$ odd degrees, using Definition~\ref{def:parity}, as $2\ell_1+1,\ldots,2\ell_k+1$ with integers $\ell_1,\ldots,\ell_k$. Adding them gives
 \[
-(2\ell_1+1)+\cdots+(2\ell_k+1)=2(\ell_1+\cdots+\ell_k)+k.
+S_{\mathrm{odd}}=(2\ell_1+1)+\cdots+(2\ell_k+1)=2(\ell_1+\cdots+\ell_k)+k,
 \]
-This sum is even, and $2(\ell_1+\cdots+\ell_k)$ is even, so $k$ is the difference of two even numbers and is itself even.
+because each of the $k$ terms contributes one $1$. Hence $k=S_{\mathrm{odd}}-2(\ell_1+\cdots+\ell_k)$ is again the difference of two even numbers, so $k$ is even. (If $k=0$, the conclusion holds at once, since $0$ is even.)
+\end{proof}
 
-This conclusion is more informative than anything we could see in one drawing. It says, for example, that no graph whatsoever has exactly one vertex of odd degree, and no group of seven people can be arranged so that each of them shakes hands with exactly three others: the degrees would be seven odd numbers.
+A drawing shows one graph at a time; the proposition speaks about every graph at once. It says, for instance, that no graph has exactly one vertex of odd degree. It also settles a puzzle: can seven people at a party each shake hands with exactly three of the others? Make each person a vertex and each handshake an edge. All seven vertices would have the odd degree $3$, so the number of vertices of odd degree would be $7$, which is odd. The proposition forbids this, so no arrangement of handshakes works. The handshake theorem gives the same answer even more directly: the degree sum would be $7\cdot3=21$, an odd number, but it must equal the even number $2|E|$.

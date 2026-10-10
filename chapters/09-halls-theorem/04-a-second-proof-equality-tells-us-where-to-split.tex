@@ -1,55 +1,106 @@
-\section{A second proof: equality tells us where to split}
-An inductive proof reveals a different useful idea. A subset $S$ is called tight when $|N(S)|=|S|$. Such a subset has just enough tasks, with no spare capacity. It is a natural block to solve first. If no nonempty proper subset is tight, every such subset has at least one spare task, and that spare capacity lets us make an arbitrary first assignment.
+\section{A second proof: equality tells us where to split}\label{ch09:sec:inductive}
+The constructive proof relies on the machinery of alternating paths. A second proof, by strong induction, needs no search at all. It brings out an idea that is useful far beyond matchings: pay special attention to the cases in which an inequality holds with equality. Throughout this section, $G$ is a finite bipartite graph with parts $L$ and $R$.
 
-\noindent\textit{Proof plan.} Induct on $|L|$. If a nonempty proper tight block exists, solve inside the block and outside it. Otherwise assign one student any acceptable task and show the remaining graph still satisfies Hall's condition.
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}[Tight group]\label{ch09:def:tight}
+A set $S\subseteq L$ of students is \emph{tight} if $|N(S)|=|S|$.
+\end{definition}
+\end{minipage}\par
 
-\subsection*{A concrete tight block before the general proof}
-Let four students have options
+When Hall's condition holds, every group has $|N(S)|\ge|S|$, so a tight group is one with no spare tasks: it accepts exactly as many tasks as it has students. The empty group is always tight, because $N(\varnothing)=\varnothing$. In the graph of Section~\ref{sec:matching-trace}, where $N(a)=\{1,2\}$, $N(b)=\{1\}$ and $N(c)=\{2,3\}$, the group $\{b\}$ is tight because $N(b)=\{1\}$, and so is $\{a,b\}$, because $N(\{a,b\})=\{1,2\}$. The group $\{c\}$ is not tight, because $c$ accepts two tasks.
+
+Why do tight groups matter? Suppose that $S$ is tight and that a full assignment exists. The students of $S$ receive $|S|$ different tasks, all of them in $N(S)$, and $N(S)$ has only $|S|$ members. So the students of $S$ use up every task in $N(S)$, and all the other students must be served by tasks outside $N(S)$. A tight group is therefore a self-contained block. We can solve the problem for its students on their own, and then solve the problem for everyone else without the tasks in $N(S)$.
+
+To use this idea in an induction, both pieces must be smaller than the original problem. A subset $S$ of $L$ is called \emph{proper} if $S\ne L$, and we then write $S\subsetneq L$. If $S$ is nonempty and proper, then $0<|S|<|L|$. The set $L\setminus S$ of remaining students has $|L|-|S|$ members, which is also fewer than $|L|$. So both $S$ and $L\setminus S$ have fewer students than $L$.
+
+Now suppose that Hall's condition holds but no nonempty proper group is tight. Then every such group has at least one spare task. We will see that this spare capacity makes it safe to give any student any task that student accepts.
+
+\noindent\textit{Proof plan.} Use strong induction on the number of students. If some nonempty proper group $S$ is tight, solve the problem for the students of $S$ using only the tasks in $N(S)$, and separately solve it for the remaining students using only the remaining tasks. If no nonempty proper group is tight, give one student any task it accepts, and show that the smaller problem that remains still satisfies Hall's condition.
+
+\subsection*{A tight block in a small example}
+Before the general proof, here is the first case of the plan in a small example. Four students have the options
 \[
- N(a)=N(b)=\{1,2\},\qquad N(c)=\{2,3\},\qquad N(d)=\{3,4\}.
+N(a)=N(b)=\{1,2\},\qquad N(c)=\{2,3\},\qquad N(d)=\{3,4\}.
 \]
-The group $S=\{a,b\}$ has exactly two available tasks, so it is tight. Assigning all of $S$ must use both tasks $1,2$. The remaining students therefore have options $c:\{3\}$ and $d:\{3,4\}$ after those two tasks are removed. They can use $3$ and $4$ respectively.
+In the drawing below, students are on the left and tasks on the right, and an edge means that the student accepts the task. The dashed box surrounds a tight block.
+\begin{center}
+\begin{tikzpicture}[x=1.15in,y=0.45in,every node/.style={font=\small}]
+\foreach \y/\name in {0/a,1/b,2/c,3/d}
+ {\node[circle,draw=ink,minimum size=6mm,inner sep=1pt] (s\name) at (0,-\y) {$\name$};}
+\foreach \y/\name in {0/1,1/2,2/3,3/4}
+ {\node[circle,draw=ink,minimum size=6mm,inner sep=1pt] (t\name) at (1,-\y) {$\name$};}
+\draw[ink] (sa)--(t1) (sa)--(t2) (sb)--(t1) (sb)--(t2) (sc)--(t2) (sc)--(t3) (sd)--(t3) (sd)--(t4);
+\draw[accent,dashed,thick,rounded corners] (-0.17,0.38) rectangle (1.17,-1.38);
+\node[text=accent,anchor=west,align=left] at (1.25,-0.5) {tight block:\\$S=\{a,b\}$, $N(S)=\{1,2\}$};
+\node at (0,-3.8) {students};
+\node at (1,-3.8) {tasks};
+\end{tikzpicture}
+\end{center}
+You can check all $2^4=16$ inequalities of \eqref{eq:hall} for this graph. The group $S=\{a,b\}$ accepts exactly two tasks, so it is tight. Any full assignment must give $a$ and $b$ the tasks $1$ and $2$, in some order. So we set $a$ and $b$ aside, together with tasks $1$ and~$2$. Each remaining student keeps only the tasks outside $\{1,2\}$: student $c$ now accepts only task~$3$, and student $d$ accepts tasks $3$ and~$4$. These two students can take $3$ and $4$ respectively. Together with $a$--$1$ and $b$--$2$, this gives a full assignment.
 
-Notice what happened to $T=\{c\}$. Originally $N(T)=\{2,3\}$, which overlaps $N(S)=\{1,2\}$. In the remaining problem its neighborhood is $N'(T)=\{3\}$. The prime in $N'$ labels a \emph{new neighborhood function}; it is not differentiation. The combined group $S\cup T$ had three distinct tasks. Subtracting the two tasks committed to $S$ left one for $T$.
-
-The same subtraction works for the group $T=\{c,d\}$. Together with $S$ it forms the whole class, whose available tasks are $\{1,2,3,4\}$; removing the two tasks committed to $S$ leaves $N'(T)=\{3,4\}$, again at least as many tasks as students in $T$.
-
-The general proof must establish this remaining capacity for every group $T$ outside $S$, not just for a single student. That is why it applies the original condition to $S\cup T$. Applying it to $T$ alone would give no control over how many of $T$'s options disappear when $N(S)$ is removed.
-
-The notation $S\subsetneq L$ means $S\subseteq L$ but $S\ne L$; such a subset is called \emph{proper}. Nonempty and proper ensure $0<|S|<|L|$. Both the block $S$ and the remaining set $L\setminus S$ are then smaller than the original left set, making the induction hypothesis available.
-
-\begin{proof}[Inductive proof of sufficiency]
-We use strong induction on $n=|L|$. For $n=0$, the empty matching works. Assume $n>0$ and the result holds for all smaller left sets. Suppose our graph satisfies \eqref{eq:hall}.
-
-\textbf{Case 1: a nonempty proper tight subset exists.} Choose $S$ with $\varnothing\ne S\subsetneq L$ and $|N(S)|=|S|$. 
-
-\emph{First smaller problem: match the tight block.} Restrict the graph to left part $S$ and right part $N(S)$. For every $U\subseteq S$, all neighbors of $U$ already lie in $N(S)$, so the restricted neighborhood is exactly $N(U)$. The original condition gives $|N(U)|\ge|U|$. Thus the restricted graph satisfies Hall's condition. Since $|S|<n$, induction gives a matching of all students in $S$ into $N(S)$.
-
-\emph{Second smaller problem: keep enough tasks for the other students.} Remove all tasks in $N(S)$ and consider parts $L\setminus S$ and $R\setminus N(S)$. Take any $T\subseteq L\setminus S$. Its available tasks in this remaining graph form
+For a group $T$ of remaining students, write $N'(T)$ for the set of tasks that someone in $T$ accepts once the tasks of $N(S)$ have been removed:
 \[
 N'(T)=N(T)\setminus N(S).
 \]
-Because $S$ and $T$ are disjoint, $|S\cup T|=|S|+|T|$. The tasks acceptable to someone in $S\cup T$ are exactly the tasks acceptable to someone in $S$ or to someone in $T$, so $N(S\cup T)=N(S)\cup N(T)$. Applying Hall's condition to the set $S\cup T$ therefore gives
+The prime only marks this as a new set, different from $N(T)$. For $T=\{c\}$, the original set $N(T)=\{2,3\}$ shares task~$2$ with $N(S)=\{1,2\}$, and after the removal $N'(T)=\{3\}$. Why must at least one task survive? Look at the combined group $S\cup T=\{a,b,c\}$. By Hall's condition it accepts at least three tasks; here $N(S\cup T)=\{1,2,3\}$. The tight block $S$ accounts for only two of these tasks, so at least one of them lies outside $N(S)$. No student of $S$ accepts that task, so some student of $T$ must accept it.
+
+The same subtraction works for $T=\{c,d\}$. Together with $S$ it forms the whole class, which accepts the four tasks $1,2,3,4$. Removing the two tasks of $N(S)$ leaves $N'(T)=\{3,4\}$: two tasks for two students.
+
+The general proof must show that $|N'(T)|\ge|T|$ for every group $T$ of remaining students. That is why it applies Hall's condition to the combined group $S\cup T$ rather than to $T$ alone. Hall's condition for $T$ alone says only that $T$ accepts enough tasks in the original graph. It gives no control over how many of those tasks lie in $N(S)$ and disappear. For instance, Hall's condition for $T=\{c\}$ says only that $|N(c)|\ge1$. That would still be true if $c$ accepted only task~$2$, and then $c$ would have nothing left after the removal. But in that case the group $\{a,b,c\}$ would accept only the two tasks $1$ and $2$, and Hall's condition for $S\cup T$ would fail. It is the condition for $S\cup T$ that protects $T$.
+
+\subsection*{The inductive proof}
+We prove the sufficient direction of Theorem~\ref{thm:hall} by strong induction on the number of students (Chapter~\ref{ch:induction}). For each natural number $n$, let $P(n)$ be the statement:
+\begin{center}
+\begin{minipage}{0.88\linewidth}
+\emph{Every finite bipartite graph whose left part has exactly $n$ vertices, and which satisfies Hall's condition, has a matching that saturates its left part.}
+\end{minipage}
+\end{center}
+The statement places no restriction on the right part, which may have any finite number of vertices. This matters, because the smaller graphs to which we apply the induction hypothesis lose some tasks as well as some students.
+
+\begin{proof}[Inductive proof that Hall's condition is sufficient]
+\emph{Base case, $n=0$.} If $L$ is empty, the empty matching saturates $L$, because there is no student to cover. So $P(0)$ holds.
+
+\emph{Induction step.} Let $n\ge1$, and assume that $P(m)$ holds for every natural number $m<n$. Let $G$ be a finite bipartite graph with parts $L$ and $R$, where $|L|=n$, and suppose that $G$ satisfies \eqref{eq:hall}. We must find a matching of $G$ that saturates $L$. There are two cases.
+
+\textbf{Case 1: some nonempty proper subset of $L$ is tight.} Choose a set $S$ with $\varnothing\ne S\subsetneq L$ and $|N(S)|=|S|$.
+
+\emph{The students in $S$.} Let $G_1$ be the graph with left part $S$, right part $N(S)$, and as edges all the edges of $G$ that join a student of $S$ to a task of $N(S)$. Every task that a student of $S$ accepts lies in $N(S)$, so $G_1$ keeps every edge of $G$ at the students of $S$. Hence, for every $U\subseteq S$, the set of tasks joined to $U$ in $G_1$ is exactly $N(U)$. Since $U$ is also a subset of $L$, condition~\eqref{eq:hall} for $G$ gives $|N(U)|\ge|U|$. So $G_1$ satisfies Hall's condition. Since $0<|S|<n$, the induction hypothesis $P(|S|)$ gives a matching $M_1$ of $G_1$ that saturates $S$.
+
+\emph{The other students.} Let $G_2$ be the graph with left part $L\setminus S$, right part $R\setminus N(S)$, and as edges all the edges of $G$ that join a student of $L\setminus S$ to a task of $R\setminus N(S)$. Let $T$ be any subset of $L\setminus S$. A task is joined to $T$ in $G_2$ exactly when someone in $T$ accepts it and it does not lie in $N(S)$. So the set of tasks joined to $T$ in $G_2$ is $N'(T)=N(T)\setminus N(S)$.
+
+We show that $|N'(T)|\ge|T|$. The sets $S$ and $T$ are disjoint, because $T$ contains no student of $S$, so $|S\cup T|=|S|+|T|$. A task is acceptable to someone in $S\cup T$ exactly when it is acceptable to someone in $S$ or to someone in $T$, so $N(S\cup T)=N(S)\cup N(T)$. Applying \eqref{eq:hall} to the set $S\cup T$ therefore gives
 \[
 |N(S)\cup N(T)|\ge |S|+|T|.
 \]
-The union on the left is the disjoint union of $N(S)$ and $N(T)\setminus N(S)$. Consequently,
+Every member of $N(S)\cup N(T)$ lies either in $N(S)$ or in $N(T)\setminus N(S)$, and no member lies in both. So the union is made up of the two disjoint sets $N(S)$ and $N'(T)$, and
+\[
+|N(S)\cup N(T)|=|N(S)|+|N'(T)|
+\]
+(Exercise~\ref{ex:9.3} asks you to check this carefully). Combining the last two displays,
 \[
 |N(S)|+|N'(T)|\ge |S|+|T|.
 \]
-Substitute $|N(S)|=|S|$ and subtract $|S|$ from both sides to obtain $|N'(T)|\ge|T|$. This holds for every $T$, including the empty set. The remaining graph satisfies Hall's condition and has fewer than $n$ students. Induction therefore gives a matching of all remaining students using only tasks outside $N(S)$.
+Now we use tightness. Substitute $|N(S)|=|S|$ and subtract $|S|$ from both sides to obtain $|N'(T)|\ge|T|$. This holds for every $T\subseteq L\setminus S$, including $T=\varnothing$. So $G_2$ satisfies Hall's condition. Since $S$ is nonempty, $G_2$ has $n-|S|<n$ students, and the induction hypothesis $P(n-|S|)$ gives a matching $M_2$ of $G_2$ that saturates $L\setminus S$.
 
-\emph{Recombine the two answers.} The first matching uses students in $S$ and tasks in $N(S)$. The second uses students outside $S$ and tasks outside $N(S)$. No student or task can therefore occur in both matchings. Their union is a matching, and every original student belongs to one of the two matched groups. Hence it saturates $L$.
+\emph{Combining the two matchings.} Every edge of $M_1$ joins a student of $S$ to a task of $N(S)$, and every edge of $M_2$ joins a student of $L\setminus S$ to a task of $R\setminus N(S)$. So no student and no task lies both on an edge of $M_1$ and on an edge of $M_2$. Within each of the two matchings, no two edges share an endpoint either. Hence $M_1\cup M_2$ is a matching of $G$. Every student of $L$ lies in $S$ or in $L\setminus S$, so it is matched by $M_1$ or by $M_2$. Thus $M_1\cup M_2$ saturates $L$.
 
-\textbf{Case 2: no nonempty proper subset is tight.} Hall's condition and the integrality of cardinalities imply
+\textbf{Case 2: no nonempty proper subset of $L$ is tight.} Let $S$ be a nonempty proper subset of $L$. Condition~\eqref{eq:hall} gives $|N(S)|\ge|S|$, and $|N(S)|\ne|S|$ because $S$ is not tight, so $|N(S)|>|S|$. Both sides are whole numbers, and a whole number larger than $|S|$ is at least $|S|+1$ (Exercise~\ref{ex:9.4}). Therefore
 \[
-|N(S)|\ge |S|+1
+|N(S)|\ge |S|+1\qquad\text{for every set $S$ with }\varnothing\ne S\subsetneq L.
 \]
-for every nonempty proper subset $S\subsetneq L$. Choose a student $x\in L$. Hall's condition for $\{x\}$ ensures at least one acceptable task $y\in N(\{x\})$. Assign $x$ to $y$, then remove both vertices.
+Choose any student $x\in L$. Condition~\eqref{eq:hall} for the group $\{x\}$ gives $|N(x)|\ge1$, so $x$ accepts at least one task $y$. Let $G'$ be the graph obtained from $G$ by deleting the student $x$, the task $y$, and every edge at $x$ or at $y$. Its left part $L\setminus\{x\}$ has $n-1$ students, and its right part is $R\setminus\{y\}$.
 
-For any nonempty subset $T\subseteq L\setminus\{x\}$, the set $T$ is a proper subset of the original $L$. Before removal it has at least $|T|+1$ neighbors. Removing the single task $y$ deletes at most one of them. Hence its new neighborhood has size at least $|T|$. The empty subset satisfies the condition automatically. Thus the smaller graph satisfies Hall's condition and induction supplies a matching of its students. Adding the edge $x$--$y$ gives a matching saturating $L$.
+We check Hall's condition for $G'$. Let $T\subseteq L\setminus\{x\}$. If $T=\varnothing$, the condition $0\ge0$ holds. Otherwise, the set of tasks joined to $T$ in $G'$ is $N(T)\setminus\{y\}$. Since $x\notin T$, the set $T$ is a nonempty proper subset of $L$, so $|N(T)|\ge|T|+1$. Removing the single task $y$ removes at most one member of $N(T)$, so
+\[
+|N(T)\setminus\{y\}|\ge |N(T)|-1\ge |T|.
+\]
+Thus $G'$ satisfies Hall's condition, and the induction hypothesis $P(n-1)$ gives a matching $M'$ of $G'$ that saturates $L\setminus\{x\}$.
 
-The added edge cannot conflict with that smaller matching because its two endpoints were removed before the smaller problem was solved. When $n=1$, there are no remaining students. The smaller matching is empty, and the chosen edge alone solves the problem. We have therefore not relied on a nonexistent nonempty remaining group in this boundary case.
+The edge $x$--$y$ shares no endpoint with any edge of $M'$, because $x$ and $y$ are not vertices of $G'$. So $M'\cup\{x\text{--}y\}$ is a matching of $G$. It matches $x$ and every student of $L\setminus\{x\}$, so it saturates $L$.
 
-The two cases exhaust the possibilities, completing the induction.
+When $n=1$, the set $L=\{x\}$ has no nonempty proper subset at all, so this case is the one that applies. Then $L\setminus\{x\}$ is empty, $M'$ is the empty matching given by $P(0)$, and the single edge $x$--$y$ saturates $L$.
+
+Every graph falls into Case~1 or Case~2, and in both cases $G$ has a matching that saturates $L$. So $P(n)$ holds. By strong induction, $P(n)$ holds for every natural number $n$, and this proves the sufficient direction of Hall's theorem.
 \end{proof}
+
+Here is Case~2 in a small example. Let $N(a)=\{1,2\}$ and $N(b)=\{2,3\}$. The nonempty proper groups are $\{a\}$ and $\{b\}$. Each accepts two tasks, one more than it needs, so neither is tight. The proof allows us to give $a$ any task it accepts, even task~$2$, which $b$ also wants. Then $b$ still has task~$3$, and $\{a\text{--}2,\ b\text{--}3\}$ is a full assignment. If we give $a$ task~$1$ instead, $b$ keeps both of its tasks. Either way, the spare task of the group $\{b\}$ absorbs the loss.

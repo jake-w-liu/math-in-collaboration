@@ -1,11 +1,24 @@
-\section{What symmetry permits us to assume}
-Consider a nonempty sequence of signs $a_0,\ldots,a_{n-1}$, each equal to $1$ or $-1$. Negating every sign does not change any pair product, because $(-a_i)(-a_j)=a_i a_j$. Therefore a question expressed entirely through pair products can be studied after setting the first sign to $1$: if the first sign is $-1$, negate the sequence.
+\section{What symmetry permits us to assume}\label{ch06:sec:wlog}
+Consider a sequence of signs $a=(a_0,a_1,\ldots,a_{n-1})$ with $n\ge1$, where each entry $a_i$ is $1$ or $-1$. Rows of signs like this appeared in Section~\ref{ch05:sec:invariant}, and Chapter~\ref{ch:signs} studies them in depth. By a \emph{pair product} we mean a product $a_ia_j$ of two entries of the sequence. Negating every sign turns $a$ into the sequence $-a=(-a_0,-a_1,\ldots,-a_{n-1})$, and it does not change any pair product, because
+\[
+(-a_i)(-a_j)=a_ia_j.
+\]
+For example, $(-1,1,1,-1)$ and its negation $(1,-1,-1,1)$ have the same products of neighboring entries: $-1$, $1$, $-1$ in both cases. So any quantity built only from pair products, such as the sum of neighboring products $a_0a_1+a_1a_2+\cdots+a_{n-2}a_{n-1}$, takes the same value on $a$ and on $-a$. When we study a property that depends only on pair products, we may therefore assume that the first sign is $1$: if a sequence starts with $-1$, negate it.
 
-This reduction has two obligations. First, the transformation must preserve the property under study. Second, every case must be transformable to one satisfying the selected convention. Both hold here. The reduction would fail for a question about the sum of signs equaling a particular positive value, because negation changes the sign of that sum.
+Replacing every object by a convenient standard form in this way is called a \emph{normalization}. Two facts make this one legitimate.
+\begin{itemize}
+\item The change preserves the property under study: a sequence has the property exactly when its negation has it.
+\item Every case can be brought into the standard form: a sequence either begins with $1$ already, or it begins with $-1$ and its negation begins with $1$.
+\end{itemize}
+If either fact fails, the reduction fails too. Here is a failure of the first fact. Consider the claim that the two signs of a sequence of length two add up to at least $0$. The two sequences that begin with $1$ are $(1,1)$ and $(1,-1)$, with sums $2$ and $0$, so the claim holds for both of them. But it is false for $(-1,-1)$, whose sum is $-2$. Negation turns the sum of the signs into its negative, so it does not preserve the property ``the sum is at least $0$,'' and checking the sequences that begin with $1$ told us nothing about the others.
 
-Mathematical taste includes noticing when a symmetry reduces irrelevant choices. It also includes refusing a convenient normalization until its invariance has been established.
+The second fact can fail as well. Negation can always make the first sign equal to $1$, but it cannot always make the first and the last sign both equal to $1$. The sequence $(1,-1)$ and its negation $(-1,1)$ each have one sign of each kind. A normalization ``the first and last signs are both $1$'' would therefore leave such sequences out, even when the property under study is preserved by negation.
+
+Good mathematical taste includes noticing when a symmetry removes choices that do not matter. It equally includes refusing a convenient normalization until we have checked that it preserves the property we care about.
 
 \subsection*{What ``without loss of generality'' must justify}
-The phrase \emph{without loss of generality} sometimes announces a reduction like making the first sign positive. Read it as a promise that no relevant case has been lost, not as permission to impose a convenient extra condition.
+Mathematicians often announce a reduction like this with the phrase \emph{without loss of generality}: ``Without loss of generality, $a_0=1$.'' Read the phrase as a promise that no case has been lost. It does not give permission to add a convenient extra condition. Whether the phrase comes from a textbook, from an assistant, or from your own draft, ask which symmetry is being used and why it preserves the property at stake.
 
-Here the proof of that promise has two cases. A sequence already beginning with $1$ requires no change. A sequence beginning with $-1$ can be negated and then begins with $1$. Negation preserves every pair product and can be undone by negating again. Thus proving a property expressed only through those products for first-positive sequences proves it for first-negative sequences too, by translating there and back. If the target property is not preserved, the phrase would be unjustified.
+Here is the argument behind the promise for sign sequences. Let $P$ be a property of sign sequences that depends only on the pair products, and suppose we have proved that $P$ holds for every sign sequence of length $n$ whose first entry is $1$. Let $a$ be any sign sequence of length $n$. If $a_0=1$, then $a$ is one of the cases already proved. If $a_0=-1$, put $b=-a$. Then $b_0=1$, so $P$ holds for $b$. The sequences $a$ and $b$ have the same pair products, and $P$ depends only on these, so $P$ holds for $a$ as well. Either way $P$ holds for $a$, and since $a$ was arbitrary, $P$ holds for every sign sequence of length $n$. If $P$ were not preserved by negation, the step from $b$ back to $a$ would fail, and the phrase ``without loss of generality'' would be unjustified.
+
+\pauseq{You want to prove that $a_0a_1+a_0a_2+a_1a_2\ge-1$ for every sign sequence $(a_0,a_1,a_2)$. Is it justified to assume $a_0=1$? If so, how many sequences are left to check? Check them.}{It is justified: the expression is built only from pair products, so negating all three signs does not change its value. With $a_0=1$, four sequences remain: $(1,1,1)$, $(1,1,-1)$, $(1,-1,1)$, and $(1,-1,-1)$. The expression equals $3$, $-1$, $-1$, and $-1$ on them, and each value is at least $-1$. The other four sign sequences of length three are the negations of these four and give the same values, so the inequality holds for all eight.}

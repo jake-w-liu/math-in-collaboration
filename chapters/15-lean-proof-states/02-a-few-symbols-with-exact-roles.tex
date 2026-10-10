@@ -1,20 +1,26 @@
-\section{A few symbols with exact roles}
-In Lean, \code{x : Nat} says $x$ is a natural number. The name \code{Nat} corresponds to $\NN$ in this book. The expression \code{P : Prop} says $P$ is a proposition. A hypothesis \code{h : P} is evidence for $P$, not a Boolean flag merely reporting that a test was true.
+\section{A few symbols with exact roles}\label{ch15:sec:symbols}
+The most common symbol in Lean is the colon. An expression \code{a : T} says that \code{a} is an object of type \code{T}; read the colon as ``is a'' or ``has type.'' Here are three examples.
+\begin{itemize}
+\item \code{n : Nat} says that $n$ is a natural number. The type \code{Nat} is Lean's name for $\NN$, and, as in this book, it includes zero.
+\item \code{P : Prop} says that $P$ is a proposition. Here ``proposition'' has the second meaning described in Section~\ref{ch01:sec:roles}: a statement that is either true or false, whether or not anyone has proved it.
+\item \code{hp : P} says that \code{hp} is a proof of the proposition $P$. Such an object is also called \emph{evidence} for $P$. When it is assumed rather than constructed, it is a \emph{hypothesis}, and names of hypotheses traditionally begin with the letter \code{h}.
+\end{itemize}
+One symbol serves all three purposes because, as Section~\ref{ch15:sec:checker} explained, propositions are types and their proofs are objects of those types.
 
-Function application is written with a space: \code{f x} means $f(x)$. The function \code{fun x => f x} sends an input $x$ to $f(x)$. The colon introduces a type or a theorem statement. The symbol \code{:=} supplies a definition or proof. Ordinary \code{=} inside a statement still means equality.
+Lean writes function application with a space instead of parentheses: \code{f x} means $f(x)$. Parentheses are used only for grouping, so \code{f (x + 1)} means $f(x+1)$, while \code{f x + 1} means $f(x)+1$. A function can also be written down without being given a name. The expression \code{fun x => x + 1} is the function $x\mapsto x+1$, which sends each input to that input plus one. Applying it to $2$, as in \code{(fun x => x + 1) 2}, gives \code{2 + 1}, which is $3$.
 
-It helps to read a declaration by its parts before reading an entire proof. In
+Two more symbols are easy to confuse. The symbol \code{:=} means ``is defined as'' or ``is proved by'': it attaches a definition to a new name, or a proof to a theorem. The ordinary equals sign \code{=} appears inside statements and means equality, exactly as on paper.
+
+\subsection*{Reading a declaration by its parts}
+Before reading a whole proof, it helps to read a declaration piece by piece. Here is a definition:
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 def twice (n : Nat) : Nat := n + n
 \end{lstlisting}
 \end{minipage}\par
+The word \code{def} announces a definition, and \code{twice} is the name we chose for it. The part \code{(n : Nat)} declares the input, a natural number called \code{n}. The \code{: Nat} after it declares the type of the output. Everything after \code{:=} is the rule: the output is \code{n + n}. So \code{twice} is the function $\NN\to\NN$ given by $n\mapsto n+n$.
 
-\code{def} announces a definition, \code{twice} is its chosen name, \code{(n : Nat)} declares the input, and the final \code{: Nat} declares the output's type. The text after \code{:=} gives the rule. A \emph{type} specifies what kind of object an expression is: here both the input and output are natural numbers.
-
-A theorem declaration uses the same basic separation. Its name and parameters come first, its claimed proposition follows a colon, and a proof follows \code{:=}. Writing \code{by} begins a sequence of proof-building instructions. The command does not mean ``assume the statement is true.'' It begins the work required to justify it.
-
-Here is a theorem about the definition just supplied. It has no input parameters and claims one concrete equality:
+A theorem is declared in the same way. First come the word \code{theorem} and the theorem's name, then its parameters in parentheses, if it has any. A colon follows, and after it the statement being claimed. Last come \code{:=} and the proof. The word \code{by} says that the proof will be given by tactics, written on the lines that follow. Here is a theorem about \code{twice}. It has no parameters and claims a single equality:
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 theorem twice_two : twice 2 = 4 := by
@@ -22,17 +28,38 @@ theorem twice_two : twice 2 = 4 := by
 \end{lstlisting}
 \end{minipage}\par
 
-The definition introduced a function; the theorem claims an equality about it and gives a proof. The tactic \code{rfl} closes an equality whose two sides reduce to the same expression by definitions and computation. Here \code{twice 2} unfolds to \code{2 + 2}, which computes to \code{4}. It would not prove an arbitrary true equality that requires an independent theorem.
+To check a claim like this one, Lean can \emph{reduce} expressions: it replaces a defined name by its definition and carries out arithmetic on specific numbers. Here \code{twice 2} reduces to \code{2 + 2}, and \code{2 + 2} reduces to \code{4}. The tactic \code{rfl} (short for \emph{reflexivity}, the fact that every object equals itself) proves an equality whose two sides reduce to the same expression. Both sides of \code{twice 2 = 4} reduce to \code{4}, so \code{rfl} finishes the proof.
 
-The theorem's equality and the definition's assignment have different jobs. The definition supplies what \code{twice} means. The theorem says that evaluating that meaning at input two gives four. A different name would not change the mathematics. A different definition body could change the claim's truth.
+Notice the different jobs of \code{:=} in the definition and \code{=} in the theorem. The definition is a choice: it gives \code{twice} its meaning, and there is nothing to prove. The theorem is a claim about that meaning, and it needs a proof. Had we defined \code{twice n} to be \code{n + 1}, the statement \code{twice 2 = 4} would amount to $3=4$, which is false, and \code{rfl} would fail with an error. Renaming \code{twice} everywhere, on the other hand, would change nothing.
 
-The word \emph{reduce} means replace a defined expression by its body and perform the permitted computation. In this example, reduction is the sequence \code{twice 2}, then \code{2 + 2}, then \code{4}. When both sides reduce to the same expression, \code{rfl} can establish equality. For a general equality whose two sides do not reduce to the same expression, a mathematical lemma may still be needed even if numerical instances are easy.
+The tactic \code{rfl} succeeds only when the two sides reduce to the same expression. The equation \code{twice n = 2 * n} holds for every natural number $n$, and each numerical instance, such as \code{twice 5 = 2 * 5}, can be proved by \code{rfl}. But when $n$ is a variable, neither side can be computed to a number, the two sides remain different expressions, and \code{rfl} fails. A proof for every $n$ needs a genuine mathematical fact, here the identity $2n=n+n$ for all natural numbers $n$, which Lean's library contains under the name \code{Nat.two\_mul}.
 
-Names are not mathematical content. A theorem called \code{all\_problems\_solved} may have a trivial statement. Always read the expression after its parameters and colon.
+Names carry no mathematical content. Lean would accept a theorem called \code{all\_problems\_solved} whose statement is \code{0 = 0}. To know what a theorem says, read the statement that follows its parameters and its colon.
 
 \subsection*{A proposition and a proof of it are different objects}
-In ordinary writing, $P$ might be the sentence ``this integer is even.'' A proof of $P$ is an argument establishing that sentence, not another name for the integer. Lean writes \code{P : Prop} to declare the proposition and \code{hp : P} to declare evidence for it.
+A proposition is a claim, and a proof is an argument that establishes it. The expression \code{2 + 2 = 5} is a perfectly good proposition, and Lean accepts it as an object of type \code{Prop}; but it is false, so it has no proofs. A true proposition, on the other hand, may have many different proofs. Lean writes \code{P : Prop} to declare a proposition and \code{hp : P} to declare a proof of it.
 
-An implication $P\Rightarrow Q$ can be used as a rule: give it a proof of $P$, and it supplies a proof of $Q$. Lean expresses this as \code{P -> Q}. If \code{h : P -> Q} and \code{hp : P}, the expression \code{h hp} applies the rule and has type \code{Q}. This is function application, not multiplication. The familiar inference ``$P$; $P$ implies $Q$; therefore $Q$'' has been made explicit.
+An implication $P\Rightarrow Q$ can be used as a rule: give it a proof of $P$, and it returns a proof of $Q$. Lean writes this implication as \code{P -> Q}, using the same arrow as for functions, and for a good reason: a proof of \code{P -> Q} is a function that turns proofs of $P$ into proofs of $Q$. So if \code{h : P -> Q} and \code{hp : P}, then \code{h hp}, the function \code{h} applied to \code{hp}, is a proof of $Q$. The space in \code{h hp} means function application, not multiplication. In ordinary words, \code{h hp} is the familiar inference ``$P$ holds, and $P$ implies $Q$; therefore $Q$ holds.''
 
-This is the part of the propositions-as-types viewpoint we need first. It does not require understanding the implementation of a proof assistant before reading the example. We learn how the notation records an inference already understood in ordinary mathematics.
+This way of reading statements and proofs, in which propositions are types and proofs are objects of those types, is called \emph{propositions as types}. It is all the theory the rest of this chapter needs.
+
+\pauseq{Suppose \code{hpq : P -> Q}, \code{hqr : Q -> R}, and \code{hp : P}. What is the type of \code{hpq hp}? Which expression built from these three is a proof of $R$? Why does Lean reject \code{hqr hp}?}{The application \code{hpq hp} has type \code{Q}: the rule $P\Rightarrow Q$, applied to a proof of $P$, gives a proof of $Q$. Feeding that proof to \code{hqr} gives \code{hqr (hpq hp)}, a proof of $R$; the parentheses make \code{hpq hp} a single input. The expression \code{hqr hp} is rejected because \code{hqr} accepts only a proof of $Q$, while \code{hp} is a proof of $P$. Lean reports this as a type mismatch.}
+
+The table collects the notation of this section.
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.3\linewidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Lean & Meaning\\
+\midrule
+\code{n : Nat} & $n$ is a natural number, $n\in\NN$\\
+\code{P : Prop} & $P$ is a proposition\\
+\code{hp : P} & \code{hp} is a proof of $P$\\
+\code{f x} & $f(x)$\\
+\code{fun x => x + 1} & the function $x\mapsto x+1$\\
+\code{P -> Q} & $P\Rightarrow Q$; a proof of it turns proofs of $P$ into proofs of $Q$\\
+\code{:=} & is defined as, or is proved by\\
+\code{by} & the proof that follows is given by tactics\\
+\code{rfl} & proves an equality whose two sides reduce to the same expression\\
+\bottomrule
+\end{tabularx}
+\end{center}

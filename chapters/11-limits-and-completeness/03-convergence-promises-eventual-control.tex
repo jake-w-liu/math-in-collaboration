@@ -1,20 +1,41 @@
-\section{Convergence promises eventual control}
-A sequence is a list $x_0,x_1,x_2,\ldots$ indexed by natural numbers. It converges to $x_*$ when, for every tolerance $\eps>0$, all sufficiently late terms lie within that tolerance:
+\section{Convergence promises eventual control}\label{ch11:sec:convergence}
+A \emph{sequence} in a metric space $(X,d)$ is an endless list $x_0,x_1,x_2,\ldots$ of points of $X$, one for each natural number, just as in Section~\ref{ch05:sec:recurrence}. The terms from some index $N$ onward, $x_N,x_{N+1},x_{N+2},\ldots$, form a \emph{tail} of the sequence. The next definition says precisely what it means for the terms to approach a point.
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}[Convergence]\label{ch11:def:convergence}
+A sequence $x_0,x_1,x_2,\ldots$ in a metric space $(X,d)$ \emph{converges} to a point $x_*\in X$ if, for every tolerance $\eps>0$, there is a threshold $N$ such that every term from $x_N$ onward lies within distance $\eps$ of $x_*$:
 \[
 \forall\eps>0\ \exists N\in\NN\ \forall n\ge N:\quad d(x_n,x_*)<\eps.
 \]
-The threshold $N$ may depend on $\eps$. It must work for every later $n$, not just for one convenient term.
+The point $x_*$ is then called a \emph{limit} of the sequence, and we write $x_n\to x_*$, read ``$x_n$ tends to $x_*$.'' A sequence that converges to some point of $X$ is called \emph{convergent}.
+\end{definition}
+\end{minipage}\par
 
-Read the order as a challenge and response. First someone asks for a positive tolerance, such as $0.01$. We must produce a threshold $N$. Then they may choose \emph{any} index at or beyond $N$, and its distance from the same proposed limit must be below $0.01$. They may later ask for a smaller tolerance; we may then choose a larger threshold.
+Read the quantifiers as the game between a skeptic and a prover from Section~\ref{ch02:sec:quantifiers}. The proposed limit $x_*$ is fixed before the game begins. First the skeptic names a tolerance, say $\eps=0.01$. Then the prover names a threshold $N$, and may use the value of $\eps$ to choose it. Finally the skeptic picks \emph{any} index $n\ge N$, and the prover wins if $d(x_n,x_*)<0.01$. The sequence converges to $x_*$ when the prover can win however the skeptic plays. A smaller tolerance usually forces a larger threshold, and that is allowed, because $N$ is chosen after $\eps$. What is not allowed is a threshold that works for only some of the later indices: a single $N$ must handle every $n\ge N$ at once.
 
-The point $x_*$ is fixed before these tolerance requests. The star is a label for the proposed destination, not multiplication and not a special numerical value. The notation $x_n\to x_*$ records convergence. It does not say the sequence ever equals its limit. For $x_n=1/(n+1)$, every term is positive even though the limit is zero.
+The star in $x_*$ is just part of the name; it marks the point as special. The statement $x_n\to x_*$ does not say that the sequence ever reaches its limit. The terms of $x_n=1/(n+1)$, for instance, are all positive, yet we now prove that they tend to $0$.
 
-Choosing one late term near the destination is not enough. The sequence $0,1,0,1,\ldots$ repeatedly returns to zero, but has no tail in which \emph{every} term is within $1/4$ of zero. The quantifier ``every $n\ge N$'' rules out that behavior.
-
-For $x_n=1/(n+1)$ on the real line, take a positive integer $N>1/\eps$. Then for $n\ge N$,
+\subsection*{Two sequences that converge}
+Take $x_n=1/(n+1)$ on the real line, so that the sequence is $1,\tfrac12,\tfrac13,\ldots$. Let $\eps>0$ be given. By the Archimedean property (Section~\ref{ch02:sec:quantifiers}) we may choose an integer $N>1/\eps$; it is positive because $1/\eps>0$. Now let $n\ge N$. Then $n+1>N>0$, and taking reciprocals reverses the order, so $1/(n+1)<1/N$. Taking reciprocals in $N>1/\eps$ gives $1/N<\eps$. Together,
 \[
-0<x_n=\frac1{n+1}\le\frac1{N+1}<\eps.
+d(x_n,0)=\left|\frac1{n+1}-0\right|=\frac1{n+1}<\frac1N<\eps.
 \]
-This proves $x_n\to0$. A finite prefix, however irregular, does not affect the limit because the definition only controls sufficiently late terms.
+This proves $x_n\to0$. For the tolerance $\eps=0.01$, the recipe asks for an integer $N>100$, so $N=101$ will do, and indeed every term from $x_{101}=1/102$ onward is less than $0.01$. The threshold $N=100$ would also work, because $x_{100}=1/101$ is already less than $0.01$. The definition asks only for \emph{some} threshold that works, not for the smallest one.
 
-For $x_n=1-2^{-n}$, the error relative to $1$ is $2^{-n}$. To show it tends to zero without logarithms, observe by induction that $2^n\ge n+1$. Hence $2^{-n}\le1/(n+1)$, and the previous tolerance argument applies.
+Next return to the sequence $x_n=1-2^{-n}$ of Section~\ref{ch05:sec:recurrence}, which we described there as coming as close to $1$ as we like. The definition turns that phrase into a statement we can prove. The distance from $x_n$ to $1$ is $|x_n-1|=2^{-n}$. To compare it with $1/(n+1)$, we first show by induction that $2^n\ge n+1$ for every $n\in\NN$. At $n=0$ both sides equal $1$. If $2^n\ge n+1$ for some $n$, then
+\[
+2^{n+1}=2\cdot2^n\ge2(n+1)=2n+2\ge n+2,
+\]
+which is the claim for $n+1$. Taking reciprocals gives $2^{-n}\le1/(n+1)$. So if $\eps>0$ and $N$ is an integer with $N>1/\eps$, as before, then every $n\ge N$ satisfies $|x_n-1|\le1/(n+1)<\eps$. This proves $x_n\to1$.
+
+Because the definition speaks only about tails, changing finitely many terms of a sequence does not affect whether it converges, or what its limit is. Suppose, for instance, that the first thousand terms of $1/(n+1)$ were replaced by arbitrary numbers. The new sequence still tends to $0$: given $\eps>0$, take a threshold that is at least $1000$ and larger than $1/\eps$, and the argument above applies unchanged to every later term. In the same way, if $x_n\to x_*$, then the shifted sequence $x_1,x_2,x_3,\ldots$, whose terms are $x_{n+1}$, also tends to $x_*$. Indeed, if $d(x_n,x_*)<\eps$ for every $n\ge N$, then also $d(x_{n+1},x_*)<\eps$ for every $n\ge N$, since $n+1\ge N$ too.
+
+\subsection*{What failure to converge looks like}
+Negating the definition with the rules of Section~\ref{ch02:sec:negation} shows what it means for a sequence \emph{not} to converge to $x_*$:
+\[
+\exists\eps>0\ \forall N\in\NN\ \exists n\ge N:\quad d(x_n,x_*)\ge\eps.
+\]
+In words, there is one fixed tolerance such that, however late we start, some later term is at least that far from $x_*$. Notice that the strict inequality $<\eps$ has become $\ge\eps$.
+
+Consider the sequence $0,1,0,1,\ldots$, in which $x_n=0$ for even $n$ and $x_n=1$ for odd $n$. Its terms return to $0$ again and again, but a single late term near $0$ is not enough: the definition needs a whole tail near the proposed limit. Take $\eps=1/2$. For every threshold $N$, the odd index $n=2N+1$ is at least $N$, and $d(x_n,0)=1\ge1/2$. So the sequence does not converge to $0$.
+
+\pauseq{Does the sequence $0,1,0,1,\ldots$ converge to $1/2$? Does it converge to any real number at all?}{It does not converge to $1/2$. Every term is at distance exactly $1/2$ from $1/2$, so for the tolerance $\eps=1/2$ no term at all is close enough. In fact it converges to no real number $L$. Suppose it did, and take $\eps=1/2$. Some threshold $N$ would make every term from $x_N$ onward lie within $1/2$ of $L$. Among those terms are $x_{2N}=0$ and $x_{2N+1}=1$. The triangle inequality through $L$ would then give $1=|1-0|\le|1-L|+|L-0|<\tfrac12+\tfrac12=1$, which is impossible.}

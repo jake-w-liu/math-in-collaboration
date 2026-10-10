@@ -1,15 +1,23 @@
-\section{A function includes its input and output sets}
-A function $f:A\to B$ assigns exactly one output $f(x)\in B$ to each input $x\in A$. The set $A$ is the domain; $B$ is the codomain. Not every element of $B$ needs to occur as an output. The outputs that actually occur form the image
+\section{A function includes its input and output sets}\label{ch03:sec:functions}
+A \emph{function} $f:A\to B$, read ``$f$ from $A$ to $B$,'' assigns to each input $x\in A$ exactly one output $f(x)\in B$. The set $A$ is the \emph{domain} of $f$: the set of allowed inputs. The set $B$ is the \emph{codomain}: the set in which the outputs are required to lie. We also call the elements of $B$ \emph{targets}. The words \emph{map} and \emph{mapping} mean the same as function.
+
+Not every target needs to occur as an output. The outputs that actually occur form the \emph{image} of $f$:
 \[
 f(A)=\{f(x):x\in A\}.
 \]
-For $f:\RR\to\RR$ given by $f(x)=x^2$, the image is the nonnegative real numbers, written $[0,\infty)$. Its codomain is all real numbers. We could define a different function with the same rule but codomain $[0,\infty)$; that distinction changes whether every target is attained.
+This is a second way of using set-builder notation: it describes the set of all values $f(x)$ obtained as $x$ runs through $A$. For a small example, let $A=\{p,q,r\}$ and $B=\{1,2,3,4\}$, and define $f(p)=1$, $f(q)=3$, and $f(r)=3$. This is a function, because each of the three inputs has exactly one output in $B$. Two inputs share the output $3$, which is allowed. The image is $f(A)=\{1,3\}$, and the targets $2$ and $4$ are never reached.
 
-The identity map $\id_A:A\to A$ sends $x$ to itself. If $f:A\to B$ and $g:B\to C$, their composition $g\circ f:A\to C$ applies $f$ first and $g$ second:
+For $f:\RR\to\RR$ given by $f(x)=x^2$, the image is the set $[0,\infty)$ of nonnegative real numbers. Two facts are needed to see this. Every output $x^2$ is nonnegative, so the image is contained in $[0,\infty)$. Conversely, every $t\ge0$ is an output, because $f(\sqrt t)=(\sqrt t)^2=t$, where $\sqrt t$ is the square root from Section~\ref{ch01:sec:notation}. The codomain of this $f$, however, is all of $\RR$. The codomain is part of how we specify a function; the image is something we work out from the rule.
+
+So a function is described by three pieces of information: its domain, its codomain, and its rule. Two functions $f,g:A\to B$ with the same domain and the same codomain are \emph{equal} when $f(x)=g(x)$ for every $x\in A$. Functions with different domains or different codomains count as different functions, even when they use the same formula. To name a rule without giving it a letter, we write an arrow such as $x\mapsto x^2$, read ``$x$ maps to $x^2$.'' The rule $x\mapsto x^2$ with domain $\RR$ and codomain $\RR$, and the same rule with domain $\RR$ and codomain $[0,\infty)$, are two different functions. The difference is real: for the second function every target is an output, while for the first the negative targets are never reached. Section~\ref{ch03:sec:injsurj} gives this difference a name.
+
+\pauseq{Does the rule ``send $x$ to a number $y$ with $y^2=x$'' define a function from $\RR$ to $\RR$?}{No, for two separate reasons. The input $-1$ has no output at all, since no real number has a negative square. The input $4$ has two candidate outputs, $2$ and $-2$, and the rule does not say which one to take. A function must give \emph{exactly one} output for \emph{every} input. The rule $t\mapsto\sqrt t$ from $[0,\infty)$ to $\RR$ repairs both problems: it shrinks the domain to the numbers that have a square root, and it always picks the nonnegative root.}
+
+The \emph{identity map} $\id_A:A\to A$ sends each element to itself: $\id_A(x)=x$ for every $x\in A$. If $f:A\to B$ and $g:B\to C$, their \emph{composition} $g\circ f:A\to C$ applies $f$ first and $g$ second:
 \[
 (g\circ f)(x)=g(f(x)).
 \]
-The order is easy to reverse when reading notation. Say ``$g$ after $f$'' aloud until the direction is familiar.
+This makes sense because every output of $f$ lies in $B$, which is exactly the set of allowed inputs of $g$. Since we read from left to right, it is easy to get the order wrong: in $g\circ f$, the function written on the right acts first. Reading $g\circ f$ aloud as ``$g$ after $f$'' helps.
 
 \begin{center}
 \begin{tikzpicture}[>=Stealth,node distance=1.65in]
@@ -19,9 +27,24 @@ The order is easy to reverse when reading notation. Say ``$g$ after $f$'' aloud 
 \end{tikzpicture}
 \end{center}
 
-\subsection*{Follow two concrete maps before composing general ones}
-Let $f(x)=x+1$ and $g(y)=2y$, with all inputs and outputs real. Starting at three, $f$ first gives four and $g$ then gives eight. Thus $(g\circ f)(3)=8$. Starting instead with $g$ gives six, and then $f$ gives seven, so $(f\circ g)(3)=7$. The two orders need not agree.
+\subsection*{Composing two concrete maps}
+Let $f,g:\RR\to\RR$ be given by $f(x)=x+1$ and $g(y)=2y$. Starting at $3$, the map $f$ gives $4$, and then $g$ gives $8$. Thus $(g\circ f)(3)=8$. Starting instead with $g$ gives $6$, and then $f$ gives $7$, so $(f\circ g)(3)=7$. The two orders give different answers at $3$, so $g\circ f$ and $f\circ g$ are different functions.
 
-The general formulas are $(g\circ f)(x)=2(x+1)$ and $(f\circ g)(x)=2x+1$. This connects composition to the bracket calculation from Chapter~1. In $g(f(x))$, evaluate the inner parentheses first. Before any evaluation, check that the output of the inner function is an allowed input of the outer one.
+The general formulas are
+\[
+(g\circ f)(x)=g(x+1)=2(x+1)=2x+2\qquad\text{and}\qquad(f\circ g)(x)=f(2x)=2x+1.
+\]
+These are exactly the two expressions compared in Section~\ref{ch01:sec:letters}, where $2(n+1)$ turned out to equal $2n+2$, not $2n+1$. As with brackets, work from the inside out: to evaluate $g(f(x))$, first compute $f(x)$, and then apply $g$ to the result.
 
-To call a map \emph{reversible}, we mean that a second map can undo it in both directions. More precisely, an inverse of $f:A\to B$ is a map $h:B\to A$ with $h(f(a))=a$ for every $a\in A$ and $f(h(b))=b$ for every $b\in B$. For $f(x)=x+1$, the map $h(y)=y-1$ works: $(x+1)-1=x$ and $(y-1)+1=y$. A recipe that undoes one selected input is not yet an inverse for a whole function.
+Before evaluating a composition, check that every output of the inner function is an allowed input of the outer one. Let $f:\RR\to\RR$ be $f(x)=x-1$, and let $g:[0,\infty)\to\RR$ be $g(t)=\sqrt t$. The expression $g(f(x))$ makes sense at $x=5$, where it equals $g(4)=2$. It makes no sense at $x=0$, because $f(0)=-1$ is not an allowed input of $g$. So $g\circ f$ is not defined. If we instead use the same rule $x\mapsto x-1$ as a function from $[1,\infty)$ to $[0,\infty)$, every output is nonnegative, and the composition $x\mapsto\sqrt{x-1}$ is defined on $[1,\infty)$.
+
+\subsection*{Undoing a function}
+A function $f:A\to B$ is \emph{reversible}, or \emph{invertible}, if some function $h:B\to A$ undoes it from both sides:
+\[
+h(f(a))=a\ \text{ for every }a\in A\qquad\text{and}\qquad f(h(b))=b\ \text{ for every }b\in B.
+\]
+Such an $h$ is called an \emph{inverse} of $f$. Because two functions are equal when they agree at every input, the two conditions can be written as $h\circ f=\id_A$ and $f\circ h=\id_B$. For $f:\RR\to\RR$ with $f(x)=x+1$, the map $h(y)=y-1$ is an inverse: $h(f(x))=(x+1)-1=x$ and $f(h(y))=(y-1)+1=y$.
+
+Both conditions must hold at \emph{every} input. The square root seems to undo squaring, since $\sqrt{3^2}=3$. But for the square map $f:\RR\to\RR$, $f(x)=x^2$, we get $\sqrt{f(-3)}=\sqrt9=3$, not $-3$. A rule that undoes some inputs is not an inverse. In fact this $f$ has no inverse at all. An inverse $h$ would need $h(1)=h(f(1))=1$ and also $h(1)=h(f(-1))=-1$, but a function has only one output at $1$.
+
+A function has at most one inverse. Suppose that $h$ and $k$ are both inverses of $f$, and let $b\in B$. Since $f(k(b))=b$, we may write $h(b)=h(f(k(b)))$. The identity $h(f(a))=a$, used with $a=k(b)$, gives $h(f(k(b)))=k(b)$. Hence $h(b)=k(b)$ for every $b\in B$, so $h=k$. We may therefore speak of \emph{the} inverse of $f$. It is usually written $f^{-1}$. This symbol does not mean the reciprocal $1/f$. For $f(x)=x+1$, the inverse is $f^{-1}(y)=y-1$, whereas the reciprocal gives $1/f(y)=1/(y+1)$.

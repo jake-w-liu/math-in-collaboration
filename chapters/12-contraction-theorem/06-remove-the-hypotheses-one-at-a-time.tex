@@ -1,6 +1,41 @@
-\section{Remove the hypotheses one at a time}
-If completeness is omitted, the map $T(x)=x/2$ on $(0,1)$ is a contraction and a self-map but has no fixed point there: the only real solution is zero, which is excluded.
+\section{Remove the hypotheses one at a time}\label{ch12:sec:hypotheses}
+Theorem~\ref{thm:banach} has four hypotheses: the space $X$ is nonempty, $X$ is complete, $T$ maps $X$ into itself, and $T$ satisfies the contraction inequality with a factor $q<1$. The proof used each of them at a definite place. A good way to understand why a hypothesis is there is to remove it, keep all the others, and look for an example in which the conclusion fails. This section does that for each hypothesis in turn.
 
-If strict contraction is replaced by $q=1$, the identity map on $\RR$ has every point fixed, while $T(x)=x+1$ has none. Both preserve distances. The boundary $q=1$ therefore does not merely worsen the numerical rate; it can destroy existence or uniqueness.
+\subsection*{Without completeness}
+Let $T(x)=x/2$ on the open interval $X=(0,1)$. This $T$ is a self-map, because $0<x<1$ gives $0<x/2<1/2$, and it is a contraction with factor $1/2$, because $|x/2-y/2|=|x-y|/2$. But it has no fixed point in $X$: the equation $x/2=x$ forces $x=0$, and $0$ does not belong to $(0,1)$.
 
-If the self-map condition is omitted, $T(x)=x/2+1$ on inputs $[0,1]$ has factor $1/2$ but leaves the interval. Its real fixed point is $2$, outside the intended space. A correct inequality cannot repair a missing domain condition.
+The proof breaks down at Step~3. Starting from $x_0=1/2$, the iterates are $x_n=2^{-(n+1)}$, that is, $\tfrac12,\tfrac14,\tfrac18,\ldots$. Steps~1 and~2 go through, and this is exactly the Cauchy sequence that Section~\ref{ch11:sec:complete} used to show that $(0,1)$ is not complete. Its only possible limit is $0$, which is missing from the space, so there is no point $x_*$ for Steps~4--6 to work with.
+
+\subsection*{Without a factor below one}
+Suppose we allow $q=1$, so that the inequality only says $d(Tx,Ty)\le d(x,y)$: the map never increases distances. On $\RR$, the identity map $T(x)=x$ satisfies this with equality, and every real number is a fixed point, so uniqueness fails. The map $T(x)=x+1$ also satisfies $|T(x)-T(y)|=|x-y|$, but the equation $x+1=x$ has no solution, so existence fails. So the value $q=1$ does not merely make convergence slower; it can destroy existence or uniqueness. In the proof, Steps~2, 5 and~6 all divide by $1-q$, which is now zero. In Step~5, for instance, the inequality $(1-q)\,d(x_*,y_*)\le0$ becomes $0\le0$ and says nothing.
+
+Even a map that brings every pair of different points strictly closer together can fail, if the shrinking gets weaker and weaker. This is the example promised in Section~\ref{ch12:sec:iteration}. Let $X=[1,\infty)$, the set of real numbers $x\ge1$, and let
+\[
+T(x)=x+\frac1x.
+\]
+For $x\ge1$ we have $T(x)>x\ge1$, so $T$ maps $X$ into itself. The set $[1,\infty)$ is complete; Exercise~\ref{ex:12.4} asks you to check this by adapting the argument given for $[0,1]$ in Section~\ref{ch11:sec:complete}. To compare two outputs, use $\frac1x-\frac1y=\frac{y-x}{xy}=-\frac{x-y}{xy}$:
+\[
+T(x)-T(y)=(x-y)+\left(\frac1x-\frac1y\right)=(x-y)\left(1-\frac1{xy}\right).
+\]
+For $x,y\ge1$ we have $xy\ge1$, so the factor $1-1/(xy)$ lies between $0$ and $1$, with $1$ excluded. Hence $|T(x)-T(y)|<|x-y|$ whenever $x\ne y$. Yet no single factor $q<1$ works for all pairs. Given any $q$ with $0\le q<1$, choose an integer $k\ge1$ with $k>1/(1-q)$, which is possible by the Archimedean property. For $x=k+1$ and $y=k$ the ratio is $1-1/(k(k+1))$, and since $k(k+1)>k>1/(1-q)$, we get $1/(k(k+1))<1-q$, so the ratio is larger than $q$. And $T$ has no fixed point: $x+1/x=x$ would require $1/x=0$. Starting from $x_0=1$, the iterates $1,\,2,\,\tfrac52,\,\tfrac{29}{10},\,\ldots$ keep increasing. Their squares grow by more than $2$ at each step, because $(x+1/x)^2=x^2+2+1/x^2$, so $x_n^2\ge1+2n$ and the iterates grow without bound.
+
+\subsection*{Without the self-map condition}
+Let $T(x)=x/2+1$, used only for inputs in $[0,1]$. The interval $[0,1]$ is nonempty and complete, and the contraction inequality holds with factor $1/2$, since $|T(x)-T(y)|=|x-y|/2$. But $T(1)=3/2$ lies outside $[0,1]$, so $T$ is not a map from $[0,1]$ to itself. The only real solution of $x/2+1=x$ is $x=2$, which lies outside $[0,1]$, so $T$ has no fixed point in the interval. The proof breaks down already in Step~1: starting from $x_0=0$, we get $x_1=1$ and then $x_2=3/2$, which has left the space, and from then on the contraction inequality, which was only assumed for points of $[0,1]$, says nothing. A correct inequality cannot make up for outputs that leave the space.
+
+\subsection*{Without nonemptiness}
+The last hypothesis is needed for a simpler reason. If $X$ is the empty set, then there are no points at all. The requirements of completeness and of the contraction inequality then hold vacuously, in the sense of Section~\ref{ch02:sec:contrapositive}, because there is nothing to check. But there is no fixed point either, since there is no point. The proof uses nonemptiness exactly once, to choose a starting point.
+
+\subsection*{Summary}
+The table records where the proof uses each hypothesis and an example showing that it cannot be dropped.
+\begin{center}
+\begin{tabular}{@{}lll@{}}\toprule
+Hypothesis & Used in the proof & Examples without it\\\midrule
+$X$ is nonempty & Step~1, to choose $x_0$ & the empty set\\
+$X$ is complete & Step~3 & $x/2$ on $(0,1)$\\
+$T$ maps $X$ into $X$ & Step~1, to form the iterates & $x/2+1$ on $[0,1]$\\
+factor $q<1$ & Steps~2, 5 and~6 & $x$ and $x+1$ on $\RR$\\
+ & & $x+1/x$ on $[1,\infty)$\\
+\bottomrule
+\end{tabular}
+\end{center}
+None of these examples contradicts the theorem, since each of them fails one of its hypotheses. Together they show that every hypothesis is doing real work.

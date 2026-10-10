@@ -1,6 +1,24 @@
-\section{Capsule two: retaining infinitely many indices}
-A sequence $(x_n)$ has infinitely many \emph{indices}, even if some or all of its values are repeated. We must track indices, not just distinct points.
+\section{Capsule two: keeping infinitely many indices}\label{ch17:sec:pigeonhole}
+A sequence $x_0,x_1,x_2,\ldots$ has one term for each index $n\in\NN$, so it has infinitely many indices, even when its values repeat. The sequence $x_n=(-1)^n$ takes only the two values $1$ and $-1$, yet the value $1$ occurs at the infinitely many indices $0,2,4,\ldots$. A constant sequence takes the same value at every index. For this reason the proof keeps track of sets of \emph{indices}, not sets of points. When we say that a ball contains infinitely many terms of a sequence, we mean that it contains $x_n$ for infinitely many indices $n$, whether or not these terms are different points.
 
-Suppose infinitely many indices are distributed among finitely many classes. If each class had only finitely many indices, their union would be finite: add their finite sizes to obtain a finite upper bound. That contradicts the assumed infinitely many indices. Therefore at least one class contains infinitely many indices. This is the infinite version of the pigeonhole mechanism from Chapter~7.
+Recall from Section~\ref{ch03:sec:sets} that a set is finite if its members can be written down in a list that ends. A set that is not finite is called \emph{infinite}. For example, $\NN$ is infinite, and so is the set $\set{0,2,4,\ldots}$ of even natural numbers.
 
-If covering balls overlap, assign each index to the first ball in a fixed finite list that contains its point. The classes then form a partition. Alternatively, use the fact that a finite union of finite sets is finite directly on the sets of indices in the balls. Either route justifies keeping one ball containing infinitely many of the current indices.
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lemma}[Infinite pigeonhole principle]\label{ch17:lem:pigeonhole}
+Let $S$ be an infinite set, and let $A_1,\ldots,A_k$ be finitely many sets whose union contains $S$. Then at least one of the sets $S\cap A_1,\ldots,S\cap A_k$ is infinite.
+\end{lemma}
+\end{minipage}\par
+
+\begin{proof}
+Every member of $S$ lies in at least one of the sets $A_i$, so
+\[
+ S=(S\cap A_1)\cup(S\cap A_2)\cup\cdots\cup(S\cap A_k).
+\]
+Suppose, for contradiction, that each of the sets $S\cap A_i$ is finite. Write down the members of $S\cap A_1$, then the members of $S\cap A_2$, and so on up to $S\cap A_k$. The result is a list that ends, and every member of $S$ appears in it at least once. A member that lies in several of the sets $A_i$ appears several times; crossing out the repetitions leaves a list of the members of $S$ that still ends. So $S$ is finite, which contradicts the assumption that $S$ is infinite.
+\end{proof}
+
+Compare this with the pigeonhole principle of Proposition~\ref{ch07:prop:pigeonhole}, which says that when many objects are placed in a few boxes, some box must hold many of them. Here the objects are the members of $S$ and the boxes are the sets $A_1,\ldots,A_k$: infinitely many objects in finitely many boxes force some box to hold infinitely many. The boxes are allowed to overlap. The proof only needed to show that $S$ would be finite, and an object that lies in two boxes merely appears twice in the list.
+
+For example, take $x_n=(-1)^n$ and the two balls $B(1,1/2)$ and $B(-1,1/2)$ on the real line. Let $A_1$ be the set of indices $n$ with $x_n\in B(1,1/2)$, which is the set of even numbers, and let $A_2$ be the set of indices with $x_n\in B(-1,1/2)$, which is the set of odd numbers. Their union is $\NN$, and the lemma, applied with $S=\NN$, promises that at least one of them is infinite. Here both are. The lemma guarantees at least one, but it does not say which.
+
+The proof of the theorem uses the lemma at every stage in exactly this way. The set $S$ is the current infinite set of indices. The space is covered by finitely many balls, and $A_i$ is the set of indices $n$ for which $x_n$ lies in the $i$th ball. Since the balls cover the space, every term $x_n$ lies in at least one of them, so the union of the sets $A_i$ contains every index. The lemma then provides one ball that contains $x_n$ for infinitely many indices $n$ in $S$.
