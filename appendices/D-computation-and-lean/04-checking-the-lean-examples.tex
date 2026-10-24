@@ -1,26 +1,71 @@
-\section{Checking the Lean examples}
-After installing Lean with the official instructions~\cite{leaninstall}, create a file named \code{proofs.lean} that begins and ends as follows:
+\section{Checking the Lean examples}\label{appD:sec:lean}
+Install Lean by following the official instructions~\cite{leaninstall}. As Section~\ref{ch15:sec:checker} explains, they set up the editor VS Code together with its Lean extension.
+
+The examples are written for Lean version~4.19.0. Typing \code{lean -{}-version} in a terminal shows which version you have. Lean changes from one version to the next, so if an example that you copied exactly is rejected, check the version first. The installation includes a small program called \emph{elan}, which manages the versions of Lean and lets each folder choose its own. To use version~4.19.0, choose a folder for your Lean work and create in it a plain text file named \code{lean-toolchain}, whose only line is
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+leanprover/lean4:v4.19.0
+\end{lstlisting}
+\end{minipage}\par
+From then on, whenever Lean is started in that folder, elan downloads version~4.19.0 if it is not yet installed and uses it.
+
+Then create, in the same folder, a file named \code{proofs.lean} with the same shape as in Section~\ref{ch15:sec:checker}:
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 import Std
 
 namespace MathCourse
 
--- definitions and theorems from Chapters 15 and 16 go here
+-- the definitions and theorems go here
 
 end MathCourse
 \end{lstlisting}
 \end{minipage}\par
-Lines beginning with \code{--} are comments, which Lean ignores. Copy the definitions and theorems from Chapters~15 and~16, and the Lean solutions from Appendix~\ref{app:solc}, between the two lines containing \code{MathCourse}, in the order in which they appear in the book; a definition such as \code{Inj} must come before the theorems that use it. Every example in the book has been checked in this way with Lean version~4.19.0.
+Everything from \code{-{}-} to the end of a line is a comment, which Lean ignores. Between the two lines that contain \code{MathCourse}, copy the Lean \emph{declarations}, that is, the displayed blocks of Lean code that introduce a definition with \code{def} or a theorem with \code{theorem}, from Chapters~\ref{ch:lean1} and~\ref{ch:lean2} and from the solutions for Weeks~15 and~16 in Appendix~\ref{app:solc}. Take them in the order in which they appear: first those of Chapter~\ref{ch:lean1}, then those of Chapter~\ref{ch:lean2}, and finally those of the solutions. The order matters because Lean reads the file from top to bottom and accepts a name only after it has been defined. For example, the definition of \code{Inj} in Section~\ref{ch15:sec:injcomp} must come before \code{inj\_comp} and every later theorem that uses \code{Inj}. Following the order of the book guarantees this.
 
-Open the file in the editor to see the proof state beside each line, or check the whole file from a terminal with
+Leave out the other displays. Some of them show what Lean prints, such as a proof state or an error message, and a few repeat some lines of a longer proof. The \code{\#print axioms} commands of Section~\ref{ch16:sec:axioms} are discussed below. The one-line example \code{theorem bad} in the text of that section does not belong in the file either, since it uses \code{sorry} on purpose.
+
+\subsection*{Running the check}
+Open the file in VS Code. Lean checks it while you type, and when the cursor is inside a proof, the infoview beside the file shows the proof state at that point. To check the whole file at once from a terminal, move to the folder that contains it, as in Section~\ref{appD:sec:python}, and type
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 lean proofs.lean
 \end{lstlisting}
 \end{minipage}\par
-If the command prints nothing, every declaration was accepted. Adding the line \code{\#print axioms MathCourse.surj\_comp} after \code{end MathCourse} makes Lean report the axioms that the proof depends on, as described in Chapter~16. For the examples in this book the report is that there are none.
+If the command prints nothing at all, every declaration was accepted, with no error and no warning. An \emph{error} means that the declaration containing it was rejected. A \emph{warning} means that the declaration was accepted but something in it deserves a second look. With all the declarations in the file, the output is not quite empty: every declaration is accepted, but Lean prints two warnings, each followed by a note on how such warnings can be switched off. The first of them looks like this:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+proofs.lean:98:5: warning: unused variable `hf`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+\end{lstlisting}
+\end{minipage}\par
+Every message begins with the name of the file, the line and the column where the problem is, and then says whether it is an error or a warning. Lean counts the columns of a line from $0$, so column~$5$ is the sixth character of the line. Here that is where the name \code{hf} begins, after four spaces of indentation and an opening bracket. The line number in your file may differ from $98$, depending on how many blank lines you leave between declarations. The second warning says the same about \code{hg}. Both concern the theorem \code{surj\_comp\_assumed}, and Section~\ref{ch16:sec:irrelevant} explains why that theorem never needs these two hypotheses.
 
-To see how Lean reacts to an unfinished proof, temporarily replace the last line of a proof by \code{sorry}. Lean then accepts the file but prints a warning, and \code{\#print axioms} lists \code{sorryAx}. Remove the \code{sorry} again before treating the file as checked.
+\subsection*{Asking which axioms a proof uses}
+To list the axioms on which a theorem depends (Section~\ref{ch16:sec:axioms}), add a line such as
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+#print axioms MathCourse.surj_comp
+\end{lstlisting}
+\end{minipage}\par
+after the line \code{end MathCourse}. The command uses the full name, with the prefix \code{MathCourse}, because it stands outside the namespace. Lean answers
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+'MathCourse.surj_comp' does not depend on any axioms
+\end{lstlisting}
+\end{minipage}\par
+and from then on the command \code{lean proofs.lean} prints this line as well. The theorems \code{inj\_comp} and \code{preimage\_meet} give the same answer. Not every theorem in the book does: \code{not\_surj\_succ} and \code{succ\_surj\_int} from Section~\ref{ch16:sec:debugging} depend on the standard axiom \code{propext}, through the library lemmas they use, and as that section explains, this is no cause for concern.
 
-For further practice after these chapters, \emph{Mathematics in Lean} provides an interactive textbook with many exercises, built on the mathematical library Mathlib~\cite{mil}. It is a natural next step once the ideas of statements, goals, and proof states from Chapters~15 and~16 are familiar.
+The command \code{\#check}, which Section~\ref{ch16:sec:debugging} uses to display the exact statement of a library lemma, can be added to the file in the same way, on a line of its own outside every proof. For example, the line \code{\#check Nat.succ\_ne\_zero} makes Lean print the statement of that lemma, and \code{lean proofs.lean} prints it too.
+
+\subsection*{What an unfinished proof looks like}
+To see how Lean reacts to a gap, temporarily replace the last line of the proof of \code{surj\_comp}, which is \code{rw [ha, hb]}, by the single word \code{sorry}, keeping the same indentation. Lean still accepts the file, but it prints the warning \code{declaration uses 'sorry'}, pointing at the name of the theorem, and the \code{\#print axioms} line above now reports
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+'MathCourse.surj_comp' depends on axioms: [sorryAx]
+\end{lstlisting}
+\end{minipage}\par
+Put the original line back before you rely on the file again: a file that contains \code{sorry} has not proved what it states.
+
+\subsection*{Where to go next}
+For further practice, \emph{Mathematics in Lean} is an interactive textbook with many exercises~\cite{mil}. It is built on Mathlib, the large mathematical library that the examples of this book do without, and its own instructions explain how to set it up. It is a natural next step once the statements, goals and proof states of Chapters~\ref{ch:lean1} and~\ref{ch:lean2} feel familiar.

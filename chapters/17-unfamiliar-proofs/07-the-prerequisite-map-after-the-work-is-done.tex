@@ -1,14 +1,43 @@
-\section{The prerequisite map after the work is done}
-The map is now concrete:
-\[
-\begin{gathered}
- \text{triangle inequality}\ \longrightarrow\ \text{small-ball diameter bound},\\
- \text{finite cover + infinite indices}\ \longrightarrow\ \text{nested infinite selections},\\
- \text{unbounded index sets}\ \longrightarrow\ \text{increasing subsequence},\\
- \text{nested distance bounds}\ \longrightarrow\ \text{Cauchy subsequence},\\
- \text{completeness}\ \longrightarrow\ \text{limit in the space}.
-\end{gathered}
-\]
-The first and last lines were already familiar. The middle lines were the missing background for this proof. After learning each new node, we immediately used it in the argument. That return to the target is essential: otherwise just-in-time learning becomes another disconnected vocabulary list.
+\section{The prerequisite map after the work is done}\label{ch17:sec:map}
+The assistant's list of prerequisites in Section~\ref{ch17:sec:start} turned out to be incomplete. It mentioned finite covers, the infinite pigeonhole principle and increasing indices. It did not mention the diameter bound for balls, and it did not explain why nested selections make the chosen terms a Cauchy sequence, yet the proof needs both: the diameter bound in Step~1, and the nesting argument in Step~3. Gaps like these turn up when you rebuild a proof line by line, and finding them is part of the method: add each missing step to the map, learn it, and return to the argument. A list of prerequisites deserves your trust for a particular proof only once you have used it to rebuild that proof.
 
-For a genuinely unfamiliar paper, mark a prerequisite as \emph{understood} only when you can explain its use and solve a small transfer problem. Mark an external theorem as \emph{borrowed} until its hypotheses and application have been checked; learning its full proof can be a separate, explicit task. A proof map is allowed to contain borrowed results, but it must not conceal them.
+With every piece in place, the map of the proof can be written out in full. Each row of the table names one part of the argument, the facts that this part uses, and the conclusion it reaches.
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Where & Facts used & Conclusion\\
+\midrule
+Capsule one & triangle inequality and symmetry & diameter bound for balls\\
+Capsule two & definition of a finite set & infinite pigeonhole principle (Lemma~\ref{ch17:lem:pigeonhole})\\
+Capsule three & definition of a finite set & an infinite set of natural numbers contains a number larger than any given one\\
+Step~1 & total boundedness, infinite pigeonhole principle, diameter bound & nested infinite index sets $S_k$ satisfying~\eqref{ch17:eq:stage}\\
+Step~2 & the sets $S_k$ are infinite, and an infinite set of natural numbers contains a number larger than any given one & increasing indices $n_k\in S_k$, hence a subsequence\\
+Step~3 & Step~2 (each $n_\ell$ lies in $S_\ell$), nesting of the sets $S_k$, the bound~\eqref{ch17:eq:stage} & terms from position $k$ on are less than $2^{-k}$ apart\\
+Step~4 & Step~3, Archimedean property, $2^K\ge K+1$ & a Cauchy subsequence\\
+Step~5 & Step~4, completeness & a subsequence that converges to a point of the space\\
+\bottomrule
+\end{tabularx}
+\end{center}
+You can also read this map as a directed graph in the sense of Section~\ref{ch07:sec:sink}. Each fact is a vertex, and there is an arrow from one fact to another when the first is used to obtain the second. For instance, Step~1 contributes arrows from total boundedness, from the infinite pigeonhole principle and from the diameter bound to the nested index sets. The hypotheses of the theorem and the facts brought in from earlier chapters have no arrows coming in, because nothing in this proof derives them. The final conclusion, a convergent subsequence, has no arrows going out: it is a sink.
+
+Some of the ingredients were familiar before this chapter began. The triangle inequality, Cauchy sequences, completeness and the inequality $2^K\ge K+1$ come from Chapter~\ref{ch:limits}, the Archimedean property comes from Chapter~\ref{ch:logic}, and the definition of a finite set comes from Chapter~\ref{ch:maps}. The ordinary pigeonhole principle, on which the infinite version is modeled, comes from Chapter~\ref{ch:graphs}. The new ingredients were balls and their diameter bound, total boundedness, the infinite pigeonhole principle, subsequences, and the nested selection that ties them together. Each capsule pointed ahead to the step of the proof that uses it, and Section~\ref{ch17:sec:proof} then put every piece to work. That return to the proof matters: a concept you have seen doing its job in a proof stays with you, while one learned and left unused becomes disconnected vocabulary.
+
+\subsection*{Check what you have learned, not only what you can name}
+How can you tell whether you have learned a new concept well enough for the proof at hand? Here is a check in four parts, carried out for total boundedness.
+\begin{enumerate}
+\item \emph{State the problem the concept solves.} The proof needs to split the infinitely many indices into finitely many groups whose terms are close together, at every scale. Total boundedness provides, for any requested radius, a finite list of balls of that radius that covers the space, and the balls give the groups.
+\item \emph{State the definition with its quantifiers in the right order.} The radius comes first. The list, and its length, may depend on the radius, but for that one radius the same list must cover every point.
+\item \emph{Test it on examples near the boundary.} The discrete metric on $\NN$ shows that a bound on all distances is not enough to give finite covers by small balls. The interval $(0,1)$ shows that finite covers by small balls do not provide the missing limits.
+\item \emph{Return to the exact line of the proof where the concept is used,} here the beginning of each stage of Step~1, and explain it. Why must the cover be finite? Because Lemma~\ref{ch17:lem:pigeonhole} applies only to finitely many sets. With infinitely many balls, each ball might contain just one term, as in the discrete metric on $\NN$, and no ball would keep infinitely many indices.
+\end{enumerate}
+If you can recite the definition but cannot explain that line, you have not yet learned the concept well enough for this proof.
+
+\subsection*{Labels for the entries of the map}
+For a genuinely unfamiliar paper, it helps to mark each entry of the map with its status, as in the section ``Keeping track of evidence'' of \emph{To the reader}.
+\begin{itemize}
+\item Mark a prerequisite as \emph{understood} only when it passes the four-part check above and you can also use it in a setting slightly different from the one in which you learned it. After studying the interval $[0,1]$ in Section~\ref{ch17:sec:balls}, proving that every interval $[a,b]$ is totally bounded (Exercise~\ref{ex:17.4}) is a small test of this kind.
+\item Mark an entry as \emph{can follow} when you can check each of its steps but could not yet explain it, or use it in a new setting, on your own. For instance, you might check every line of the proof of Lemma~\ref{ch17:lem:pigeonhole} and still be unable to say, without looking, which line would fail if there were infinitely many sets $A_i$.
+\item Mark a result as \emph{borrowed} when you use it without having studied its proof. A borrowed result must still be applied correctly: check that its hypotheses hold in your situation and that its conclusion is exactly what you need. Learning its proof can be a separate task for later. In this chapter, the completeness of the real line is borrowed. Chapter~\ref{ch:limits} accepted it as a starting fact, and the completeness of the interval $[-1,2]$ in the example of Section~\ref{ch17:sec:proof} rests on it.
+\item Mark an entry as \emph{open} while you cannot yet follow it. An open entry records exactly what remains to be learned. Section~\ref{ch17:sec:research} keeps a labeled record of this kind for a research proof, and much of it is still open.
+\end{itemize}
+A map may contain borrowed results and open entries, as long as it labels them clearly.

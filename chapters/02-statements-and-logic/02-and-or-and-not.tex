@@ -1,25 +1,55 @@
-\section{And, or, and not}
-The statement $P\land Q$ means both $P$ and $Q$ hold. The statement $P\lor Q$ means at least one holds; both are allowed. Mathematical ``or'' is inclusive unless the author explicitly says otherwise. The symbol $\neg P$ means $P$ is false.
+\section{And, or, and not}\label{ch02:sec:connectives}
+Statements can be combined into longer statements. Throughout this section, $n$ is an integer, $P$ is the statement ``$n$ is even,'' and $Q$ is the statement ``$n$ is divisible by three.'' The letters $P$ and $Q$ stand for whole statements, not for numbers. Each of them becomes true or false once the value of $n$ is known.
 
-Consider a number that is even or divisible by three. The number $6$ qualifies for both reasons. To disprove this property, one must show that neither condition holds. Thus
+The statement $P\land Q$, read ``$P$ and $Q$,'' is true when both $P$ and $Q$ are true. It is called the \emph{conjunction} of $P$ and $Q$. The statement $P\lor Q$, read ``$P$ or $Q$,'' is true when at least one of $P$ and $Q$ is true. It is called the \emph{disjunction} of $P$ and $Q$. ``At least one'' includes the case in which both are true: $6$ is even and also divisible by three, so for $n=6$ the statement $P\lor Q$ is true. In everyday speech, ``tea or coffee'' often means one but not both. In mathematics, ``or'' allows both unless the author explicitly says otherwise. Finally, $\neg P$, read ``not $P$,'' is the \emph{negation} of $P$. It is true exactly when $P$ is false.
+
+The table below works out these combinations for four integers. Each integer represents one of the four ways in which $P$ and $Q$ can be true (T) or false (F).
+\begin{center}
+\begin{tabular}{@{}ccccccc@{}}
+\toprule
+$n$ & $P$ & $Q$ & $P\land Q$ & $P\lor Q$ & $\neg(P\lor Q)$ & $(\neg P)\land(\neg Q)$\\
+\midrule
+$6$ & T & T & T & T & F & F\\
+$4$ & T & F & F & T & F & F\\
+$3$ & F & T & F & T & F & F\\
+$5$ & F & F & F & F & T & T\\
+\bottomrule
+\end{tabular}
+\end{center}
+Read the table one row at a time. For $n=4$, the statement $P$ is true and $Q$ is false, so $P\lor Q$ is true but $P\land Q$ is false. For $n=5$, both $P$ and $Q$ are false, so $P\land Q$ and $P\lor Q$ are both false. The last two columns use the same rules on the results: $\neg(P\lor Q)$ is the opposite of the $P\lor Q$ column, and $(\neg P)\land(\neg Q)$ is true only in a row where $P$ and $Q$ are both false.
+
+These two columns agree in every row:
 \[
 \neg(P\lor Q)\quad\Longleftrightarrow\quad (\neg P)\land(\neg Q).
 \]
-By contrast, to disprove ``even and divisible by three,'' it is enough for either condition to fail:
+In words: an integer fails to be ``even or divisible by three'' exactly when it is not even \emph{and} not divisible by three. To show that $5$ lacks this property, it is not enough to show that $5$ is not even; we must also show that $5$ is not divisible by three.
+
+By contrast, an integer fails to be ``even and divisible by three'' as soon as one of the two requirements fails. The number $4$ fails because it is not divisible by three, and the number $3$ fails because it is not even. In symbols,
 \[
 \neg(P\land Q)\quad\Longleftrightarrow\quad (\neg P)\lor(\neg Q).
 \]
-These rules are not arbitrary symbol manipulations. They describe exactly what would make the original promises fail.
+These two rules are called \emph{De Morgan's laws}. The long arrow $\Longleftrightarrow$ is the same ``if and only if'' as $\Leftrightarrow$ in Section~\ref{ch02:sec:implication}: the statements on its two sides are true in exactly the same situations.
 
-An implication fails precisely when its assumption holds and its conclusion fails. Therefore
+The table proves the first law for \emph{any} two statements $P$ and $Q$, not only for these four integers. Its last two columns were filled in using only the truth values of $P$ and $Q$ in the same row. Each of $P$ and $Q$ is either true or false, so there are only four combinations, and the table has a row for each of them. The second law can be checked in the same way. Its left side, $\neg(P\land Q)$, is false only in the row where $P$ and $Q$ are both true. Its right side, $(\neg P)\lor(\neg Q)$, is false only in that row too, because there neither $\neg P$ nor $\neg Q$ is true. In the other three rows both sides are true.
+
+The same kind of bookkeeping describes how an implication fails. Here $P$ and $Q$ may be any two statements, not only the two fixed at the start of this section. The implication $P\Rightarrow Q$ fails exactly when its hypothesis holds and its conclusion fails. Therefore
 \[
-\neg(P\Rightarrow Q)\quad\Longleftrightarrow\quad P\land\neg Q.
+\neg(P\Rightarrow Q)\quad\Longleftrightarrow\quad P\land(\neg Q).
 \]
-This is the specification of a counterexample to a conditional theorem.
+This is precisely the description of a counterexample from Section~\ref{ch02:sec:implication}: an input that satisfies the hypothesis and violates the conclusion. In the other three situations the implication counts as true. The table lists all four:
+\begin{center}
+\begin{tabular}{@{}ccc@{}}
+\toprule
+$P$ & $Q$ & $P\Rightarrow Q$\\
+\midrule
+T & T & T\\
+T & F & F\\
+F & T & T\\
+F & F & T\\
+\bottomrule
+\end{tabular}
+\end{center}
+The last two rows surprise many people. Think of an everyday promise: ``if it rains, I will bring an umbrella.'' On a dry day the promise is not broken, whether I bring an umbrella or not. In the same way, the implication ``if $n$ is divisible by four, then $n$ is even'' is not broken by $n=6$, which is even, or by $n=7$, which is odd. Neither number is divisible by four, so the promise does not apply to them, and at both values the implication is true. Section~\ref{ch02:sec:contrapositive} looks at what this means when the hypothesis can never be true.
 
-\subsection*{Read the grouping before changing the symbols}
-The letters $P,Q$ stand for whole statements, not numbers. If $P$ is ``$n$ is even'' and $Q$ is ``$n$ is divisible by three,'' then $P\land Q$ is the single statement that both requirements hold. Parentheses say which statements belong together, just as they group numerical operations.
-
-For $n=4$, $P$ is true and $Q$ is false. Thus $P\lor Q$ is true but $P\land Q$ is false. For $n=5$, both are false, so both combinations are false. For $n=6$, both are true. These three checks give concrete meaning to the earlier negation rules. They are not proofs of every logical identity, but they help prevent a symbol from replacing its meaning.
-
-A universal statement such as ``every allowed input has the property'' is not a command to list all inputs. It specifies the coverage a proof must have. An existence statement asks for at least one input with the property; it does not promise only one. We now introduce symbols for these two kinds of coverage.
+\subsection*{Parentheses and grouping}
+Parentheses show which statements belong together, just as they group numbers in arithmetic, and moving them can change the meaning. Compare $\neg(P\land Q)$ with $(\neg P)\land Q$, where $P$ and $Q$ are again the statements ``$n$ is even'' and ``$n$ is divisible by three.'' For $n=5$, the first is true, because $5$ is not both even and divisible by three. The second is false, because it requires $5$ to be divisible by three. By convention, the symbol $\neg$ applies only to the statement immediately after it, so $\neg P\land Q$ means $(\neg P)\land Q$. In this book we usually write such parentheses anyway, to make the grouping easy to see.

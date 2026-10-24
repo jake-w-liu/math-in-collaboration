@@ -1,0 +1,31 @@
+\section{A condition that checks every group of students}\label{ch09:sec:condition}
+Throughout this chapter we use the model of Chapter~\ref{ch:matching}. A finite bipartite graph (Definition~\ref{ch08:def:bipartite}) has finitely many vertices, split into two disjoint sets: the set $L$ of students and the set $R$ of tasks. An edge $s$--$t$ joins a student $s$ to a task $t$ that $s$ accepts. A matching (Definition~\ref{ch08:def:matching}) is a set of edges no two of which share an endpoint, and it saturates $L$ when every student lies on one of its edges. So a matching that saturates $L$ is exactly a full assignment: every student receives a task they accept, and no task is given to two students.
+
+For a set $S\subseteq L$ of students, $N(S)$ is the set of tasks that are acceptable to at least one student in $S$, as in Section~\ref{ch08:sec:shortage}. For a single student $x$ we write $N(x)$ instead of $N(\{x\})$; it is the set of tasks that $x$ accepts. The letter $N$ stands for \emph{neighbors}: the tasks in $N(S)$ are the vertices joined by an edge to some member of $S$.
+
+Section~\ref{ch08:sec:shortage} showed that a \emph{shortage set}, a group $S$ of students with $|N(S)|<|S|$, makes a full assignment impossible: those students need $|S|$ different tasks, but fewer than $|S|$ tasks are acceptable to anyone in the group. Hall's theorem says that this is the only thing that can go wrong. It concerns the condition
+\[
+|N(S)|\ge |S|\qquad\text{for every subset }S\subseteq L.
+\tag{H}\label{eq:hall}
+\]
+In words: every group of students accepts, between them, at least as many tasks as there are students in the group. We call \eqref{eq:hall} \emph{Hall's condition}. You may have met it already: it is the group condition in the solution to Exercise~\ref{ex:2.5}.
+
+Why must we check every group? Checking each student on their own misses students who compete for the same few tasks. Checking only the whole class misses a smaller group that is short of tasks. Here is an example. Let
+\[
+N(a)=N(b)=\{1\},\qquad N(c)=\{2,3\}.
+\]
+Every student accepts at least one task, and the whole class $L=\{a,b,c\}$ accepts the three tasks $1,2,3$, as many tasks as there are students. Yet the group $\{a,b\}$ accepts only task~$1$. Two students cannot both receive task~$1$, so no full assignment exists. The trouble lies in a group of two students, and neither the single-student checks nor the whole-class check looks at that group.
+
+So read \eqref{eq:hall} as a list of tests, one for each group $S$. To run the test for $S$, collect into $N(S)$ every task that some member of $S$ accepts, and compare $|N(S)|$ with $|S|$. A task accepted by three members of $S$ still counts only once in $N(S)$, because it can be given to only one of them.
+
+How many tests are there? Suppose the class has $n$ students. To form a group, decide for each student separately whether they belong to it. That is two choices for each of the $n$ students, so there are $2\cdot2\cdots2=2^n$ groups, counting the empty group and the whole class. For three students there are eight tests. The empty group $S=\varnothing$ has no members, so $N(\varnothing)=\varnothing$ and its test reads $0\ge0$, which always holds. A group with a single student $x$ tests $|N(x)|\ge1$, that is, whether $x$ accepts at least one task. The whole class tests whether there are at least as many acceptable tasks as students overall. The remaining groups, which have at least two students but are not the whole class, test competition within part of the class, and the example above shows that this competition can be exactly where an assignment fails.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{theorem}[Hall's matching theorem]\label{thm:hall}
+Let $G$ be a finite bipartite graph with parts $L$ and $R$. Then $G$ has a matching that saturates $L$ if and only if $|N(S)|\ge|S|$ for every subset $S\subseteq L$.
+\end{theorem}
+\end{minipage}\par
+
+The theorem is an ``if and only if'' statement, so it makes two separate claims. The first says that if a full assignment exists, then \eqref{eq:hall} holds. In the language of Section~\ref{ch02:sec:implication}, Hall's condition is \emph{necessary} for a full assignment. The second claim says that if \eqref{eq:hall} holds, then a full assignment exists, so the condition is also \emph{sufficient}.
+
+Philip Hall published this theorem in 1935. It has since become one of the basic tools of combinatorics, the part of mathematics that studies finite arrangements and how to count them. Section~\ref{ch09:sec:necessary} proves the necessary direction. We then prove the sufficient direction twice. The first proof, in Section~\ref{ch09:sec:constructive}, uses the search procedure of Chapter~\ref{ch:matching} and actually constructs an assignment. The second, in Section~\ref{ch09:sec:inductive}, uses strong induction from Chapter~\ref{ch:induction}. For further reading on graphs and matchings, see~\cite{mcs}.

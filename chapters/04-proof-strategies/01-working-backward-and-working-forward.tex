@@ -1,0 +1,35 @@
+\section{Working backward and working forward}\label{ch04:sec:directions}
+Every proof has a \emph{goal}, the statement it must establish, and a supply of facts it is allowed to use: the hypotheses, the definitions, and results proved or accepted earlier. When you do not know what to write next, there are two places to look. \emph{Working backward} starts from the goal and asks: what would be enough to establish this? \emph{Working forward} starts from the facts and asks: what follows from what I already have? A proof is found when the two directions meet, that is, when something you can derive from the facts is exactly what working backward told you would be enough.
+
+Once you unpack the definitions in it, the goal often tells you exactly what you must produce or deduce. To show that an integer is even, you must find an integer $w$ such that the number equals $2w$ (Definition~\ref{def:parity}). To show that a function $f$ is injective, you take two inputs $x$ and $y$ with $f(x)=f(y)$, and you must deduce that $x=y$ (Section~\ref{ch03:sec:injsurj}). To show that an object with some property exists, the usual way is to name a particular object and check that it has the property. As in Section~\ref{ch01:sec:definition}, an object that passes this check is called a \emph{witness}. Occasionally existence is proved without naming any witness: one shows that if no suitable object existed, something impossible would follow. Such an argument is a proof by contradiction, a method explained in Section~\ref{ch04:sec:contrapositive}, and Chapter~\ref{ch:probability} contains proofs of this kind.
+
+\subsection*{A proof state on paper}
+Here is a small example. We prove:
+\begin{center}
+\emph{If $n$ is an even integer, then $n^2$ is even.}
+\end{center}
+Section~\ref{ch02:sec:implication} proved this in one line. This time we slow down to watch how such a proof is found. At each moment of the search, we keep two lists: the facts we already have, and what we still have to show. Together, these two lists are called the \emph{proof state}. Proof assistants such as Lean display exactly this pair after every step (Chapter~\ref{ch:lean1}), and keeping it on paper is just as useful.
+
+At the start, the only fact is the hypothesis, ``$n$ is an even integer,'' and the goal is ``$n^2$ is even.'' Working backward, we unpack the goal with the definition of even. It becomes: \emph{find an integer $w$ with $n^2=2w$.} The letter $w$ is new: it names an integer we still have to find. Working forward, we unpack the hypothesis in the same way, but with a different letter: $n=2k$ for some integer $k$. Unlike $w$, the integer $k$ is handed to us by the hypothesis. Squaring gives $n^2=4k^2$, and factoring out a two gives $n^2=2(2k^2)$. This has exactly the shape the goal asks for, so we choose $w=2k^2$. It is an integer, because a product of integers is an integer. For instance, if $n=6$, then $k=3$ and $w=2\cdot3^2=18$, and indeed $6^2=36=2\cdot18$. Only now does the goal move from the ``still to show'' list to the ``known'' list. The table records the search.
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Step & Known & Still to show\\
+\midrule
+Start & $n$ is an even integer & $n^2$ is even\\
+Unpack the goal & $n$ is an even integer & an integer $w$ with $n^2=2w$\\
+Unpack the hypothesis & $n=2k$, where $k$ is an integer & an integer $w$ with $n^2=2w$\\
+Square and factor & $n=2k$ and $n^2=2(2k^2)$ & an integer $w$ with $n^2=2w$\\
+Choose $w=2k^2$ & $n^2=2w$, and $w$ is an integer & nothing: the proof is finished\\
+\bottomrule
+\end{tabularx}
+\end{center}
+The search moved in both directions, but the written proof runs forward only:
+\begin{quote}
+Let $n$ be an even integer. Then $n=2k$ for some integer $k$, so $n^2=4k^2=2(2k^2)$. Since $2k^2$ is an integer, $n^2$ is even.
+\end{quote}
+A proof like this one, which starts from the hypotheses and reaches the conclusion through a chain of deductions, is called a \emph{direct proof}.
+
+Keeping the goal on the ``still to show'' list until it has been earned protects against a common mistake: writing ``since $n^2$ is even, $n^2=2w$ for some integer $w$'' in the middle of the proof. That sentence uses the conclusion as though it were already known, so the argument goes in a circle. Working backward is still the right way to search: it told us to look for an integer $w$ with $n^2=2w$. In the finished proof, however, every fact must come from the hypotheses, from definitions, or from earlier results, and the goal appears only at the end, as the conclusion that has been reached. The next two sections show other ways to organize a proof when such a direct chain is hard to find.
+
+\pauseq{Let $f:\ZZ\to\ZZ$ be given by $f(n)=n+3$. To prove that $f$ is surjective, what does the goal ask you to produce? Find it by working backward, and then check it by working forward.}{By the definition of surjective (Section~\ref{ch03:sec:injsurj}), the goal is: for each integer $b$, find an integer $a$ with $f(a)=b$, that is, $a+3=b$. Working backward from this equation suggests $a=b-3$. Working forward, $b-3$ is an integer, because a difference of integers is an integer, and $f(b-3)=(b-3)+3=b$. So for every integer $b$, the integer $b-3$ is a witness that $b$ is reached, and $f$ is surjective.}

@@ -1,0 +1,57 @@
+\section{Searching for an augmenting path}\label{ch08:sec:search}
+Let $M$ be a matching and let $x$ be an unmatched student. How can we find an augmenting path that starts at $x$, or find out that there is none? Think about what such a path must look like. It leaves $x$ along an unmatched edge to some task. If that task is unused, the path can stop there. If the task is used, the path cannot stop there, because an augmenting path ends at an unmatched vertex. Its next step must use a matched edge, because the steps alternate, and a used task lies on only one matched edge, the one joining it to its owner. So the next vertex has to be the owner. From the owner the path continues along an unmatched edge to another task, and so on. This suggests exploring the graph with two kinds of moves:
+\begin{itemize}
+\item from a student $s$, move to any task $t$ for which $s$--$t$ is an unmatched edge;
+\item from a used task $t$, move to its owner.
+\end{itemize}
+
+\subsection*{The search}
+The search keeps track of which vertices it has \emph{reached}. When it reaches a new vertex, it also records the vertex it came from, called the \emph{predecessor} of the new vertex. To \emph{inspect} a reached student $s$, go through the unmatched edges $s$--$t$ at $s$ one at a time, and do the following for each of them.
+\begin{itemize}
+\item If the task $t$ has already been reached, do nothing and go on to the next edge.
+\item Otherwise, mark $t$ as reached, with predecessor $s$. If $t$ is unused, stop: the search has \emph{succeeded}. If $t$ is used, also mark its owner as reached, with predecessor $t$, and go on to the next edge.
+\end{itemize}
+The search itself runs as follows.
+\begin{enumerate}
+\item Mark $x$ as reached. We call $x$ the \emph{root} of the search; it has no predecessor.
+\item Choose a reached student that has not been inspected yet, and inspect it.
+\item Repeat step~2 until the search succeeds, or until every reached student has been inspected. In the second case the search has \emph{failed}.
+\end{enumerate}
+A vertex that has already been reached is never marked a second time. For a task this is built into the rule. For a student, notice first that the root $x$ is never the owner of a task, because $x$ is unmatched. Every other student is marked only as the owner of a task that is being reached for the first time, and a student owns only one task. So when the owner of a newly reached task $t$ is marked, it has not been marked before: an earlier marking would have been as the owner of $t$, and then $t$ would already have been reached. This keeps the search from going round in circles. Each vertex is reached at most once, and each student is inspected at most once. An inspection looks at finitely many edges, and there are finitely many students, so the search always ends.
+
+Suppose the search succeeds at an unused task $t$. Follow the predecessors backward from $t$: the predecessor of $t$ is a student; the predecessor of that student, unless it is $x$, is the task that student holds; and so on. Every vertex was reached later than its predecessor, so going backward we meet the vertices in order of decreasing time of arrival. Hence no vertex is met twice. Since there are only finitely many vertices, the backward walk cannot go on forever. It can stop only at a reached vertex without a predecessor, and the only such vertex is $x$. Read forward, these vertices form a path from $x$ to $t$. Every step into a task used an unmatched edge, and every step into a student used a matched edge, so the path is alternating. Both of its ends, $x$ and $t$, are unmatched, and the path has at least one step, because $x$ is a student and $t$ is a task. So it is an augmenting path, and Lemma~\ref{thm:augment} lets us flip along it. Section~\ref{sec:matching-trace} carries out this search on a small example.
+
+The rule above does not say which uninspected student to choose next. A common choice is to inspect the students in the order in which they were reached; the search is then called \emph{breadth-first search}. Nothing in this chapter depends on the order.
+
+\subsection*{The whole procedure}
+Repeating the search gives a procedure for the assignment problem. In outline:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+Start with the empty matching M.
+While some student is unmatched:
+    choose an unmatched student x and search from x;
+    if the search succeeds:
+        flip M along the augmenting path it found;
+    if the search fails:
+        stop, and report the set A of students it reached.
+If the loop ends because every student is matched, report M.
+\end{lstlisting}
+\end{minipage}\par
+Every pass through the loop that does not stop the procedure adds one edge to $M$, and $M$ never has more than $|L|$ edges. So, as at the end of Section~\ref{ch08:sec:augment}, the procedure stops after at most $|L|$ flips. Notice that when a search fails, the procedure does not merely report failure. It reports a set of students. Section~\ref{ch08:sec:shortage} shows that this set proves that no matching saturates $L$.
+
+\subsection*{What a failed search guarantees}
+When the search fails, the reached vertices have the following two properties. Section~\ref{ch08:sec:shortage} relies on both of them.
+\begin{enumerate}
+\item[(C1)] If $s$ is a reached student and $s$--$t$ is an unmatched edge, then $t$ has been reached.
+\item[(C2)] Every reached task is used, and its owner has been reached.
+\end{enumerate}
+Property~(C1) holds because a failed search has inspected every reached student, and inspecting $s$ follows every unmatched edge at $s$. Property~(C2) holds because reaching an unused task would have ended the search with success, and because the owner of a used task is marked as reached at the moment the task is.
+
+A search that follows only the routes that look promising, or that gives up when its first route is blocked, can stop while (C1) is still false. When such a search fails, we learn nothing about the problem, because an augmenting path might use an edge that the search never tried. We call a search \emph{complete} if it stops only when it has found an unused task or has inspected every reached student. The search described in this section is complete.
+
+When a complete search fails, it answers the question we started with: no augmenting path starts at~$x$. To see this, suppose there were one, say $x=v_0,v_1,\ldots,v_k$. Its vertices alternate between students and tasks, starting with the student $x$, so $v_i$ is a student when $i$ is even and a task when $i$ is odd. Its edges alternate between unmatched and matched, starting with an unmatched one (Section~\ref{ch08:sec:augment}), so the edge $v_iv_{i+1}$, which is the $(i+1)$st edge, is unmatched when $i$ is even and matched when $i$ is odd. In short, the edge leaving a student on the path is unmatched, and the edge leaving a task is matched. We show by induction on $i$ that every vertex $v_i$ of the path has been reached. The first vertex, $v_0=x$, has been reached. Suppose that $v_i$ has been reached, for some $i<k$.
+\begin{itemize}
+\item If $v_i$ is a student, the next edge $v_iv_{i+1}$ is unmatched, so $v_{i+1}$ has been reached by~(C1).
+\item If $v_i$ is a task, then by~(C2) it is used and its owner has been reached. The next edge $v_iv_{i+1}$ is matched, and the only matched edge at a used task joins it to its owner, so $v_{i+1}$ is that owner.
+\end{itemize}
+In both cases $v_{i+1}$ has been reached. Hence the last vertex $v_k$, which is a task, has been reached, and by~(C2) it is used. But the last vertex of an augmenting path is unused. This contradiction shows that no augmenting path starts at~$x$.

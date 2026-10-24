@@ -1,0 +1,36 @@
+\section{Sums, number systems, inequalities, and square roots}\label{ch01:sec:notation}
+The rest of this chapter introduces notation that later chapters use constantly: long sums, the standard collections of numbers, inequalities, and square roots. To name the numbers in a list, we often use one letter with a small label written below and to the right of it, called a \emph{subscript}: $a_1,a_2,a_3,a_4$ are the first, second, third, and fourth numbers of a list. A subscript is a label, not a multiplication: $a_2$ is the second number in the list, whereas $2a$ is twice $a$. The notation
+\[
+\sum_{j=1}^{4}a_j=a_1+a_2+a_3+a_4
+\]
+means: add the numbers named $a_1$, $a_2$, $a_3$, and $a_4$. The large symbol $\sum$ is the Greek capital letter sigma, an S for ``sum.'' The letter $j$ is a temporary \emph{index}, a counter that takes the values $1,2,3,4$ in turn: it starts at the value written below the sigma and stops at the value written above it.
+
+Suppose the numbers are $a_1=1$, $a_2=3$, $a_3=5$, and $a_4=7$. Then the sum is $1+3+5+7=16$. Renaming the index does not change the sum: $\sum_{r=1}^{4}a_r$ is also $16$, because the index is only a counter. Changing the number above the sigma from $4$ to $3$ does change it: $\sum_{j=1}^{3}a_j=1+3+5=9$.
+
+Notice also that the totals $1+3+5=9=3^2$ and $1+3+5+7=16=4^2$ are \emph{perfect squares}, that is, squares of integers. The shorter totals fit the same pattern: $1=1^2$ and $1+3=4=2^2$. Is the sum of the first $n$ odd positive integers always $n^2$? This is exactly the situation of Section~\ref{ch01:sec:pattern}: the examples suggest a pattern, but only a proof can settle it. Theorem~\ref{thm:odds} in Chapter~\ref{ch:induction} supplies that proof.
+
+The quantity being added can be any expression involving the index. To evaluate such a sum, substitute each value of the index in turn and add the results. With the same numbers as before,
+\[
+\sum_{j=1}^{3}(a_j+5)=(a_1+5)+(a_2+5)+(a_3+5)=6+8+10=24.
+\]
+The index itself may also appear in the expression:
+\[
+\sum_{j=1}^{3}j^2=1^2+2^2+3^2=1+4+9=14.
+\]
+
+Several collections of numbers have standard names. A \emph{set} is a collection of objects, called its \emph{members}; Chapter~\ref{ch:maps} studies sets carefully. Curly braces are used to list the members of a set.
+\begin{itemize}
+\item $\NN=\{0,1,2,3,\ldots\}$ is the set of \emph{natural numbers}. The dots mean that the displayed pattern continues forever. In this book zero counts as a natural number; when we want only the positive integers $1,2,3,\ldots$, we will say so explicitly.
+\item $\ZZ=\{\ldots,-2,-1,0,1,2,\ldots\}$ is the set of integers from Section~\ref{ch01:sec:pattern}.
+\item $\QQ$ is the set of \emph{rational numbers}: numbers that can be written as a fraction $a/b$ in which $a$ and $b$ are integers and $b\ne0$. Examples are $3/4$, $-5/2$, and $7=7/1$.
+\item $\RR$ is the set of \emph{real numbers}: all the numbers on the number line. Every rational number is a real number, but the number line also contains numbers that are not fractions of integers. For example, by Pythagoras' theorem the diagonal of a square with sides of length $1$ has a length whose square is $1^2+1^2=2$. That length is $\sqrt2$, the positive number whose square is $2$. (Square roots are discussed at the end of this section.) Theorem~\ref{thm:sqrt2} in Chapter~\ref{ch:proof} proves that $\sqrt2$ cannot be written as a fraction of integers.
+\end{itemize}
+Each of these sets contains the one before it: every natural number is an integer, every integer is a rational number, and every rational number is a real number. When a letter is said to be real, every point of the number line is an allowed value, including negative numbers, zero, and numbers that are not fractions.
+
+To compare real numbers we use four inequality signs. The statement $x<y$ means that $x$ is strictly smaller than $y$, and $x\le y$ means that $x$ is smaller than or equal to $y$, that is, at most $y$. Likewise, $x>y$ means that $x$ is strictly larger than $y$, and $x\ge y$ means that $x$ is at least $y$. For example, $3\le3$ is true, but $3<3$ is false. The signs $<$ and $>$ give \emph{strict} inequalities, while $\le$ and $\ge$ give \emph{non-strict} ones. The two kinds disagree only when the two sides are equal, and that boundary case is where many mistakes in proofs occur. A chain such as $0\le x\le1$ states two conditions at once: $0\le x$ and $x\le1$.
+
+A number $x$ is \emph{positive} if $x>0$ and \emph{negative} if $x<0$. It is \emph{nonnegative} if $x\ge0$. So zero is nonnegative, but it is neither positive nor negative.
+
+Finally, we need square roots. A number whose square is $t$ is called a \emph{square root} of $t$. We accept without proof the familiar fact that every nonnegative real number $t$ has exactly one nonnegative square root; this is the first of the starting facts listed in \emph{To the reader}. That root is written $\sqrt t$. For example, $\sqrt9=3$: both $3$ and $-3$ have square $9$, and the square-root sign always picks the nonnegative one. A negative number has no real square root at all, because the square of a real number is never negative.
+
+Because the square-root sign always gives a nonnegative answer, $\sqrt{x^2}$ is not always equal to $x$. At $x=-3$, for instance, $\sqrt{(-3)^2}=\sqrt9=3$. In general, $\sqrt{x^2}=x$ when $x\ge0$, and $\sqrt{x^2}=-x$ when $x<0$; in the second case $-x$ is the right answer because it is nonnegative and $(-x)^2=x^2$. In both cases $\sqrt{x^2}$ is the distance from $x$ to $0$ on the number line. Section~\ref{sec:magnitude} calls this distance the \emph{absolute value} of $x$ and writes it $|x|$.

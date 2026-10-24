@@ -1,41 +1,49 @@
-\chapter*{The semester as one argument}
-\addcontentsline{toc}{chapter}{The semester as one argument}
-The schedule assumes eighteen teaching weeks with three contact hours per week, plus roughly four to six hours of individual reading and exercises. These figures are a guide for planning; individual students will need more or less time. Chapters~1--6 deliberately move slowly, because everything later depends on them. Chapters~8 and~9 form one two-week unit, as do Chapters~11 and~12: in each pair, the first chapter prepares the ideas that the long proof in the second chapter uses, so the two should be read together. Weeks~17 and~18 bring together the earlier material instead of introducing a new list of topics.
+\chapter*{Planning the semester}
+\addcontentsline{toc}{chapter}{Planning the semester}
+The schedule below covers eighteen teaching weeks, one chapter per week. Each week is planned around three hours of class and about four to six hours of reading and exercises on your own. Chapters~\ref{ch:start}--\ref{ch:structure} deliberately move slowly, because everything later depends on them. Chapters~\ref{ch:matching} and~\ref{ch:hall} form one two-week unit, and so do Chapters~\ref{ch:limits} and~\ref{ch:contraction}: in each pair, the first chapter develops the ideas that the long proof in the second chapter uses, so plan the two weeks together. The last two chapters, \ref{ch:bridge} and~\ref{ch:capstone}, bring together what came before; they introduce new ideas only when one particular proof or investigation needs them.
 
-A chapter is a week's reading, meant to be divided at its section headings rather than read in one sitting. For a long proof, a single sitting might cover only the statement and one of its smaller arguments. When you come back, start by saying what has already been established and what remains to be done. The worked examples are part of the main path through each chapter, so do not skip them. In a taught course, the four core exercises form the required weekly work, and the two transfer exercises provide extra practice once the core exercises are secure.
+The table lists the topic of each week and the main piece of work you produce in it. Terms you may not know yet, such as residue classes or the kernel of a map, are explained in the chapters where they appear.
 
 \begingroup\small
 \begin{longtable}{@{}p{0.34in}p{2.12in}p{2.87in}@{}}
-\toprule Week & Mathematical development & Concrete output\\\midrule\endhead
-1 & Variables, representation, and explanation & A precise claim and a fully explained parity proof.\\
-2 & Logic and dependence & A theorem translated, negated, and tested.\\
-3 & Sets and maps & A composition proof and a counterexample to a converse.\\
-4 & Building and reading arguments & A proof annotated by goal, fact, and justification.\\
-5 & Induction and invariants & A recurrence proof and a terminating algorithm.\\
-6 & Equivalence and symmetry & A well-defined construction on residue classes.\\
-7 & Graphs, counting, and extremal choice & A counting proof and a shortest-path argument.\\
-8 & Assignments and augmenting paths & An algorithm explained with its invariant.\\
-9 & Hall's theorem and proof reconstruction & A complete long proof and the midterm portfolio.\\
-10 & Vectors, linearity, and representation & A kernel criterion and an inner-product inequality.\\
+\toprule Week & Topic & What you produce\\\midrule\endhead
+1 & First proofs: variables, definitions, even and odd & A precise claim and a fully explained proof about even and odd numbers.\\
+2 & Statements, quantifiers, and negation & A statement written in symbols, negated, and tested on examples.\\
+3 & Sets and maps & A proof about composed functions and a counterexample to a converse.\\
+4 & How a proof finds its next step & A proof recorded step by step: the known facts, the current goal, and the reason for each step.\\
+5 & Induction and invariants & An induction proof about a recursively defined sequence and a proof that an algorithm stops.\\
+6 & Equivalence and symmetry & An operation on residue classes, with a proof that it does not depend on the representatives chosen.\\
+7 & Graphs, counting, and extremal choice & A proof by counting in two ways and a shortest-path argument.\\
+8 & Assignments and augmenting paths & An assignment algorithm explained by what it preserves and why it stops.\\
+9 & Hall's theorem and proof reconstruction & A complete proof of Hall's theorem and the midterm portfolio.\\
+10 & Vectors, linearity, and representation & A kernel test for injectivity and a proof of the Cauchy--Schwarz inequality.\\
 11 & Distance, limits, and completeness & A convergence argument with explicit tolerances.\\
 12 & The contraction theorem & A full proof with a numerical error certificate.\\
-13 & Averaging and finite probability & An existence proof and a deterministic construction.\\
-14 & Sign sequences and research experiments & Exact correlations and a necessary-order theorem.\\
-15 & Lean: statements and proof states & Small proofs reconstructed in a formal language.\\
-16 & Lean: definitions, trust, and repair & A formalization with an assumption audit.\\
-17 & Learning an unfamiliar proof with AI & A prerequisite map and a reading record for a research proof.\\
-18 & A bounded research investigation & A complete capstone baseline and a defended extension.\\
+13 & Averaging and finite probability & An existence proof by averaging and a step-by-step construction.\\
+14 & Sign sequences and research experiments & Exact correlation computations and a proof that a circulant Hadamard matrix can have only certain sizes.\\
+15 & Lean: statements and proof states & Small proofs rebuilt in a formal language.\\
+16 & Lean: definitions, trust, and repair & A formal statement checked against its intended meaning, and a list of the axioms its proof uses.\\
+17 & Reading an unfamiliar proof &A map of the background a proof needs, and a reading record for a research proof.\\
+18 & A small investigation from start to finish & A checkable write-up of the model investigation and a plan for your own.\\
 \bottomrule
 \end{longtable}
 \endgroup
 
-\section*{A repeatable weekly rhythm}
-A week of class can follow a simple pattern. In the first meeting, unpack the opening problem and work out one example together. In the second, reconstruct the main proof and compare two possible next moves at a difficult step. In the third, examine a proposed argument---one written by a classmate, taken from the text, or produced by an AI assistant---and decide exactly what it proves and where it might fail. Students working on their own can use the same sequence: a first attempt, a guided reading, a reconstruction with the book closed, and a transfer exercise. If you already know an example, explain what happens to it when one assumption is changed instead of skipping it.
+Read each chapter in several sittings, breaking at its section headings. For a long proof, a single sitting might cover only the statement and one of its smaller arguments. When you come back, start by saying what has already been established and what remains to be done. The worked examples are part of the main path through each chapter, so do not skip them. If an example is already familiar, work through it anyway, then change one of its assumptions and see what happens. In a taught course, the four core exercises of each chapter form the required weekly work, and the transfer exercises provide extra practice once the core exercises feel secure. Week~9 is the exception: its sixth exercise, Exercise~\ref{ex:9.6}, is the midterm portfolio, and it is required.
+
+\section*{A weekly rhythm}
+If the class meets three times a week, each week can follow a simple pattern. In the first meeting, set out the question the chapter is about and work out one small example together. In the second, reconstruct the main proof and compare two possible next moves at a difficult step. In the third, examine a proposed argument---one written by a classmate, taken from the text, or produced by an AI assistant---and decide exactly what it proves and where it might fail. If you are working on your own, follow a similar sequence: read the ``This week'' box and try a small example yourself, read the chapter while answering its ``Pause and decide'' questions, rebuild the main proof with the book closed, work the core exercises, and finish with a transfer exercise.
 
 \section*{Assessment that rewards understanding}
-One reasonable weighting is 40\% for the weekly core exercises, 25\% for the Week~9 portfolio, and 35\% for the final investigation. AI assistance is allowed as long as its role is stated openly. Every submission should contain a short explanation, written without assistance, of its central step; one boundary case that has been tested; and a statement of anything that is borrowed from elsewhere or not yet checked. The grade should reflect the mathematics and the understanding the student demonstrates, not the length of a conversation log or the polish of generated prose.
+One reasonable weighting gives 40\% to the weekly core exercises, 25\% to the midterm portfolio in Week~9, and 35\% to the final investigation. If AI assistance is allowed, each submission should say openly how it was used. Besides its mathematics, every submission should contain three things: a short explanation of its central step, written without help; one boundary case that you have tested, such as zero, the empty set, or the smallest allowed input; and a statement of anything borrowed from elsewhere or not yet checked. The grade should reflect the mathematics and the understanding you show, not the length of a conversation log or the polish of generated prose.
 
-The Week~9 portfolio contains a correct proof of Hall's theorem, one example that satisfies Hall's condition, one that fails it, and an explanation of why a greedy assignment can get stuck. The final investigation contains an exact claim, a short list of the background it needs, a complete proof of a baseline result, a checked experiment, and one justified variation. Chapter~18 works through a complete model, and Appendix~\ref{app:guide} gives a grading rubric.
+The midterm portfolio, Exercise~\ref{ex:9.6}, is about the assignment problem of Chapters~\ref{ch:matching} and~\ref{ch:hall}, in which a \emph{full assignment} gives every student a different acceptable task. It has four parts:
+\begin{itemize}
+\item a full assignment for the graph of Exercise~\ref{ex:9.2}, presented so that a reader can check it;
+\item a graph with no full assignment, together with a group of students who between them accept fewer tasks than there are students in the group, which shows that no full assignment exists;
+\item a complete proof, in your own words, of Hall's theorem, which says that a full assignment exists whenever every group of students, taken together, accepts at least as many tasks as the group has members;
+\item a paragraph explaining why handing out tasks one at a time, without ever taking one back, can get stuck even when a full assignment exists.
+\end{itemize}
+Exercise~\ref{ex:9.6} states each part precisely, and its solution in Appendix~\ref{app:solb} is a model portfolio.
 
-\section*{Keeping track of evidence}
-Keep two separate columns in your notebook. The first records your understanding of a statement: \emph{can explain}, \emph{can follow}, or \emph{not yet understood}. The second records the support for it: \emph{proved here}, \emph{cited from another source}, \emph{checked by computer in a finite range}, or \emph{not established}. The two columns measure different things. A proof checked by a computer can still be poorly understood, and a pattern you understand well from experiments can still be unproved. Keeping both columns stops these two kinds of confidence from blurring into one.
+The final investigation is the independent capstone of Section~\ref{ch18:sec:independent}. That section lists what the write-up should contain, from a precise statement of the question to an explanation of what is new. It also describes the short oral discussion that ends the investigation: you explain one delicate step, change an assumption, and predict what fails. Section~\ref{appE:sec:rubric} suggests a grading rubric.

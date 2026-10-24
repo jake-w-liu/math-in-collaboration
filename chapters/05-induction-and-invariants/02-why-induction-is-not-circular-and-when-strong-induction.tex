@@ -1,0 +1,45 @@
+\section{Why induction is not circular, and when strong induction helps}\label{ch05:sec:not-circular}
+A first reaction to induction is often suspicion: the induction step \emph{assumes} the formula at $k$, so are we assuming what we want to prove? We are not. The induction step proves a conditional statement, ``\emph{if} the formula holds at $k$, \emph{then} it holds at $k+1$,'' and it proves this for every $k$ at once. It never claims that the formula holds at any particular $k$. The base case supplies the first actual truth, and the conditional statement then carries that truth forward one step at a time. Think of an endless row of dominoes. The induction step says that each domino, if it falls, knocks over the next one. The base case pushes the first domino.
+
+Here is a more careful way to see that no natural number can slip through. It is a proof by contradiction, like the proofs in Chapter~\ref{ch:proof}. Suppose we have proved the base case $P(0)$ and the induction step, and imagine that $P$ nevertheless fails for some natural number. Then the set of natural numbers at which $P$ fails is nonempty. Every nonempty set of natural numbers has a smallest member. This is the well-ordering property of Section~\ref{ch04:sec:contrapositive}, which was stated there for positive integers; allowing $0$ changes nothing, because if $0$ belongs to the set it is the smallest member, and otherwise the set consists of positive integers. Call the smallest member $m$. Now look at what we know about $m$:
+\begin{itemize}
+\item $m\ne0$, because $P(0)$ was proved directly. So $m\ge1$, and $m-1$ is a natural number.
+\item $P(m-1)$ is true, because $m-1$ is smaller than $m$, and $m$ is the \emph{smallest} number where $P$ fails.
+\item The induction step, applied with $k=m-1$, turns $P(m-1)$ into $P(m)$. So $P(m)$ is true.
+\end{itemize}
+So $P(m)$ is both false, by the choice of $m$, and true, by the last bullet. This contradiction shows that $P$ fails nowhere: $P(n)$ is true for every natural number $n$. The pattern of this argument, ``choose a smallest counterexample and derive a contradiction,'' is called the \emph{minimal-counterexample} method. The proof of Lemma~\ref{ch04:lem:even-or-odd} used it to show that every positive integer is even or odd, and many other proofs begin the same way.
+
+\subsection*{Strong induction}
+Sometimes the step to $k+1$ needs more than the case immediately before it. \emph{Strong induction} lets us assume all of $P(0),P(1),\ldots,P(k)$ when proving $P(k+1)$. To prove $P(n)$ for every natural number $n$ by strong induction, prove
+\begin{enumerate}
+\item the base case: $P(0)$ is true; and
+\item the strong induction step: for every natural number $k$, if $P(0),P(1),\ldots,P(k)$ are all true, then $P(k+1)$ is true.
+\end{enumerate}
+The minimal-counterexample argument shows that this works too. If $m$ were the smallest natural number where $P$ fails, then $m\ne0$ by the base case. Each of $P(0),P(1),\ldots,P(m-1)$ would be true, because each of these numbers is smaller than $m$. The strong induction step with $k=m-1$ would then give $P(m)$, a contradiction.
+
+Like ordinary induction, strong induction can start at a number other than $0$. To prove $P(n)$ for every integer $n\ge2$, say, prove $P(2)$, and prove for every $k\ge2$ that if $P(2),P(3),\ldots,P(k)$ are all true, then $P(k+1)$ is true.
+
+A classic example shows why the extra strength helps. Recall from Section~\ref{ch02:sec:implication} that an integer $n$ is divisible by an integer $d$ when $n=dk$ for some integer $k$. A positive integer $d$ with this property is called a \emph{divisor} of $n$. An integer $p\ge2$ is \emph{prime} if its only positive divisors are $1$ and $p$. For example, $2$, $3$, $5$ and $7$ are prime, but $12$ is not, since $3$ is a divisor of $12$. By a \emph{product of primes} we mean a product of two or more primes, which need not be different, such as $12=2\cdot2\cdot3$.
+
+\begin{proposition}\label{ch05:prop:prime-product}
+Every integer $n\ge2$ is a prime or a product of primes.
+\end{proposition}
+
+\begin{proof}
+We use strong induction on $n$, starting at $2$.
+
+\emph{Base case.} The number $2$ is prime, because its only positive divisors are $1$ and $2$.
+
+\emph{Induction step.} Let $n\ge3$, and assume that every integer $m$ with $2\le m<n$ is a prime or a product of primes. This assumption about all the smaller cases is the induction hypothesis; here $n$ plays the role of $k+1$ in the strong induction step.
+
+If $n$ is prime, there is nothing to prove. Otherwise $n$ has a positive divisor $a$ other than $1$ and $n$, so $n=ab$ for some integer $b$. We check that both $a$ and $b$ lie in the range covered by the assumption, that is, between $2$ and $n-1$:
+\begin{itemize}
+\item Since $a$ and $n$ are positive, $b=n/a$ is positive; as an integer, $b\ge1$. Hence $n=ab\ge a$. Together with $a\ne1$ and $a\ne n$, this gives $2\le a\le n-1$.
+\item Since $a\ge2$, we have $b=n/a\le n/2<n$. Since $a<n$, we have $b=n/a>1$, so $b\ge2$. Hence $2\le b\le n-1$.
+\end{itemize}
+By the assumption, $a$ is a prime or a product of primes, and so is $b$. Multiplying these together writes $n=ab$ as a product of primes.
+\end{proof}
+
+For example, $12=3\cdot4$. The number $3$ is prime and $4=2\cdot2$, so $12=3\cdot2\cdot2$. Ordinary induction would let us assume the result only for $n-1$, and that is useless here: for $n=12$ we need the cases $3$ and $4$, not $11$. We cannot know in advance which smaller numbers $a$ and $b$ will turn up, so we need the result for all of them. The second proof of Hall's theorem, in Section~\ref{ch09:sec:inductive}, uses strong induction for the same reason: it splits a problem into two smaller problems whose sizes are not known in advance.
+
+Notice also that the proof checked that $a$ and $b$ really are smaller than $n$ and at least $2$ before using the assumption about them. Every use of an induction hypothesis needs a check of this kind.

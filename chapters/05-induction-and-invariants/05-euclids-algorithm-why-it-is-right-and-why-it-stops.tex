@@ -1,0 +1,77 @@
+\section{Euclid's algorithm: why it is right and why it stops}\label{ch05:sec:euclid}
+Recall from Section~\ref{ch05:sec:not-circular} that a positive integer $d$ is a divisor of an integer $a$ when $a=dk$ for some integer $k$. We also say that $d$ \emph{divides} $a$, and we write $d\mid a$. Do not confuse $d\mid a$ with the fraction $d/a$: the first is a statement, which is true or false, and the second is a number. For example, $6\mid84$ is true, because $84=6\cdot14$, while the fraction $6/84$ is the number $1/14$. On the other hand, $5$ does not divide $84$, because $84=5k$ would force $k=84/5=16.8$, which is not an integer. Every positive integer $d$ divides $0$, because $0=d\cdot0$.
+
+Let $a$ and $b$ be nonnegative integers that are not both zero. A \emph{common divisor} of $a$ and $b$ is a positive integer that divides both of them. Their \emph{greatest common divisor}, written $\gcd(a,b)$, is the largest common divisor. For example, the positive divisors of $12$ are $1,2,3,4,6,12$ and those of $18$ are $1,2,3,6,9,18$, so the common divisors of $12$ and $18$ are $1,2,3,6$, and $\gcd(12,18)=6$. The definition has to exclude $a=b=0$: every positive integer divides $0$, so $0$ and $0$ have no largest common divisor.
+
+Why is there always a largest common divisor? The set of common divisors is not empty, because $1$ divides every integer. It is also finite. At least one of $a$ and $b$ is positive; say $a>0$ (otherwise exchange the two letters in what follows). If $d$ divides $a$, then $a=dk$ where $k=a/d$ is positive, because $a$ and $d$ are. Since $k$ is a positive integer, $k\ge1$, and so $a=dk\ge d$. Thus every common divisor lies among $1,2,\ldots,a$, and a nonempty finite set of integers has a largest member.
+
+\subsection*{Division with remainder}
+Let $a$ be any integer and $b$ a positive integer. Then there are unique integers $q$ and $r$ with
+\[
+a=qb+r,\qquad 0\le r<b.
+\]
+The integer $q$ is the \emph{quotient}; when $a\ge0$, it counts how many whole copies of $b$ fit into $a$. The integer $r$ is the \emph{remainder}, what is left over. The remainder is also written $a\bmod b$.
+
+For example, the largest multiple of $5$ that is at most $17$ is $15=3\cdot5$, so $17=3\cdot5+2$: the quotient is $3$ and the remainder is $17\bmod5=2$. The equation $17=2\cdot5+7$ is also true, but it is not division with remainder, because $7$ is not less than $5$. For a negative number, the largest multiple of $5$ that is at most $-7$ is $-10=(-2)\cdot5$, so $-7=(-2)\cdot5+3$ and $(-7)\bmod5=3$. The remainder is never negative.
+
+Division with remainder is a familiar fact of integer arithmetic, and the well-ordering property shows where $q$ and $r$ come from. Let $S$ be the set of all numbers of the form $a-qb$, with $q$ an integer, that are at least $0$. For $a=17$ and $b=5$, for example, $S=\{2,7,12,17,22,\ldots\}$. The set $S$ is never empty. If $a\ge0$, then $q=0$ puts $a$ itself in $S$. If $a<0$, then $q=a$ puts $a-ab=(-a)(b-1)$ in $S$, because $-a$ is positive and $b-1\ge0$. So $S$ is a nonempty set of natural numbers, and by the well-ordering property (in the form of Section~\ref{ch05:sec:not-circular}, which allows $0$) it has a smallest member. Call it $r$, and let $q$ be an integer with $r=a-qb$. Then $a=qb+r$ and $r\ge0$. Also $r<b$: if $r\ge b$, then $r-b=a-(q+1)b$ would also belong to $S$ and be smaller than $r$, which is impossible. Making $a-qb$ as small as possible is the same as making the multiple $qb$ as large as possible without exceeding $a$, and that is how the examples above found $q$: for $a=17$ and $b=5$ the smallest member of $S$ is $2=17-3\cdot5$.
+
+No other pair of integers works. Suppose also that $a=q'b+r'$ with $0\le r'<b$. Subtracting the equation $a=qb+r$ from this one gives $0=(q'-q)b+(r'-r)$, so $r'-r=(q-q')b$. Since $r$ and $r'$ both lie between $0$ and $b-1$, their difference lies between $0-(b-1)$ and $(b-1)-0$; in particular $-b<(q-q')b<b$. Dividing by the positive number $b$ shows that the integer $q-q'$ lies strictly between $-1$ and $1$, so $q-q'=0$. Hence $q'=q$, and then $r'=a-q'b=a-qb=r$.
+
+For $b=2$ the remainder is $0$ or $1$, so the fact says that every integer can be written as $2q$ or $2q+1$, that is, every integer is even or odd, as Lemma~\ref{ch04:lem:even-or-odd} showed.
+
+\subsection*{One step of Euclid's algorithm}
+An \emph{algorithm} is a list of precise instructions that can be followed mechanically, one step at a time, like the school method for long division. Euclid's algorithm, which appears in Euclid's \emph{Elements}, written around 300 BC, computes greatest common divisors by repeating a single step: replace the pair $(a,b)$ by the pair $(b,r)$, where $r=a\bmod b$. For example, $(84,30)$ is replaced by $(30,24)$, because $84=2\cdot30+24$. The common divisors of $84$ and $30$ are $1,2,3,6$, and so are the common divisors of $30$ and $24$. This is no coincidence.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lemma}\label{ch05:lem:euclid-step}
+Let $a\ge0$ and $b>0$ be integers, and write $a=qb+r$ with integers $q,r$ and $0\le r<b$. Then the common divisors of $a$ and $b$ are exactly the common divisors of $b$ and $r$. Consequently $\gcd(a,b)=\gcd(b,r)$.
+\end{lemma}
+\end{minipage}\par
+
+\begin{proof}
+Let $d$ be a positive integer. First suppose that $d$ divides both $a$ and $b$, say $a=ds$ and $b=dt$ with integers $s$ and $t$. Then
+\[
+ r=a-qb=ds-qdt=d(s-qt).
+\]
+Since $s-qt$ is an integer, $d$ divides $r$. So every common divisor of $a$ and $b$ is a common divisor of $b$ and $r$.
+
+Conversely, suppose that $d$ divides both $b$ and $r$, say $b=dt$ and $r=du$ with integers $t$ and $u$. Then
+\[
+ a=qb+r=qdt+du=d(qt+u),
+\]
+so $d$ divides $a$ as well. So every common divisor of $b$ and $r$ is a common divisor of $a$ and $b$.
+
+The two directions together show that the pairs $(a,b)$ and $(b,r)$ have exactly the same set of common divisors. Both greatest common divisors are defined, because $b>0$. Each is the largest member of the same set, so they are equal.
+\end{proof}
+
+Both directions are needed. With only the first, the pair $(b,r)$ might have an extra common divisor, larger than every common divisor of $a$ and $b$, and then $\gcd(b,r)$ would be bigger than $\gcd(a,b)$.
+
+\subsection*{The algorithm, and why its answer is right}
+Euclid's algorithm starts with a pair $(a,b)$ of nonnegative integers, not both zero. To keep the starting pair in view, we call the current pair $(u,v)$.
+\begin{enumerate}
+\item Start with $(u,v)=(a,b)$.
+\item If $v=0$, stop and output $u$.
+\item Otherwise replace $(u,v)$ by $(v,\,u\bmod v)$ and go back to step~2.
+\end{enumerate}
+
+For $(a,b)=(84,30)$ the divisions are
+\[
+84=2\cdot30+24,\qquad30=1\cdot24+6,\qquad24=4\cdot6+0.
+\]
+The successive pairs are $(84,30)$, $(30,24)$, $(24,6)$, $(6,0)$, and the algorithm outputs $6$. If the first number is smaller than the second, the first step simply swaps them. For $(30,84)$, for example, $30=0\cdot84+30$, so the next pair is $(84,30)$.
+
+Why is the output the greatest common divisor? Every number that appears in the pairs is nonnegative, because $a$ and $b$ are and a remainder is never negative. A step is taken only when $v$ is positive, so Lemma~\ref{ch05:lem:euclid-step}, applied with $u$ and $v$ in place of $a$ and $b$, covers every step. By the lemma, each step leaves the greatest common divisor of the current pair unchanged. By induction on the number of steps, $\gcd(u,v)=\gcd(a,b)$ holds for every pair that the algorithm produces. This is the invariant of the algorithm.
+
+When the algorithm stops, the current pair has the form $(g,0)$, and $g>0$. Indeed, if no step was taken, then $b=0$ and $g=a$, which is positive because $a$ and $b$ are not both zero. If at least one step was taken, then $g$ was the second number of the previous pair, which was positive. Since every positive integer divides $0$, the common divisors of $g$ and $0$ are exactly the positive divisors of $g$, and the largest of these is $g$ itself. So $\gcd(g,0)=g$, and by the invariant, $g=\gcd(a,b)$.
+
+\subsection*{Why the algorithm stops}
+The invariant shows that \emph{if} the algorithm stops, its answer is correct. It does not show that the algorithm ever stops. For that we need a measure of progress. Watch the second number $v$ of the current pair. Each step replaces it by $u\bmod v$, a remainder on division by $v$, and such a remainder is less than $v$. So the second number is a nonnegative integer that strictly decreases at every step.
+
+An integer that decreases goes down by at least $1$: if $w$ and $v$ are integers with $w<v$, then $w\le v-1$. The second number starts at $b$, so by induction on $s$, after $s$ steps it is at most $b-s$. It is also never negative, so $0\le b-s$, that is, $s\le b$. Hence at most $b$ steps can occur. The algorithm takes another step whenever the second number is positive, so within $b$ steps the second number must reach $0$, and then the algorithm stops and outputs the first number. For $(84,30)$ the second numbers were $30,24,6,0$: the bound allows at most $30$ steps, and in fact $3$ were enough. The same reasoning shows that a strictly decreasing list of nonnegative integers cannot go on forever: if it starts at $c$, it has at most $c+1$ entries.
+
+\pauseq{Does a strictly decreasing nonnegative real quantity prove that a process stops?}{No. The gaps $1-x_n=2^{-n}$ in Section~\ref{ch05:sec:recurrence}, namely $1,\tfrac12,\tfrac14,\tfrac18,\ldots$, decrease forever and remain positive. The termination proof for Euclid's algorithm depends on the decreasing quantity being a nonnegative \emph{integer}. An integer that decreases must drop by at least $1$ each time, so it cannot keep decreasing forever without becoming negative. A real number can decrease by smaller and smaller amounts and never run out of room.}
+
+\begin{principle}{Habit 5: separate preservation from progress}
+For a process that repeats one step, ask two separate questions. What stays true after every step? And what quantity measures progress: a nonnegative integer that must decrease, or an error that must shrink? A preserved property can prove that an answer is correct without proving that the process ever stops. A quantity that keeps shrinking, like an error that halves at every step, can come as close to zero as we like without ever reaching it; it shows that the process approaches the answer, not that the process stops.
+\end{principle}

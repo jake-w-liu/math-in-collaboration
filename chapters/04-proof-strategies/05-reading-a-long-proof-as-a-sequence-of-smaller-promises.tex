@@ -1,8 +1,25 @@
-\section{Reading a long proof as a sequence of smaller promises}
-Long proofs are usually assembled from shorter results: lemmas, earlier propositions, and theorems, labels whose roles were described in Chapter~1. Each such result works like a small promise: if its hypotheses are supplied, it delivers its conclusion. When a paper invokes a lemma, pause to identify its inputs and output. In the irrationality proof, Lemma~\ref{thm:parity-square} accepts the fact that $a^2$ is even and returns that $a$ is even. The hypothesis is visibly satisfied. A reference such as ``by a standard result'' is not enough for a beginner unless the result and the matching assumptions are supplied.
+\section{Reading a long proof as a sequence of smaller promises}\label{ch04:sec:promises}
+Long proofs are usually assembled from shorter results: lemmas, propositions, and theorems, whose roles were described in Section~\ref{ch01:sec:roles}. Each such result works like a small promise: if you supply its hypotheses, it delivers its conclusion. So whenever a proof, whether in a book, in a paper, or from an assistant, uses an earlier result, stop and identify three things. What does the result need? Why does the proof have it at this point? What does the result give back?
 
-A proof can also use temporary assumptions. In a contradiction proof, the false statement being assumed must remain clearly marked. We may deduce consequences from it inside that argument, but we must not export it as an established fact afterward.
+Here is that check carried out for the proof of Theorem~\ref{thm:sqrt2}, which uses one starting fact once and one lemma twice.
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.19\linewidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Result used & What it needs & Why it holds here & What it gives\\
+\midrule
+Well-ordering property & a nonempty set of positive integers & the assumed fraction for $\sqrt2$, with both signs changed if necessary, supplies a positive denominator & a smallest positive denominator $b$\\
+Lemma~\ref{thm:parity-square} & an integer whose square is even & $a$ is an integer, and $a^2=2b^2$ is twice the integer $b^2$ & $a$ is even\\
+Lemma~\ref{thm:parity-square} again & an integer whose square is even & $b$ is an integer, and $b^2=2c^2$ is twice the integer $c^2$ & $b$ is even\\
+\bottomrule
+\end{tabularx}
+\end{center}
+In each row the third column must be checked, not assumed. A sentence such as ``by a standard result, $a$ is even'' makes this check impossible: the reader cannot tell which result is meant, so cannot see what it needs or confirm that the proof has it. A careful proof names the result and shows that its hypotheses hold.
+
+When you check why a proof has some fact at a given point, notice also whether that fact rests on a temporary assumption (Section~\ref{ch04:sec:contrapositive}). Inside the proof of Theorem~\ref{thm:sqrt2} we deduced that $a$ and $b$ are both even, but only under the supposition that $\sqrt2$ is rational, which is what supplied the fraction $a/b$. Those numbers turned out not to exist, so the deductions about them must not be used outside the proof.
 
 \begin{principle}{Habit 4: ask for a local contract, not just more words}
-At a difficult step, ask: What is known here? What is the next target? Which exact result is used? Why do its assumptions hold? Which quantity is being constructed? These questions reveal missing mathematics more reliably than asking for an explanation to be ``simpler.''
+Habit~2 (Section~\ref{sec:magnitude}) asked for the contract of a whole statement. When a single step of a proof is hard to follow, whether the proof is your own, a book's, or an assistant's, ask for the contract of that step. What is known at this point? What is the next goal? Which exact result is being used, and why do its hypotheses hold here? Which quantity is being constructed, and from what? These questions locate the missing mathematics more reliably than a request to make the explanation ``simpler.''
 \end{principle}
+
+Here is the contract of one step, from the proof of Lemma~\ref{ch04:lem:even-or-odd}: ``If $m-1=2k+1$ for an integer $k$, then $m=2k+2=2(k+1)$, so $m$ is even.'' Known at this point: $m-1=2k+1$, where $k$ is an integer. Next goal: $m$ is even or odd. Result used: none; the step needs only Definition~\ref{def:parity}, which says that $m$ is even as soon as $m$ is twice some integer. Quantity constructed: the witness $k+1$, built from $k$; it is an integer because a sum of integers is an integer. With these four answers written down, each part of the step can be checked on its own.

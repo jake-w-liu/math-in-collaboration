@@ -1,6 +1,0 @@
-\section{An invariant answers what cannot change}
-An invariant is a property or quantity preserved by every legal step. Suppose a row contains plus and minus signs, and a legal move flips exactly two signs. Associate the number $1$ with a plus sign and $-1$ with a minus sign, and look at the product of all the numbers in the row. Flipping one sign multiplies that entry, and hence the whole product, by $-1$. A legal move flips two signs, so it multiplies the product by $(-1)(-1)=1$: the product never changes. For instance, the row $+\,-\,+\,+$ has product $-1$; flipping the first two signs gives $-\,+\,+\,+$, whose product is still $-1$.
-
-Starting with all plus signs gives product $1$. A row with exactly one minus sign has product $-1$ and cannot be reached by these moves. This is an impossibility proof: it does not enumerate all possible move sequences. It identifies a barrier every sequence must respect.
-
-An invariant does not guarantee termination. A process may keep moving among states with the same invariant. To show that a process stops, we need a separate progress argument.

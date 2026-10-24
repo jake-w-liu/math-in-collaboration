@@ -1,0 +1,38 @@
+\section{Three ways to use an equation}\label{ch15:sec:equality}
+The first way to use an equation is to apply the same function to both sides. Equal inputs give equal outputs: if $x=y$, then $f(x)=f(y)$. In Lean, if \code{h} is a proof of \code{x = y}, then \code{congrArg f h} is a proof of \code{f x = f y}; the name is short for ``congruence in the argument,'' where the \emph{argument} of a function means its input. This rule works for every function $f$, and it should not be confused with injectivity. Injectivity goes in the opposite direction, from $f(x)=f(y)$ to $x=y$, and it holds only for some functions: the squaring map on $\RR$ sends $1$ and $-1$ to the same output (Section~\ref{ch03:sec:injsurj}).
+
+Another way to use an equation is to substitute. If \code{h : a = b}, the tactic \code{rw [h]} rewrites the goal, replacing every occurrence of the left side \code{a} by the right side \code{b}. After rewriting, \code{rw} tries \code{rfl} by itself, so a goal that has become an equation with two identical sides is closed at once. For example:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+theorem add_one_of_eq (a b : Nat) (h : a = b) :
+    a + 1 = b + 1 := by
+  rw [h]
+\end{lstlisting}
+\end{minipage}\par
+The rewrite turns the goal \code{a + 1 = b + 1} into \code{b + 1 = b + 1}, which \code{rw} then closes. On paper we would write: ``since $a=b$, substitute $b$ for $a$.'' The square brackets may also hold several equations separated by commas; \code{rw} then rewrites with them one after another.
+
+The third way is for a chain of equalities: Lean's \code{calc} block~\cite{leanquant}. Each line of the block states one link of the chain, followed by its justification after \code{:=}. Lean then combines the links, using the fact that equality is transitive: if $a=b$ and $b=c$, then $a=c$. Here is the first half of Exercise~\ref{ex:3.5}: a function with a left inverse is injective.
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+theorem left_inverse_inj {A B : Type}
+    (f : A -> B) (g : B -> A)
+    (h : forall x, g (f x) = x) : Inj f := by
+  intro x y hxy
+  calc
+    x = g (f x) := (h x).symm
+    _ = g (f y) := congrArg g hxy
+    _ = y := h y
+\end{lstlisting}
+\end{minipage}\par
+
+The hypothesis \code{h : forall x, g (f x) = x} says that $g$ undoes $f$: $g(f(x))=x$ for every $x$. Lean infers that $x$ ranges over \code{A}, because \code{f} is applied to it. Since two functions are equal when they agree at every input (Section~\ref{ch03:sec:functions}), this is the condition $g\circ f=\id_A$ of Exercise~\ref{ex:3.5}, stated one input at a time. (The exercise calls the left inverse $h$; in the Lean code the name \code{h} belongs to the hypothesis instead.) As in Section~\ref{ch15:sec:injcomp}, the line \code{intro x y hxy} opens the definition of \code{Inj f}. It introduces \code{x} and \code{y} in \code{A} and the hypothesis \code{hxy : f x = f y}, and it leaves the goal \code{x = y}. The \code{calc} block proves this goal in three links, the Lean form of the chain
+\[
+x=g(f(x))=g(f(y))=y.
+\]
+In the \code{calc} block, the underscore at the start of the second and third lines stands for the right side of the line before, so that no expression has to be written twice.
+\begin{itemize}
+\item The first link, \code{x = g (f x)}, comes from \code{h x}, the hypothesis applied to this particular \code{x}. But \code{h x} proves \code{g (f x) = x}, with the two sides in the other order. The suffix \code{.symm} (short for \emph{symmetry}) reverses an equation: if \code{e} is a proof of \code{a = b}, then \code{e.symm} is a proof of \code{b = a}. The parentheses in \code{(h x).symm} make \code{.symm} apply to the proof \code{h x}. Without them, Lean reads \code{h x.symm} as \code{h} applied to \code{x.symm} and reports an error.
+\item The second link, \code{g (f x) = g (f y)}, is \code{congrArg g hxy}: apply $g$ to both sides of $f(x)=f(y)$.
+\item The third link, \code{g (f y) = y}, is \code{h y}.
+\end{itemize}
+Lean joins the three links into a proof of \code{x = y}, which is the goal.

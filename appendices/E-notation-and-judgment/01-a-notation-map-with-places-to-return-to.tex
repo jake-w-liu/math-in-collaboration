@@ -1,0 +1,67 @@
+\section{A notation map, with places to return to}\label{appE:sec:notation}
+The table below lists the main symbols of the book, roughly in the order in which they appear, together with the place where each one is explained. A one-line summary can remind you what a symbol means, but to use the symbol with confidence again, reread the section where it was introduced, together with its examples.
+
+A few symbols, and many letters, do more than one job. The surrounding sentence, and the kind of object involved, decide which job is meant.
+\begin{itemize}
+\item Vertical bars: for a real number $x$, $|x|$ is its absolute value; for a finite set $S$, $|S|$ is the number of its members. Double bars, as in $\norm{x}_2$, give the length of a vector.
+\item Round brackets: $(1,3)$ can be the interval of real numbers strictly between $1$ and $3$, or the ordered pair with first entry $1$ and second entry $3$. Square brackets also have two uses: $[1,3]$ is an interval, while $[x]$ is the equivalence class of $x$.
+\item The arrow $\to$: in $f:A\to B$ it names the input and output sets of a function; in $u\to v$ it is a directed edge of a graph; in $x_n\to x_*$ it says that a sequence converges. The arrow with a bar, as in $x\mapsto x^2$, names the rule of a function. The double arrow $\Rightarrow$ is different again: it joins two statements.
+\item The symbol $f^{-1}$ has two uses. When $f$ has an inverse, $f^{-1}$ names that inverse function, and then $f^{-1}(y)$ is a single input (Section~\ref{ch03:sec:functions}); it is not the reciprocal $1/f(y)$. Applied to a set $T$ of outputs, $f^{-1}(T)$ is the preimage of $T$, a set of inputs, and it makes sense for every function $f$, whether or not $f$ has an inverse. When $f$ does have an inverse, the two readings agree: the preimage of $T$ is the image of $T$ under the inverse function (Section~\ref{ch03:sec:images}).
+\item Letters are reused from chapter to chapter. For example, $q$ is a quotient in Chapter~\ref{ch:induction} and a contraction factor in Chapters~\ref{ch:contraction} and~\ref{ch:capstone}. The capital $A$ is a set in Chapter~\ref{ch:maps}, a matrix in Chapter~\ref{ch:linear} and an event in Chapter~\ref{ch:probability}, while $A_s$ is an autocorrelation in Chapter~\ref{ch:signs}. Similarly, $I$ is an identity matrix in Chapter~\ref{ch:linear}, but $I_A$ is the indicator of an event in Chapter~\ref{ch:probability}; and $e_j$ is a standard basis vector in Chapter~\ref{ch:linear}, but $e_n$ is the error at step~$n$ in Chapter~\ref{ch:capstone}.
+\end{itemize}
+
+\begin{longtable}{@{}p{1.25in}p{3.95in}@{}}
+\toprule Symbol & Meaning, and where it is explained\\\midrule\endhead
+$\NN,\ZZ,\QQ,\RR$ & The natural numbers $0,1,2,\ldots$ (zero included), the integers, the rational numbers, and the real numbers (Section~\ref{ch01:sec:notation}).\\
+$\sum_{j=a}^{b}x_j$ & The sum $x_a+x_{a+1}+\cdots+x_b$, with one term for each integer $j$ from $a$ to $b$ (Section~\ref{ch01:sec:notation}). When $b<a$ there are no terms, and this \emph{empty sum} is $0$ (Section~\ref{ch05:sec:first-induction}). A sum such as $\sum_{v\in V}\deg(v)$ has one term for each member $v$ of the finite set $V$, added in any order (Section~\ref{ch07:sec:double}).\\
+$x<y$, $x\le y$ & $x$ is strictly smaller than $y$; $x$ is smaller than or equal to $y$. The two differ only when $x=y$ (Section~\ref{ch01:sec:notation}).\\
+$\sqrt t$ & For a real number $t\ge0$, the nonnegative number whose square is $t$. So $\sqrt9=3$, not $-3$ (Section~\ref{ch01:sec:notation}).\\
+$P\Rightarrow Q$, $P\Leftrightarrow Q$ & ``If $P$, then $Q$''; ``$P$ if and only if $Q$,'' which means both $P\Rightarrow Q$ and $Q\Rightarrow P$. Writing either one states a claim; it does not say that the claim has been proved (Section~\ref{ch02:sec:implication}).\\
+$\neg,\land,\lor$ & Not; and; or. The ``or'' is inclusive: $P\lor Q$ is true when at least one of $P$ and $Q$ is true, including when both are (Section~\ref{ch02:sec:connectives}).\\
+$\forall,\exists$ & For every; there exists (at least one). Quantifiers are read from left to right, and a value chosen at an $\exists$ may depend on every value chosen before it, but not on anything chosen after it. So changing the order can change the meaning (Section~\ref{ch02:sec:quantifiers}).\\
+$\eps,\delta$ & Traditional names for tolerances, that is, positive amounts of error we are prepared to allow. They are names, not fixed numbers: ``for every $\eps>0$'' covers $\eps=1/10$, $\eps=1/1000$, and every other positive value (Sections~\ref{ch02:sec:quantifiers} and~\ref{ch11:sec:distance}). In Chapter~\ref{ch:capstone}, $\eps_n$ is instead an update error; see the row for $y_n$ at the end of the table.\\
+$|x|$ & The absolute value of a real number $x$: its distance from $0$ on the number line (Section~\ref{sec:magnitude}).\\
+$[a,b]$, $(a,b)$, $[0,\infty)$ & Intervals of real numbers. A square bracket includes its endpoint and a round bracket excludes it; $[0,\infty)$ is the set of all real $x$ with $x\ge0$ (Section~\ref{sec:magnitude}).\\
+$x\in A$, $x\notin A$ & $x$ is a member of the set $A$; $x$ is not a member of $A$ (Section~\ref{ch03:sec:sets}).\\
+$A\subseteq B$, $\varnothing$ & Every member of $A$ is also a member of $B$; the empty set, which has no members (Section~\ref{ch03:sec:sets}).\\
+$\{x\in A:P(x)\}$ & The set of members of $A$ that have the property $P$. Read the colon as ``such that'' (Section~\ref{ch03:sec:sets}).\\
+$A\cup B$, $A\cap B$ & Union: the objects in at least one of $A$ and $B$. Intersection: the objects in both (Section~\ref{ch03:sec:sets}).\\
+$A\setminus B$ & The members of $A$ that are not in $B$. The result is a set, not a number: it removes members rather than subtracting values (Section~\ref{ch03:sec:sets}).\\
+$A\times B$ & The set of ordered pairs $(a,b)$ with $a\in A$ and $b\in B$ (Section~\ref{ch03:sec:sets}).\\
+$|S|$ & The number of members of a finite set $S$, each counted once; $|\varnothing|=0$ (Section~\ref{ch03:sec:sets}).\\
+$f:A\to B$, $x\mapsto x^2$ & A function with domain $A$ and codomain $B$; the function that sends each input $x$ to $x^2$ (Section~\ref{ch03:sec:functions}).\\
+$g\circ f$, $\id_A$, $f^{-1}$ & ``$g$ after $f$'': apply $f$ first, then $g$. The identity function on $A$, which sends every element to itself. The inverse of $f:A\to B$, when it exists: the function $f^{-1}:B\to A$ with $f^{-1}(f(x))=x$ for every $x\in A$ and $f(f^{-1}(y))=y$ for every $y\in B$ (Section~\ref{ch03:sec:functions}).\\
+$f(S)$, $f^{-1}(T)$ & The image of a set $S$ of inputs: all outputs $f(x)$ with $x\in S$. The preimage of a set $T$ of outputs: all inputs $x$ with $f(x)\in T$ (Section~\ref{ch03:sec:images}).\\
+$d\mid a$, $\gcd(a,b)$ & The positive integer $d$ divides the integer $a$, that is, $a=dk$ for some integer $k$. The greatest common divisor of two nonnegative integers $a$ and $b$ that are not both zero: the largest positive integer that divides both (Section~\ref{ch05:sec:euclid}).\\
+$a\bmod m$ & The remainder when the integer $a$ is divided by the positive integer $m$; it is always one of the numbers $0,1,\ldots,m-1$ (Section~\ref{ch05:sec:euclid}).\\
+$x\sim y$, $[x]$ & $x$ is related to $y$; the equivalence class of $x$, the set of all elements related to $x$ (Section~\ref{ch06:sec:differences}).\\
+$a\equiv b\pmod m$ & $a$ is congruent to $b$ modulo $m$: the positive integer $m$ divides $a-b$ (Section~\ref{ch06:sec:residues}).\\
+$[a]_m$, $\ZZ/m\ZZ$ & The residue class of $a$: the whole set of integers congruent to $a$ modulo $m$, not just the one integer $a$. The set of all $m$ residue classes (Section~\ref{ch06:sec:residues}).\\
+$x\preceq y$ & $x$ is below $y$ in a partial order, a relation that is reflexive, antisymmetric and transitive (Section~\ref{ch06:sec:order}).\\
+$\deg(v)$ & The degree of a vertex $v$: the number of its neighbors (Section~\ref{ch07:sec:graph}).\\
+$u\to v$ & A directed edge from $u$ to $v$; $v$ is then an out-neighbor of $u$ (Section~\ref{ch07:sec:sink}).\\
+$N_1^+(v)$, $N_2^+(v)$ & The first out-neighborhood of $v$: the vertices at directed distance exactly one from $v$. The second out-neighborhood: the vertices at directed distance exactly two (Section~\ref{ch07:sec:seymour}).\\
+$N(s)$, $N(S)$ & The tasks accepted by the student $s$; the tasks accepted by at least one student of the set $S$ (Sections~\ref{ch08:sec:model} and~\ref{ch08:sec:shortage}).\\
+$S\subsetneq L$ & $S$ is a proper subset of $L$: $S\subseteq L$ and $S\ne L$ (Section~\ref{ch09:sec:inductive}).\\
+$\RR^n$ & The set of vectors $(x_1,\ldots,x_n)$ with $n$ real coordinates (Section~\ref{ch10:sec:vectors}).\\
+$A_{ij}$, $Ax$ & The entry of the matrix $A$ in row $i$ and column $j$; the vector obtained by applying $A$ to $x$ (Section~\ref{ch10:sec:linearmaps}).\\
+$\ker T$ & The kernel of a linear map $T$: the inputs that $T$ sends to the zero vector (Section~\ref{ch10:sec:kernel}).\\
+$u\cdot v$ & The dot product: multiply corresponding coordinates and add. The result is a number, not a vector (Section~\ref{ch10:sec:inner}).\\
+$\norm{x}_2$ & The Euclidean length $\sqrt{x\cdot x}$ of a vector. The subscript $2$ is part of the name, not a coordinate (Section~\ref{ch10:sec:inner}).\\
+$A^{\mathsf T}$, $I$ & The transpose of $A$, obtained by exchanging rows and columns. The identity matrix, with ones on the diagonal and zeros elsewhere (Section~\ref{ch10:sec:product}).\\
+$(X,d)$, $d(x,y)$ & A metric space: a set $X$ together with a chosen metric $d$, a rule that gives every pair of points a distance. The number $d(x,y)$ is the distance from $x$ to $y$. For all points $x,y,z$, a metric must satisfy three requirements: $d(x,y)\ge0$, with $d(x,y)=0$ exactly when $x=y$; $d(x,y)=d(y,x)$; and the triangle inequality $d(x,z)\le d(x,y)+d(y,z)$. The choice of metric is part of the problem (Section~\ref{ch11:sec:metric}).\\
+$d_2$, $d_\infty$ & Two metrics on $\RR^n$: the Euclidean distance $\norm{x-y}_2$, and the largest of the coordinate differences $|x_j-y_j|$ (Section~\ref{ch11:sec:metric}).\\
+$x_n\to x_*$ & The sequence converges to $x_*$: for every tolerance $\eps>0$, all terms from some index on are at distance less than $\eps$ from $x_*$ (Section~\ref{ch11:sec:convergence}).\\
+$x_*$ & A name for a special point: a limit in Chapter~\ref{ch:limits}, a fixed point in Chapters~\ref{ch:contraction} and~\ref{ch:capstone}. The star is part of the name (Section~\ref{ch11:sec:convergence}).\\
+$Tx$ & Short for $T(x)$ (Section~\ref{ch12:sec:iteration}).\\
+$\Omega$, $p(\omega)$ & The sample space, a finite set of outcomes; the probability of the outcome $\omega$. The numbers $p(\omega)$ are nonnegative and add up to $1$ (Section~\ref{ch13:sec:model}).\\
+$\Prob(A)$ & The probability of an event $A\subseteq\Omega$: the sum of $p(\omega)$ over the outcomes $\omega\in A$ (Section~\ref{ch13:sec:model}).\\
+$\E X$ & The expectation of a random variable $X$, that is, of a function $X:\Omega\to\RR$: the weighted average $\sum_{\omega\in\Omega}p(\omega)X(\omega)$ (Section~\ref{ch13:sec:expectation}).\\
+$I_A$ & The indicator of the event $A$: it equals $1$ at outcomes in $A$ and $0$ at all other outcomes (Section~\ref{ch13:sec:indicators}).\\
+$A_s$, $C_s$ & For a sign sequence $(a_0,\ldots,a_{n-1})$, whose entries are all $1$ or $-1$: the aperiodic autocorrelation $A_s=\sum_{j=0}^{n-1-s}a_ja_{j+s}$ at shift $s$, defined for $1\le s\le n-1$, in which nothing wraps around; and the periodic autocorrelation $C_s=\sum_{j=0}^{n-1}a_ja_{(j+s)\bmod n}$ at shift $s$, defined for $0\le s\le n-1$, in which positions wrap around modulo $n$ (Sections~\ref{ch14:sec:aperiodic} and~\ref{ch14:sec:periodic}).\\
+\code{a : T}, \code{f x}, \code{:=} & In Lean: \code{a} has type \code{T} (for a proposition \code{P}, \code{h : P} says that \code{h} is a proof of \code{P}); the function \code{f} applied to \code{x}; ``is defined as'' or ``is proved by'' (Section~\ref{ch15:sec:symbols}).\\
+\code{sorry} & In Lean, a placeholder for a missing proof. The command \code{\#print axioms} shows whether a theorem depends on one: if it does, the list includes the axiom \code{sorryAx} (Section~\ref{ch16:sec:axioms}).\\
+$B(c,r)$ & The ball with center $c$ and radius $r>0$ in a metric space $X$: the points of $X$ whose distance from $c$ is strictly less than $r$ (Section~\ref{ch17:sec:balls}).\\
+$y_n$, $\eps_n$, $e_n$ & In Chapter~\ref{ch:capstone}: the points of an iteration in which each update may contain an error, so that $y_{n+1}$ is only close to $T(y_n)$; the update error $\eps_n$, a bound $d(y_{n+1},T(y_n))\le\eps_n$ on the error made in the update that produces $y_{n+1}$; and the error $e_n=d(y_n,x_*)$, the distance from $y_n$ to the fixed point (Sections~\ref{ch18:sec:question} and~\ref{ch18:sec:onestep}).\\
+\bottomrule
+\end{longtable}

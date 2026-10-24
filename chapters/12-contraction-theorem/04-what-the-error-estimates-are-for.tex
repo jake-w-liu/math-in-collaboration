@@ -1,0 +1,31 @@
+\section{What the error estimates are for}\label{ch12:sec:estimates}
+\subsection*{Predicting how many steps are enough}
+Take $T(x)=(x+1)/2$ on $\RR$, which is a contraction with factor $q=1/2$, and start from $x_0=0$. The first step gives $x_1=1/2$, so $D=d(x_1,x_0)=1/2$, and the a priori estimate \eqref{eq:apriori} becomes
+\[
+|x_n-1|\le\frac{(1/2)^n}{1-1/2}\cdot\frac12=2^{-n}.
+\]
+Suppose we want an error below $0.001=1/1000$. Since $2^9=512$ and $2^{10}=1024$, the bound $2^{-n}$ is still larger than $1/1000$ at $n=9$, but at $n=10$ it equals $1/1024$, which is smaller. So ten steps are guaranteed to be enough, and so is any larger number of steps, because the bound $2^{-n}$ only decreases as $n$ grows. In this example the estimate cannot be improved: the formula $x_n=1-2^{-n}$ of Section~\ref{ch05:sec:recurrence} shows that the error is exactly $2^{-n}$, so the bound is attained for every $n$, and nine steps really are too few.
+
+Usually the bound is not attained. It is built from the first step and the worst-case factor $q$, so the true error is often much smaller, and the estimate may ask for more steps than are actually necessary. It errs on the safe side, which is what a guarantee should do.
+
+\subsection*{Certifying an approximation found by any method}
+As Section~\ref{ch12:sec:theorem} explained, the residual estimate \eqref{eq:residual} certifies a candidate point $z$ found by any method. Notice, though, that the residual by itself is not a bound on the error. It must be multiplied by $1/(1-q)$, and this factor can be large. For example, $T(x)=0.99x+0.01$ is a contraction of $\RR$ with factor $q=0.99$, since $|T(x)-T(y)|=0.99\,|x-y|$, and its fixed point is $1$, since $0.99+0.01=1$. The point $z=0$ has the small residual $|0-T(0)|=0.01$, yet its error is $|0-1|=1$, a hundred times larger. The residual estimate gives the bound $0.01/(1-0.99)=1$, which is exactly the true error. A small residual guarantees a small error only when $q$ is not too close to $1$.
+
+\subsection*{Using the length of the latest step}
+For an iterate $x_n$ with $n\ge1$, there is a third bound, which uses the step just taken:
+\[
+d(x_n,x_*)\le\frac{q}{1-q}\,d(x_n,x_{n-1}).
+\]
+To prove it, note that the residual of $x_n$ is $d(x_n,Tx_n)=d(x_n,x_{n+1})$. Since $x_n=Tx_{n-1}$ and $x_{n+1}=Tx_n$, the contraction inequality gives
+\[
+d(x_n,x_{n+1})=d(Tx_{n-1},Tx_n)\le q\,d(x_{n-1},x_n)=q\,d(x_n,x_{n-1}).
+\]
+Now the residual estimate with $z=x_n$ gives $d(x_n,x_*)\le d(x_n,x_{n+1})/(1-q)\le q\,d(x_n,x_{n-1})/(1-q)$.
+
+This is called an \emph{a posteriori estimate}, from the Latin for ``from what comes after,'' because it can be evaluated only after the step from $x_{n-1}$ to $x_n$ has been computed. It uses the step length actually observed rather than a prediction made at the start, and it is never worse than the a priori estimate. Indeed, Step~1 of the proof gives $d(x_n,x_{n-1})\le q^{n-1}D$, so
+\[
+\frac{q}{1-q}\,d(x_n,x_{n-1})\le\frac{q\cdot q^{n-1}D}{1-q}=\frac{q^n}{1-q}\,D,
+\]
+and the right side is the a priori bound. When the observed steps shrink faster than the worst case $q^{n-1}D$ allows, the a posteriori estimate is much better. Section~\ref{ch12:sec:example} compares the estimates on an example.
+
+\pauseq{For $T(x)=(x+1)/2$ and $x_0=0$, compute the a posteriori bound for $x_3$ and compare it with the true error $|x_3-1|$.}{The iterates are $x_2=3/4$ and $x_3=7/8$, so the latest step has length $7/8-3/4=1/8$. With $q=1/2$ we have $q/(1-q)=1$, so the bound is $|x_3-1|\le1/8$. The true error is $1-7/8=1/8$, so the bound is attained, just as the a priori bound $2^{-3}=1/8$ is for this map.}

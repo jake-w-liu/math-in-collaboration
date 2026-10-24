@@ -1,12 +1,26 @@
-\section{An exact finite experiment}
-There are $2^n$ sign sequences of length $n$, because each of the $n$ positions independently holds one of two signs. For small $n$ a computer can examine all of them. The table below records the result of such an exhaustive search for $1\le n\le13$, computed with exact integer arithmetic; Appendix~\ref{app:practical} contains a short program that reproduces it. The search counts Barker sequences, and sequences whose periodic correlations $C_s$ vanish at every nonzero shift (equivalently, by the previous sections, first rows of circulant sign Hadamard matrices). Every sequence is counted separately, so a sequence, its negative, its reversal, and its rotations each count once whenever they are different lists.
+\section{An exact finite experiment}\label{ch14:sec:experiment}
+A sign sequence of length $n$ is fixed by $n$ independent choices, one sign for each position, so there are $2^n$ sign sequences of length $n$. For small $n$ a computer can examine every one of them. The table below shows the result of such an exhaustive search for $1\le n\le13$. Only integers are involved, so the arithmetic is exact, with no rounding. Section~\ref{appD:sec:experiments} of Appendix~\ref{app:practical} contains a short program that produces the table directly from the definitions. For each length the search counts two kinds of sequences:
+\begin{itemize}
+\item the Barker sequences;
+\item the sequences with $C_s=0$ for every shift $s$ with $1\le s\le n-1$, which by Section~\ref{ch14:sec:circulant} are exactly the first rows of circulant Hadamard matrices.
+\end{itemize}
+Each sequence is counted separately, even when it is closely related to another one. For instance, a sequence and its negative are counted as two sequences. So are a sequence and its reversal (the same entries in the opposite order), and a sequence and its rotations, whenever these lists are different.
 
 \begin{center}
 \begin{tabular}{@{}r rr@{}}\toprule
-Length $n$ & Barker sequences & Sequences with $C_s=0$ for $1\le s<n$\\\midrule
+Length $n$ & Barker sequences & Sequences with $C_s=0$ for $1\le s\le n-1$\\\midrule
 1&2&2\\2&4&0\\3&4&0\\4&8&8\\5&4&0\\6&0&0\\7&4&0\\8&0&0\\9&0&0\\10&0&0\\11&4&0\\12&0&0\\13&4&0\\\bottomrule
 \end{tabular}
 \end{center}
-The table is evidence about exactly this finite range of lengths. It cannot rule out a sequence at a larger, untested length. The number of cases doubles each time the length increases by one, so a search up to length $60$ would already involve more than $10^{18}$ sequences. Simply testing more cases is therefore not a mathematical strategy on its own; a proof is needed to say anything about all lengths.
 
-The table is consistent with what we have proved. Every nonzero entry in the last column occurs at length $1$ or $4$, in agreement with Proposition~\ref{thm:circulantnecessary}, which allows only $1,4,16,36,\ldots$ in this range. All counts are even, as they must be: negating every sign preserves all correlations (Chapter~6), and a nonempty sequence is never equal to its own negative, so the qualifying sequences come in pairs. One could halve the search by fixing the first sign to be $1$; the counts in the table were computed without this reduction, and the evenness of every entry is a small check on the computation.
+For each of these thirteen lengths the search examines every case, so, provided the program is correct, the table settles completely how many sequences of that length have each property. About any other length the table says nothing. Nor can the search simply be pushed much further, because each additional position doubles the number of sequences. Length $64$, one of the orders that Proposition~\ref{thm:circulantnecessary} leaves open, has $2^{64}$ sign sequences, which is more than $1.8\cdot10^{19}$. A computer that examined a billion sequences per second would need more than $580$ years for that single length. And even a far faster computer could only ever check finitely many lengths, while there are infinitely many. Only a proof can settle the question for every length.
+
+Every count in the table agrees with what we have proved, and several of its patterns are explained by our results.
+\begin{itemize}
+\item The last column is zero at every length except $1$ and $4$. Proposition~\ref{thm:circulantnecessary} predicts this: below $16$, the only orders it allows are $1$ and $4$, and at both of these we already know examples.
+\item For the odd lengths greater than $1$ there is also a simpler explanation, given in the pause at the end of Section~\ref{ch14:sec:periodic}: when $n$ is odd, every periodic correlation is odd, so none of them can be zero.
+\item Every count in the table is even. Negating every sign changes none of the correlations, aperiodic or periodic: each correlation is a sum of pair products, and negation does not change pair products (Section~\ref{ch06:sec:wlog}). Exercise~\ref{ex:14.2} asks you to write this out. So whenever a sequence $a$ is counted in one column of the table, its negative $-a$ is counted in the same column. Moreover $-a$ is never equal to $a$, since that would require $a_0=-a_0$, that is, $a_0=0$. So the sequences counted in each entry of the table split into pairs $\{a,-a\}$, and their number is even.
+\end{itemize}
+Other features of the table do not follow from anything proved so far. One example is the absence of Barker sequences of lengths $6$, $8$, $9$, $10$, and $12$. For the even lengths among these, Section~\ref{ch14:sec:research} quotes a known result that links Barker sequences to circulant Hadamard matrices and so accounts for the zeros.
+
+Because both properties depend only on pair products, the normalization of Section~\ref{ch06:sec:wlog} would allow a faster search: examine only the sequences that begin with $1$, and double each count. The program in Appendix~\ref{app:practical} examines all $2^n$ sequences instead, so the evenness of every count is a small independent check on its output.
