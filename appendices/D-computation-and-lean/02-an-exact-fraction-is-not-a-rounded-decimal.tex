@@ -1,14 +1,14 @@
 \section{An exact fraction is not a rounded decimal}\label{appD:sec:fractions}
-When a program contains a number such as \code{0.1}, Python does not store one tenth exactly. It stores a \emph{floating-point number}: a binary approximation that is correct to about sixteen significant digits. The approximation is very good, but it is not exact, and a tiny error can change the answer to a yes-or-no question. The two lines
+When a program contains a number such as \code{0.1}, Python does not store one tenth exactly. It stores a \emph{floating-point number}: a binary approximation that is correct to about sixteen significant digits. The two lines
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 print(0.1 + 0.2)
 print(0.1 + 0.2 == 0.3)
 \end{lstlisting}
 \end{minipage}\par
-display \code{0.30000000000000004} and \code{False}. In an experiment that tests an equation or an inequality, such a rounding error could make a true statement look false, or a false one look true.
+display \code{0.30000000000000004} and \code{False}. So in an experiment that tests an equation or an inequality, a tiny rounding error can make a true statement look false, or a false one look true.
 
-When the numbers involved are rational, the standard library offers exact arithmetic instead~\cite{pyfractions}. A \code{Fraction} stores an integer numerator and a positive integer denominator, reduced to lowest terms, and it adds, subtracts, multiplies and divides by the usual rules for fractions, with no rounding at any stage. For example, \code{Fraction(1, 3)} is the fraction $1/3$. A fraction with denominator $1$ can be given by its numerator alone, so \code{Fraction(0)} is $0/1$, that is, zero. Python's integers are exact as well, however large they become.
+When the numbers involved are rational, the standard library offers exact arithmetic instead~\cite{pyfractions}. A \code{Fraction} stores an integer numerator and a positive integer denominator, reduced to lowest terms, and it computes by the usual rules for fractions, with no rounding at any stage. For example, \code{Fraction(1, 3)} is the fraction $1/3$, and \code{Fraction(0)}, with the denominator $1$ left out, is $0/1$, that is, zero. Python's integers are exact as well, however large they become.
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 from fractions import Fraction
@@ -18,9 +18,9 @@ y = (x * x + 1) / 3
 print(y)
 \end{lstlisting}
 \end{minipage}\par
-This program displays \code{True} and then \code{10/27}. The last three lines use the map $T(x)=(x^2+1)/3$ of Section~\ref{ch12:sec:example}: the name \code{x} holds the iterate $x_1=1/3$, so \code{y} is $T(x_1)=x_2$, and Python finds exactly the value $10/27$ computed by hand in that section. (Typed at Python's prompt without \code{print}, the same value is shown in the form \code{Fraction(10, 27)}.)
+This program displays \code{True} and then \code{10/27}. The last three lines apply the map $T(x)=(x^2+1)/3$ of Section~\ref{ch12:sec:example} to the iterate $x_1=1/3$, so \code{y} is $x_2=T(x_1)$, and Python finds exactly the value $10/27$ computed by hand in that section. (Typed at Python's prompt without \code{print}, the same value is shown as \code{Fraction(10, 27)}.)
 
-Two details deserve attention. First, dividing one ordinary integer by another with \code{/} gives a floating-point number, so \code{1 / 3} is \code{0.3333333333333333}. When a \code{Fraction} is combined with an integer or with another \code{Fraction}, however, the result is again a \code{Fraction}. That is why the line \code{y = (x * x + 1) / 3} can use the plain integers $1$ and $3$ and still be exact. Combining a \code{Fraction} with a floating-point number such as \code{0.5}, on the other hand, gives a floating-point number, so the two kinds of number should not be mixed. Second, the exact rational number one tenth must be written \code{Fraction(1, 10)}. Writing \code{Fraction(0.1)} instead converts the floating-point number \code{0.1} into a fraction exactly as it is stored, and \code{print(Fraction(0.1))} displays
+Two details matter. First, dividing one ordinary integer by another with \code{/} gives a floating-point number, so \code{1 / 3} is \code{0.3333333333333333}. But a \code{Fraction} combined with an integer or with another \code{Fraction} gives again a \code{Fraction}, which is why the line \code{y = (x * x + 1) / 3} can use the plain integers $1$ and $3$ and still be exact. A \code{Fraction} combined with a floating-point number such as \code{0.5}, on the other hand, gives a floating-point number, so do not mix the two kinds. Second, one tenth must be written \code{Fraction(1, 10)}. Writing \code{Fraction(0.1)} instead converts the floating-point number \code{0.1} into a fraction exactly as it is stored, and \code{print(Fraction(0.1))} displays
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 3602879701896397/36028797018963968
@@ -28,4 +28,4 @@ Two details deserve attention. First, dividing one ordinary integer by another w
 \end{minipage}\par
 The denominator is $2^{55}$, and this fraction is close to one tenth but not equal to it.
 
-The experiments of Section~\ref{appD:sec:experiments} keep every comparison exact. The sign-sequence counts use only integers, and the iteration uses fractions; decimals appear only when a result is displayed. Exact arithmetic removes one source of doubt, but not every source. It cannot tell you whether a loop runs over exactly the objects you intended, or whether the program computes the quantity that the text defines. To answer those questions, read the code against the definitions, as Section~\ref{appD:sec:experiments} does for each program.
+The experiments of Section~\ref{appD:sec:experiments} keep every comparison exact: the sign-sequence counts use only integers, the iteration uses fractions, and decimals appear only when a result is displayed.

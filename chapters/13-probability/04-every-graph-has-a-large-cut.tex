@@ -1,5 +1,5 @@
 \section{Every graph has a large cut}\label{ch13:sec:cut}
-Suppose the students of a class are to be split between two rooms, and some pairs of students are known to chat a lot. We would like as many chatty pairs as possible to end up in different rooms. In the language of Chapter~\ref{ch:graphs}, the students are the vertices of a graph, the chatty pairs are its edges, and we want to divide the vertices into two groups so that many edges run between the groups.
+Suppose a class is to be split between two rooms so that as many pairs of chatty students as possible end up in different rooms. In the language of Chapter~\ref{ch:graphs}, with the students as vertices and the chatty pairs as edges, we want to divide the vertices into two groups with many edges running between them.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{definition}[Cut]\label{ch13:def:cut}
@@ -7,9 +7,9 @@ Let $V$ be the vertex set of a graph. A \emph{cut} of the graph is a pair of set
 \end{definition}
 \end{minipage}\par
 
-The letters $L$ and $R$ suggest ``left'' and ``right.'' One of the two sets is allowed to be empty. Take the example graph $G$ of Section~\ref{ch07:sec:graph}, with edges $ab$, $bc$, $ca$, and $cd$. For the cut $L=\{a,d\}$, $R=\{b,c\}$, the edges $ab$, $ca$, and $cd$ cross and $bc$ does not, so the cut has size $3$. The cut $L=\{a,b,c,d\}$, $R=\varnothing$ has size $0$. No cut of $G$ has size $4$. For that, the three edges $ab$, $bc$, and $ca$ would all have to cross. But if $ab$ and $bc$ cross, then $a$ and $c$ both lie on the side opposite to $b$, so they lie on the same side, and $ca$ does not cross.
+The letters $L$ and $R$ suggest ``left'' and ``right''; one of them may be empty. In the example graph $G$ of Section~\ref{ch07:sec:graph}, with edges $ab$, $bc$, $ca$, and $cd$, the cut $L=\{a,d\}$, $R=\{b,c\}$ has size $3$, since only $bc$ does not cross, and the cut $L=\{a,b,c,d\}$, $R=\varnothing$ has size $0$. No cut of $G$ has size $4$, since then $ab$, $bc$, and $ca$ would all cross; but if $ab$ and $bc$ cross, then $a$ and $c$ both lie on the side opposite to $b$, hence on the same side, and $ca$ does not cross.
 
-In a small graph like $G$, we can find a largest cut by trying every possibility. For large graphs this is hopeless. Each vertex can go to either side, so a graph with $100$ vertices has $2^{100}$ cuts. Since $2^{10}=1024$ is more than $10^3$, the number $2^{100}=(2^{10})^{10}$ is more than $(10^3)^{10}=10^{30}$. In fact, finding a cut of the largest possible size is a famously hard problem: no fast method is known that works for every graph. The following theorem asks for less, and an averaging argument proves it in a few lines.
+In a small graph we can find a largest cut by trying every possibility. But each vertex can go to either side, so a graph with $100$ vertices has $2^{100}=(2^{10})^{10}>(10^3)^{10}=10^{30}$ cuts, and no fast method is known that finds a largest cut in every graph. The following theorem asks for less, and an averaging argument proves it in a few lines.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{theorem}\label{thm:cut}
@@ -17,13 +17,13 @@ Every graph with $m$ edges has a cut of size at least $m/2$.
 \end{theorem}
 \end{minipage}\par
 
-\noindent\textit{Plan.} Put each vertex on the left or on the right by tossing a fair coin for it, independently of the other vertices. Count the crossing edges with indicators, find the expected number of crossing edges by linearity, and then use the fact that some outcome is at least the average.
+\noindent\textit{Plan.} Put each vertex on the left or on the right by tossing a fair coin for it. Count the crossing edges with indicators, find their expected number by linearity, and use the fact that some outcome is at least the average.
 \begin{proof}
-Let $V$ be the vertex set, $E$ the edge set, and $n=|V|$. We use the model of independent fair labels from Section~\ref{ch13:sec:model}. An outcome is a labeling that gives each vertex the label $0$ or $1$, and each of the $2^n$ labelings has probability $1/2^n$. Each labeling determines a cut: $L$ is the set of vertices labeled $0$, and $R$ is the set of vertices labeled $1$.
+Let $V$ be the vertex set, $E$ the edge set, and $n=|V|$. We use the model of independent fair labels from Section~\ref{ch13:sec:model}: an outcome is a labeling that gives each vertex the label $0$ or $1$, and each of the $2^n$ labelings has probability $1/2^n$. Each labeling determines a cut: $L$ is the set of vertices labeled $0$, and $R$ is the set of vertices labeled $1$.
 
-Fix an edge $e=uv$, and let $A_e$ be the event that $u$ and $v$ get different labels, that is, that $e$ crosses the cut. The endpoints $u$ and $v$ are two different vertices. So, by the rule for independent fair labels with $k=2$, each of the four possible label pairs for $u$ and $v$, namely $(0,0)$, $(0,1)$, $(1,0)$, and $(1,1)$, has probability $1/4$. Exactly two of these pairs, $(0,1)$ and $(1,0)$, consist of different labels. The labelings that give $u$ and $v$ these two pairs form two disjoint events, so $\Prob(A_e)=\tfrac14+\tfrac14=\tfrac12$.
+Fix an edge $e=uv$, and let $A_e$ be the event that $e$ crosses the cut, that is, that $u$ and $v$ get different labels. Since $u$ and $v$ are different vertices, the rule for independent fair labels with $k=2$ shows that $u$ and $v$ get the labels $0,1$ with probability $1/4$, and the labels $1,0$ with probability $1/4$. These two events are disjoint and make up $A_e$, so $\Prob(A_e)=\tfrac14+\tfrac14=\tfrac12$.
 
-Let $X$ be the size of the cut, viewed as a random variable on the labelings. At each labeling, $X$ counts the edges whose endpoints have different labels, so
+Let $X$ be the size of the cut, viewed as a random variable on the labelings. At each labeling, $X$ counts the crossing edges, so
 \[
 X=\sum_{e\in E}I_{A_e}.
 \]
@@ -34,10 +34,8 @@ By linearity of expectation and $\E I_{A_e}=\Prob(A_e)$,
 By Proposition~\ref{ch13:prop:above-average}, some labeling satisfies $X\ge\E X=m/2$. The cut determined by that labeling has at least $m/2$ crossing edges.
 \end{proof}
 
-For a graph with no edges, the theorem holds for a simple reason: then $m/2=0$, and every cut has size at least $0$.
+The expected size of the cut is $m/2$, but labeling every vertex $0$ gives a cut of size $0$: the argument guarantees only that \emph{some} labeling does at least as well as the average. Confusing this with a claim about every labeling is a common mistake; watch for it whenever you, or an AI assistant, summarize such a proof.
 
-The expected size of the cut is $m/2$, but this does not mean that every labeling gives a cut of size about $m/2$. Labeling every vertex $0$ gives a cut of size $0$, and that labeling is one of the possible outcomes. The argument guarantees only that \emph{some} labeling does at least as well as the average. Confusing these two statements is a common mistake in probabilistic arguments; watch for it whenever you, or an AI assistant, summarize such a proof.
+The proof used independence only to find $\Prob(A_e)=1/2$ for a single edge; it never asked how the crossing events of different edges are related, and they can be closely linked. In the \emph{triangle}, the graph with vertices $a$, $b$, $c$ and edges $ab$, $bc$, $ca$, the three edges never all cross, as we saw for $G$, although each crosses with probability $1/2$; if each edge had a separate fair coin of its own, all three would cross with probability $1/8$. Yet the expected number of crossing edges is still $3/2$.
 
-The proof used the independence of the labels only once, to find $\Prob(A_e)=1/2$ for a single edge. It never asked how the crossing events of different edges are related, and they can be closely linked. Consider the \emph{triangle}, the graph with three vertices $a$, $b$, $c$ and the three edges $ab$, $bc$, $ca$. As we saw for the example graph $G$, these three edges can never all cross. So the event that all three cross has probability $0$, although each edge crosses with probability $1/2$. If each edge crossed or not according to a separate fair coin of its own, all three would cross with probability $(1/2)^3=1/8$. Linearity of expectation needs none of this information: the expected number of crossing edges is still $1/2+1/2+1/2=3/2$.
-
-The size of a cut is an integer. So when $m$ is odd, a cut of size at least $m/2$ actually has size at least $(m+1)/2$, the smallest integer that is at least $m/2$. For the triangle, $m=3$, and the theorem gives a cut of size at least $2$. Putting one vertex on one side and the other two on the other side gives exactly $2$, and we have just seen that no cut of the triangle has size $3$.
+Since cut sizes are integers, for odd $m$ the theorem gives a cut of size at least $(m+1)/2$. For the triangle this is $2$, the best possible.

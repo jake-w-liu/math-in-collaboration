@@ -1,5 +1,5 @@
 \section{The theorem and its dependency map}\label{ch12:sec:theorem}
-The theorem below says that these two conditions rule out all four failures of Section~\ref{ch12:sec:iteration}, as long as the space is nonempty and complete. The theorem is also known as Banach's fixed-point theorem, after the Polish mathematician Stefan Banach (1892--1945), who published it in 1922.
+The theorem below says that these two conditions rule out the failures of Section~\ref{ch12:sec:iteration}, provided the space is nonempty and complete. It is also known as Banach's fixed-point theorem, after the Polish mathematician Stefan Banach (1892--1945), who published it in 1922.
 \par\noindent\begin{minipage}{\linewidth}
 \begin{theorem}[Contraction theorem]\label{thm:banach}
 Let $(X,d)$ be a nonempty complete metric space, and let $T:X\to X$ be a contraction with factor $q$, where $0\le q<1$. Then the following hold.
@@ -17,37 +17,37 @@ d(z,x_*)\le\frac{d(z,Tz)}{1-q}.
 \end{theorem}
 \end{minipage}\par
 
-Section~\ref{ch01:sec:algebra} agreed that $a^0=1$ for every nonzero number $a$. In this chapter we extend this agreement and read $q^0$ as $1$ even when $q=0$. So for $n=0$ the bound \eqref{eq:apriori} reads $d(x_0,x_*)\le d(x_1,x_0)/(1-q)$.
+Section~\ref{ch01:sec:algebra} agreed that $a^0=1$ for every nonzero number $a$; in this chapter we read $q^0$ as $1$ even when $q=0$, so that \eqref{eq:apriori} makes sense for $n=0$.
 
 \subsection*{Four separate promises}
-The theorem makes four promises, and each of them needs its own argument.
+The theorem makes four promises, each needing its own argument.
 \begin{itemize}
 \item \emph{Existence}: some point of $X$ is left unchanged by $T$.
 \item \emph{Uniqueness}: no two different points are left unchanged by $T$.
 \item \emph{Convergence}: from every starting point, the iterates approach the fixed point.
 \item \emph{Error bounds}: after finitely many steps, we can say how far we still are from the fixed point, even though we do not know where it is.
 \end{itemize}
-For a general map, the first two promises do not follow from each other, and even together they do not give the third. The examples of Section~\ref{ch12:sec:iteration} show this. The map $x\mapsto x^2$ on $[0,1]$ has fixed points, but more than one. The map $x\mapsto x/2$ on $(0,1)$ has at most one fixed point, but only because it has none at all; as Section~\ref{ch04:sec:unique} pointed out, ``at most one'' is also true when there are no solutions. The map $x\mapsto1-x$ on $\RR$ has exactly one fixed point, since $1-x=x$ forces $x=1/2$, yet its iterates from $x_0=0$ jump between $0$ and $1$ forever. The fourth promise asks for still more than convergence: a bound on the remaining error that we can compute after finitely many steps.
+For a general map, the first two promises do not follow from each other, and even together they do not give the third. The examples of Section~\ref{ch12:sec:iteration} show this: $x\mapsto x^2$ on $[0,1]$ has fixed points, but more than one; $x\mapsto x/2$ on $(0,1)$ has at most one, but only because it has none; and $x\mapsto1-x$ on $\RR$ has exactly one, yet its iterates from $x_0=0$ never approach it.
 
-\pauseq{The map $T(x)=1-x$ on $\RR$ has a fixed point, but its iterates from $x_0=0$ do not converge. Which hypothesis of Theorem~\ref{thm:banach} does it fail?}{The space $\RR$ is nonempty and complete, and $T$ maps $\RR$ to itself. The contraction inequality is what fails. For all real $x$ and $y$, $|T(x)-T(y)|=|(1-x)-(1-y)|=|y-x|=|x-y|$, so $T$ never shrinks a distance at all. A factor $q<1$ would require $|x-y|\le q|x-y|$, which is false whenever $x\ne y$.}
+\pauseq{The map $T(x)=1-x$ on $\RR$ has a fixed point, but its iterates from $x_0=0$ do not converge. Which hypothesis of Theorem~\ref{thm:banach} does it fail?}{The space $\RR$ is nonempty and complete, and $T$ maps $\RR$ to itself. The contraction inequality is what fails: $|T(x)-T(y)|=|(1-x)-(1-y)|=|x-y|$, so $T$ never shrinks a distance, and no factor $q<1$ works.}
 
 \subsection*{Two ways to measure the error}
-The \emph{error} of a point $z\in X$ is its distance $d(z,x_*)$ from the fixed point. The last two parts of the theorem answer the practical question ``how large is the error?'' in two different ways.
+The \emph{error} of a point $z\in X$ is its distance $d(z,x_*)$ from the fixed point. Parts~2 and~3 of the theorem bound it in two ways.
 
-The bound \eqref{eq:apriori} is called the \emph{a priori estimate}, from the Latin for ``from what comes before.'' It uses only the factor $q$ and the length $d(x_1,x_0)$ of the first step. So after a single step, before the rest of the iteration has been computed, it tells us how many steps will be enough for a desired accuracy.
+The bound \eqref{eq:apriori} is called the \emph{a priori estimate}, from the Latin for ``from what comes before.'' It uses only $q$ and the length $d(x_1,x_0)$ of the first step, so after a single step it tells us how many steps will be enough for a desired accuracy.
 
-The bound \eqref{eq:residual} is called the \emph{residual estimate}. The number $d(z,Tz)$ is the \emph{residual} of $z$: it measures how far $z$ is from satisfying the equation $Tz=z$, and it is zero exactly when $z$ is a fixed point. The point $z$ may come from anywhere: it may be an iterate, a guess, or the output of some other method. The residual estimate turns one evaluation of $T$ into a guaranteed upper bound on the error of $z$. A guaranteed bound of this kind, computed from known quantities, is called an \emph{error certificate}.
+The bound \eqref{eq:residual} is called the \emph{residual estimate}. The number $d(z,Tz)$ is the \emph{residual} of $z$: it measures how far $z$ is from satisfying $Tz=z$, and it is zero exactly when $z$ is a fixed point. The point $z$ may be an iterate, a guess, or the output of any other method; one evaluation of $T$ gives a guaranteed upper bound on its error. A guaranteed bound of this kind, computed from known quantities, is called an \emph{error certificate}.
 
-Both bounds divide by $1-q$, which is positive because $q<1$. When $q$ is close to $1$, the factor $1/(1-q)$ is large and the bounds are weak; for $q=0.99$, for instance, it equals $100$. At $q=1$ the bounds would require dividing by zero. Section~\ref{ch12:sec:estimates} shows both bounds at work.
+Both bounds divide by $1-q$, which is positive because $q<1$; when $q$ is close to $1$, the factor $1/(1-q)$ is large and the bounds are weak.
 
 \subsection*{The plan of the proof}
-Here is the whole proof in outline, before the details. Each step names the earlier facts it uses.
+Here is the proof in outline, with the earlier facts that each step uses.
 \begin{enumerate}
-\item \emph{The steps shrink geometrically.} Because $X$ is nonempty, there is a point to start from, and because $T$ maps $X$ into $X$, all the iterates can be formed. The contraction inequality and induction (Chapter~\ref{ch:induction}) then show that the step from $x_n$ to $x_{n+1}$ has length at most $q^n$ times the length of the first step.
-\item \emph{The iterates form a Cauchy sequence.} Proposition~\ref{ch11:prop:geometric-cauchy}, which rests on the triangle inequality and the geometric sum, bounds the distance between any two late iterates.
-\item \emph{A limit exists in $X$.} Completeness (Section~\ref{ch11:sec:complete}) turns the Cauchy sequence into a convergent one. Call its limit $x_*$.
-\item \emph{The limit is a fixed point.} The triangle inequality, the contraction inequality and the definition of convergence show that the distance between $Tx_*$ and $x_*$ is smaller than every positive tolerance, so the two points are equal.
-\item \emph{There is only one fixed point.} The contraction inequality, applied to two fixed points, shows that they coincide. This is the comparison argument of Section~\ref{ch04:sec:unique} in a new setting.
-\item \emph{The error bounds hold.} The triangle inequality, the contraction inequality and the equation $Tx_*=x_*$ from Step~4 give \eqref{eq:residual}. Applied to the iterate $x_n$, together with Step~1, the residual estimate gives \eqref{eq:apriori}.
+\item \emph{The steps shrink geometrically.} Nonemptiness gives a starting point, and the self-map condition lets us form all the iterates. The contraction inequality and induction (Chapter~\ref{ch:induction}) show that the step from $x_n$ to $x_{n+1}$ is at most $q^n$ times as long as the first step.
+\item \emph{The iterates form a Cauchy sequence,} by Proposition~\ref{ch11:prop:geometric-cauchy}, which rests on the triangle inequality and the geometric sum.
+\item \emph{A limit $x_*$ exists in $X$,} by completeness (Section~\ref{ch11:sec:complete}).
+\item \emph{The limit is a fixed point.} The triangle inequality, the contraction inequality and the definition of convergence show that $d(Tx_*,x_*)$ is smaller than every positive tolerance, hence zero.
+\item \emph{There is only one fixed point.} The contraction inequality, applied to two fixed points, shows that they coincide: the comparison argument of Section~\ref{ch04:sec:unique} in a new setting.
+\item \emph{The error bounds hold.} The triangle inequality, the contraction inequality and $Tx_*=x_*$ give \eqref{eq:residual}; applied to $x_n$, together with Step~1, it gives \eqref{eq:apriori}.
 \end{enumerate}
-A list like this, which records what each step of a proof depends on, is a \emph{dependency map} of the proof. It tells you what you need to know before you read the proof, and it shows where each hypothesis is used. Here the prerequisites are induction, the triangle inequality, geometric sums, convergence, Cauchy sequences and completeness, all from Chapters~\ref{ch:induction} and~\ref{ch:limits}. No calculus is needed. Chapter~\ref{ch:bridge} uses dependency maps to approach a proof whose ingredients are not all familiar yet.
+A list like this, which records what each step of a proof depends on, is a \emph{dependency map} of the proof. It tells you what you need to know before reading the proof, and where each hypothesis is used. Here everything comes from Chapters~\ref{ch:induction} and~\ref{ch:limits}; no calculus is needed. Chapter~\ref{ch:bridge} uses dependency maps to approach a proof whose ingredients are not all familiar yet.

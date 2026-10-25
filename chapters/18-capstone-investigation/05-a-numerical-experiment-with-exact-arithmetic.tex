@@ -1,29 +1,29 @@
 \section{A numerical experiment with exact arithmetic}\label{ch18:sec:experiment}
-Now we test the theorem on a concrete example and compute everything exactly. Take $T(x)=(3x+1)/4$ on $\RR$, the map of Exercise~\ref{ex:12.1}. It is a contraction with factor $q=3/4$, because $|T(x)-T(y)|=\frac34|x-y|$, and its fixed point is $1$, because $(3\cdot1+1)/4=1$. Add a bias of $1/100$ at every update:
+To test the theorem on an example computed exactly, take $T(x)=(3x+1)/4$ on $\RR$, the map of Exercise~\ref{ex:12.1}. It is a contraction with factor $q=3/4$, because $|T(x)-T(y)|=\frac34|x-y|$, and its fixed point is $1$. Add a bias of $1/100$ at every update:
 \[
  y_{n+1}=\frac{3y_n+1}{4}+\frac1{100},\qquad y_0=0.
 \]
-Every update error is $\eta=1/100$. Since $\frac{3y_n+1}4+\frac1{100}=\frac34y_n+\frac14+\frac1{100}$ and $\frac14+\frac1{100}=\frac{26}{100}=\frac{13}{50}$, the recurrence can be written as
+Every update error is $\eta=1/100$. Since $\frac14+\frac1{100}=\frac{13}{50}$, the recurrence reads
 \[
  y_{n+1}=\frac34 y_n+\frac{13}{50}.
 \]
-Like $T$ itself, the update multiplies by $3/4$ and then adds a constant. As in Section~\ref{ch18:sec:sharp}, it is therefore a contraction in its own right, with factor $3/4$. Its fixed point $p$ solves $p=\frac34p+\frac{13}{50}$, so $\frac14p=\frac{13}{50}$ and $p=\frac{26}{25}$. As in Section~\ref{ch05:sec:recurrence}, where we tracked the difference between each term and the fixed point instead of the term itself, put $z_n=y_n-\frac{26}{25}$. Subtracting the equation $\frac{26}{25}=\frac34\cdot\frac{26}{25}+\frac{13}{50}$ from the recurrence gives
+This biased update has its own fixed point $p$: the equation $p=\frac34p+\frac{13}{50}$ gives $p=\frac{26}{25}$. As in Section~\ref{ch05:sec:recurrence}, we track the difference from it: put $z_n=y_n-\frac{26}{25}$. Subtracting the equation $\frac{26}{25}=\frac34\cdot\frac{26}{25}+\frac{13}{50}$ from the recurrence gives
 \[
- z_{n+1}=\frac34 z_n,\qquad z_0=0-\frac{26}{25}=-\frac{26}{25},
+ z_{n+1}=\frac34 z_n,\qquad z_0=-\frac{26}{25},
 \]
-so $z_n=-\frac{26}{25}\left(\frac34\right)^n$ by induction. (This is the formula of Exercise~\ref{ex:12.5}, with $a=3/4$ and $b=13/50$, whose fixed point is $26/25$.) Therefore
+so $z_n=-\frac{26}{25}\left(\frac34\right)^n$ by induction (this is the formula of Exercise~\ref{ex:12.5}, with $a=3/4$ and $b=13/50$). Therefore
 \[
  y_n=\frac{26}{25}\left(1-\left(\frac34\right)^n\right)\qquad\text{for every }n\in\NN.
 \]
-A formula like this, which gives $y_n$ directly from $n$ without computing the earlier points, is called a \emph{closed form} for $y_n$. Since $(3/4)^n\to0$, the points converge to $26/25$, not to the fixed point $1$ of $T$.
+Such a formula, which gives $y_n$ directly from $n$ without computing the earlier points, is called a \emph{closed form}. Since $(3/4)^n\to0$, the points converge to $26/25$, not to the fixed point $1$ of $T$.
 
-To apply Theorem~\ref{thm:inexact}, note that the starting error is $e_0=|0-1|=1$, the contraction factor is $q=3/4$, and every update error is at most $\eta=1/100$, so that $\eta/(1-q)=(1/100)/(1/4)=1/25$. Part~2 of the theorem gives a guaranteed bound computed from known quantities, an \emph{error certificate} in the sense of Section~\ref{ch12:sec:theorem}:
+In Theorem~\ref{thm:inexact} we have $e_0=|0-1|=1$, $q=3/4$ and $\eta=1/100$, so $\eta/(1-q)=1/25$, and part~2 gives a guaranteed bound computed from known quantities, an \emph{error certificate} in the sense of Section~\ref{ch12:sec:theorem}:
 \[
  \abs{y_n-1}\le
  \left(\frac34\right)^n+
  \frac1{25}\left(1-\left(\frac34\right)^n\right)\qquad\text{for every }n\in\NN.
 \]
-(Part~2 gives this for $n\ge1$; at $n=0$ it reads $1\le1$.) The closed form gives the true error exactly: $y_n-1=\frac1{25}-\frac{26}{25}\left(\frac34\right)^n$. The table compares the two. At $n=0$ the true error equals the certificate, and in every later row it is strictly smaller. The entries are exact fractions, rounded to four decimal places for display, so some certificates are shown rounded down, for instance $0.13610\ldots$ as $0.1361$. A certificate that is to be used as a guarantee must be rounded up instead, as Section~\ref{ch12:sec:example} explained. (The certificate at $n=4$ is exactly $11/32=0.34375$, halfway between $0.3437$ and $0.3438$; it is shown as $0.3438$.)
+(Part~2 gives this for $n\ge1$; at $n=0$ it reads $1\le1$.) The closed form gives the true error exactly: $y_n-1=\frac1{25}-\frac{26}{25}\left(\frac34\right)^n$. The table compares the two, rounded to four decimal places. Some certificates therefore appear rounded down, such as $0.13610\ldots$ as $0.1361$; a certificate used as a guarantee must be rounded up instead (Section~\ref{ch12:sec:example}).
 \begin{center}
 \begin{tabular}{@{}rrrr@{}}\toprule
 $n$ & $y_n$ & true error $|y_n-1|$ & certificate\\\midrule
@@ -39,37 +39,25 @@ $n$ & $y_n$ & true error $|y_n-1|$ & certificate\\\midrule
 30 & 1.0398 & 0.0398 & 0.0402\\\bottomrule
 \end{tabular}
 \end{center}
-The true error first decreases, reaching its smallest value, about $0.0039$, at $n=11$. Between $n=11$ and $n=12$ the points pass the fixed point $1$, and from then on the error grows again, towards $1/25=0.04$. Someone who stopped at $n=11$ would be tempted to conclude that the iteration converges to $1$. The closed form shows that the points overshoot $1$ and settle at $26/25$. The theorem adds something that no table can: before any computing, it guarantees that the error never exceeds the certificate.
+The true error first decreases, to about $0.0039$ at $n=11$. Between $n=11$ and $n=12$ the points pass the fixed point $1$, and from then on the error grows again, towards $1/25=0.04$. Someone who stopped at $n=11$ might conclude that the iteration converges to $1$; the closed form shows that the points overshoot and settle at $26/25$. The theorem adds something no table can: before any computing, it guarantees that the error never exceeds the certificate.
 
-The last program in Section~\ref{appD:sec:experiments} of Appendix~\ref{app:practical} carries out this experiment with exact fractions. For each $n$ from $0$ to $20$, it computes $y_n$, checks the closed form, checks that the true error is at most the certificate, and prints the true error and the certificate, rounded to four decimal places. Because the arithmetic is exact, the checks themselves involve no rounding. Changing \code{range(21)} to \code{range(31)} in the program extends the run to $n=30$, the last row of the table.
+The last program in Section~\ref{appD:sec:experiments} of Appendix~\ref{app:practical} checks the closed form and the certificate in exact fractions for $n=0,\ldots,20$; changing \code{range(21)} to \code{range(31)} extends the run to $n=30$.
 
-Changing the pattern of the update errors gives further experiments, again starting from $y_0=0$. With errors of alternating sign, $y_{n+1}=\frac{3y_n+1}{4}+\frac{(-1)^n}{100}$, the computed points soon jump back and forth around $1$: those with even $n$ appear to approach $1-\frac1{175}$, and those with odd $n$ appear to approach $1+\frac1{175}$. To see where $\frac1{175}$ comes from, suppose the even-indexed points settle at $1+u$ and the odd-indexed ones at $1+v$. An update from an even index adds $\frac1{100}$, and one from an odd index subtracts it, so
-\[
- 1+v=\frac{3(1+u)+1}{4}+\frac1{100}
- \qquad\text{and}\qquad
- 1+u=\frac{3(1+v)+1}{4}-\frac1{100},
-\]
-that is, $v=\frac34u+\frac1{100}$ and $u=\frac34v-\frac1{100}$. Substituting the first equation into the second gives $u=\frac9{16}u+\frac3{400}-\frac1{100}$, so $\frac7{16}u=-\frac1{400}$ and $u=-\frac1{175}$; then $v=-\frac3{700}+\frac1{100}=\frac1{175}$. This calculation assumes that the points settle; it does not prove that they do.
+Other patterns of update errors give further experiments, again from $y_0=0$. With alternating signs, $y_{n+1}=\frac{3y_n+1}{4}+\frac{(-1)^n}{100}$, the computed points soon jump back and forth around $1$: those with even $n$ appear to approach $1-\frac1{175}$, those with odd $n$ to approach $1+\frac1{175}$. To see where $\frac1{175}$ comes from, suppose the even-indexed points settle at $1+u$ and the odd-indexed ones at $1+v$. Since $T(1+u)=1+\frac34u$, and an update from an even index adds $\frac1{100}$ while one from an odd index subtracts it, this gives $v=\frac34u+\frac1{100}$ and $u=\frac34v-\frac1{100}$. Substituting the first equation into the second gives $u=\frac9{16}u+\frac3{400}-\frac1{100}$, so $\frac7{16}u=-\frac1{400}$ and $u=-\frac1{175}$; then $v=-\frac3{700}+\frac1{100}=\frac1{175}$. This calculation assumes that the points settle; it does not prove that they do.
 
-With update errors that tend to zero, such as $\frac1{100(n+1)}$ at step $n$, the points converge to $1$. Now compare the three patterns, constant, alternating and shrinking, with what Theorem~\ref{thm:inexact} promises. All three have update errors at most $1/100$, so the certificate above holds in each case. The theorem guarantees convergence to $1$ only for the shrinking errors, through part~3. For the alternating errors it says nothing either way about convergence: a computation can suggest the answer, but only a separate argument can prove it.
+With update errors that tend to zero, such as $\frac1{100(n+1)}$ at step $n$, the points converge to $1$. All three patterns, constant, alternating and shrinking, have update errors at most $1/100$, so the certificate holds for each, but Theorem~\ref{thm:inexact} guarantees convergence to $1$ only for the shrinking errors. For the alternating errors it says nothing either way about convergence: a computation can suggest the answer, but only a separate argument can prove it.
 
 \subsection*{Sharp, but not always attained}
-Section~\ref{ch18:sec:sharp} showed that the factor $1/(1-q)$ is sharp. The present example forces this factor too. Here $e_0=1$, so a bound with a smaller factor $K<1/(1-q)$ would read $e_n\le t+K\eta$, where $t=(3/4)^n$. Since $|s|\ge s$ for every real number $s$, the closed form gives $e_n=|y_n-1|\ge\frac1{25}-\frac{26}{25}t$. This lower bound exceeds $t+K\eta$ exactly when $\frac{51}{25}t<\frac1{25}-K\eta$. The right side is positive, because $K\eta<\eta/(1-q)=\frac1{25}$, and $t\to0$. So from some index on, the errors are larger than the proposed bound.
-
-Sharpness does not mean that the certificate equals the true error in every example. Here it does not, at any step after the start. Written out, the certificate is
-\[
- \left(\frac34\right)^n+\frac1{25}-\frac1{25}\left(\frac34\right)^n=\frac1{25}+\frac{24}{25}\left(\frac34\right)^n,
-\]
-while the true error is $\bigl|\frac1{25}-\frac{26}{25}\bigl(\frac34\bigr)^n\bigr|$. For $n\ge1$ the certificate is strictly larger. To check this, write $t=(3/4)^n$, so that $0<t<1$. If $y_n\le1$, the true error is $\frac{26}{25}t-\frac1{25}$, and the certificate exceeds it by $\frac2{25}(1-t)>0$. If $y_n>1$, the true error is $\frac1{25}-\frac{26}{25}t$, and the certificate exceeds it by $2t>0$. The reason for the gap becomes visible when the true error is split into its two sources:
+Sharpness does not mean that the certificate equals the true error in every example; here it does so only at $n=0$. To see why, split the true error into its two sources:
 \[
  y_n-1=-\left(\frac34\right)^n+\frac1{25}\left(1-\left(\frac34\right)^n\right).
 \]
-The first term is what remains of the starting error. It is negative, because $y_0=0$ lies below the fixed point $1$. The second term is the accumulated bias. It is positive, because the bias pushes upward. The two terms partly cancel. The certificate was obtained with the triangle inequality, which ignores signs and simply adds the sizes of the two terms. A bound that is larger than the true error in a particular example is called \emph{conservative} for that example.
+The first term, what remains of the starting error, is negative, because $y_0=0$ lies below $1$. The second, the accumulated bias, is positive for $n\ge1$, because the bias pushes upward. The certificate is exactly the sum of their sizes, because the triangle inequality ignores signs. For $n\ge1$ the two terms have opposite signs and partly cancel, so the true error is strictly smaller than the certificate. A bound that is larger than the true error in a particular example is called \emph{conservative} for that example.
 
-So a bound can be sharp for a whole class of examples and still be conservative for one particular member of the class. For a smaller class with extra structure, a better bound may be possible. This suggests a precise next question: which extra assumption would rule out the examples that force the factor $1/(1-q)$, and what is the best factor under that assumption? The alternating errors above suggest one assumption worth studying: their points appear to settle only $\frac1{175}$ away from $1$, far less than the $\frac1{25}$ that the certificate allows, because errors of opposite signs partly cancel.
+So a bound can be sharp for a whole class and still be conservative for one of its members, and for a smaller class with extra structure a better bound may be possible. Which extra assumption rules out the examples that force the factor $1/(1-q)$, and what is the best factor under it? The alternating errors suggest a candidate: their points appear to settle only $\frac1{175}$ away from $1$, not $\frac1{25}$, because errors of opposite signs partly cancel.
 
-Alternating signs alone are not enough, however; the assumption must also say something about the map. Take $T(x)=-qx$ on $\RR$. It is a contraction with factor $q$, since $|(-qx)-(-qy)|=q|x-y|$, and its fixed point is $0$, since $-qx=x$ gives $(1+q)x=0$. It sends every nonzero point to the other side of $0$. Start from $y_0=0$ and let the update errors alternate: $y_{n+1}=-qy_n+(-1)^n\eta$ with $\eta>0$, so that $|y_{n+1}-T(y_n)|=\eta$ at every step. Put $w_n=(-1)^ny_n$, and multiply the recurrence by $(-1)^{n+1}$. Since $(-1)^{n+1}\cdot(-q)y_n=q(-1)^ny_n$ and $(-1)^{n+1}(-1)^n=(-1)^{2n+1}=-1$, this gives $(-1)^{n+1}y_{n+1}=q(-1)^ny_n-\eta$, that is,
+Alternating signs alone are not enough, however; the assumption must also say something about the map. Take $T(x)=-qx$ on $\RR$, a contraction with factor $q$ and fixed point $0$ that sends every nonzero point to the other side of $0$. Let $\eta>0$, $y_0=0$ and $y_{n+1}=-qy_n+(-1)^n\eta$, so that the update errors are $\eta$ with alternating signs. Put $w_n=(-1)^ny_n$ and multiply the recurrence by $(-1)^{n+1}$; since $(-1)^{n+1}(-q)y_n=qw_n$ and $(-1)^{n+1}(-1)^n=-1$, this gives
 \[
  w_{n+1}=qw_n-\eta,\qquad w_0=0.
 \]
-This is the constant-bias iteration of Section~\ref{ch18:sec:sharp}, with $-\eta$ in place of $\eta$, so $w_n=-\eta(1-q^n)/(1-q)$. Hence $e_n=|y_n|=|w_n|=\eta(1-q^n)/(1-q)$, and part~2 of Theorem~\ref{thm:inexact} holds with equality at every step. From the second update on, each update error has the same sign as $T(y_n)$, so it pushes the point further away from $0$, and nothing cancels.
+This is the constant-bias iteration of Section~\ref{ch18:sec:sharp} with $-\eta$ in place of $\eta$, so $w_n=-\eta(1-q^n)/(1-q)$. Hence $e_n=|y_n|=|w_n|=\eta(1-q^n)/(1-q)$, and part~2 holds with equality at every step. From the second update on, each update error has the same sign as $T(y_n)$, so it pushes the point further from $0$, and nothing cancels.

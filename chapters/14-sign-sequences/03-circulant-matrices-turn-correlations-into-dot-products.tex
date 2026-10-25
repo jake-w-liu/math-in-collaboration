@@ -1,5 +1,5 @@
 \section{Circulant matrices turn correlations into dot products}\label{ch14:sec:circulant}
-The periodic correlations of a sequence can be read off from a matrix. Write the sequence $a$ as the first row. Obtain each further row from the one above it by moving every entry one place to the right, with the last entry wrapping around to the front. After $n$ rows, one more step would bring back the first row, so we stop there and have an $n$-by-$n$ matrix. To match the positions in the sequence, we number its rows and columns from $0$ to $n-1$, rather than from $1$ to $n$ as in Chapter~\ref{ch:linear}.
+Periodic correlations can be read off from a matrix. Write the sequence $a$ as the first row, and obtain each further row from the one above it by moving every entry one place to the right, the last entry wrapping around to the front. One more step after $n$ rows would bring back the first row, so we stop with an $n$-by-$n$ matrix, its rows and columns numbered from $0$ to $n-1$ (not from $1$ to $n$ as in Chapter~\ref{ch:linear}).
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{definition}[Circulant matrix]\label{ch14:def:circulant}
@@ -11,7 +11,7 @@ A matrix of this form is called \emph{circulant}.
 \end{definition}
 \end{minipage}\par
 
-Row $i$ is the sequence rotated $i$ places to the right. Such a rotation moves the entry at position $k$ to position $(k+i)\bmod n$. So the entry that lands in column $j$ is the one that started at position $j-i$, or at position $j-i+n$ if $j-i$ is negative; in both cases that position is $(j-i)\bmod n$. For instance, in row $1$ the entry in column $0$ is $a_{(0-1)\bmod n}=a_{n-1}$, because $-1=(-1)\cdot n+(n-1)$, so the remainder of $-1$ on division by $n$ is $n-1$ (remainders are never negative, Section~\ref{ch05:sec:euclid}). The last entry of the sequence has wrapped around to the front. Row $0$ is the sequence itself, because $H_{0j}=a_{j\bmod n}=a_j$. So every circulant matrix is the circulant matrix of its own first row. For our length-four example $a=(1,1,1,-1)$,
+Row $i$ is the sequence rotated $i$ places to the right. Such a rotation moves position $k$ to $(k+i)\bmod n$, so the entry in column $j$ started at position $j-i$, or $j-i+n$ if $j-i$ is negative; in both cases that is $(j-i)\bmod n$. For instance, in row $1$ the entry in column $0$ is $a_{(0-1)\bmod n}=a_{n-1}$, because $-1=(-1)\cdot n+(n-1)$ and remainders are never negative (Section~\ref{ch05:sec:euclid}). Row $0$ is the sequence itself, because $H_{0j}=a_j$, so every circulant matrix is the circulant matrix of its own first row. For $a=(1,1,1,-1)$,
 \[
 H=\begin{pmatrix}
 1&1&1&-1\\
@@ -21,20 +21,20 @@ H=\begin{pmatrix}
 \end{pmatrix}.
 \]
 
-As $j$ runs through $0,1,\ldots,n-1$, the index $(j-i)\bmod n$ also runs through $0,1,\ldots,n-1$, each value exactly once, only starting at a different place. For instance, with $n=4$ and $i=1$, the columns $j=0,1,2,3$ give the indices $3,0,1,2$. In the language of Section~\ref{ch03:sec:injsurj}, the map $j\mapsto(j-i)\bmod n$ is a bijection from $\{0,1,\ldots,n-1\}$ to itself, and its inverse is $k\mapsto(k+i)\bmod n$. To check that these two maps undo each other, start with a number $j$ in the list. Every integer is congruent modulo $n$ to its remainder on division by $n$ (Section~\ref{ch06:sec:residues}), so $(j-i)\bmod n\equiv j-i\pmod n$, and adding $i$ gives a number congruent to $j$. Congruent integers have the same remainder, and the remainder of $j$ is $j$ itself, because $j$ already lies in the list $0,1,\ldots,n-1$. Hence $\bigl((j-i)\bmod n+i\bigr)\bmod n=j$. In the same way, $\bigl((k+i)\bmod n-i\bigr)\bmod n=k$ for every $k$ in the list. So each row of $H$ contains every entry of $a$ exactly once, in a rotated order. In particular, every row has squared length $a_0^2+a_1^2+\cdots+a_{n-1}^2=n$.
+As $j$ runs through $0,1,\ldots,n-1$, the index $(j-i)\bmod n$ also runs through $0,1,\ldots,n-1$, each value exactly once; with $n=4$ and $i=1$, the columns $j=0,1,2,3$ give the indices $3,0,1,2$. In the language of Section~\ref{ch03:sec:injsurj}, the map $j\mapsto(j-i)\bmod n$ is a bijection from $\{0,1,\ldots,n-1\}$ to itself, with inverse $k\mapsto(k+i)\bmod n$. Indeed, $(j-i)\bmod n+i$ is congruent to $j$ modulo $n$ (Section~\ref{ch06:sec:residues}), so it has the same remainder as $j$, which is $j$ itself because $0\le j\le n-1$; the other composition works in the same way. So each row of $H$ contains every entry of $a$ exactly once, and has squared length $a_0^2+\cdots+a_{n-1}^2=n$.
 
 \subsection*{Dot products of rows are periodic correlations}
-Now compare two rows of $H$, row $i$ and row $\ell$. Their dot product (Section~\ref{ch10:sec:inner}) is
+The dot product (Section~\ref{ch10:sec:inner}) of row $i$ with row $\ell$ is
 \[
  \sum_{j=0}^{n-1}a_{(j-i)\bmod n}\,a_{(j-\ell)\bmod n}.
 \]
-For example, when $n=4$, row $0$ is $(a_0,a_1,a_2,a_3)$ and row $1$ is $(a_3,a_0,a_1,a_2)$, so their dot product is $a_0a_3+a_1a_0+a_2a_1+a_3a_2$. This is exactly $C_3$ as written out in Section~\ref{ch14:sec:periodic}. The calculation below shows that the dot product of any two rows is a periodic correlation in the same way.
+For example, when $n=4$, row $0$ is $(a_0,a_1,a_2,a_3)$ and row $1$ is $(a_3,a_0,a_1,a_2)$, so their dot product is $a_0a_3+a_1a_0+a_2a_1+a_3a_2$, which is exactly $C_3$ as written out in Section~\ref{ch14:sec:periodic}. For the matrix $H$ above it is $-1+1+1-1=0$.
 
-To simplify the general sum, rename the summation index: put $k=(j-i)\bmod n$. We have just seen that $k$ runs through $0,1,\ldots,n-1$, each value once, as $j$ does. So we may sum over $k$ instead of $j$; the terms are the same, only listed in a different order. The second factor must also be written in terms of $k$. As in the check above, $k\equiv j-i\pmod n$, and therefore
+In general, put $k=(j-i)\bmod n$. By the bijection above, we may sum over $k$ instead of $j$: the terms are the same, in a different order. For the second factor, $k\equiv j-i\pmod n$ gives
 \[
  j-\ell=(j-i)+(i-\ell)\equiv k+(i-\ell)\pmod n.
 \]
-Congruent integers have the same remainder on division by $n$ (Section~\ref{ch06:sec:residues} again), so $(j-\ell)\bmod n=(k+i-\ell)\bmod n$. Now let $s=(i-\ell)\bmod n$. Then $s\equiv i-\ell\pmod n$, so $(k+i-\ell)\bmod n=(k+s)\bmod n$ for the same reason, and the dot product becomes
+Congruent integers have the same remainder, so $(j-\ell)\bmod n=(k+i-\ell)\bmod n$. Now let $s=(i-\ell)\bmod n$. Then $s\equiv i-\ell\pmod n$, so $(k+i-\ell)\bmod n=(k+s)\bmod n$ for the same reason, and the dot product becomes
 \[
  \sum_{k=0}^{n-1}a_k\,a_{(k+s)\bmod n}=C_s.
 \]
@@ -50,25 +50,16 @@ Let $a$ be a sign sequence of length $n$, and let $H$ be its circulant matrix.
 \end{minipage}\par
 
 \begin{proof}
-Part (a) is the calculation above. For part (b) we need to know which shifts occur in part (a). If $i\ne\ell$, then $i-\ell$ lies between $-(n-1)$ and $n-1$ and is not zero, so it is not a multiple of $n$, and the shift $(i-\ell)\bmod n$ is not zero. Conversely, every shift $s$ with $1\le s\le n-1$ does occur: rows $i=s$ and $\ell=0$ give $(s-0)\bmod n=s$.
-
-Now suppose that $C_s=0$ for every $s$ with $1\le s\le n-1$. By the first observation, the dot product of two different rows is one of these correlations, so it is zero. Conversely, suppose that any two different rows are orthogonal. By the second observation, each $C_s$ with $1\le s\le n-1$ is the dot product of the two different rows $s$ and $0$, so it is zero.
+Part (a) is the calculation above. For part (b), note first that if $i\ne\ell$, then $i-\ell$ lies between $-(n-1)$ and $n-1$ and is not zero, so it is not a multiple of $n$, and the shift $(i-\ell)\bmod n$ is not zero. So by part (a), the dot product of two different rows is some $C_s$ with $1\le s\le n-1$, and if all these $C_s$ are zero, different rows are orthogonal. Conversely, if any two different rows are orthogonal, then each $C_s$ with $1\le s\le n-1$ is zero, because by part (a) it is the dot product of the different rows $i=s$ and $\ell=0$, as $(s-0)\bmod n=s$.
 \end{proof}
 
-\subsection*{Read the matrix identity entry by entry}
-Section~\ref{ch10:sec:product} called a square matrix with entries $\pm1$ a \emph{Hadamard matrix} when it satisfies $HH^{\mathsf T}=nI$, where $n$ is the number of rows. This number is called the \emph{order} of the matrix. As that section showed, the identity $HH^{\mathsf T}=nI$ is really $n^2$ equations between numbers, one for each position $(i,\ell)$: the entry of $HH^{\mathsf T}$ there is the dot product of row $i$ with row $\ell$, and the entry of $nI$ is $n$ if $i=\ell$ and $0$ otherwise. So the diagonal equations say that every row has squared length $n$, and the others say that different rows are orthogonal. For a matrix with entries $\pm1$, the diagonal equations hold automatically, because each row consists of $n$ entries with square one. So such a matrix is a Hadamard matrix exactly when any two different rows are orthogonal.
-
-For the matrix $H$ above, rows $0$ and $1$ have dot product
-\[
-(1)(-1)+(1)(1)+(1)(1)+(-1)(1)=-1+1+1-1=0.
-\]
-By Proposition~\ref{ch14:prop:rows}(a) this is $C_{(0-1)\bmod4}=C_3$, which we computed to be zero in Section~\ref{ch14:sec:periodic}. Row $0$ dotted with itself gives $1+1+1+1=4$. The proposition takes care of all the remaining pairs at once.
-
 \subsection*{Circulant Hadamard matrices}
-A \emph{circulant Hadamard matrix} is a Hadamard matrix that is also circulant. By Proposition~\ref{ch14:prop:rows}(b), the circulant matrix of $a$ is a Hadamard matrix exactly when $C_s(a)=0$ for every shift $s$ with $1\le s\le n-1$. Since every circulant matrix is the circulant matrix of its own first row, we arrive at the following statement:
+Recall from Section~\ref{ch10:sec:product} that a square matrix $H$ with entries $\pm1$ is a \emph{Hadamard matrix} when $HH^{\mathsf T}=nI$, where $n$ is the number of rows; this number $n$ is called the \emph{order} of the matrix. The diagonal entries of this identity say that every row has squared length $n$, which is automatic for entries $\pm1$, and the others say that different rows are orthogonal. So a matrix with entries $\pm1$ is a Hadamard matrix exactly when any two different rows are orthogonal.
+
+A \emph{circulant Hadamard matrix} is a Hadamard matrix that is also circulant. Since every circulant matrix is the circulant matrix of its own first row, Proposition~\ref{ch14:prop:rows}(b) and the previous paragraph give:
 \begin{quote}
 A circulant Hadamard matrix of order $n$ exists exactly when some sign sequence of length $n$ has $C_s=0$ for every shift $s$ with $1\le s\le n-1$.
 \end{quote}
-Our example $(1,1,1,-1)$ has $C_1=C_2=C_3=0$, so the matrix $H$ displayed above is a circulant Hadamard matrix of order four.
+Since $(1,1,1,-1)$ has $C_1=C_2=C_3=0$, the matrix $H$ above is a circulant Hadamard matrix of order four.
 
-Habit~6 (Section~\ref{ch06:sec:order}) asks what a change of description preserves. Here nothing is lost in the translation: a question about the correlations of a sequence and a question about the rows of a matrix have turned out to be the same question in two languages. Each language makes different tools available. The sequence language suggests sums and shifts, while the matrix language suggests dot products and orthogonality. The next section works with sums of correlations, and the one after it with orthogonal rows.
+Habit~6 (Section~\ref{ch06:sec:order}) asks what a change of description preserves. Here nothing is lost: we have the same question in two languages, one suggesting sums and shifts, the other dot products and orthogonality. The next two sections use each in turn.

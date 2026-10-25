@@ -7,11 +7,11 @@ theorem impossible_context (h : False) : (0 : Nat) = 1 := by
 \end{lstlisting}
 \end{minipage}\par
 
-Its conclusion, $0=1$, is false. Yet the theorem is correct, because the conclusion is not all that it says. The parameter \code{h : False} is a hypothesis, and \code{False} is the proposition that is never true, so it has no proof. The theorem says: \emph{if} we had a proof of \code{False}, then $0=1$ would follow. This implication is true for the reason that Section~\ref{ch02:sec:contrapositive} gave for vacuous truth: its hypothesis can never be satisfied. The proof uses the rule \code{False.elim}, which turns a proof of \code{False} into a proof of any proposition whatsoever. Since nobody can ever supply the hypothesis \code{h}, the theorem can never be used to conclude that $0=1$. A reader who looked only at the conclusion would completely misunderstand what was proved.
+Its conclusion, $0=1$, is false, yet the theorem is correct. The hypothesis \code{h : False} asks for a proof of \code{False}, the proposition that is never true, so the theorem says: \emph{if} we had a proof of \code{False}, then $0=1$ would follow. This implication is vacuously true (Section~\ref{ch02:sec:contrapositive}), since its hypothesis can never be satisfied. The proof uses the rule \code{False.elim}, which turns a proof of \code{False} into a proof of any proposition. So the theorem can never be used to conclude $0=1$, and a reader who looked only at the conclusion would misunderstand what was proved.
 
-The same thing can happen less visibly when an assistant ``repairs'' a proof that Lean rejects by changing the statement, most often by adding a hypothesis. The new statement may well be true and its proof correct, and still not be the statement that was asked for. Here are two examples.
+The same thing can happen less visibly when an assistant ``repairs'' a proof that Lean rejects by changing the statement, most often by adding a hypothesis: the new statement may be true and correctly proved, yet not be the one that was asked for. Here are two examples.
 \begin{itemize}
-\item The claim ``for all real numbers $x$ and $y$, if $x^2=y^2$, then $x=y$'' is false: take $x=1$ and $y=-1$. Adding the hypotheses $x\ge0$ and $y\ge0$ makes it true, because the square map is injective on $[0,\infty)$ (Section~\ref{ch03:sec:injsurj}). The repaired claim is a correct theorem, but it says nothing about negative numbers. Whether the repair is acceptable depends on whether those hypotheses were part of the intended statement.
+\item The claim ``for all real numbers $x$ and $y$, if $x^2=y^2$, then $x=y$'' is false: take $x=1$ and $y=-1$. Adding the hypotheses $x\ge0$ and $y\ge0$ makes it true, because the square map is injective on $[0,\infty)$ (Section~\ref{ch03:sec:injsurj}), but the repaired claim says nothing about negative numbers. Whether the repair is acceptable depends on whether those hypotheses were part of the intended statement.
 \item An existence theorem can be made trivial by assuming the very thing to be proved. Here is \code{surj\_comp} with one extra hypothesis:
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
@@ -23,6 +23,6 @@ theorem surj_comp_assumed {A B C : Type}
   exact h
 \end{lstlisting}
 \end{minipage}\par
-The new hypothesis \code{h} is the conclusion itself, so the proof only has to repeat it. Lean accepts this theorem. It does print a warning that the variables \code{hf} and \code{hg} are unused, a useful hint that the proof never needed the real hypotheses. But a warning is not an error, and a changed statement does not always leave such a trace: \code{impossible\_context} produces no warning at all.
+The new hypothesis \code{h} is the conclusion itself, so the proof only repeats it. Lean accepts this, with a warning that \code{hf} and \code{hg} are unused, a useful hint that the proof never needed the real hypotheses. But a warning is not an error, and a changed statement does not always leave such a trace: \code{impossible\_context} produces no warning at all.
 \end{itemize}
-In both examples the repaired statement is true and has a correct proof, but the mathematical task has changed. So when a proof has been repaired, first compare the new statement with the old one, hypothesis by hypothesis and then conclusion with conclusion, as in the table of Section~\ref{ch16:sec:surj}. Only then look at how the proof itself changed.
+In both examples the mathematical task has changed. So when a proof has been repaired, first compare the new statement with the old one, hypothesis by hypothesis and then conclusion with conclusion, as in the table of Section~\ref{ch16:sec:surj}; only then look at how the proof changed.

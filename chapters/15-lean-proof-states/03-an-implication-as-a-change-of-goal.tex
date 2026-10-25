@@ -1,5 +1,5 @@
 \section{An implication as a change of goal}\label{ch15:sec:implication}
-Our first proof with more than one step shows how Lean proves an implication. Suppose $P$, $Q$ and $R$ are propositions such that $P\Rightarrow Q$ and $Q\Rightarrow R$. We want to prove $P\Rightarrow R$. On paper the proof is short: assume $P$; then $Q$ holds, because $P\Rightarrow Q$; then $R$ holds, because $Q\Rightarrow R$. Hence $P\Rightarrow R$. In Lean it reads:
+Our first proof with more than one step proves an implication. Suppose $P$, $Q$ and $R$ are propositions such that $P\Rightarrow Q$ and $Q\Rightarrow R$; we want to prove $P\Rightarrow R$. On paper: assume $P$; then $Q$ holds, because $P\Rightarrow Q$; then $R$ holds, because $Q\Rightarrow R$. In Lean:
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 theorem implication_chain (P Q R : Prop)
@@ -10,13 +10,13 @@ theorem implication_chain (P Q R : Prop)
 \end{lstlisting}
 \end{minipage}\par
 
-Read the statement first. Writing several names before one colon, as in \code{(P Q R : Prop)}, declares them all at once. So the parameters are the three propositions \code{P}, \code{Q} and \code{R}, together with two hypotheses: \code{hpq}, a proof of \code{P -> Q}, and \code{hqr}, a proof of \code{Q -> R}. After the colon that follows the parameters comes the claim, \code{P -> R}. As with the results discussed in Section~\ref{ch04:sec:promises}, the theorem works as a promise: supply three propositions and proofs of the two implications, and it delivers a proof of \code{P -> R}.
+Read the statement first. Several names before one colon, as in \code{(P Q R : Prop)}, are declared at once, so the parameters are three propositions and two hypotheses, \code{hpq} and \code{hqr}, and the claim is \code{P -> R}. Like the results of Section~\ref{ch04:sec:promises}, the theorem is a promise: supply three propositions and proofs of the two implications, and it delivers a proof of \code{P -> R}.
 
-Now read the proof one line at a time. In Lean, the statement that still remains to be proved is called the \emph{goal}, the same word as in Section~\ref{ch04:sec:directions}: it is the entry on the ``still to show'' list. At the start, the goal is the claim \code{P -> R}.
+The statement that remains to be proved is called the \emph{goal}, the ``still to show'' entry of Section~\ref{ch04:sec:directions}. At the start, it is the claim \code{P -> R}.
 \begin{itemize}
-\item The tactic \code{intro hp} does what we do on paper when we write ``assume $P$.'' It adds a proof of $P$, named \code{hp}, to the available facts, and it changes the goal from \code{P -> R} to \code{R}.
-\item The line \code{have hq : Q := hpq hp} records an intermediate fact. It gives the new fact the name \code{hq}, states its type \code{Q}, and supplies its proof after \code{:=}, namely the rule \code{hpq} applied to \code{hp}. The goal is still \code{R}, but there is one more fact available.
-\item Finally, \code{exact hqr hq} says: the expression \code{hqr hq} is a proof of exactly the current goal. It applies the rule $Q\Rightarrow R$ to \code{hq}, so its type is \code{R}. Lean accepts it, and no goal remains. The proof is complete.
+\item \code{intro hp} does what ``assume $P$'' does on paper: it adds a proof \code{hp} of $P$ to the available facts and leaves the goal \code{R}.
+\item \code{have hq : Q := hpq hp} records an intermediate fact: its name, its type, and, after \code{:=}, its proof, the rule \code{hpq} applied to \code{hp}.
+\item \code{exact hqr hq} says that \code{hqr hq}, the rule $Q\Rightarrow R$ applied to \code{hq}, proves exactly the current goal \code{R}. Lean accepts it, and no goal remains.
 \end{itemize}
 The table records the proof state after each step.
 \begin{center}
@@ -29,7 +29,7 @@ Start & \code{P Q R : Prop}, \code{hpq : P -> Q}, and \code{hqr : Q -> R} & \cod
 \end{tabularx}
 \end{center}
 
-In the editor, Lean shows each of these states in its own notation. After \code{intro hp}, for example, the infoview shows
+The infoview shows each of these states in Lean's own notation. After \code{intro hp}, for example, it shows
 \begin{center}
 \begin{tabular}{@{}l@{}}
 \toprule
@@ -41,4 +41,4 @@ $\vdash$\ \code{R}\\
 \bottomrule
 \end{tabular}
 \end{center}
-Each line above the symbol $\vdash$ lists something that is available: one or more names, a colon, and a type. The first line records that $P$, $Q$ and $R$ are propositions, and the next three lines are the hypotheses. The line that begins with $\vdash$, a symbol called the \emph{turnstile}, shows the goal, the proposition that remains to be proved. Lean prints the arrow \code{->} as $\to$. In the editor you may type either form; to get $\to$, type \code{\textbackslash to} followed by a space, and the editor replaces it by the arrow. This display is the proof state of Section~\ref{ch04:sec:directions}, with the ``known'' list written above the ``still to show'' list. If you have Lean installed, place the cursor at the end of each line of the proof in turn, and check that the infoview agrees with the matching row of the table.
+Each line above the symbol $\vdash$, called the \emph{turnstile}, lists something available: one or more names, a colon, and a type. The line that begins with $\vdash$ shows the goal. This is the proof state of Section~\ref{ch04:sec:directions}, with the ``known'' list above the ``still to show'' list. Lean prints \code{->} as $\to$; in the editor you may type either, and \code{\textbackslash to} followed by a space produces $\to$. If you have Lean installed, place the cursor at the end of each line of the proof in turn and compare the infoview with the matching row of the table.

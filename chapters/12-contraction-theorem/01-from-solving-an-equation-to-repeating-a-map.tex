@@ -3,26 +3,21 @@ Section~\ref{ch04:sec:unique} proved that the equation
 \[
 x=\frac{x+1}{2}
 \]
-has exactly one real solution, namely $x=1$. Section~\ref{ch05:sec:recurrence} reached the same number in a different way. Starting from $x_0=0$, it applied the rule $x\mapsto(x+1)/2$ again and again and obtained
+has exactly one real solution, $x=1$. Section~\ref{ch05:sec:recurrence} reached the same number differently: starting from $x_0=0$ and applying the rule $x\mapsto(x+1)/2$ again and again gives
 \[
 0,\ \tfrac12,\ \tfrac34,\ \tfrac78,\ \ldots,\qquad\text{in general }x_n=1-2^{-n},
 \]
-and Section~\ref{ch11:sec:convergence} proved that these numbers converge to $1$. So the number $1$ can be seen in two ways: as the solution of an equation, and as the limit of a repeated update. This chapter turns the second point of view into a general method for solving equations.
+and Section~\ref{ch11:sec:convergence} proved that these numbers converge to $1$. So $1$ is both the solution of an equation and the limit of a repeated update. This chapter turns the second point of view into a general method for solving equations.
 
-The general setting is a map $T:X\to X$, where $X$ is a metric space as in Chapter~\ref{ch:limits}. (Recall from Section~\ref{ch03:sec:functions} that a map is the same thing as a function.) A \emph{fixed point} of $T$ is a point $x_*\in X$ with $T(x_*)=x_*$, that is, a point that the map leaves where it is. Section~\ref{ch05:sec:recurrence} already used this name for the number $1$ and the rule $x\mapsto(x+1)/2$. Starting from any point $x_0\in X$, we can apply $T$ over and over:
-\[
-x_1=T(x_0),\qquad x_2=T(x_1),\qquad x_3=T(x_2),\qquad\ldots,
-\]
-in general $x_{n+1}=T(x_n)$ for every $n\in\NN$. The points $x_0,x_1,x_2,\ldots$ are called the \emph{iterates} of $T$ starting from $x_0$. If the iterates converge and their limit is a fixed point, then repeating the map is a way of solving the equation $T(x)=x$. In practice we stop after finitely many steps, so what we obtain is an approximate solution, and we will want to know how good it is.
+The general setting is a metric space $X$, as in Chapter~\ref{ch:limits}, and a map $T:X\to X$ (a map is the same thing as a function; Section~\ref{ch03:sec:functions}). A \emph{fixed point} of $T$ is a point $x_*\in X$ with $T(x_*)=x_*$: a point that the map leaves where it is. Starting from any point $x_0\in X$, we can apply $T$ over and over: $x_1=T(x_0)$, $x_2=T(x_1)$, and in general $x_{n+1}=T(x_n)$ for every $n\in\NN$. The points $x_0,x_1,x_2,\ldots$ are called the \emph{iterates} of $T$ starting from $x_0$. If they converge to a fixed point, then repeating the map solves the equation $T(x)=x$. Since in practice we stop after finitely many steps, we will also want to know how good the approximation is.
 
-Repeating a map is a very simple algorithm, but it does not always work. Here are four ways in which it can fail.
+This simple method can fail in several ways.
 \begin{itemize}
-\item The iterates can run away. For $T(x)=2x$ on $\RR$, starting from $x_0=1$, the iterates are $1,2,4,8,\ldots$, although $T$ has the fixed point $0$.
-\item The iterates can jump back and forth forever. For $T(x)=1-x$ on $\RR$, starting from $x_0=0$, the iterates are $0,1,0,1,\ldots$. The fixed point is $1/2$, since $1-\tfrac12=\tfrac12$, but every iterate stays at distance $1/2$ from it.
-\item There can be several fixed points, and then the phrase ``the solution'' has no clear meaning, as Section~\ref{ch04:sec:unique} warned. For $T(x)=x^2$ on the interval $[0,1]$, both $0$ and $1$ are fixed points.
-\item The iterates can approach a point that is missing from the space. Take $T(x)=x/2$ on the interval $(0,1)$. An interval like this one, which leaves out both of its endpoints, is called an \emph{open interval}. Starting from $x_0=1/2$, the iterates are $\tfrac12,\tfrac14,\tfrac18,\ldots$. They approach $0$, which does not belong to $(0,1)$, and in fact $T$ has no fixed point in $(0,1)$ at all.
+\item The iterates may never approach the fixed point. For $T(x)=1-x$ on $\RR$, the fixed point is $1/2$, but starting from $x_0=0$ the iterates are $0,1,0,1,\ldots$, each at distance $1/2$ from it.
+\item There can be several fixed points, and then ``the solution'' has no clear meaning (Section~\ref{ch04:sec:unique}). For $T(x)=x^2$ on $[0,1]$, both $0$ and $1$ are fixed points.
+\item The iterates can approach a point that is missing from the space. Take $T(x)=x/2$ on the interval $(0,1)$; an interval like this, which leaves out both of its endpoints, is called an \emph{open interval}. Starting from $x_0=1/2$, the iterates $\tfrac12,\tfrac14,\tfrac18,\ldots$ approach $0$, which does not belong to $(0,1)$, and in fact $T$ has no fixed point in $(0,1)$ at all.
 \end{itemize}
-We want conditions on $T$ and $X$ that rule out all of these failures in advance, so that we do not have to compute a few iterates and hope that the pattern continues. The first condition says that $T$ brings points closer together. In stating it, and from now on, we often write $Tx$ for $T(x)$ to save brackets; both mean the same point.
+We want conditions on $T$ and $X$ that rule out these failures in advance. The first condition says that $T$ brings points closer together. From now on we often write $Tx$ for $T(x)$ to save brackets.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{definition}[Contraction]\label{ch12:def:contraction}
@@ -34,26 +29,17 @@ This inequality is called the \emph{contraction inequality}, and $q$ is called a
 \end{definition}
 \end{minipage}\par
 
-In words: for any two points $x$ and $y$, the new points $Tx$ and $Ty$ are at most $q$ times as far apart as $x$ and $y$ were. With $q=1/2$, for instance, $Tx$ and $Ty$ are at most half as far apart as $x$ and $y$. If $T$ is a contraction with factor $q$, it is also one with every larger factor $q'$ below one: if $q\le q'<1$, then $q\,d(x,y)\le q'\,d(x,y)$, because distances are never negative. That is why we say ``a'' contraction factor rather than ``the'' contraction factor.
+In words: $Tx$ and $Ty$ are at most $q$ times as far apart as $x$ and $y$ were. A contraction with factor $q$ is also a contraction with any factor $q'$ satisfying $q\le q'<1$, since $q\,d(x,y)\le q'\,d(x,y)$ (distances are never negative). That is why we say ``a'' contraction factor rather than ``the.''
 
-\subsection*{Reading the contraction inequality}
-Two features of the definition matter in everything that follows.
-
-First, $x$ and $y$ are \emph{any} two points of $X$. They need not be consecutive iterates, and neither of them needs to be close to a fixed point. For $T(x)=(x+1)/2$ on $\RR$, with the usual distance $d(x,y)=|x-y|$, we compute
+Two features of the definition matter. First, $x$ and $y$ are \emph{any} two points of $X$, not just consecutive iterates or points close to a fixed point. For $T(x)=(x+1)/2$ on $\RR$, with the usual distance $d(x,y)=|x-y|$,
 \[
 |T(x)-T(y)|=\left|\frac{x+1}{2}-\frac{y+1}{2}\right|
 =\left|\frac{(x+1)-(y+1)}{2}\right|
-=\frac12|x-y|.
+=\frac12|x-y|,
 \]
-So this $T$ is a contraction with factor $1/2$. The constant terms cancel when two outputs are compared, just as they did in the uniqueness proof of Section~\ref{ch04:sec:unique}.
-
-Second, one number $q$ must work for all pairs at once. It is not enough that every pair of different points moves closer together. If the amount of shrinking may depend on the pair, then the ratio $d(Tx,Ty)/d(x,y)$, for different points $x$ and $y$, can come closer and closer to $1$ as the pair changes, and then the conclusions of this chapter can fail. Section~\ref{ch12:sec:hypotheses} gives a map that brings every pair of different points strictly closer together and still has no fixed point.
+so this $T$ is a contraction with factor $1/2$. The constant terms cancel when two outputs are compared, as in the uniqueness proof of Section~\ref{ch04:sec:unique}. Second, one number $q$ must work for all pairs at once. It is not enough that every pair of different points moves closer together: Section~\ref{ch12:sec:hypotheses} gives a map that does this, with ratios $d(Tx,Ty)/d(x,y)$ coming closer and closer to $1$, and has no fixed point.
 
 \subsection*{The outputs must be allowed inputs}
-The second condition is built into the arrow of $T:X\to X$: every output $T(x)$ must again be a point of $X$. A map from a set to itself is called a \emph{self-map}. This condition is what allows us to apply $T$ to $x_1$, then to $x_2$, and so on, exactly as Section~\ref{ch03:sec:functions} required the outputs of one function to be allowed inputs of the next before composing them.
+The second condition is built into the arrow of $T:X\to X$: every output $T(x)$ must again be a point of $X$. A map from a set to itself is called a \emph{self-map}. This is what allows us to apply $T$ to $x_1$, then to $x_2$, and so on. The condition is easy to overlook when a formula makes sense for more numbers than we intend to use; Section~\ref{ch12:sec:hypotheses} shows what goes wrong without it. For $T(x)=(x+1)/2$ on $[0,1]$ it holds: if $0\le x\le1$, then $1\le x+1\le2$, so $1/2\le T(x)\le1$. So before using a contraction, we check two separate things: the self-map condition, and the contraction inequality for all pairs of points of $X$.
 
-The condition is easy to overlook when a formula makes sense for more numbers than we intend to use. Take $T(x)=(x+1)/2$ again, but now only on the interval $[0,1/2]$. The contraction inequality still holds for points of this interval, with factor $1/2$, because it holds for all real numbers. Yet $T(1/2)=3/4$ lies outside $[0,1/2]$, so $T$ is not a map from $[0,1/2]$ to itself. Starting from $x_0=0$, we get $x_1=1/2$ and then $x_2=3/4$, and the iterates have already left the interval. On $[0,1]$, by contrast, $T$ is a self-map: if $0\le x\le1$, then $1\le x+1\le2$, so $1/2\le T(x)\le1$.
-
-So before using a contraction, we check two separate things: that $T$ maps $X$ into $X$, and that the contraction inequality holds for all pairs of points of $X$.
-
-\pauseq{Is $T(x)=x^2$ a contraction of the interval $[0,1]$? Is it a contraction of the interval $[0,1/3]$?}{On $[0,1]$ it is not. It is a self-map there, because $0\le x\le1$ gives $0\le x^2\le1$. But for $x=1$ and $y=1/2$ we get $|T(x)-T(y)|=1-\tfrac14=\tfrac34$, which is larger than $|x-y|=\tfrac12$; no factor $q<1$, and not even $q=1$, can work for this pair. On $[0,1/3]$ it is a contraction. It is a self-map, because $0\le x\le1/3$ gives $0\le x^2\le1/9\le1/3$. For the contraction inequality, factor the difference of two squares: $|x^2-y^2|=|x-y|\,|x+y|$. For $x,y\in[0,1/3]$ we have $0\le x+y\le2/3$, so $|T(x)-T(y)|\le\tfrac23|x-y|$, and $q=2/3$ is a contraction factor.}
+\pauseq{Is $T(x)=x^2$ a contraction of the interval $[0,1]$? Is it a contraction of the interval $[0,1/3]$?}{On $[0,1]$ it is not: for $x=1$ and $y=1/2$ we get $|T(x)-T(y)|=\tfrac34>\tfrac12=|x-y|$, so no factor $q<1$ works for this pair. On $[0,1/3]$ it is. It is a self-map, since $0\le x\le1/3$ gives $0\le x^2\le1/9\le1/3$. Factoring the difference of two squares, $|x^2-y^2|=|x-y|\,|x+y|\le\tfrac23|x-y|$ for $x,y\in[0,1/3]$, because then $0\le x+y\le2/3$. So $q=2/3$ is a contraction factor.}

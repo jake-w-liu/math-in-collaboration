@@ -1,41 +1,39 @@
 \section{A geometric bound controls an entire tail}\label{ch11:sec:geometric}
-The harmonic sums of Section~\ref{ch11:sec:cauchy} failed to be Cauchy because their steps, though small, added up to a lot. This section shows that steps which shrink by a fixed factor at every stage cannot add up to much. The tool is the finite geometric sum.
+The harmonic sums of Section~\ref{ch11:sec:cauchy} failed to be Cauchy because their steps, though small, added up to a lot. Steps that shrink by a fixed factor at every stage cannot add up to much, and the tool that shows this is the finite geometric sum.
 
 \subsection*{The finite geometric sum}
 Let $q$ be a real number with $q\ne1$, and let $r$ be a positive integer. Then
 \[
 1+q+q^2+\cdots+q^{r-1}=\frac{1-q^r}{1-q}.
 \]
-To see why, first take $r=4$ and call the sum $S=1+q+q^2+q^3$. Multiplying by $q$ raises every power by one:
+To see why, call the sum $S$. Multiplying by $q$ raises every power by one:
 \begin{align*}
- S&=1+q+q^2+q^3,\\
- qS&=\phantom{1+{}}q+q^2+q^3+q^4.
+ S&=1+q+q^2+\cdots+q^{r-1},\\
+ qS&=\phantom{1+{}}q+q^2+\cdots+q^{r-1}+q^r.
 \end{align*}
-When the second line is subtracted from the first, the terms $q$, $q^2$ and $q^3$ cancel, leaving $S-qS=1-q^4$. The left side is $(1-q)S$, and $1-q\ne0$, so we may divide by it: $S=(1-q^4)/(1-q)$. For a general $r$, the same subtraction applies to $S=1+q+\cdots+q^{r-1}$ and $qS=q+q^2+\cdots+q^r$. The terms $q$ through $q^{r-1}$ appear in both, so only $1$ and $q^r$ remain, and $(1-q)S=1-q^r$. As a check, take $q=1/2$ and $r=4$. The sum is $1+\tfrac12+\tfrac14+\tfrac18=\tfrac{15}8$, and the formula gives $\bigl(1-\tfrac1{16}\bigr)\big/\bigl(1-\tfrac12\bigr)=\tfrac{15}{16}\cdot2=\tfrac{15}8$.
+When the second line is subtracted from the first, the terms $q$ through $q^{r-1}$ cancel, leaving $(1-q)S=1-q^r$. Since $1-q\ne0$, we may divide by it. For example, $q=1/2$ and $r=4$ give $1+\tfrac12+\tfrac14+\tfrac18=\tfrac{15}8$, and the formula gives $\bigl(1-\tfrac1{16}\bigr)\big/\tfrac12=\tfrac{15}8$.
 
 From now on let $0<q<1$. We need sums that start at a later power. For integers $m>n\ge0$, factor out $q^n$ and apply the formula with $r=m-n$:
 \[
 \sum_{j=n}^{m-1}q^j=q^n\bigl(1+q+\cdots+q^{m-n-1}\bigr)=q^n\,\frac{1-q^{m-n}}{1-q}\le\frac{q^n}{1-q}.
 \]
-The final inequality holds because $q^{m-n}>0$, so $1-q^{m-n}<1$, and the factor $q^n/(1-q)$ is positive. The bound on the right does not depend on $m$: however many terms we add, a sum of consecutive powers starting at $q^n$ never exceeds $q^n/(1-q)$. We call this the \emph{geometric tail bound}.
+The final inequality holds because $q^{m-n}>0$, so $1-q^{m-n}<1$, and $q^n/(1-q)>0$. The bound does not depend on $m$: however many terms we add, a sum of consecutive powers starting at $q^n$ never exceeds $q^n/(1-q)$. We call this the \emph{geometric tail bound}.
 
 \subsection*{Powers of a number between zero and one tend to zero}
-The bound $q^n/(1-q)$ is useful only if it becomes small as $n$ grows, so we need $q^n\to0$. Section~\ref{ch11:sec:convergence} handled $q=1/2$ by proving $2^n\ge n+1$. For a general $q$ with $0<q<1$, we imitate that proof with $1/q$ in place of $2$. Put $c=1/q-1$. Since $0<q<1$, we have $1/q>1$, so $c>0$, and $1/q=1+c$. We prove by induction that
+The bound $q^n/(1-q)$ is useful only if $q^n\to0$. Section~\ref{ch11:sec:convergence} handled $q=1/2$ by proving $2^n\ge n+1$; for general $0<q<1$, we imitate that proof with $1/q$ in place of $2$. Put $c=1/q-1$. Since $1/q>1$, we have $c>0$, and $1/q=1+c$. We prove by induction that
 \[
 (1+c)^n\ge1+nc\qquad\text{for every }n\in\NN.
 \]
-This is known as \emph{Bernoulli's inequality}. For $c=1$ it is the inequality $2^n\ge n+1$ of Section~\ref{ch11:sec:convergence}. At $n=0$ both sides equal $1$. If $(1+c)^n\ge1+nc$ for some $n$, multiply both sides by the positive number $1+c$:
+This is known as \emph{Bernoulli's inequality}. At $n=0$ both sides equal $1$. If $(1+c)^n\ge1+nc$ for some $n$, multiply both sides by the positive number $1+c$:
 \[
  (1+c)^{n+1}\ge(1+nc)(1+c)
  =1+c+nc+nc^2=1+(n+1)c+nc^2\ge1+(n+1)c,
 \]
-because $nc^2\ge0$. This is the inequality for $n+1$, so it holds for every $n$. Since $q^n=1/(1+c)^n$, and both $(1+c)^n$ and $1+nc$ are positive, taking reciprocals reverses the order and gives
+because $nc^2\ge0$. This is the inequality for $n+1$. Since $q^n=1/(1+c)^n$, taking reciprocals of positive numbers gives
 \[
  0<q^n\le\frac1{1+nc}.
 \]
-Now let $\eps>0$ be given, and use the Archimedean property to choose a positive integer $N>1/(c\eps)$. If $n\ge N$, then $1+nc>nc\ge Nc>1/\eps$, where the last step multiplies $N>1/(c\eps)$ by the positive number $c$. Taking reciprocals once more gives $q^n\le1/(1+nc)<\eps$. This proves $q^n\to0$.
-
-The threshold depends on $\eps$ and, through $c$, on $q$: the closer $q$ is to $1$, the smaller $c$ is, and the larger the number $1/(c\eps)$ that $N$ must exceed. For example, $q=0.9$ gives $c=1/9$, and for $\eps=0.01$ the recipe asks for $N>900$. In fact $0.9^n<0.01$ already holds from $n=44$ on, since $0.9^{44}\approx0.0097$ while $0.9^{43}\approx0.0108$. As in Section~\ref{ch11:sec:convergence}, a threshold produced by a proof may be far from the smallest one, and that is allowed.
+Now let $\eps>0$ be given, and use the Archimedean property to choose a positive integer $N>1/(c\eps)$. If $n\ge N$, then $1+nc>nc\ge Nc>1/\eps$, where the last step multiplies $N>1/(c\eps)$ by $c>0$. Taking reciprocals once more gives $q^n\le1/(1+nc)<\eps$. This proves $q^n\to0$. The closer $q$ is to $1$, the smaller $c$ is, and the larger the threshold that this recipe gives.
 
 \subsection*{Geometrically shrinking steps give a Cauchy sequence}
 \par\noindent\begin{minipage}{\linewidth}
@@ -48,36 +46,26 @@ Then $d(x_m,x_n)\le Dq^n/(1-q)$ whenever $m>n$, and the sequence is a Cauchy seq
 \end{proposition}
 \end{minipage}\par
 
-Before the proof, here is an example. For the sequence $x_n=1-2^{-n}$ of Section~\ref{ch11:sec:convergence}, each step is
-\[
-x_{j+1}-x_j=\bigl(1-2^{-(j+1)}\bigr)-\bigl(1-2^{-j}\bigr)=2^{-j}-2^{-(j+1)}=2^{-(j+1)}=\tfrac12\bigl(\tfrac12\bigr)^j.
-\]
-This number is positive, so it equals its absolute value $d(x_{j+1},x_j)$, and the hypothesis holds with $D=1/2$ and $q=1/2$. The proposition then promises $|x_m-x_n|\le\tfrac12\bigl(\tfrac12\bigr)^n\big/\tfrac12=2^{-n}$ for all $m>n$. Directly, $|x_m-x_n|=2^{-n}-2^{-m}$, which is indeed less than $2^{-n}$.
+For example, the sequence $x_n=1-2^{-n}$ of Section~\ref{ch11:sec:convergence} has steps $x_{j+1}-x_j=2^{-j}-2^{-(j+1)}=\tfrac12\bigl(\tfrac12\bigr)^j$; these are positive, so they equal the distances $d(x_{j+1},x_j)$, and the hypothesis holds with $D=q=1/2$. The proposition promises $|x_m-x_n|\le\tfrac12\bigl(\tfrac12\bigr)^n\big/\tfrac12=2^{-n}$ for all $m>n$; directly, $|x_m-x_n|=2^{-n}-2^{-m}$, which is indeed less than $2^{-n}$.
 
 \begin{proof}
-\emph{Step 1: from single steps to many steps.} Fix $n$. We show by induction on $m$ that, for every $m>n$,
+\emph{Step 1: from single steps to many steps.} Fix $n$. We show by induction on $m$ that the distance from $x_n$ to $x_m$ is at most the total length of the single steps between them: for every $m>n$,
 \[
 d(x_m,x_n)\le\sum_{j=n}^{m-1}d(x_{j+1},x_j).
 \]
-In words, the distance from $x_n$ to $x_m$ is at most the total length of the single steps between them. For instance, with $m=n+3$ the claim reads
-\[
-d(x_{n+3},x_n)\le d(x_{n+3},x_{n+2})+d(x_{n+2},x_{n+1})+d(x_{n+1},x_n).
-\]
-When $m=n+1$, the sum has just one term, $d(x_{n+1},x_n)$, and the claim is an equality. Suppose the claim holds for some $m>n$. The triangle inequality with $x_m$ as the stopping point gives
+When $m=n+1$, the sum has the single term $d(x_{n+1},x_n)$, and the claim is an equality. Suppose the claim holds for some $m>n$. The triangle inequality with $x_m$ as the stopping point gives
 \[
 d(x_{m+1},x_n)\le d(x_{m+1},x_m)+d(x_m,x_n)\le d(x_{m+1},x_m)+\sum_{j=n}^{m-1}d(x_{j+1},x_j)=\sum_{j=n}^{m}d(x_{j+1},x_j),
 \]
 which is the claim for $m+1$.
 
-\emph{Step 2: a bound for the whole tail.} Combine Step~1 with the assumed bounds on the steps and with the geometric tail bound. For $m>n$,
+\emph{Step 2: a bound for the whole tail.} For $m>n$, Step~1, the assumed bounds on the steps and the geometric tail bound give
 \[
 d(x_m,x_n)\le\sum_{j=n}^{m-1}d(x_{j+1},x_j)\le\sum_{j=n}^{m-1}Dq^j=D\sum_{j=n}^{m-1}q^j\le\frac{Dq^n}{1-q}.
 \]
-The last step multiplies the geometric tail bound $\sum_{j=n}^{m-1}q^j\le q^n/(1-q)$ by the number $D$, which keeps the inequality in the same direction because $D\ge0$.
+The last step multiplies the geometric tail bound by $D$, which keeps the inequality in the same direction because $D\ge0$.
 
-\emph{Step 3: the Cauchy condition.} Let $\eps>0$. If $D=0$, Step~2 gives $d(x_m,x_n)\le0$, and hence $d(x_m,x_n)=0$, for all $m>n$, because distances are never negative. So all the terms are equal, and the threshold $N=0$ works. Now let $D>0$. The number $\eps(1-q)/D$ is positive, and $q^n\to0$, so there is a threshold $N$ such that $q^n<\eps(1-q)/D$ for every $n\ge N$. Multiplying by the positive number $D/(1-q)$ gives $Dq^n/(1-q)<\eps$ for every $n\ge N$. Take any two indices $m,n\ge N$. If $m=n$, their distance is $0$, which is less than $\eps$. Otherwise, by symmetry of $d$, we may name them so that $m>n$, and Step~2 gives $d(x_m,x_n)\le Dq^n/(1-q)<\eps$. So the sequence is Cauchy.
+\emph{Step 3: the Cauchy condition.} Let $\eps>0$. If $D=0$, Step~2 gives $d(x_m,x_n)\le0$, hence $d(x_m,x_n)=0$, for all $m>n$; so all the terms are equal, and the threshold $N=0$ works. Now let $D>0$. Since $q^n\to0$ and $\eps(1-q)/D>0$, there is a threshold $N$ such that $q^n<\eps(1-q)/D$, that is, $Dq^n/(1-q)<\eps$, for every $n\ge N$. Take any two indices $m,n\ge N$. If $m=n$, their distance is $0<\eps$. Otherwise, by symmetry of $d$, we may name them so that $m>n$, and Step~2 gives $d(x_m,x_n)\le Dq^n/(1-q)<\eps$. So the sequence is Cauchy.
 \end{proof}
 
-The bound $Dq^n/(1-q)$ in Step~2 involves $n$ but not $m$, so a single choice of $n$ controls the whole tail from $x_n$ onward, however far beyond $n$ the index $m$ goes. The harmonic sums had no such control: there the steps from index $n$ to index $2n$ add up to at least $1/2$, however large $n$ is, while here the steps after index $n$ add up to at most $Dq^n/(1-q)$, which is as small as we like once $n$ is large.
-
-If the space is complete, as the real line and every closed interval are, then the definition of completeness turns the conclusion of the proposition into convergence: the sequence has a limit in the space. This combination of a geometric bound on the steps with completeness is the heart of the contraction theorem in Chapter~\ref{ch:contraction}.
+The bound $Dq^n/(1-q)$ in Step~2 involves $n$ but not $m$, so a single choice of $n$ controls the whole tail from $x_n$ onward. If the space is complete, as the real line and every closed interval are, the sequence also has a limit in the space. This combination of a geometric bound on the steps with completeness is the heart of the contraction theorem in Chapter~\ref{ch:contraction}.

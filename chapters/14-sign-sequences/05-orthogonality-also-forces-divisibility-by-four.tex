@@ -1,9 +1,9 @@
 \section{Orthogonality also forces divisibility by four}\label{ch14:sec:four}
-The square condition of Section~\ref{ch14:sec:square} relied on the circulant pattern. The next condition holds for every Hadamard matrix, circulant or not, as long as its order is greater than $2$. Small orders show why that restriction is needed. The $1$-by-$1$ matrix $(1)$ is a Hadamard matrix of order $1$, and the matrix
+The square condition of Section~\ref{ch14:sec:square} relied on the circulant pattern. The next condition holds for every Hadamard matrix of order greater than $2$, circulant or not. The restriction on the order is needed: the $1$-by-$1$ matrix $(1)$ and the matrix
 \[
 \begin{pmatrix}1&1\\1&-1\end{pmatrix}
 \]
-of Section~\ref{ch10:sec:product} is a Hadamard matrix of order $2$, but neither $1$ nor $2$ is divisible by four.
+of Section~\ref{ch10:sec:product} are Hadamard matrices of orders $1$ and $2$, and neither order is divisible by four.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lemma}\label{thm:hadamardorder}
@@ -12,40 +12,33 @@ If a Hadamard matrix has order $n>2$, then $4$ divides $n$.
 \end{minipage}\par
 
 \begin{proof}
-The idea is to replace the matrix by a simpler Hadamard matrix of the same order, and then to look closely at three of its rows. Two kinds of change keep a matrix Hadamard.
+We replace the matrix by a simpler Hadamard matrix of the same order and look closely at three of its rows. Two kinds of change keep a matrix Hadamard.
 \begin{itemize}
-\item \emph{Multiplying a column by $-1$.} This changes the sign of one entry in every row. In the dot product of two rows, the term that comes from that column is a product of two entries that have both changed sign, so it is unchanged, because $(-x)(-y)=xy$. The other terms are not touched at all. So every dot product of two rows stays the same, and the entries are still $\pm1$.
-\item \emph{Rearranging the columns.} This applies the same rearrangement to every row. The dot product of two rows then consists of the same terms as before, added in a different order, so it does not change.
+\item \emph{Multiplying a column by $-1$.} In the dot product of two rows, the term from that column is a product of two entries that have both changed sign, so it is unchanged, because $(-x)(-y)=xy$; the other terms are not touched. So every dot product of two rows stays the same, and the entries are still $\pm1$.
+\item \emph{Rearranging the columns.} This applies the same rearrangement to every row, so the dot product of two rows consists of the same terms as before, added in a different order.
 \end{itemize}
-Neither change alters the order $n$, so it is enough to prove that $4$ divides $n$ for the new matrix. The new matrix is usually not circulant, even when the original one was, but that does not matter: the proof uses only two facts, that the entries are $\pm1$ and that different rows are orthogonal.
+Neither change alters $n$, so it is enough to prove that $4$ divides $n$ for the new matrix. The new matrix is usually not circulant, but the proof uses only that the entries are $\pm1$ and that different rows are orthogonal.
 
-\emph{Step 1: make the first row consist of ones.} For each column whose entry in the first row is $-1$, multiply that column by $-1$. Afterward the first row is $(1,1,\ldots,1)$.
+\emph{Step 1: make the first row consist of ones.} For each column whose entry in the first row is $-1$, multiply that column by $-1$.
 
-\emph{Step 2: the second row has as many plus signs as minus signs.} Since $n>2$, the matrix has at least three rows. This step uses the second row, and Step~4 uses the third. The second row is orthogonal to the first. Since the first row consists of ones, their dot product is simply the sum of the entries of the second row, so this sum is zero. If the second row has $p$ entries equal to $1$, then it has $n-p$ entries equal to $-1$, and its sum is $p-(n-p)=2p-n$. So $2p=n$. Hence $n$ is even, and the second row has $n/2$ plus signs and $n/2$ minus signs. Put $h=n/2$.
+\emph{Step 2: the second row has as many plus signs as minus signs.} Since $n>2$, the matrix has at least three rows; this step uses the second and Step~4 the third. The second row is orthogonal to the first, which consists of ones, so their dot product, which is just the sum of the entries of the second row, is zero. If the second row has $p$ entries equal to $1$ and $n-p$ equal to $-1$, this sum is $p-(n-p)=2p-n$, so $n=2p$ is even, and the second row has $h=n/2$ entries of each sign.
 
-\emph{Step 3: sort the second row.} Rearrange the columns so that the $h$ columns in which the second row has a $1$ come first, and the $h$ columns in which it has a $-1$ come last. The first row still consists of ones, and the second row is now
+\emph{Step 3: sort the second row.} Rearrange the columns so that the $h$ columns in which the second row has a $1$ come first. The first row is unchanged, and the second row is now
 \[
 (\underbrace{1,\ldots,1}_{h},\underbrace{-1,\ldots,-1}_{h}).
 \]
 
-\emph{Step 4: look at the third row.} Let $x$ be the sum of the first $h$ entries of the third row, and $y$ the sum of its last $h$ entries. Its dot product with the first row is $x+y$. Its dot product with the second row is $x-y$, because the second row multiplies the first $h$ entries by $1$ and the last $h$ entries by $-1$. The third row is orthogonal to both, so
+\emph{Step 4: look at the third row.} Let $x$ be the sum of the first $h$ entries of the third row, and $y$ the sum of its last $h$ entries. Its dot product with the first row is $x+y$, and with the second row it is $x-y$, because the second row multiplies the first $h$ entries by $1$ and the last $h$ by $-1$. The third row is orthogonal to both, so
 \[
 x+y=0\qquad\text{and}\qquad x-y=0.
 \]
-Adding the two equations gives $2x=0$, so $x=0$. (Subtracting them gives $y=0$ as well, although we will not need it.)
+Adding the two equations gives $2x=0$, so $x=0$.
 
-\emph{Step 5: count again.} So the first $h$ entries of the third row are signs whose sum is zero. The count of Step~2 applies to them: if $q$ of these $h$ entries equal $1$, their sum is $q-(h-q)=2q-h$, and this is zero, so $h=2q$. Therefore $n=2h=4q$, and $4$ divides $n$.
+\emph{Step 5: count again.} So the first $h$ entries of the third row are signs with sum zero. As in Step~2, if $q$ of them equal $1$, their sum is $q-(h-q)=2q-h$, so $h=2q$. Therefore $n=2h=4q$, and $4$ divides $n$.
 \end{proof}
 
-To see the proof in action, apply it to the circulant Hadamard matrix $H$ of Section~\ref{ch14:sec:circulant}. Its first row is $(1,1,1,-1)$, so Step~1 multiplies the last column by $-1$:
+To see the proof in action, apply it to the circulant Hadamard matrix $H$ of Section~\ref{ch14:sec:circulant}. Its first row is $(1,1,1,-1)$, so Step~1 multiplies the last column by $-1$, giving
 \[
-\begin{pmatrix}
-1&1&1&-1\\
--1&1&1&1\\
-1&-1&1&1\\
-1&1&-1&1
-\end{pmatrix}
-\quad\longrightarrow\quad
 \begin{pmatrix}
 1&1&1&1\\
 -1&1&1&-1\\
@@ -53,7 +46,7 @@ To see the proof in action, apply it to the circulant Hadamard matrix $H$ of Sec
 1&1&-1&-1
 \end{pmatrix}.
 \]
-The second row is now $(-1,1,1,-1)$, with its plus signs in columns $1$ and $2$ (counting from $0$). Step~3 moves these two columns to the front, so the new column order is $1,2,0,3$:
+The second row, $(-1,1,1,-1)$, has its plus signs in columns $1$ and $2$ (counting from $0$), so Step~3 uses the column order $1,2,0,3$:
 \[
 \begin{pmatrix}
 1&1&1&1\\
@@ -62,9 +55,9 @@ The second row is now $(-1,1,1,-1)$, with its plus signs in columns $1$ and $2$ 
 1&-1&1&-1
 \end{pmatrix}.
 \]
-The first row consists of ones, and the second row is $(1,1,-1,-1)$. The third row is $(-1,1,1,-1)$. Its first half $(-1,1)$ and its second half $(1,-1)$ both add up to zero, as Step~4 predicts. Its first half contains $q=1$ plus sign, so Step~5 gives $h=2q=2$ and $n=4q=4$. You can check that the rows of the final matrix are still orthogonal. Notice also that it is no longer circulant: its second row is not its first row moved one place to the right.
+The third row is $(-1,1,1,-1)$; its halves $(-1,1)$ and $(1,-1)$ both add up to zero, as Step~4 predicts, and the first half contains $q=1$ plus sign, so $n=4q=4$. The rows of the final matrix are still orthogonal, but the matrix is no longer circulant: its second row is not its first row moved one place to the right.
 
-Now we can combine the two necessary conditions.
+We now combine the two necessary conditions.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{proposition}\label{thm:circulantnecessary}
@@ -73,13 +66,13 @@ If a circulant Hadamard matrix has order $n$, then $n=1$ or $n=4u^2$ for some po
 \end{minipage}\par
 
 \begin{proof}
-Let $a$ be the first row of the matrix. The matrix is the circulant matrix of $a$, so by Proposition~\ref{ch14:prop:rows}(b), $C_s(a)=0$ for every shift $s$ with $1\le s\le n-1$. Equation~\eqref{eq:squareorder} therefore gives $n=r^2$, where $r$ is the row sum, an integer.
+Let $a$ be the first row of the matrix. The matrix is the circulant matrix of $a$, so by Proposition~\ref{ch14:prop:rows}(b), $C_s(a)=0$ for every shift $s$ with $1\le s\le n-1$. Equation~\eqref{eq:squareorder} therefore gives $n=r^2$, where the row sum $r$ is an integer.
 
-If $n=1$, there is nothing more to prove. Otherwise $n\ge2$. Moreover $n\ne2$, because $n=r^2$ and $2$ is not the square of an integer: if $|r|\le1$ then $r^2=|r|^2\le1$, and if $|r|\ge2$ then $r^2=|r|^2\ge4$. Hence $n>2$, and Lemma~\ref{thm:hadamardorder} shows that $4$ divides $n=r^2$. In particular $r^2$ is even, and so $r$ is even. Indeed, if $r$ were odd, say $r=2k+1$ for an integer $k$, then $r^2=4k^2+4k+1$ would be odd. Write $|r|=2u$, where $u$ is a nonnegative integer. Since $n=r^2$ is positive, $r\ne0$, and so $u\ge1$. Then $n=r^2=|r|^2=4u^2$.
+If $n=1$, there is nothing more to prove. Otherwise $n\ge2$, and $n\ne2$, because $2$ is not the square of an integer: if $|r|\le1$ then $r^2\le1$, and if $|r|\ge2$ then $r^2\ge4$. Hence $n>2$, and Lemma~\ref{thm:hadamardorder} shows that $4$ divides $n=r^2$. In particular $r^2$ is even, so $r$ is even: if $r$ were odd, say $r=2k+1$ for an integer $k$, then $r^2=4k^2+4k+1$ would be odd. Write $|r|=2u$ with $u$ a nonnegative integer. Since $n=r^2$ is positive, $r\ne0$, so $u\ge1$. Then $n=|r|^2=4u^2$.
 \end{proof}
 
-The proposition allows the orders $1$ and $4u^2$ for $u=1,2,3,\ldots$, that is,
+The proposition allows the orders
 \[
 1,\ 4,\ 16,\ 36,\ 64,\ 100,\ \ldots.
 \]
-For the first two there are examples: the $1$-by-$1$ matrix $(1)$, and the matrix $H$ of order four. About the orders $16,36,64,\ldots$ the proposition says nothing either way. A necessary condition can only rule orders out; it never produces a matrix. So these orders remain undecided, and they mark the boundary between what our elementary arguments can settle and what needs new ideas.
+For the first two we have examples, $(1)$ and $H$. About $16,36,64,\ldots$ it says nothing either way, since a necessary condition can only rule orders out, never produce a matrix. These orders mark the boundary between what our elementary arguments settle and what needs new ideas.

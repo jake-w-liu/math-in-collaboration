@@ -1,23 +1,23 @@
 \section{Deriving a bound by removing a component}\label{ch10:sec:cs}
-How large can a dot product be, compared with the lengths of the two vectors? When $v=u$, the dot product is $u\cdot u=\norm{u}_2^2=\norm{u}_2\norm{u}_2$, exactly the product of the two lengths. A natural guess is that the dot product can never be larger than that in size:
+How large can a dot product be, compared with the lengths of the two vectors? When $v=u$, the dot product $u\cdot u=\norm{u}_2^2$ is exactly the product $\norm{u}_2\norm{u}_2$ of the two lengths. A natural guess is that it can never be larger in size:
 \[
 |u\cdot v|\le\norm{u}_2\norm{v}_2.
 \]
-Let us test it on $u=(3,1)$ and $v=(1,1)$. Here $u\cdot v=4$, $\norm{u}_2=\sqrt{10}$ and $\norm{v}_2=\sqrt2$, so the guess claims that $4\le\sqrt{10}\sqrt2$. To check this without decimals, compare squares: $4^2=16$ and $(\sqrt{10}\sqrt2)^2=10\cdot2=20$, and $16\le20$, so the guess holds in this example. Comparing squares is legitimate because, for nonnegative numbers $p$ and $q$, we have $p\le q$ exactly when $p^2\le q^2$. Section~\ref{sec:magnitude} showed that $0\le p\le q$ implies $p^2\le q^2$. Conversely, if $p>q\ge0$, the strict version of the same rule gives $p^2>q^2$, so $p^2\le q^2$ rules out $p>q$.
+Test it on $u=(3,1)$ and $v=(1,1)$: here $u\cdot v=4$, $\norm{u}_2=\sqrt{10}$ and $\norm{v}_2=\sqrt2$. To compare $4$ with $\sqrt{10}\sqrt2$ without decimals, compare squares: $4^2=16\le20=(\sqrt{10}\sqrt2)^2$, so the guess holds here. This is legitimate because for nonnegative $p$ and $q$, $p\le q$ exactly when $p^2\le q^2$: by the squaring rules of Section~\ref{sec:magnitude}, $0\le p\le q$ gives $p^2\le q^2$, while $p>q\ge0$ gives $p^2>q^2$, so $p^2\le q^2$ rules out $p>q$.
 
-How could we find a reason that works for all vectors? Start from a fact that holds for every real number $t$: the vector $u-tv$ has a nonnegative squared length,
+How could we find a reason that works for all vectors? Start from the fact that $u-tv$ has a nonnegative squared length for every real number $t$:
 \[
 (u-tv)\cdot(u-tv)\ge0.
 \]
-Each choice of $t$ gives an inequality of this kind. Saying that a squared length is at least $0$ tells us the most when that squared length is as small as possible, so the most informative choice is the $t$ that makes $u-tv$ as short as possible, that is, the one that brings the multiple $tv$ as close to $u$ as possible. Geometrically, the closest multiple is the one for which the leftover piece $u-tv$ meets the line through $v$ at a right angle. So we look for the $t$ that makes $u-tv$ orthogonal to $v$, by solving
+Each $t$ gives an inequality, and it says the most when the squared length is as small as possible, so we choose $t$ to make $u-tv$ as short as possible. Geometrically, this happens when the leftover piece $u-tv$ meets the line through $v$ at a right angle. So we look for the $t$ that makes $u-tv$ orthogonal to $v$:
 \[
 (u-tv)\cdot v=0.
 \]
-By linearity in the first argument, this equation says $u\cdot v-t(v\cdot v)=0$. When $v\ne0$, positivity gives $v\cdot v>0$, so we may divide by $v\cdot v$ and obtain
+By linearity in the first argument, this says $u\cdot v-t(v\cdot v)=0$. When $v\ne0$, positivity gives $v\cdot v>0$, so we may divide and obtain
 \[
 t=\frac{u\cdot v}{v\cdot v}.
 \]
-This is the value of $t$ used in the proof below. With this $t$, the vector $tv$ is called the \emph{component} of $u$ along $v$, and $u-tv$ is the \emph{residual}: what remains of $u$ after its component along $v$ is removed. In our example $t=4/2=2$, so the component is $2v=(2,2)$ and the residual is $u-2v=(3,1)-(2,2)=(1,-1)$. The residual has dot product $1-1=0$ with $v=(1,1)$, as planned, and its squared length is $2$. The picture below shows this example: the residual meets the dashed line through $v$ at a right angle.
+With this $t$, the vector $tv$ is called the \emph{component} of $u$ along $v$, and $u-tv$ is the \emph{residual}: what remains of $u$ after its component along $v$ is removed. In our example $t=4/2=2$, so the component is $2v=(2,2)$ and the residual is $(1,-1)$, which has dot product $1-1=0$ with $v$, as planned; in the picture it meets the dashed line through $v$ at a right angle.
 
 \begin{center}
 \begin{tikzpicture}[scale=1.15,>=Stealth]
@@ -32,7 +32,7 @@ This is the value of $t$ used in the proof below. With this $t$, the vector $tv$
 \end{tikzpicture}
 \end{center}
 
-The theorem below bounds the absolute value $|u\cdot v|$. That is more informative than a bound on $u\cdot v$ alone, because a dot product can be negative. By Section~\ref{sec:magnitude}, the inequality $|u\cdot v|\le\norm{u}_2\norm{v}_2$ says that $u\cdot v$ lies between $-\norm{u}_2\norm{v}_2$ and $\norm{u}_2\norm{v}_2$.
+Since a dot product can be negative, the theorem bounds $|u\cdot v|$; by Section~\ref{sec:magnitude}, this says that $u\cdot v$ lies between $-\norm{u}_2\norm{v}_2$ and $\norm{u}_2\norm{v}_2$.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{theorem}[Cauchy--Schwarz inequality]\label{thm:cs}
@@ -42,7 +42,7 @@ For all $u,v\in\RR^n$, $|u\cdot v|\le\norm{u}_2\norm{v}_2$.
 
 \noindent\textit{Plan.} The squared length of $u-tv$ is nonnegative for every real $t$. Expand it, and then substitute the value of $t$ found above.
 \begin{proof}
-If $v=0$, then $u\cdot v=0$ and $\norm{v}_2=0$, so both sides of the inequality are zero and it holds. Assume from now on that $v\ne0$, so that $v\cdot v>0$. For any real $t$, expand the squared length of $u-tv$, using linearity first in the first argument and then in the second:
+If $v=0$, both sides of the inequality are zero. Assume from now on that $v\ne0$, so that $v\cdot v>0$. For any real $t$, expand the squared length of $u-tv$, using linearity first in the first argument and then in the second:
 \begin{align*}
  (u-tv)\cdot(u-tv)
  &=u\cdot(u-tv)-t\bigl(v\cdot(u-tv)\bigr)\\
@@ -64,33 +64,21 @@ Add the fraction to both sides and multiply by the positive number $v\cdot v$:
 \[
 (u\cdot v)^2\le(u\cdot u)(v\cdot v)=\norm{u}_2^2\,\norm{v}_2^2.
 \]
-Finally, $|u\cdot v|$ and $\norm{u}_2\norm{v}_2$ are nonnegative numbers. Their squares are $(u\cdot v)^2$, because $|a|^2=a^2$ for every real number $a$, and $\norm{u}_2^2\norm{v}_2^2$. Nonnegative numbers compare in the same way as their squares, so $|u\cdot v|\le\norm{u}_2\norm{v}_2$.
+Finally, $|u\cdot v|$ and $\norm{u}_2\norm{v}_2$ are nonnegative numbers whose squares are $(u\cdot v)^2$ (because $|a|^2=a^2$ for every real $a$) and $\norm{u}_2^2\norm{v}_2^2$. Nonnegative numbers compare in the same way as their squares, so $|u\cdot v|\le\norm{u}_2\norm{v}_2$.
 \end{proof}
 
 \subsection*{When does equality hold?}
-When is $|u\cdot v|$ exactly equal to $\norm{u}_2\norm{v}_2$? For $v\ne0$, the answer is: exactly when $u$ is a scalar multiple of $v$.
-
-The proof already contains the reason. With the chosen $t$, it showed that the squared length of the residual is
-\[
-\norm{u-tv}_2^2=u\cdot u-\frac{(u\cdot v)^2}{v\cdot v}.
-\]
-Multiplying by $v\cdot v$ gives
+When is $|u\cdot v|$ exactly equal to $\norm{u}_2\norm{v}_2$? For $v\ne0$, the proof contains the answer. With the chosen $t$, it showed that $\norm{u-tv}_2^2=u\cdot u-(u\cdot v)^2/(v\cdot v)$. Multiplying by $v\cdot v$ gives
 \[
  (u\cdot u)(v\cdot v)-(u\cdot v)^2
  =(v\cdot v)\,\norm{u-tv}_2^2.
 \]
-The left side is the gap between the two sides of the squared inequality. Two nonnegative numbers are equal exactly when their squares are equal, so equality holds in the theorem exactly when this gap is zero. Since $v\cdot v>0$, the gap is zero exactly when $\norm{u-tv}_2=0$, that is, when the residual $u-tv$ is the zero vector, which means $u=tv$. So if equality holds, then $u$ is a multiple of $v$. Conversely, suppose that $u=sv$ for some number $s$. Then
-\[
-t=\frac{(sv)\cdot v}{v\cdot v}=\frac{s(v\cdot v)}{v\cdot v}=s,
-\]
-so the residual is $u-sv=0$, the gap is zero, and equality holds.
+The left side is the gap between the two sides of the squared inequality, and since nonnegative numbers are equal exactly when their squares are, equality holds in the theorem exactly when this gap is zero. As $v\cdot v>0$, that happens exactly when $\norm{u-tv}_2=0$, that is, when the residual $u-tv$ is the zero vector, or $u=tv$. So if equality holds, $u$ is a multiple of $v$. Conversely, if $u=sv$ for some number $s$, then $t=\bigl((sv)\cdot v\bigr)/(v\cdot v)=s$, so the residual $u-sv$ is zero, the gap is zero, and equality holds. For example, $u=(2,2)=2v$ with $v=(1,1)$ gives $u\cdot v=4$ and $\norm{u}_2\norm{v}_2=\sqrt8\sqrt2=4$. When $v=0$, both sides are zero for every $u$. Altogether, equality holds exactly when $v=0$ or $u$ is a scalar multiple of $v$.
 
-For example, $u=(2,2)$ and $v=(1,1)$ give $u\cdot v=4$ and $\norm{u}_2\norm{v}_2=\sqrt8\sqrt2=2\sqrt2\cdot\sqrt2=4$. This is equality, as expected, since $u=2v$. For $u=(3,1)$ and $v=(1,1)$ the gap is $20-16=4$, and indeed $(v\cdot v)\norm{u-2v}_2^2=2\cdot2=4$. When $v=0$, both sides of the inequality are zero, so equality holds for every $u$. Altogether, equality holds exactly when $v=0$ or $u$ is a scalar multiple of $v$.
-
-Section~\ref{ch09:sec:taste} recommended asking, of every bound, what happens when it is attained. Here the answer shows that the bound is as good as possible: no constant factor smaller than $1$ can be placed in front of its right-hand side. When $u=v\ne0$, both sides equal $\norm{v}_2^2$, so a smaller right-hand side, such as $0.9\,\norm{u}_2\norm{v}_2$, would fail for these vectors.
+Section~\ref{ch09:sec:taste} recommended asking what happens when an inequality holds with equality. Here the answer also shows that the bound cannot be improved: when $u=v\ne0$, both sides equal $\norm{v}_2^2$, so no constant factor smaller than $1$, such as $0.9$, can be placed in front of the right-hand side.
 
 \subsection*{From the dot-product bound to a distance bound}
-In the plane, walking from one point to another by way of a third point is never shorter than walking there directly. Chapter~\ref{ch:limits} needs this fact in $\RR^n$, and Cauchy--Schwarz gives it quickly. For any $u,v\in\RR^n$, expand using linearity in each argument and symmetry:
+In the plane, walking from one point to another by way of a third is never shorter than walking directly. Chapter~\ref{ch:limits} needs this fact in $\RR^n$, and Cauchy--Schwarz gives it quickly. For any $u,v\in\RR^n$, expand using linearity in each argument and symmetry:
 \begin{align*}
  \norm{u+v}_2^2
  &=(u+v)\cdot(u+v)\\
@@ -100,7 +88,7 @@ In the plane, walking from one point to another by way of a third point is never
  &\le\norm{u}_2^2+2\norm{u}_2\norm{v}_2+\norm{v}_2^2\\
  &=(\norm{u}_2+\norm{v}_2)^2.
 \end{align*}
-The first inequality holds because $2(u\cdot v)\le2|u\cdot v|$. Indeed, every real number $a$ satisfies $a\le|a|$: if $a\ge0$ the two sides are equal, and if $a<0$ then $a<0\le|a|$. The second inequality uses Cauchy--Schwarz. The last line is the expansion $(p+q)^2=p^2+2pq+q^2$. Both $\norm{u+v}_2$ and $\norm{u}_2+\norm{v}_2$ are nonnegative, and nonnegative numbers compare in the same way as their squares. We obtain the \emph{triangle inequality}
+The first inequality holds because every real number $a$ satisfies $a\le|a|$ (if $a\ge0$ they are equal, and if $a<0$ then $a<0\le|a|$), and the second is Cauchy--Schwarz. Both $\norm{u+v}_2$ and $\norm{u}_2+\norm{v}_2$ are nonnegative, and nonnegative numbers compare in the same way as their squares. We obtain the \emph{triangle inequality}
 \[
  \norm{u+v}_2\le\norm{u}_2+\norm{v}_2.
 \]
@@ -108,4 +96,4 @@ To see where the name comes from, take three points $x,y,z\in\RR^n$ and put $u=x
 \[
 \norm{x-z}_2\le\norm{x-y}_2+\norm{y-z}_2.
 \]
-In the plane, $\norm{x-z}_2$ is the ordinary distance between the points $x$ and $z$, by Pythagoras' theorem. So the inequality says that in the triangle with corners $x$, $y$, $z$, the side from $x$ to $z$ is at most as long as the other two sides together. Exercise~\ref{ex:10.5} asks when the two sides of the triangle inequality are equal.
+In the plane, $\norm{x-z}_2$ is the ordinary distance between $x$ and $z$, so this says that in the triangle with corners $x$, $y$, $z$, the side from $x$ to $z$ is at most as long as the other two sides together. Exercise~\ref{ex:10.5} asks when equality holds.

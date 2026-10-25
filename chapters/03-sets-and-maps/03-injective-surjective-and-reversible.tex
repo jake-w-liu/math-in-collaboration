@@ -1,38 +1,34 @@
 \section{Injective, surjective, and reversible}\label{ch03:sec:injsurj}
-Which functions can be undone? The answer combines two properties, each of which is useful on its own.
+Which functions can be undone? The answer combines two properties that are useful on their own.
 
-A function $f:A\to B$ is \emph{injective} if different inputs always give different outputs: whenever $x\ne y$, also $f(x)\ne f(y)$. An injective function loses no information, because each output tells us which input produced it. In proofs we usually work with the contrapositive form of this definition (Section~\ref{ch02:sec:contrapositive}), which says the same thing with equalities in place of inequalities:
+A function $f:A\to B$ is \emph{injective} if different inputs always give different outputs: whenever $x\ne y$, also $f(x)\ne f(y)$. An injective function loses no information, because each output tells us which input produced it. In proofs we usually use the contrapositive form (Section~\ref{ch02:sec:contrapositive}):
 \[
-\forall x,y\in A:\qquad f(x)=f(y)\Rightarrow x=y.
+\forall x,y\in A:\qquad f(x)=f(y)\Rightarrow x=y,
 \]
-Here ``$\forall x,y\in A$'' is short for ``$\forall x\in A\ \forall y\in A$.'' In words: if two inputs have the same output, they were the same input. This form is easier to use because an equation gives us something to calculate with: from $x+1=y+1$ we can subtract $1$ and get $x=y$. An assumption such as $x\ne y$ gives us very little to go on. So to prove that $f$ is injective, take arbitrary $x,y\in A$, assume $f(x)=f(y)$, and deduce $x=y$.
+where ``$\forall x,y\in A$'' is short for ``$\forall x\in A\ \forall y\in A$.'' This form is easier to use, because an equation gives us something to calculate with (from $x+1=y+1$ we get $x=y$ by subtracting $1$), while an assumption such as $x\ne y$ gives very little to go on. So to prove that $f$ is injective, take arbitrary $x,y\in A$, assume $f(x)=f(y)$, and deduce $x=y$.
 
 A function $f:A\to B$ is \emph{surjective} if every target is an output:
 \[
 \forall b\in B\ \exists a\in A:\qquad f(a)=b.
 \]
-Equivalently, the image $f(A)$ is the whole codomain $B$. In the game of Section~\ref{ch02:sec:quantifiers}, the skeptic hands us a target $b$, and we, as the prover, respond with an input $a$, which may depend on $b$. An input $a$ with $f(a)=b$ is a \emph{witness} that $b$ is reached, just as $3$ is the witness for the oddness of $7=2\cdot3+1$ in Section~\ref{ch01:sec:definition}. To prove that $f$ is surjective, take an arbitrary $b\in B$ and produce a witness for it.
+Equivalently, the image $f(A)$ is the whole codomain $B$. In the game of Section~\ref{ch02:sec:quantifiers}, the skeptic hands us a target $b$, and we respond with an input $a$, which may depend on $b$. An input $a$ with $f(a)=b$ is a \emph{witness} that $b$ is reached, as $3$ witnesses that $7=2\cdot3+1$ is odd (Section~\ref{ch01:sec:definition}). So to prove that $f$ is surjective, take an arbitrary $b\in B$ and produce a witness.
 
-A function that is both injective and surjective is \emph{bijective}, and is called a \emph{bijection}. Other books often say \emph{one-to-one} for injective and \emph{onto} for surjective. Injectivity keeps different inputs apart; surjectivity makes sure that no target is missed. A function can have either property without the other, as the next two examples show.
+A function that is both injective and surjective is \emph{bijective}, or a \emph{bijection}. Other books often say \emph{one-to-one} for injective and \emph{onto} for surjective. A function can have either property without the other. The map $f:\{p,q\}\to\{1,2,3\}$ with $f(p)=1$ and $f(q)=2$ is injective, but not surjective, because no input reaches $3$. The map $g:\{p,q,r\}\to\{1,2\}$ with $g(p)=g(q)=1$ and $g(r)=2$ is surjective, but not injective: told only that the output is $1$, we cannot tell whether the input was $p$ or $q$.
 
-The map $f:\{p,q\}\to\{1,2,3\}$ with $f(p)=1$ and $f(q)=2$ is injective, because its two inputs have different outputs. It is not surjective, because no input reaches the target $3$. The map $g:\{p,q,r\}\to\{1,2\}$ with $g(p)=1$, $g(q)=1$, and $g(r)=2$ is surjective, because both targets are reached. It is not injective, because $g(p)=g(q)$ although $p\ne q$. If we are told only that the output of $g$ is $1$, we cannot tell whether the input was $p$ or $q$: that information has been lost.
+Now take $f:\{p,q,r\}\to\{1,2,3\}$ with $f(p)=2$, $f(q)=3$, and $f(r)=1$. It reaches every target exactly once, so it is bijective. To undo it, read each assignment backward: the inverse is $h(1)=r$, $h(2)=p$, $h(3)=q$; for instance, $h(f(q))=h(3)=q$.
 
-Here is how a bijection is undone in a small case. Let $f:\{p,q,r\}\to\{1,2,3\}$ be given by $f(p)=2$, $f(q)=3$, and $f(r)=1$. Every target is reached exactly once, so $f$ is bijective. Reading each assignment backward, so that $f(p)=2$ becomes $h(2)=p$, gives the inverse: $h(1)=r$, $h(2)=p$, and $h(3)=q$. You can check both conditions directly; for example, $h(f(q))=h(3)=q$ and $f(h(1))=f(r)=1$.
-
-Why does this recipe work for every bijection? Call an input $a$ a \emph{preimage} of a target $b$ when $f(a)=b$; in other words, a preimage of $b$ is a witness that $b$ is reached. To build an inverse $h$, we must decide, for every target $b$, which input $h(b)$ should be. The two properties of a bijection are exactly what make this decision possible and unambiguous.
+Why does this work for every bijection? Call an input $a$ a \emph{preimage} of a target $b$ when $f(a)=b$, that is, when $a$ is a witness that $b$ is reached. To build an inverse $h$, we must decide, for every target $b$, which input $h(b)$ should be.
 \begin{itemize}
 \item Surjectivity says that every target $b$ has \emph{at least one} preimage, so there is something to choose.
 \item Injectivity says that every target has \emph{at most one} preimage: if $f(a_1)=b$ and $f(a_2)=b$, then $f(a_1)=f(a_2)$, and so $a_1=a_2$. So there is no choice to make.
 \end{itemize}
-We may therefore define $h(b)$ to be \emph{the} unique preimage of $b$. Now check the two conditions for an inverse. By the definition of $h$, the input $h(b)$ is sent to $b$, so $f(h(b))=b$. For the other condition, start with an input $a$ and look at its output $f(a)$. The input $a$ is certainly a preimage of $f(a)$, and that preimage is unique, so $h(f(a))=a$.
+We may therefore define $h(b)$ to be \emph{the} unique preimage of $b$. Then $f(h(b))=b$ by the definition of $h$. And for any input $a$, the input $a$ itself is a preimage of $f(a)$, and the only one, so $h(f(a))=a$.
 
-The converse also holds: a function with an inverse must be both injective and surjective. Exercise~\ref{ex:3.5} asks you to prove this, in a sharper form that uses each of the two conditions on an inverse separately. Together, the two facts say that a function is reversible exactly when it is bijective.
+Conversely, a function with an inverse must be bijective; Exercise~\ref{ex:3.5} proves this in a sharper form, using each condition on an inverse separately. So a function is reversible exactly when it is bijective.
 
-The square map $f:\RR\to\RR$, $f(x)=x^2$, is neither injective nor surjective: $f(1)=f(-1)$, and the target $-1$ is never reached. This agrees with Section~\ref{ch03:sec:functions}, where we saw that it has no inverse.
+The square map $f:\RR\to\RR$, $f(x)=x^2$, is neither injective nor surjective: $f(1)=f(-1)$, and the target $-1$ is never reached. That is why it has no inverse. Now keep the rule but change both sets: $s:[0,\infty)\to[0,\infty)$, $s(x)=x^2$, is a bijection. For injectivity, if $s(x)=s(y)=t$, then $x$ and $y$ are nonnegative square roots of $t$, and $t$ has only one (Section~\ref{ch01:sec:notation}), so $x=y$. For surjectivity, a target $t\ge0$ is reached by the nonnegative input $\sqrt t$. The inverse of $s$ sends each $t$ to its unique preimage $\sqrt t$: it is the square-root function from $[0,\infty)$ to $[0,\infty)$. Shrinking the domain removed the collision between $1$ and $-1$, and shrinking the codomain removed the targets that could never be reached.
 
-Now keep the rule but change both sets: let $s:[0,\infty)\to[0,\infty)$ be given by $s(x)=x^2$. This new function is a bijection. For injectivity, suppose $s(x)=s(y)$, and call this common value $t$. Then $x$ and $y$ are both nonnegative numbers whose square is $t$. By the fact accepted in Section~\ref{ch01:sec:notation}, a nonnegative real number has exactly one nonnegative square root, so $x=y$. For surjectivity, a target $t\ge0$ is reached by the input $\sqrt t$, which is nonnegative. The inverse of $s$ is the square-root function $t\mapsto\sqrt t$ from $[0,\infty)$ to $[0,\infty)$. Both conditions for an inverse can be checked directly: $\sqrt{s(x)}=\sqrt{x^2}=x$ for every $x\ge0$ (Section~\ref{ch01:sec:notation}), and $s(\sqrt t)=(\sqrt t)^2=t$ for every $t\ge0$. Shrinking the domain removed the collision between $1$ and $-1$, and shrinking the codomain removed the negative targets that could never be reached.
-
-For finite sets, these properties also compare sizes. Suppose $A$ and $B$ are finite and $f:A\to B$ is injective. The $|A|$ different inputs then have $|A|$ different outputs, and all of these outputs lie in $B$. So $B$ contains at least $|A|$ different members, that is, $|A|\le|B|$. If $f$ is also surjective, those $|A|$ different outputs make up all of $B$, so $|A|=|B|$. Thus a bijection between two finite sets shows that they have the same size, without counting either one. The same counting also works in the other direction when the sizes agree. If $|A|=|B|$ and $f:A\to B$ is injective, then the $|A|$ different outputs are $|B|$ different members of $B$, so they make up all of $B$, and $f$ is surjective as well. Read as a contrapositive, the first fact says that if $|A|>|B|$, then no map from $A$ to $B$ is injective: every such map sends two different inputs to the same output. This is the simplest case of the pigeonhole principle. Chapter~\ref{ch:graphs} states the principle in general as Proposition~\ref{ch07:prop:pigeonhole}, in the language of objects placed in boxes.
+These properties also compare the sizes of finite sets. If $A$ and $B$ are finite and $f:A\to B$ is injective, its $|A|$ different inputs have $|A|$ different outputs, all in $B$, so $|A|\le|B|$. If $f$ is also surjective, those outputs make up all of $B$, so $|A|=|B|$: a bijection shows that two finite sets have the same size, without counting either one. And if $|A|=|B|$, then the $|A|$ different outputs of an injective $f$ are $|B|$ different members of $B$, so they make up all of $B$: $f$ is surjective as well. Read as a contrapositive, the first fact says that if $|A|>|B|$, then every map from $A$ to $B$ sends two different inputs to the same output. This is the simplest case of the pigeonhole principle, stated in general in Chapter~\ref{ch:graphs} as Proposition~\ref{ch07:prop:pigeonhole}.
 
 Both properties survive composition. Here is the statement for injectivity; Exercise~\ref{ex:3.2} asks you to prove the one for surjectivity.
 
@@ -44,10 +40,10 @@ If $f:A\to B$ and $g:B\to C$ are injective, then $g\circ f$ is injective.
 
 \noindent\textit{Plan.} An equality of final outputs should let us recover an equality at the intermediate stage, and then an equality of inputs.
 \begin{proof}
-Take any $x,y\in A$ and assume $g(f(x))=g(f(y))$. The elements $f(x)$ and $f(y)$ belong to $B$, so injectivity of $g$ applies to them and gives $f(x)=f(y)$. Injectivity of $f$ then gives $x=y$. This is exactly the implication required for $g\circ f$ to be injective.
+Take any $x,y\in A$ and assume $g(f(x))=g(f(y))$. Since $f(x)$ and $f(y)$ belong to $B$, injectivity of $g$ gives $f(x)=f(y)$. Injectivity of $f$ then gives $x=y$. This is the implication required for $g\circ f$ to be injective.
 \end{proof}
 
-An assistant may summarize this proof as ``cancel $g$, then cancel $f$.'' That shorthand is fine once it is clear that each cancellation is an application of injectivity. Functions cannot be cancelled in general. For $g:\RR\to\RR$ with $g(y)=y^2$ we have $g(1)=g(-1)$, yet $1\ne-1$, so cancelling $g$ here would lead to a false conclusion.
+An assistant may summarize this proof as ``cancel $g$, then cancel $f$.'' That shorthand is fine once it is clear that each cancellation is an application of injectivity. Functions cannot be cancelled in general: for $g:\RR\to\RR$, $g(y)=y^2$, we have $g(1)=g(-1)$, yet $1\ne-1$.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{proposition}\label{thm:compconverse}
@@ -64,11 +60,11 @@ f(0)=0,\quad f(1)=1,\qquad g(0)=0,\quad g(1)=g(2)=1.
 \]
 The composition sends $0$ to $0$ and $1$ to $1$, so it is injective. Yet $g$ is not injective, because the different inputs $1$ and $2$ have the same output.
 \end{proof}
-Look at why the example works. The composition $g\circ f$ only ever applies $g$ to outputs of $f$, that is, to points of the image $f(A)=\{0,1\}$. The collision $g(1)=g(2)$ involves the point $2$, which $f$ never reaches, so the composition cannot detect it. Studying why a counterexample works often shows what the true statement should be. Here it suggests that $g$ must be injective on the image of $f$, though not necessarily anywhere else.
+Why does the example work? The composition applies $g$ only to outputs of $f$, the points of the image $f(A)=\{0,1\}$. The collision $g(1)=g(2)$ involves the point $2$, which $f$ never reaches, so the composition cannot detect it. Studying why a counterexample works often shows what is true instead: here, that $g$ must be injective on the image of $f$, though not necessarily elsewhere.
 
-To say this precisely, we need one more term. If $S$ is a subset of the domain of $g$, the \emph{restriction} of $g$ to $S$ is the function from $S$ to $C$ that uses the same rule as $g$ but accepts only inputs from $S$. Whenever $g\circ f$ is injective, the restriction of $g$ to $f(A)$ is injective. To check this, let $b_1,b_2\in f(A)$ with $g(b_1)=g(b_2)$. Because both points lie in the image, there are inputs $x,y\in A$ with $b_1=f(x)$ and $b_2=f(y)$. Then $g(f(x))=g(f(y))$, so injectivity of $g\circ f$ gives $x=y$, and therefore $b_1=f(x)=f(y)=b_2$. In the example, the restriction of $g$ to $\{0,1\}$ sends $0$ to $0$ and $1$ to $1$, which is injective.
+To say this precisely: if $S$ is a subset of the domain of $g$, the \emph{restriction} of $g$ to $S$ is the function from $S$ to $C$ that uses the same rule as $g$ but accepts only inputs from $S$. Whenever $g\circ f$ is injective, the restriction of $g$ to $f(A)$ is injective. To check this, let $b_1,b_2\in f(A)$ with $g(b_1)=g(b_2)$. Since both lie in the image, $b_1=f(x)$ and $b_2=f(y)$ for some $x,y\in A$. Then $g(f(x))=g(f(y))$, so injectivity of $g\circ f$ gives $x=y$, and therefore $b_1=f(x)=f(y)=b_2$. In the example, the restriction of $g$ to $f(A)=\{0,1\}$ sends $0$ to $0$ and $1$ to $1$, so it is injective.
 
-This diagnosis also suggests an extra hypothesis under which $g$ itself must be injective. If $f$ is surjective, then $f(A)$ is all of $B$, so no input of $g$ goes untested.
+If, in addition, $f$ is surjective, then $f(A)$ is all of $B$, so no input of $g$ goes untested, and $g$ itself must be injective.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{proposition}\label{ch03:prop:surjrescue}
@@ -79,4 +75,3 @@ Let $f:A\to B$ and $g:B\to C$. If $g\circ f$ is injective and $f$ is surjective,
 \begin{proof}
 Since $f$ is surjective, $f(A)=B$, so the restriction of $g$ to $f(A)$ is $g$ itself. We showed above that this restriction is injective whenever $g\circ f$ is injective. Hence $g$ is injective.
 \end{proof}
-Each hypothesis has a visible job: injectivity of $g\circ f$ makes $g$ injective on the outputs of $f$, and surjectivity of $f$ makes those outputs all of $B$.

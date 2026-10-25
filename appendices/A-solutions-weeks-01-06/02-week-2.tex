@@ -1,14 +1,12 @@
 \section{Week 2}
 \sol{2.1}{The original implication is true: if $x=3$, then $x^2=3\cdot3=9$.
 
-The converse is ``If $x^2=9$, then $x=3$.'' It is false, and $x=-3$ is a counterexample. It satisfies the hypothesis, since $(-3)^2=9$, but not the conclusion, since $-3\ne3$.
+The converse is ``If $x^2=9$, then $x=3$.'' It is false, and $x=-3$ is a counterexample: $(-3)^2=9$, but $-3\ne3$.
 
-The contrapositive is ``If $x^2\ne9$, then $x\ne3$.'' It is true, because it is equivalent to the original implication, which is true. We can also see this directly: if $x$ were equal to $3$, then $x^2$ would equal $9$, which contradicts the hypothesis $x^2\ne9$.
+The contrapositive is ``If $x^2\ne9$, then $x\ne3$.'' It is true, because it is equivalent to the original implication, which is true.}
+\sol{2.2}{Work from the outside in. The statement says that \emph{every} integer $n$ has a successful response $m$, so it fails if \emph{some} integer $n$ has none. The negation therefore begins ``There is an integer $n$ such that, for every integer $m$, \ldots,'' with both domains unchanged.
 
-So the original statement and its contrapositive are true, and the converse is false. This is the same pattern as for ``divisible by four implies even'' in Sections~\ref{ch02:sec:implication} and~\ref{ch02:sec:contrapositive}: a true implication always has a true contrapositive, but its converse may fail.}
-\sol{2.2}{Work from the outside in. The original statement says that \emph{every} integer $n$ has at least one successful response $m$. It fails if \emph{some} integer $n$ has no successful response at all. So the negation begins ``There is an integer $n$ such that, for every integer $m$, \ldots.'' The domains stay the same: both $n$ and $m$ are still integers.
-
-A proposed response $m$ succeeds when $m>n$ \emph{and} $m$ is even. By De Morgan's law, it fails when at least one of these requirements fails: $m\le n$, or $m$ is not even. The comparison $m>n$ is strict, so its failure is $m\le n$, which includes the case $m=n$. In symbols, the original statement is
+A response $m$ succeeds when $m>n$ \emph{and} $m$ is even. By De Morgan's law, it fails when $m\le n$ (which includes $m=n$) or $m$ is not even. In symbols, the original statement is
 \[
  \forall n\in\ZZ\ \exists m\in\ZZ:\quad (m>n)\land(m\text{ is even}),
 \]
@@ -17,40 +15,33 @@ and its negation is
  \exists n\in\ZZ\ \forall m\in\ZZ:\quad
  (m\le n)\lor\neg(m\text{ is even}).
 \]
-In words: there is an integer $n$ such that every integer $m$ fails at least one requirement, that is, $m$ is at most $n$ or $m$ is not even. The ``or'' is inclusive. An $m$ that fails both requirements, such as an odd integer smaller than $n$, is still an unsuccessful response and must not be left out.
+In words: there is an integer $n$ such that every integer $m$ is at most $n$ or is not even. The ``or'' is inclusive: an $m$ that fails both requirements, such as an odd integer smaller than $n$, is still an unsuccessful response.
 
-Writing down the negation does not claim that it is true. In fact the original statement is true, so its negation is false. For any integer $n$, take $m=2|n|+2$. It is an integer, because $|n|$ is either $n$ or $-n$, and it is even, because $m=2(|n|+1)$. It is also larger than $n$:
-\[
-m=2|n|+2\ge|n|+2>|n|\ge n.
-\]
-The first inequality holds because $|n|\ge0$, and the last because $|n|$ equals $n$ when $n\ge0$ and is positive, hence larger than $n$, when $n<0$. For instance, $n=-5$ gives $m=12$, and $n=7$ gives $m=16$.}
-\sol{2.3}{The first statement is true. The skeptic chooses $x$ first, and the prover then chooses $y$ already knowing $x$. The choice $y=-x$ works, because $x+(-x)=0$. For example, $x=5$ is answered by $y=-5$.
+Writing down the negation does not claim that it is true. In fact it is false, because the original statement is true. For any integer $n$, take $m=2|n|+2=2(|n|+1)$, which is an even integer because $|n|$ is $n$ or $-n$. Then $m\ge|n|+2>|n|\ge n$: the first step holds because $|n|\ge0$, and the last because $|n|=n$ when $n\ge0$, while $|n|>0>n$ when $n<0$.}
+\sol{2.3}{The first statement is true. The skeptic chooses $x$ first, and the prover, already knowing $x$, chooses $y=-x$, since $x+(-x)=0$.
 
-The second statement is false. It asks for a single $y$, chosen before $x$, with $x+y=0$ for every real number $x$. Suppose such a $y$ existed. Taking $x=0$ would give $y=0$, and taking $x=1$ would give $1+y=0$, that is, $y=-1$. One number cannot equal both $0$ and $-1$, so no such $y$ exists. Put differently, whatever $y$ is proposed, the skeptic can choose $x=1-y$, and then $x+y=1\ne0$.
+The second statement is false. It asks for a single $y$, chosen before $x$, with $x+y=0$ for every real number $x$. Whatever $y$ is proposed, the skeptic can choose $x=1-y$, and then $x+y=1\ne0$. So no choice of $y$ works. The two statements differ only in the order of their quantifiers, like statements (A) and (B) in Section~\ref{ch02:sec:quantifiers}.}
+\sol{2.4}{The number $x=-3$ is a counterexample: it satisfies the hypothesis, since $(-3)^2=9>4$, but $-3$ is not greater than $2$.
 
-The two statements differ only in the order of their quantifiers, exactly as statements (A) and (B) do in Section~\ref{ch02:sec:quantifiers}.}
-\sol{2.4}{The number $x=-3$ is a counterexample. It satisfies the hypothesis, since $(-3)^2=9>4$, but not the conclusion, since $-3$ is not greater than $2$.
+The repaired claim is ``If a real number $x$ satisfies $x^2>4$, then $x<-2$ or $x>2$,'' or equivalently ``then $|x|>2$.'' Section~\ref{sec:magnitude} proves that $x^2>4$ holds exactly when $|x|>2$, that is, when $x<-2$ or $x>2$. One direction of this equivalence says that the repaired claim is true for every real $x$. The other says that every real number satisfying the new conclusion satisfies $x^2>4$, so the new conclusion describes exactly the real numbers with $x^2>4$.
 
-The repaired claim is ``If a real number $x$ satisfies $x^2>4$, then $x<-2$ or $x>2$,'' or equivalently ``then $|x|>2$.'' Section~\ref{sec:magnitude} proves that $x^2>4$ holds exactly when $|x|>2$. In brief: if $|x|>2$, squaring the inequality $2<|x|$ between nonnegative numbers gives $4<|x|^2=x^2$; and if $|x|\le2$, squaring this inequality in the same way gives $x^2=|x|^2\le4$. The second case is the contrapositive of ``if $x^2>4$, then $|x|>2$,'' so the repaired claim is true for every real $x$. The first case shows the reverse: every real number that satisfies the new conclusion also satisfies $x^2>4$. So the new conclusion describes exactly the real numbers with $x^2>4$.
+Other repairs can be true but lose information: ``if $x^2>4$, then $x\ne0$'' is true, but $x=1$ satisfies $x\ne0$ although $1^2>4$ fails.}
+\sol{2.5}{Let Ada and Ben be the two students, with tasks~$1$ and~$2$ available. Suppose both students accept task~$1$ and neither accepts task~$2$. Each student accepts at least one task, but task~$1$ is the only task either of them accepts, so they cannot be given two different acceptable tasks.
 
-Other repairs give true statements but lose information. For instance, ``if $x^2>4$, then $x\ne0$'' is true but much weaker: $x=1$ satisfies $x\ne0$ although $1^2>4$ fails. Restricting the claim to positive $x$ would also make it true, but that changes the hypothesis, which the exercise does not allow, and the restricted claim would say nothing about negative numbers.}
-\sol{2.5}{Let Ada and Ben be the two students, and let tasks~$1$ and~$2$ be available. Suppose both students accept task~$1$ and neither accepts task~$2$. Each student accepts at least one task, namely task~$1$. But giving Ada and Ben different acceptable tasks would require two different tasks, each acceptable to the student who receives it, while task~$1$ is the only task either of them accepts.
-
-Following the hint, the condition looks at groups of students:
+Following the hint, consider the condition
 \begin{center}
 \emph{for every group of students, the number of tasks acceptable to at least one member of the group is at least the number of students in the group.}
 \end{center}
-In the example, the group made up of Ada and Ben has two students but only one acceptable task between them, and $1\ge2$ is false. So the condition fails, and it detects the problem.
+In the example, the group made up of Ada and Ben has two students but only one acceptable task between them, so the condition fails.
 
-The condition must hold whenever all the students can be given different acceptable tasks. Suppose such an assignment exists, and take any group of $k$ students. The assignment gives these $k$ students $k$ different tasks, and each of those tasks is acceptable to the student who receives it, so it is acceptable to at least one member of the group. Hence at least $k$ tasks are acceptable to members of the group.
+The condition must hold whenever all the students can be given different acceptable tasks. Suppose such an assignment exists, and take any group of $k$ students. The assignment gives them $k$ different tasks, each acceptable to the member of the group who receives it. Hence at least $k$ tasks are acceptable to members of the group.
 
-The group condition is stronger than ``each student accepts at least one task.'' Applied to a group consisting of a single student, it says exactly that this student accepts at least one task, and it also checks every larger group, which is where the example fails. Chapter~\ref{ch:hall} proves the converse: when there are finitely many students and tasks, the group condition guarantees that all the students can be given different acceptable tasks. This is Hall's theorem, Theorem~\ref{thm:hall}.}
-\sol{2.6}{Let $\eps$ be a positive real number. By the Archimedean property, choose an integer $N$ with $N>1/\eps$. It is positive, because $1/\eps>0$. Now let $n$ be any integer with $n\ge N$. Then $0<N\le n$, so the rule from Section~\ref{ch02:sec:quantifiers} that taking reciprocals of positive numbers reverses $\le$ gives $1/n\le1/N$. As in Example~\ref{ch02:ex:archimedes}, the inequality $N>1/\eps$ gives $1/N<\eps$. Together,
+The condition is stronger than ``each student accepts at least one task'': for a group of one student, it says exactly that, and it also checks every larger group, which is where the example fails. Hall's theorem (Theorem~\ref{thm:hall}) proves the converse: with finitely many students and tasks, the group condition guarantees that all the students can be given different acceptable tasks.}
+\sol{2.6}{Let $\eps$ be a positive real number. By the Archimedean property, choose an integer $N>1/\eps$; as in Example~\ref{ch02:ex:archimedes}, $N$ is positive and $1/N<\eps$. Now let $n$ be any integer with $n\ge N$. Since $0<N\le n$, taking reciprocals gives $1/n\le1/N$. Together,
 \[
 \frac1n\le\frac1N<\eps.
 \]
-For instance, for $\eps=1/100$ the choice $N=101$ works, and for $\eps=0.003$ the choice $N=334$ works.
 
-The statement involves three choices, made in this order: first the tolerance $\eps$ is given, then we choose $N$, and then any integer $n\ge N$ may be tested. Since $\eps$ comes first, $N$ may depend on it. In fact it must, because a smaller $\eps$ may need a larger $N$: the choice $N=101$ works for $\eps=1/100$ but not for $\eps=1/1000$, and no single $N$ works for every $\eps$. Indeed, testing $n=N$ shows that such an $N$ would satisfy $1/N<\eps$ for every positive $\eps$, which the Pause and decide question at the end of Section~\ref{ch02:sec:quantifiers} rules out.
+The choices are made in this order: first $\eps$ is given, then we choose $N$, and then any integer $n\ge N$ may be tested. Since $\eps$ comes first, $N$ may depend on it, and it must: $N=101$ works for $\eps=1/100$ but not for $\eps=1/1000$, and no single $N$ works for every $\eps$, since testing $n=N$ would give $1/N<\eps$ for every positive $\eps$, which the Pause and decide question at the end of Section~\ref{ch02:sec:quantifiers} rules out.
 
-The integer $n$ comes after $N$. The phrase ``every integer $n\ge N$'' only makes sense once $N$ has been fixed, because $N$ decides which integers are tested. To see why this order matters, imagine that $N$ could be chosen after seeing $n$. Then for any $n$ we could choose $N=n+1$. The tested integer $n$ would not satisfy $n\ge N$, so the requirement ``if $n\ge N$, then $1/n<\eps$'' would hold vacuously, as in Section~\ref{ch02:sec:contrapositive}. Since this trick works whatever condition follows ``if $n\ge N$,'' a statement with the choices in that order promises nothing. With $N$ fixed before $n$, the statement makes a real promise: from $N$ onward, every number $1/n$ is less than $\eps$. Chapter~\ref{ch:limits} defines limits by statements of exactly this shape.}
+The integer $n$ comes after $N$: the phrase ``every integer $n\ge N$'' only makes sense once $N$ is fixed. If $N$ could be chosen after seeing $n$, we could take $N=n+1$; then $n\ge N$ would be false, so ``if $n\ge N$, then $1/n<\eps$'' would hold vacuously (Section~\ref{ch02:sec:contrapositive}), whatever condition followed. With the choices in that order the statement would promise nothing. With $N$ fixed before $n$, it makes a real promise: from $N$ onward, every number $1/n$ is less than $\eps$. Chapter~\ref{ch:limits} defines limits by statements of exactly this shape.}

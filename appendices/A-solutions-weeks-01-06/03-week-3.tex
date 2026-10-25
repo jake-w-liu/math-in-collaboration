@@ -1,19 +1,19 @@
 \section{Week 3}
-\sol{3.1}{The union is $A\cup B=\{1,2,3,4\}$, the intersection is $A\cap B=\{2,4\}$, and the difference is $A\setminus B=\{1\}$. The union lists each member once, including $2$ and $4$, which belong to both sets. The difference keeps the members of $A$ that are not in $B$: the members $2$ and $4$ of $A$ are removed because they also lie in $B$, and only $1$ remains.}
-\sol{3.2}{We must prove that $g\circ f$ is surjective, so we start from the \emph{output} end. Let $f:A\to B$ and $g:B\to C$ be surjective, and take an arbitrary target $c\in C$. The goal is to find a witness $a\in A$ with $g(f(a))=c$.
+\sol{3.1}{$A\cup B=\{1,2,3,4\}$, with $2$ and $4$ listed once although they lie in both sets; $A\cap B=\{2,4\}$; and $A\setminus B=\{1\}$, because the members $2$ and $4$ of $A$ also lie in $B$.}
+\sol{3.2}{To prove that $g\circ f$ is surjective, we start from the \emph{output} end. Take an arbitrary target $c\in C$; we must find a witness $a\in A$ with $g(f(a))=c$.
 
-Surjectivity of $g$ applies to $c$, because $c$ belongs to its codomain $C$. It supplies some $b\in B$ with $g(b)=c$. Surjectivity of $f$ now applies to this particular $b$, because $b$ belongs to its codomain $B$. It supplies some $a\in A$ with $f(a)=b$. Substitution checks the candidate:
+Since $g$ is surjective and $c$ belongs to its codomain $C$, there is some $b\in B$ with $g(b)=c$. Since $f$ is surjective and this $b$ belongs to its codomain $B$, there is some $a\in A$ with $f(a)=b$. Then
 \[
  (g\circ f)(a)=g(f(a))=g(b)=c.
 \]
-Since $c$ was an arbitrary target, every element of $C$ is reached, so the composition is surjective.
+Since $c$ was an arbitrary target, the composition is surjective.
 
-Notice the order. The functions are applied with $f$ first and $g$ second, but the witnesses are found the other way round: first $b$ for $g$, then $a$ for $f$. We could not start by choosing $a$, because until we know $b$ we do not know which target of $f$ to aim for. Neither witness needs to be unique; surjectivity promises only that at least one exists.}
-\sol{3.3}{\emph{Injective.} Let $m,n\in\ZZ$ with $f(m)=f(n)$, that is, $2m=2n$. Dividing both sides by the nonzero number $2$ gives $m=n$. So $f$ is injective.
+Notice the order. The functions are applied with $f$ first and $g$ second, but the witnesses are found the other way round: first $b$ for $g$, then $a$ for $f$. We could not start by choosing $a$, because until we know $b$ we do not know which target of $f$ to aim for.}
+\sol{3.3}{\emph{Injective.} Let $m,n\in\ZZ$ with $f(m)=f(n)$, that is, $2m=2n$. Dividing both sides by $2$ gives $m=n$. So $f$ is injective.
 
-\emph{Not surjective.} The target $1$ is never reached. If $2n=1$, then $n=1/2$, which is not an integer. So no integer $n$ satisfies $f(n)=1$, and $f$ is not surjective.
+\emph{Not surjective.} If $2n=1$, then $n=1/2$, which is not an integer. So the target $1$ is never reached, and $f$ is not surjective.
 
-\emph{A bijection.} Let $2\ZZ=\{2k:k\in\ZZ\}$ be the set of even integers, and consider the rule $n\mapsto2n$ as a function from $\ZZ$ to $2\ZZ$. This is a legitimate function, because every output $2n$ is even and so lies in the new codomain. It is still injective, by the same argument as before: changing the codomain does not change any output. It is now surjective: each member of $2\ZZ$ has the form $2k$ for some integer $k$, and the input $k$ has output $2k$. Hence the new function is a bijection. The new codomain is exactly the image of the original function.}
+\emph{A bijection.} Let $2\ZZ=\{2k:k\in\ZZ\}$ be the set of even integers, and use the rule $n\mapsto2n$ as a function from $\ZZ$ to $2\ZZ$; this is allowed, because every output $2n$ is even. It is still injective by the same argument, since changing the codomain does not change any output. It is now surjective: each member of $2\ZZ$ has the form $2k$ for some $k\in\ZZ$, and the input $k$ has output $2k$. Hence it is a bijection. The new codomain is exactly the image of the original function.}
 \sol{3.4}{Let $x\in A$. Then
 \begin{align*}
  x\in f^{-1}(S\cup T)
@@ -22,22 +22,20 @@ Notice the order. The functions are applied with $f$ first and $g$ second, but t
  &\Longleftrightarrow x\in f^{-1}(S)\ \text{or}\ x\in f^{-1}(T) &&\text{definition of preimage}\\
  &\Longleftrightarrow x\in f^{-1}(S)\cup f^{-1}(T) &&\text{definition of union}.
 \end{align*}
-Each step is valid in both directions. Reading the chain downward shows that $f^{-1}(S\cup T)\subseteq f^{-1}(S)\cup f^{-1}(T)$, and reading it upward shows the reverse containment. Both sides consist only of members of $A$, and $x$ was an arbitrary element of $A$, so the two sets have exactly the same members; they are equal. No injectivity, surjectivity, or inverse function is needed.}
-\sol{3.5}{\emph{Left inverse.} Here $h(f(a))=a$ for every $a\in A$. To prove that $f$ is injective, take $x,y\in A$ and assume $f(x)=f(y)$. Applying the same function $h$ to equal objects gives equal results:
+As for intersections in Section~\ref{ch03:sec:images}, reading this chain of equivalences downward and then upward gives the two containments, so the sets are equal. No injectivity, surjectivity, or inverse function is needed.}
+\sol{3.5}{\emph{Left inverse.} Here $h(f(a))=a$ for every $a\in A$. To prove that $f$ is injective, take $x,y\in A$ with $f(x)=f(y)$. Since $f(x)$ and $f(y)$ are equal elements of $B$, the domain of $h$, applying $h$ gives
 \[
  h(f(x))=h(f(y)).
 \]
-This is legitimate because $f(x)$ and $f(y)$ belong to $B$, the domain of $h$. Now use the left-inverse identity once at $x$ and once at $y$: the left side equals $x$ and the right side equals $y$. So $x=y$, as required.
+By the left-inverse identity, the left side equals $x$ and the right side equals $y$. So $x=y$.
 
-\emph{Right inverse.} Here $f(h(b))=b$ for every $b\in B$. To prove that $f$ is surjective, take any target $b\in B$. The element $h(b)$ belongs to $A$, so it is a candidate witness. Its output is $f(h(b))=b$, so the candidate works.
+\emph{Right inverse.} Here $f(h(b))=b$ for every $b\in B$. To prove that $f$ is surjective, take any target $b\in B$. The element $h(b)\in A$ is a witness, because $f(h(b))=b$.
 
-The first identity lets us recover inputs from outputs; the second lets us reach every target. A function can have one kind of one-sided inverse without the other. For example, let $A=\{0\}$, $B=\{0,1\}$, $f(0)=0$, and $h(0)=h(1)=0$. Then $h(f(0))=0$, so $h\circ f=\id_A$ and $f$ is injective. But $f$ is not surjective, since no input reaches $1$; correspondingly, $f(h(1))=0\ne1$, so $f\circ h\ne\id_B$. In fact $f$ has no right inverse at all, since by the second part a right inverse would make $f$ surjective.
-
-Exchanging the roles of the two functions gives the reverse situation. Read the identity $h\circ f=\id_A$ as a statement about $h:B\to A$: it says that $f$ is a right inverse of $h$. So $h$ is surjective by the second part. But $h$ is not injective, since $h(0)=h(1)$, so by the first part $h$ has no left inverse. In short, $f$ has a left inverse but no right inverse, while $h$ has a right inverse but no left inverse. An inverse satisfies both identities, so by the two parts above, every function that has an inverse is bijective.}
+An inverse satisfies both identities, so by the two parts, every function that has an inverse is bijective. A function can, however, have one kind of one-sided inverse without the other. For example, let $A=\{0\}$, $B=\{0,1\}$, $f(0)=0$, and $h(0)=h(1)=0$. Then $h\circ f=\id_A$, so $h$ is a left inverse of $f$. But no input reaches $1$, so $f$ is not surjective and, by the second part, has no right inverse at all.}
 \sol{3.6}{No, equality can fail, but one containment always holds.
 
-\emph{The containment $f(S\cap T)\subseteq f(S)\cap f(T)$.} Let $z\in f(S\cap T)$. Then some $x\in S\cap T$ satisfies $f(x)=z$. That same $x$ belongs to $S$, so $z\in f(S)$, and it belongs to $T$, so $z\in f(T)$. Hence $z\in f(S)\cap f(T)$.
+\emph{The containment $f(S\cap T)\subseteq f(S)\cap f(T)$.} Let $z\in f(S\cap T)$. Then $z=f(x)$ for some $x\in S\cap T$. That $x$ belongs to $S$, so $z\in f(S)$, and it belongs to $T$, so $z\in f(T)$. Hence $z\in f(S)\cap f(T)$.
 
-\emph{A counterexample to equality.} Let $f:\RR\to\RR$ be $f(x)=x^2$, with $S=\{1\}$ and $T=\{-1\}$. Then $S\cap T=\varnothing$, and the image of the empty set is empty, because there are no inputs to produce outputs. So $f(S\cap T)=\varnothing$. On the other hand, $f(S)=\{1\}$ and $f(T)=\{1\}$, so $f(S)\cap f(T)=\{1\}$. The two sides differ.
+\emph{A counterexample to equality.} Let $f:\RR\to\RR$ be $f(x)=x^2$, with $S=\{1\}$ and $T=\{-1\}$. Then $S\cap T=\varnothing$, and the image of the empty set is empty, since there are no inputs to produce outputs; so $f(S\cap T)=\varnothing$. But $f(S)=f(T)=\{1\}$, so $f(S)\cap f(T)=\{1\}$.
 
-The proof of the containment cannot be reversed. A member $z$ of $f(S)\cap f(T)$ has a preimage $s\in S$ and a preimage $t\in T$, but these may be different inputs, as $1$ and $-1$ are here, and then neither of them needs to lie in $S\cap T$. If $f$ is injective, however, $f(s)=z=f(t)$ forces $s=t$, which lies in $S\cap T$; so for injective functions the equality does hold.}
+The containment proof cannot be reversed: a member $z$ of $f(S)\cap f(T)$ has preimages $s\in S$ and $t\in T$, but they may be different inputs, like $1$ and $-1$ here, and then neither needs to lie in $S\cap T$. If $f$ is injective, however, $f(s)=z=f(t)$ forces $s=t\in S\cap T$, so the equality holds.}

@@ -1,22 +1,20 @@
 \section{Your independent capstone}\label{ch18:sec:independent}
-Now it is your turn. Choose one of the three problems that run through the book: assigning tasks, iterating a map, or sign sequences. Start with a question narrow enough that you can check every claim you make. Here are three possible starting points.
+Now it is your turn. Choose one of the three problems that run through the book (assigning tasks, iterating a map, or sign sequences) and start with a question narrow enough that you can check every claim you make. Here are three possible starting points; none is expected to lead to a new theorem, but each leaves room to go further.
 \begin{itemize}
-\item \emph{Assignments with capacities.} Allow a task to be given to several students, up to a fixed capacity, and find the right version of Hall's condition. Replacing a task of capacity $c$ by $c$ separate slots turns the question into one about ordinary matchings; Exercise~\ref{ex:18.5} asks you to carry out this first step. You might then ask how the search procedure of Chapter~\ref{ch:matching} changes in this setting.
-\item \emph{Iteration with a specified pattern of errors.} Pick a particular pattern of update errors, for example $\eps_n=1/(n+1)$, or $\eps_n=s^n$ for a number $s$ with $0<s<1$ and $s\ne q$, and find out as precisely as you can how fast the error $e_n$ goes to zero. Exercise~\ref{ex:18.4} treats the case $\eps_n\le aq^n$.
-\item \emph{Sign sequences at a new length.} Extend the table of Section~\ref{ch14:sec:experiment} by one more length, with a program that anyone can run to reproduce your counts. Then find out which operations on sequences, such as negating every sign, reversing the order, or rotating, preserve each of the two properties that the table counts.
+\item \emph{Assignments with capacities.} Allow a task to be given to several students, up to a fixed capacity, and find the right version of Hall's condition; Exercise~\ref{ex:18.5} takes the first step. Then ask how the search procedure of Chapter~\ref{ch:matching} changes.
+\item \emph{Iteration with a specified pattern of errors.} Pick a pattern, such as $\eps_n=1/(n+1)$ or $\eps_n=s^n$ with $0<s<1$ and $s\ne q$, and find out as precisely as you can how fast $e_n$ goes to zero; Exercise~\ref{ex:18.4} treats the case $\eps_n\le aq^n$.
+\item \emph{Sign sequences at a new length.} Extend the table of Section~\ref{ch14:sec:experiment} by one more length, with a program that anyone can run to reproduce your counts. Then find out which operations, such as negating every sign, reversing the order, or rotating, preserve each of the two properties the table counts.
 \end{itemize}
-None of these is expected to lead to a new theorem. Each is a manageable place to start, with room to go further.
-
 Your write-up should contain:
 \begin{itemize}
-\item a precise statement of your question and of your result, and, if the question changed while you worked on it, both the original and the final version, with the difference explained;
+\item a precise statement of your question and your result, and, if the question changed while you worked on it, both versions, with the difference explained;
 \item a map of the background your argument needs, like the prerequisite map of Section~\ref{ch17:sec:map};
 \item a proof, or a counterexample;
-\item computer checks where they are relevant, together with the program, the software it runs on, and the range of cases it covers;
-\item a record of the assumptions you used and of the evidence for each claim: proved, cited from another source, checked by computer for finitely many cases, or not established, as in the section ``Keeping track of evidence'' of \emph{To the reader};
+\item computer checks where relevant, with the program, the software it runs on, and the range of cases it covers;
+\item a record of the assumptions you used and of the evidence for each claim: proved, cited, checked by computer for finitely many cases, or not established, as in ``Keeping track of evidence'' in \emph{To the reader};
 \item credit to every source you used, an honest account of how you used an AI assistant, and a list of what remains unsettled;
 \item a short explanation of what is new compared with the published literature, and what is new only to you.
 \end{itemize}
-The investigation ends with a short oral discussion. Expect to explain one delicate step of your argument, to change one of your assumptions, and to predict what fails. Your ability to answer these questions matters more than how polished your saved conversation with an assistant looks. Section~\ref{appE:sec:rubric} of Appendix~\ref{app:guide} suggests a grading rubric.
+The investigation ends with a short oral discussion in which you explain one delicate step of your argument, change one of your assumptions, and predict what fails; your answers matter more than how polished your saved conversation with an assistant looks. Section~\ref{appE:sec:rubric} of Appendix~\ref{app:guide} suggests a grading rubric.
 
-Before you hand in your work, an assistant can help you review it. Ask it for three things, one at a time. First, have it restate your argument in its own words, and check whether the restatement is faithful; a step that it gets wrong is often a step that you explained badly. Second, ask it for counterexamples to stronger versions of your statement, and ask whether each hypothesis is really needed. Third, have it check that your prose, your formulas, your code and any Lean statements all say the same thing. All three answers come from the same assistant, so they may share the same blind spots, and they are no substitute for a careful human reader such as a classmate or an instructor. Their value lies in the specific points they raise, each of which you then check yourself.
+Before you hand in your work, ask an assistant, one request at a time, to restate your argument in its own words (a step it gets wrong is often one you explained badly), to find counterexamples to stronger versions of your statement and say whether each hypothesis is needed, and to check that your prose, formulas, code and any Lean statements agree. All three answers come from the same assistant and may share its blind spots, so they do not replace a careful human reader such as a classmate or an instructor; check each point they raise yourself.

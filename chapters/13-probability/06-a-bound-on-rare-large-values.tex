@@ -1,5 +1,5 @@
 \section{A bound on rare large values}\label{ch13:sec:markov}
-The expectation also limits how often a quantity can be much larger than its average, provided the quantity is never negative. A random variable $X$ is \emph{nonnegative} when $X(\omega)\ge0$ for every outcome $\omega$. For a real number $a$, we write $\Prob(X\ge a)$ for the probability of the event $\{\omega\in\Omega:X(\omega)\ge a\}$.
+The expectation also limits how often a quantity that is never negative can be much larger than its average. A random variable $X$ is \emph{nonnegative} when $X(\omega)\ge0$ for every outcome $\omega$. For a real number $a$, we write $\Prob(X\ge a)$ for the probability of the event $\{\omega\in\Omega:X(\omega)\ge a\}$.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{proposition}[Markov's inequality]\label{ch13:prop:markov}
@@ -15,25 +15,25 @@ Split the sum defining the expectation into the outcomes where $X\ge a$ and the 
 \[
 \E X=\sum_{\omega:\,X(\omega)\ge a}p(\omega)X(\omega)+\sum_{\omega:\,X(\omega)<a}p(\omega)X(\omega).
 \]
-Here $\sum_{\omega:\,X(\omega)\ge a}$ means the sum over the outcomes $\omega$ with $X(\omega)\ge a$, that is, over the event $\{\omega\in\Omega:X(\omega)\ge a\}$; the second sum runs over all the other outcomes. In the first sum every value $X(\omega)$ is at least $a$, and every weight $p(\omega)$ is nonnegative, so $p(\omega)X(\omega)\ge p(\omega)a$ for each term. Hence the first sum is at least
+In the first sum $X(\omega)\ge a$ and $p(\omega)\ge0$, so $p(\omega)X(\omega)\ge p(\omega)a$ for each term, and the sum is at least
 \[
 \sum_{\omega:\,X(\omega)\ge a}p(\omega)\,a=a\,\Prob(X\ge a).
 \]
-In the second sum every term $p(\omega)X(\omega)$ is nonnegative, because $p(\omega)\ge0$ and $X(\omega)\ge0$, so the second sum is at least $0$. Together, $\E X\ge a\,\Prob(X\ge a)$, and dividing by the positive number $a$ gives the claim.
+In the second sum every term is nonnegative, because $p(\omega)\ge0$ and $X(\omega)\ge0$, so the second sum is at least $0$. Together, $\E X\ge a\,\Prob(X\ge a)$, and dividing by the positive number $a$ gives the claim.
 \end{proof}
 
-For example, suppose that the scores on a test are all nonnegative and that the class average is $20$. Choose a student uniformly at random, and let $X$ be that student's score. In a uniform model the expectation is the ordinary average, so $\E X=20$, and $\Prob(X\ge80)$ is the fraction of the class that scored $80$ or more. Markov's inequality says that this fraction is at most $20/80=1/4$. You can also see this directly: if more than a quarter of the class had scored at least $80$, those students alone would contribute more than $\tfrac14\cdot80=20$ to the average, and since no score is negative, the other students could not bring it back down to $20$.
+For example, suppose that the scores on a test are all nonnegative and that the class average is $20$. If $X$ is the score of a student chosen uniformly at random, then $\E X=20$, and $\Prob(X\ge80)$ is the fraction of the class that scored $80$ or more. Markov's inequality says that this fraction is at most $20/80=1/4$: if more than a quarter of the class had scored at least $80$, those students alone would contribute more than $\tfrac14\cdot80=20$ to the average, and the others at least $0$, so the average would exceed $20$.
 
-The bound need not be exact. For the number $X$ of coins showing $1$ in the two-coin experiment, $X$ is nonnegative and $\E X=1$, so Markov's inequality with $a=2$ gives $\Prob(X\ge2)\le1/2$. The true value is smaller: $\Prob(X\ge2)=\Prob(\{11\})=1/4$. Exercise~\ref{ex:13.6} asks for a case in which the bound is exact.
+The bound need not be exact. For the number $X$ of coins showing $1$ in the two-coin experiment, $\E X=1$, so Markov's inequality with $a=2$ gives $\Prob(X\ge2)\le1/2$, while in fact $\Prob(X\ge2)=\Prob(\{11\})=1/4$. Exercise~\ref{ex:13.6} asks for a case in which the bound is exact.
 
-A convenient way to remember Markov's inequality uses multiples of the average. Suppose $\E X>0$, and take $a=t\,\E X$ for a number $t>0$. Then
+In terms of multiples of the average: if $\E X>0$ and $t>0$, taking $a=t\,\E X$ gives
 \[
 \Prob(X\ge t\,\E X)\le\frac{\E X}{t\,\E X}=\frac1t.
 \]
-So a nonnegative quantity with a positive average is at least twice its average with probability at most $1/2$, and at least ten times its average with probability at most $1/10$. In the test example, $80$ is four times the average, and the bound is $1/4$. This is the precise sense in which large values of a nonnegative quantity are rare.
+So a nonnegative quantity with a positive average is at least twice its average with probability at most $1/2$, and at least ten times its average with probability at most $1/10$.
 
-The inequality needs the hypothesis that $X$ is nonnegative. Without it, large negative values can balance large positive ones in the expectation. A random variable equal to $100$ or $-100$, each with probability $1/2$, has expectation $0$, so the right side of Markov's inequality would be $0/100=0$; yet $\Prob(X\ge100)=1/2$. In the proof, the hypothesis was used to say that the second sum is at least $0$, and for this variable that sum is $\tfrac12\cdot(-100)=-50$.
+The hypothesis that $X$ is nonnegative is needed, since otherwise negative values can balance positive ones. A random variable equal to $100$ or $-100$, each with probability $1/2$, has expectation $0$, yet $\Prob(X\ge100)=1/2>0/100$. The proof used the hypothesis to make the second sum at least $0$; here that sum is $-50$.
 
 \begin{principle}{Habit 8: choose a quantity whose average is easier to find than its best value}
-When an object with a desired property is hard to construct directly, set up a finite random experiment whose outcomes are candidate objects. Count the features you want, or the ones you want to avoid, with indicators, and look for an average that you can compute exactly; linearity often makes this easy even when the features interact. Then say precisely what you have proved. Three kinds of conclusion are easy to confuse: that at least one suitable outcome exists, that a random outcome is unlikely to be bad, and that a suitable object can be built efficiently. The proof of Theorem~\ref{thm:cut} reached only the first, and the third needed the step-by-step construction of Section~\ref{ch13:sec:construction}. Conclusions of the second kind come from upper bounds on the probability of a bad outcome, such as the union bound and Markov's inequality, when the bound they give is small.
+When an object with a desired property is hard to construct directly, set up a finite random experiment whose outcomes are candidate objects. Count the features you want, or want to avoid, with indicators, and find an average you can compute exactly; linearity often makes this easy even when the features interact. Then say precisely what you have proved. Three conclusions are easy to confuse: that a suitable outcome exists, that a random outcome is unlikely to be bad, and that a suitable object can be built efficiently. The proof of Theorem~\ref{thm:cut} reached only the first. The second comes from a small upper bound on the probability of a bad outcome, such as the union bound or Markov's inequality can give, and the third needed the construction of Section~\ref{ch13:sec:construction}.
 \end{principle}

@@ -1,11 +1,9 @@
 \section{An alternating repair}\label{ch08:sec:augment}
-Return to the Ada--Ben graph and the stuck matching $M=\{\text{Ada--}1\}$. Ben is unmatched, and his only acceptable task is held by Ada. The repair is to move Ada to her other task, task~$2$, and then give task~$1$ to Ben. Read along the edges of the graph, this repair follows the route
+In the Ada--Ben graph with the stuck matching $M=\{\text{Ada--}1\}$, Ben's only acceptable task is held by Ada. The repair is to move Ada to task~$2$ and give task~$1$ to Ben. This follows the route
 \[
 \text{Ben}\;\text{--}\;1\;\text{--}\;\text{Ada}\;\text{--}\;2,
 \]
-which is the path Ben, $1$, Ada, $2$ in the notation of Section~\ref{ch07:sec:walks}. Of its three edges, Ben--$1$, Ada--$1$, and Ada--$2$, the first and the third are not in $M$, while the second is. The repair removes from $M$ the edge of the path that was in $M$ and adds the two edges of the path that were not. The result is $\{\text{Ben--}1,\ \text{Ada--}2\}$.
-
-Here is what happens at each vertex of the path.
+the path Ben, $1$, Ada, $2$ in the notation of Section~\ref{ch07:sec:walks}. Of its three edges, the first and third, Ben--$1$ and Ada--$2$, are not in $M$, while the second, Ada--$1$, is. The repair removes the edge that was in $M$ and adds the two that were not, giving $\{\text{Ben--}1,\ \text{Ada--}2\}$.
 \begin{center}
 \begin{tabular}{lll}
 \toprule
@@ -18,10 +16,10 @@ task $2$ & unused & held by Ada\\
 \bottomrule
 \end{tabular}
 \end{center}
-Task~$1$ passes from Ada to Ben, and Ada exchanges task~$1$ for task~$2$, so each of these two vertices still has exactly one partner. The two vertices at the ends of the path, Ben and task~$2$, were unmatched and are now matched. One more student has a task, and nobody who had a task is left without one.
+The middle vertices, task~$1$ and Ada, still have one partner each, and the two ends, Ben and task~$2$, have become matched.
 
 \subsection*{Alternating and augmenting paths}
-To describe this repair in general, fix a matching $M$. Two sets of edges must be kept apart. The edge set of the graph lists the \emph{allowed} pairs and never changes, while $M$ lists the pairs \emph{currently chosen} and changes as we repair it. We call the edges of $M$ \emph{matched edges} and the other edges of the graph \emph{unmatched edges}. Recall from Section~\ref{ch07:sec:walks} that a walk $v_0,v_1,\ldots,v_k$ takes $k$ steps, the $i$th step running along the edge $v_{i-1}v_i$, and that a path is a walk with no repeated vertex.
+To describe this repair in general, fix a matching $M$. We call the edges of $M$ \emph{matched edges}, and the other edges of the graph, the allowed pairs not currently chosen, \emph{unmatched edges}. Recall from Section~\ref{ch07:sec:walks} that a walk $v_0,v_1,\ldots,v_k$ takes $k$ steps, the $i$th along the edge $v_{i-1}v_i$, and that a path is a walk with no repeated vertex.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{definition}[Alternating walk, augmenting path]\label{ch08:def:augmenting}
@@ -29,18 +27,14 @@ Let $M$ be a matching. A walk is \emph{alternating} if its steps use matched and
 \end{definition}
 \end{minipage}\par
 
-Let $v_0,v_1,\ldots,v_k$ be an augmenting path. Its first edge $v_0v_1$ is unmatched, because $v_0$ is unmatched and so lies on no edge of $M$. For the same reason its last edge $v_{k-1}v_k$ is unmatched. Since the first edge is unmatched and the edges alternate, the list of edges begins
-\[
-\text{unmatched},\ \text{matched},\ \text{unmatched},\ \text{matched},\ \ldots
-\]
-So the $i$th edge is unmatched when $i$ is odd and matched when $i$ is even. The last edge, the $k$th, is unmatched, so $k$ is odd. Writing $k=2r+1$, the path has $r+1$ unmatched edges, in the odd positions $1,3,\ldots,2r+1$, and $r$ matched edges, in the even positions $2,4,\ldots,2r$.
+Let $v_0,v_1,\ldots,v_k$ be an augmenting path. Its first edge $v_0v_1$ is unmatched, because $v_0$ is unmatched and so lies on no edge of $M$; for the same reason its last edge is unmatched. Since the edges alternate, the $i$th edge is unmatched when $i$ is odd and matched when $i$ is even. The last edge is unmatched, so $k$ is odd. Writing $k=2r+1$, the path has $r+1$ unmatched edges, in the odd positions, and $r$ matched edges, in the even positions.
 
-In a bipartite graph every edge joins $L$ to $R$, so the vertices of a walk alternate between students and tasks. After an even number of steps a walk is back in the part where it started, and after an odd number of steps it is in the other part. So a walk with an odd number of steps starts and ends in different parts. An augmenting path has an odd number of steps, so one of its ends is an unmatched student and the other is an unused task. We always list the path starting from the student. The simplest augmenting path is a single edge joining an unmatched student to an unused task; then $k=1$ and $r=0$. In the Ada--Ben repair, $k=3$ and $r=1$.
+In a bipartite graph every edge joins $L$ to $R$, so the vertices of a walk alternate between students and tasks, and a walk with an odd number of steps ends in the other part from where it started. So one end of an augmenting path is an unmatched student and the other an unused task. We always list the path starting from the student. The simplest augmenting path is a single edge from an unmatched student to an unused task, with $k=1$ and $r=0$; in the Ada--Ben repair, $k=3$ and $r=1$.
 
-\pauseq{With $M=\{\text{Ada--}1\}$, is the single edge Ben--$1$ an augmenting path?}{No. It is an alternating path with one step, and Ben is unmatched, but its other endpoint, task~$1$, is held by Ada. Adding Ben--$1$ to $M$ would give task~$1$ two owners. An augmenting path must end at an unused task, and here the only way to reach one is to continue through Ada to task~$2$.}
+\pauseq{With $M=\{\text{Ada--}1\}$, is the single edge Ben--$1$ an augmenting path?}{No. Ben is unmatched, but task~$1$ is held by Ada, so adding Ben--$1$ to $M$ would give task~$1$ two owners. An augmenting path must end at an unused task, so here it must continue through Ada to task~$2$.}
 
 \subsection*{Flipping along an augmenting path}
-For a longer augmenting path the same exchange happens all along the path. Each student in the middle of the path gives up the task just before them on the path and takes the task just after them. Each task in the middle of the path changes owner. The unmatched student at the start receives a task, and the unused task at the end receives an owner. To \emph{flip} $M$ along a walk $P$ means to remove from $M$ the matched edges that $P$ uses and to add the unmatched edges that $P$ uses; edges that $P$ does not use stay as they were. The next lemma checks that flipping along an augmenting path always gives a larger matching.
+On a longer augmenting path the same exchange happens all along the path: each student inside it trades the task just before them for the task just after them. To \emph{flip} $M$ along a walk $P$ means to remove from $M$ the matched edges that $P$ uses and to add the unmatched edges that $P$ uses; edges not on $P$ stay as they were.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lemma}\label{thm:augment}
@@ -49,26 +43,20 @@ Let $M$ be a matching and let $P$ be an augmenting path for $M$. Flipping $M$ al
 \end{minipage}\par
 
 \begin{proof}
-Write $P$ as $v_0,v_1,\ldots,v_k$. Every edge of $M'$ is an edge of the graph, because it is an edge of $M$ or an edge of $P$. To show that $M'$ is a matching, we check that every vertex lies on at most one edge of $M'$.
+Write $P$ as $v_0,v_1,\ldots,v_k$. Every edge of $M'$ is in $M$ or on $P$, so it is an edge of the graph. To show that $M'$ is a matching, we check that every vertex lies on at most one edge of $M'$.
 
-The vertices of a path are all different. Therefore a vertex $v_i$ of $P$ lies on the edge $v_{i-1}v_i$ (if $i\ge1$) and on the edge $v_iv_{i+1}$ (if $i\le k-1$), and on no other edge of $P$: an edge $v_{j-1}v_j$ of $P$ contains $v_i$ only if $v_i=v_{j-1}$ or $v_i=v_j$, that is, only if $j=i+1$ or $j=i$. With this in hand, there are three kinds of vertices to check.
+The vertices of a path are all different. Therefore $v_i$ lies on the edge $v_{i-1}v_i$ (if $i\ge1$) and on the edge $v_iv_{i+1}$ (if $i\le k-1$), and on no other edge of $P$: an edge $v_{j-1}v_j$ contains $v_i$ only if $v_i=v_{j-1}$ or $v_i=v_j$, that is, only if $j=i+1$ or $j=i$. There are three kinds of vertices to check.
 \begin{itemize}
-\item \emph{A vertex $v$ that is not on $P$.} No edge of $P$ contains $v$, so the flip does not change any edge at $v$. The edges of $M'$ at $v$ are exactly the edges of $M$ at $v$, and there is at most one of those.
-\item \emph{An end of $P$.} Take $v_0$; the argument for $v_k$ is the same. The only edge of $P$ at $v_0$ is $v_0v_1$, which is unmatched, so the flip adds it. Since $v_0$ is unmatched, no edge of $M$ contains $v_0$, and the edges at $v_0$ that are not on $P$ remain outside $M'$. So $v_0$ lies on exactly one edge of $M'$.
-\item \emph{A vertex $v_i$ inside $P$, with $0<i<k$.} Its two path edges $v_{i-1}v_i$ and $v_iv_{i+1}$ are consecutive edges of $P$, so one of them is in $M$ and the other is not. The flip removes the one in $M$ and adds the other. Because $M$ is a matching and $v_i$ already lies on a matched edge of $P$, no edge of $M$ outside $P$ contains $v_i$. Edges at $v_i$ that are neither in $M$ nor on $P$ are not added by the flip. So the only edge of $M'$ at $v_i$ is the path edge that was added.
+\item \emph{A vertex $v$ not on $P$.} The flip changes no edge at $v$, so $v$ lies on at most one edge of $M'$, as it did for $M$.
+\item \emph{An end of $P$.} Take $v_0$; the argument for $v_k$ is the same. The only edge of $P$ at $v_0$ is $v_0v_1$, which is unmatched, so the flip adds it. Since $v_0$ is unmatched, no edge of $M$ contains it, and the edges at $v_0$ not on $P$ stay outside $M'$. So $v_0$ lies on exactly one edge of $M'$.
+\item \emph{A vertex $v_i$ inside $P$, with $0<i<k$.} Its edges $v_{i-1}v_i$ and $v_iv_{i+1}$ are consecutive edges of $P$, so one is in $M$ and the other is not; the flip removes the one in $M$ and adds the other. Because $M$ is a matching and $v_i$ already lies on a matched edge of $P$, no edge of $M$ off $P$ contains $v_i$, and the flip adds no edge off $P$. So the only edge of $M'$ at $v_i$ is the path edge that was added.
 \end{itemize}
 Hence no vertex lies on two edges of $M'$, and $M'$ is a matching.
 
-Now count. The edges of $P$ are all different, because they join different pairs of vertices. As shown before the lemma, $P$ has $r+1$ unmatched edges and $r$ matched edges for some natural number $r$. The flip removes the $r$ matched edges from $M$ and adds the $r+1$ unmatched edges, none of which was in $M$. Therefore $|M'|=|M|-r+(r+1)=|M|+1$.
+Now count. The edges of $P$ are all different, because they join different pairs of vertices. As shown before the lemma, $P$ has $r+1$ unmatched edges and $r$ matched edges for some natural number $r$. The flip removes the $r$ matched edges and adds the $r+1$ unmatched ones, none of which was in $M$. Therefore $|M'|=|M|-r+(r+1)=|M|+1$.
 \end{proof}
 
-Here is the lemma at work on a longer path, which we will meet again in Section~\ref{sec:matching-trace}. Let students $a,b,c$ accept the tasks $N(a)=\{1,2\}$, $N(b)=\{1\}$, $N(c)=\{2,3\}$, and let $M=\{a\text{--}1,\ c\text{--}2\}$. Then
-\[
-b\;\text{--}\;1\;\text{--}\;a\;\text{--}\;2\;\text{--}\;c\;\text{--}\;3
-\]
-is an augmenting path: $b$ is unmatched, task~$3$ is unused, and the edges $b$--$1$, $a$--$1$, $a$--$2$, $c$--$2$, $c$--$3$ are unmatched, matched, unmatched, matched, unmatched in turn. Before the flip, $a$ holds task~$1$ and $c$ holds task~$2$. Afterwards $b$ holds~$1$, $a$ holds~$2$, and $c$ holds~$3$. The path has $k=5$ edges, three unmatched and two matched, so $r=2$ and the matching grows from two edges to three.
-
-The proof relied on the fact that a path never repeats a vertex. If a vertex appeared twice on an alternating walk, it could lie on two unmatched edges of the walk; flipping would add both of them and give that vertex two partners. Exercise~\ref{ex:8.4} asks you to find exactly where the proof uses this fact, to build such an example, and to show how the problem can be avoided.
+The proof needs $P$ to be a path: on an alternating walk that visits a vertex twice, the flip could give that vertex two partners (Exercise~\ref{ex:8.4}).
 
 \subsection*{What is preserved and what makes progress}
-Habit~5 (Section~\ref{ch05:sec:euclid}) asks two questions about a repeated step: what stays true, and what measures progress? Consider a procedure that repeatedly flips along augmenting paths. By Lemma~\ref{thm:augment}, the property ``the selected edges form a matching'' stays true at every step, and the number $|M|$ of selected edges grows by exactly one at every flip. This number measures progress, and it cannot grow forever. Each edge of a matching contains exactly one student, and no two edges of a matching contain the same student, so sending each edge of $M$ to its student is an injective map from $M$ to $L$, and therefore $|M|\le|L|$ (Section~\ref{ch03:sec:injsurj}). Put differently, the nonnegative integer $|L|-|M|$ decreases by one at every flip, so a procedure that starts from the empty matching makes at most $|L|$ flips. Two questions remain: how to search for an augmenting path, and what we learn when the search finds none.
+Habit~5 (Section~\ref{ch05:sec:euclid}) asks of a repeated step what stays true and what measures progress. For repeated flips along augmenting paths, Lemma~\ref{thm:augment} answers both: the selected edges always form a matching, and their number $|M|$ grows by one at every flip. It cannot grow forever: each edge of a matching contains exactly one student, and no two edges contain the same one, so sending each edge of $M$ to its student is an injective map from $M$ to $L$, and therefore $|M|\le|L|$ (Section~\ref{ch03:sec:injsurj}). So the nonnegative integer $|L|-|M|$ decreases by one at every flip, and a procedure that starts from the empty matching makes at most $|L|$ flips.

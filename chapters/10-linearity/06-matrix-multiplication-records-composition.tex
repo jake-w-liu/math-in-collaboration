@@ -1,27 +1,27 @@
 \section{Matrix multiplication records composition}\label{ch10:sec:product}
-Section~\ref{ch10:sec:kernel} applied the matrix $A$ twice and found $A(Ax)=2x$. We often apply one linear map after another, and then we want a single matrix that records the combined map. So let $A$ now be any $m$-by-$n$ matrix and $B$ any $k$-by-$m$ matrix. Then $A$ maps $\RR^n$ to $\RR^m$ and $B$ maps $\RR^m$ to $\RR^k$, so the composition ``$B$ after $A$,'' which sends $x$ to $B(Ax)$, maps $\RR^n$ to $\RR^k$. This composition is linear, because linearity of $A$ and then of $B$ gives
+Section~\ref{ch10:sec:kernel} applied the matrix $A$ twice and found $A(Ax)=2x$. When we apply one linear map after another, we want a single matrix for the combined map. So let $A$ now be any $m$-by-$n$ matrix and $B$ any $k$-by-$m$ matrix. Then $A$ maps $\RR^n$ to $\RR^m$ and $B$ maps $\RR^m$ to $\RR^k$, so the composition ``$B$ after $A$,'' which sends $x$ to $B(Ax)$, maps $\RR^n$ to $\RR^k$. It is linear, because linearity of $A$ and then of $B$ gives
 \[
 B\bigl(A(ax+by)\bigr)=B\bigl(aAx+bAy\bigr)=a\,B(Ax)+b\,B(Ay).
 \]
-By Section~\ref{ch10:sec:linearmaps}, the composition is therefore recorded by a $k$-by-$n$ matrix. This matrix is called the \emph{product} $BA$. By definition, $(BA)x=B(Ax)$ for every $x\in\RR^n$. As with $g\circ f$ in Section~\ref{ch03:sec:functions}, the factor written on the right acts first.
+By Section~\ref{ch10:sec:linearmaps}, the composition is therefore recorded by a $k$-by-$n$ matrix, called the \emph{product} $BA$, so that $(BA)x=B(Ax)$ for every $x\in\RR^n$. As with $g\circ f$ in Section~\ref{ch03:sec:functions}, the factor written on the right acts first.
 
-To find the entries of $BA$, recall from Section~\ref{ch10:sec:linearmaps} that column $j$ of any matrix $M$ is $Me_j$. So column $j$ of $BA$ is
+To find the entries of $BA$, recall that column $j$ of any matrix $M$ is $Me_j$. So column $j$ of $BA$ is
 \[
 (BA)e_j=B(Ae_j)=B\,(\text{column $j$ of $A$}).
 \]
-Column $j$ of $A$ is the vector $(A_{1j},A_{2j},\ldots,A_{mj})$. The entry $(BA)_{ij}$ is the $i$th coordinate of column $j$ of $BA$, so the row rule for $B$, applied to this vector, gives
+Column $j$ of $A$ is the vector $(A_{1j},A_{2j},\ldots,A_{mj})$, and $(BA)_{ij}$ is the $i$th coordinate of $B$ applied to it, so the row rule for $B$ gives
 \[
 (BA)_{ij}=\sum_{r=1}^m B_{ir}A_{rj}=B_{i1}A_{1j}+B_{i2}A_{2j}+\cdots+B_{im}A_{mj}
 \]
-for $1\le i\le k$ and $1\le j\le n$. In words, the entry of $BA$ in row $i$ and column $j$ is the dot product of row $i$ of $B$ with column $j$ of $A$. This makes sense only when each row of $B$ has as many entries as each column of $A$, that is, when $B$ has as many columns as $A$ has rows. The row-by-column rule may look strange at first sight. The calculation shows where it comes from: it is exactly what composing the two maps requires.
+for $1\le i\le k$ and $1\le j\le n$. In words, the entry of $BA$ in row $i$ and column $j$ is the dot product of row $i$ of $B$ with column $j$ of $A$. This makes sense only when $B$ has as many columns as $A$ has rows. The row-by-column rule may look strange at first, but it is exactly what composing the two maps requires.
 
-For a numerical example, multiply the matrix $A$ of Section~\ref{ch10:sec:linearmaps} by itself:
+For example, multiply the matrix $A$ of Section~\ref{ch10:sec:linearmaps} by itself:
 \begin{align*}
 AA&=\begin{pmatrix}1&1\\1&-1\end{pmatrix}\begin{pmatrix}1&1\\1&-1\end{pmatrix}\\
 &=\begin{pmatrix}1\cdot1+1\cdot1&1\cdot1+1\cdot(-1)\\1\cdot1+(-1)\cdot1&1\cdot1+(-1)\cdot(-1)\end{pmatrix}
 =\begin{pmatrix}2&0\\0&2\end{pmatrix}.
 \end{align*}
-This matrix sends $(x_1,x_2)$ to $(2x_1,2x_2)$, so it doubles every vector, in agreement with the calculation $A(Ax)=2x$ in Section~\ref{ch10:sec:kernel}.
+This matrix sends $(x_1,x_2)$ to $(2x_1,2x_2)$, in agreement with $A(Ax)=2x$.
 
 The order of the factors matters, just as $g\circ f$ and $f\circ g$ were different functions in Section~\ref{ch03:sec:functions}. For
 \[
@@ -31,22 +31,18 @@ the row-by-column rule gives
 \[
 CD=\begin{pmatrix}2&1\\1&1\end{pmatrix}\qquad\text{but}\qquad DC=\begin{pmatrix}1&1\\1&2\end{pmatrix}.
 \]
-The maps explain the difference. The matrix $C$ sends $(x_1,x_2)$ to $(x_1+x_2,\,x_2)$, adding the second coordinate to the first, while $D$ sends $(x_1,x_2)$ to $(x_1,\,x_1+x_2)$, adding the first coordinate to the second. Starting from $(1,0)$, the product $CD$ applies $D$ first and reaches $(1,1)$, and then $C$ gives $(2,1)$. The product $DC$ applies $C$ first, which leaves $(1,0)$ unchanged, and then $D$ gives $(1,1)$. These two results are the first columns of $CD$ and $DC$.
+The maps explain the difference: $C$ sends $(x_1,x_2)$ to $(x_1+x_2,\,x_2)$, while $D$ sends it to $(x_1,\,x_1+x_2)$. Starting from $(1,0)$, the product $CD$ applies $D$ first, reaching $(1,1)$, and then $C$ gives $(2,1)$. The product $DC$ applies $C$ first, which leaves $(1,0)$ unchanged, and then $D$ gives $(1,1)$. These are the first columns of $CD$ and $DC$.
 
 \subsection*{The transpose and orthogonal rows}
 The \emph{transpose} $A^{\mathsf T}$ of an $m$-by-$n$ matrix $A$ is the $n$-by-$m$ matrix obtained by exchanging rows and columns: $(A^{\mathsf T})_{ij}=A_{ji}$. So column $j$ of $A^{\mathsf T}$ is row $j$ of $A$. For example,
 \[
 \begin{pmatrix}2&-1&3\\1&0&1\end{pmatrix}^{\mathsf T}=\begin{pmatrix}2&1\\-1&0\\3&1\end{pmatrix}.
 \]
-By the row-by-column rule, the entry $(AA^{\mathsf T})_{ij}$ is the dot product of row $i$ of $A$ with column $j$ of $A^{\mathsf T}$, which is row $j$ of $A$. So the entries of $AA^{\mathsf T}$ are the dot products of the rows of $A$ with one another:
+By the row-by-column rule, $(AA^{\mathsf T})_{ij}$ is the dot product of row $i$ of $A$ with column $j$ of $A^{\mathsf T}$, which is row $j$ of $A$:
 \[
 (AA^{\mathsf T})_{ij}=\sum_{r=1}^n A_{ir}A_{jr}=(\text{row $i$ of $A$})\cdot(\text{row $j$ of $A$}).
 \]
 
-The $n$-by-$n$ \emph{identity matrix} $I$ has ones on its \emph{diagonal}, that is, in the positions $(i,i)$, and zeros everywhere else. Its columns are the standard basis vectors $e_1,\ldots,e_n$. By the row rule, $(Ix)_i=x_i$, because the only nonzero entry in row $i$ is the $1$ in column $i$. So $Ix=x$ for every $x\in\RR^n$, and $I$ is the matrix of the identity map. For $n=2$,
-\[
-I=\begin{pmatrix}1&0\\0&1\end{pmatrix}.
-\]
-Multiplying a matrix by a number means multiplying every entry by that number, so $nI$ has $n$ in each diagonal position and zeros elsewhere. For an $n$-by-$n$ matrix $A$, the equation $AA^{\mathsf T}=nI$ therefore says two things at once. The diagonal entries say that every row of $A$ has squared length $n$. The entries off the diagonal say that any two different rows of $A$ are orthogonal.
+The $n$-by-$n$ \emph{identity matrix} $I$ has ones on its \emph{diagonal}, that is, in the positions $(i,i)$, and zeros everywhere else. By the row rule, $(Ix)_i=x_i$, because the only nonzero entry in row $i$ is the $1$ in column $i$. So $Ix=x$ for every $x\in\RR^n$, and $I$ is the matrix of the identity map. Multiplying a matrix by a number multiplies every entry, so $nI$ has $n$ in each diagonal position and zeros elsewhere. For an $n$-by-$n$ matrix $A$, the equation $AA^{\mathsf T}=nI$ therefore says two things at once: the diagonal entries say that every row of $A$ has squared length $n$, and the entries off the diagonal say that any two different rows of $A$ are orthogonal.
 
-The matrix $A$ of Section~\ref{ch10:sec:linearmaps} is an example with $n=2$. Exchanging its rows and columns does not change it, so $A^{\mathsf T}=A$ and $AA^{\mathsf T}=AA=2I$. Its rows $(1,1)$ and $(1,-1)$ indeed have squared length $2$ and are orthogonal. Square matrices with entries $\pm1$ that satisfy $AA^{\mathsf T}=nI$, where $n$ is the number of rows, are called \emph{Hadamard matrices}. They are central to Chapter~\ref{ch:signs}, which follows a question about them all the way to current research.
+The matrix $A$ of Section~\ref{ch10:sec:linearmaps} is an example with $n=2$. Exchanging its rows and columns does not change it, so $AA^{\mathsf T}=AA=2I$: its rows $(1,1)$ and $(1,-1)$ have squared length $2$ and are orthogonal. Square matrices with entries $\pm1$ that satisfy $AA^{\mathsf T}=nI$, where $n$ is the number of rows, are called \emph{Hadamard matrices}. They are central to Chapter~\ref{ch:signs}, which follows a question about them all the way to current research.

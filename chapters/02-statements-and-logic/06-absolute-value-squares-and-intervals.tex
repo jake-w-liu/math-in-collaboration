@@ -1,57 +1,53 @@
 \section{Absolute value, squares, and intervals}\label{sec:magnitude}
-This section puts the logic of the chapter to work on real numbers. Inequalities that involve squares are a common place to lose half of an answer, and the words ``and'' and ``or'' are what keep track of both halves.
-
-The \emph{absolute value} $|x|$ of a real number $x$ is its distance from zero on the number line. Thus $|3|=3$, $|-3|=3$, and $|0|=0$. As a formula,
+The \emph{absolute value} $|x|$ of a real number $x$ is its distance from zero on the number line. Thus $|3|=|-3|=3$ and $|0|=0$. As a formula,
 \[
 |x|=\begin{cases}x&\text{if }x\ge0,\\-x&\text{if }x<0.\end{cases}
 \]
-The large brace lists two cases: use the first line when $x\ge0$ and the second line when $x<0$. In the second case the result is positive, because the negative of a negative number is positive; for instance, $|-3|=-(-3)=3$. So $|x|\ge0$ for every real number $x$. The same two cases appeared at the end of Section~\ref{ch01:sec:notation}, where we found that $\sqrt{x^2}$ is $x$ when $x\ge0$ and $-x$ when $x<0$. So $\sqrt{x^2}=|x|$ for every real number $x$.
+In the second case the result is positive, since the negative of a negative number is positive: $|-3|=-(-3)=3$. So $|x|\ge0$ for every $x$. Section~\ref{ch01:sec:notation} found that $\sqrt{x^2}$ is $x$ when $x\ge0$ and $-x$ when $x<0$, so $\sqrt{x^2}=|x|$.
 
-Absolute values behave well under multiplication: for all real numbers $c$ and $x$,
+For all real numbers $c$ and $x$,
 \[
 |cx|=|c|\,|x|.
 \]
-To check this rule, we go through the possible signs of $c$ and $x$.
+We check this case by case, according to the signs of $c$ and $x$.
 \begin{itemize}
 \item If $c=0$ or $x=0$, then $cx=0$, and both sides are zero.
 \item If $c>0$ and $x>0$, then $cx>0$, and both sides equal $cx$.
 \item If $c<0$ and $x<0$, then $cx>0$, so $|cx|=cx$, while $|c|\,|x|=(-c)(-x)=cx$.
-\item If one of $c$ and $x$ is positive and the other is negative, then $cx<0$, so $|cx|=-cx$. When $c>0$ and $x<0$, we get $|c|\,|x|=c(-x)=-cx$; when $c<0$ and $x>0$, we get $|c|\,|x|=(-c)x=-cx$.
+\item If one of $c$ and $x$ is positive and the other negative, then $cx<0$, so $|cx|=-cx$, while $|c|\,|x|$ is $c(-x)$ if $c>0$ and $(-c)x$ if $c<0$, and both equal $-cx$.
 \end{itemize}
-These cases cover every possibility, so the rule always holds. Taking $c=-1$ gives $|-x|=|-1|\,|x|=|x|$: changing the sign of a number does not change its distance from zero. Later chapters use the product rule often, for instance to see how an error changes when it is multiplied by a constant.
+Taking $c=-1$ gives $|-x|=|x|$: changing the sign of a number does not change its distance from zero.
 
-For a number $b\ge0$, the statement $|x|\le b$ says that $x$ is at distance at most $b$ from zero, that is,
+For a number $b\ge0$, the statement $|x|\le b$ says that $x$ is at distance at most $b$ from zero:
 \[
 |x|\le b\quad\Longleftrightarrow\quad -b\le x\le b.
 \]
-To check this, consider the two cases in the formula for $|x|$. If $x\ge0$, then $|x|=x$, so $|x|\le b$ says $x\le b$; and $-b\le x$ holds automatically, since $-b\le0\le x$. If $x<0$, then $|x|=-x$, so $|x|\le b$ says $-x\le b$, which becomes $x\ge-b$ after multiplying both sides by $-1$; and $x\le b$ holds automatically, since $x<0\le b$.
-
-The same argument with strict inequalities shows that, for a number $b>0$,
+To check this, use the two cases in the formula for $|x|$. If $x\ge0$, then $|x|\le b$ says $x\le b$, and $-b\le x$ holds automatically, since $-b\le0\le x$. If $x<0$, then $|x|\le b$ says $-x\le b$, which becomes $x\ge-b$ after multiplying by $-1$, and $x\le b$ holds automatically, since $x<0\le b$. The same argument with strict inequalities shows that, for $b>0$,
 \[
 |x|<b\quad\Longleftrightarrow\quad -b<x<b.
 \]
-Both rules can be applied to a difference $x-c$ in place of $x$. The number $|x-c|$ is the distance between $x$ and $c$ on the number line: it equals $x-c$ when $x\ge c$ and $c-x$ when $x<c$, so either way it is the larger of the two numbers minus the smaller. For instance, $|7-5|=|5-7|=2$. Applied to $x-5$ with $b=1$, the rule for $|x|<b$ turns $|x-5|<1$ into $-1<x-5<1$, and adding $5$ to each part gives $4<x<6$. In general, for $b>0$, the statement $|x-c|<b$ holds exactly when $c-b<x<c+b$: the number $x$ lies less than $b$ away from $c$ on the number line.
+Both rules apply to a difference $x-c$ in place of $x$. The number $|x-c|$ is the distance between $x$ and $c$ on the number line; for instance, $|7-5|=|5-7|=2$. For $b>0$, the second rule turns $|x-c|<b$ into $-b<x-c<b$, and adding $c$ to each part gives $c-b<x<c+b$: the number $x$ lies less than $b$ away from $c$. For example, $|x-5|<1$ means $4<x<6$.
 
-Now take $b=2$ in the rule for $|x|\le b$: $|x|\le2$ means $-2\le x\le2$, which is the conjunction ``$-2\le x$ and $x\le2$.'' By De Morgan's law, its negation is a disjunction. The negation of $-2\le x$ is $x<-2$, and the negation of $x\le2$ is $x>2$, so the negation of $|x|\le2$ is ``$x<-2$ or $x>2$.'' In other words, $|x|>2$ means that $x<-2$ or $x>2$. This condition has two separate pieces, one on each side of zero, and the same two-sided form appears when an inequality involves a square, as we now show.
+Now take $b=2$: $|x|\le2$ is the conjunction ``$-2\le x$ and $x\le2$.'' By De Morgan's law, its negation $|x|>2$ is the disjunction of the negations of the two parts, ``$x<-2$ or $x>2$'': a condition with two separate pieces, one on each side of zero. The same two-sided form appears when an inequality involves a square.
 
-We need two facts about squares. First, squaring preserves order for nonnegative numbers. Suppose $0\le a<b$. Multiplying out one bracket at a time gives
+We need two facts about squares. First, squaring preserves order for nonnegative numbers. Suppose $0\le a<b$. Multiplying out gives
 \[
 (b-a)(b+a)=b^2+ba-ab-a^2=b^2-a^2.
 \]
-Both factors on the left are positive: $b-a>0$ because $a<b$, and $b+a>0$ because $b$ is positive (it is larger than $a\ge0$) and $a$ is nonnegative. A product of two positive numbers is positive, so $b^2-a^2>0$, that is, $a^2<b^2$. In the same way, if $0\le a\le b$, then both factors are nonnegative, so $b^2-a^2\ge0$ and $a^2\le b^2$. The condition that the numbers are nonnegative cannot be dropped: $-3<2$, but $(-3)^2=9$ is larger than $2^2=4$.
+Both factors on the left are positive: $b-a>0$ because $a<b$, and $b+a>0$ because $b>a\ge0$. So $b^2-a^2>0$, that is, $a^2<b^2$. In the same way, if $0\le a\le b$, then both factors are nonnegative, so $a^2\le b^2$. The condition that the numbers are nonnegative cannot be dropped: $-3<2$, but $(-3)^2=9$ is larger than $2^2=4$.
 
 Second, $x^2=|x|^2$ for every real number $x$. If $x\ge0$, this says $x^2=x^2$. If $x<0$, it says $x^2=(-x)^2$, which is true because $(-x)(-x)=x\cdot x$.
 
-Now we can solve the inequality $x^2>4$ completely. Since $4=2^2$, we compare $|x|$ with $2$.
+Now we can solve the inequality $x^2>4$ completely, by comparing $|x|$ with $2$.
 \begin{itemize}
-\item If $|x|>2$, apply the squaring rule for $<$ (if $0\le a<b$, then $a^2<b^2$) with $a=2$ and $b=|x|$: we get $4<|x|^2=x^2$.
-\item If $|x|\le2$, apply the squaring rule for $\le$ (if $0\le a\le b$, then $a^2\le b^2$) with $a=|x|$ and $b=2$, which is allowed because $|x|\ge0$: we get $x^2=|x|^2\le4$.
+\item If $|x|>2$, the squaring rule for $<$ with $a=2$ and $b=|x|$ gives $4<|x|^2=x^2$.
+\item If $|x|\le2$, the squaring rule for $\le$ with $a=|x|$ and $b=2$, allowed because $|x|\ge0$, gives $x^2=|x|^2\le4$.
 \end{itemize}
-The first case shows that $|x|>2$ implies $x^2>4$. The second case shows that $|x|\le2$ implies $x^2\le4$, which is the contrapositive of ``$x^2>4$ implies $|x|>2$.'' Together, the two cases prove
+The first case shows that $|x|>2$ implies $x^2>4$. The second shows that $|x|\le2$ implies $x^2\le4$, which is the contrapositive of ``$x^2>4$ implies $|x|>2$.'' Together they prove
 \[
 x^2>4\quad\Longleftrightarrow\quad|x|>2\quad\Longleftrightarrow\quad x<-2\ \text{or}\ x>2.
 \]
-For instance, $x=-3$ satisfies $x^2=9>4$ even though $x$ is not greater than $2$, while $x=1.5$ gives $x^2=2.25$, which is not greater than $4$. A tempting shortcut, ``take square roots to get $x>2$,'' loses the whole negative half of the answer.
+For instance, $x=-3$ satisfies $x^2=9>4$ even though $x$ is not greater than $2$. The tempting shortcut ``take square roots to get $x>2$'' loses the whole negative half of the answer.
 
 Ranges of real numbers like these have a standard notation. For real numbers $a<b$, each of the following sets is called an \emph{interval}:
 \begin{itemize}
@@ -59,12 +55,8 @@ Ranges of real numbers like these have a standard notation. For real numbers $a<
 \item $(a,b)$ is the set of all real $x$ with $a<x<b$;
 \item $[a,b)$ is the set of all real $x$ with $a\le x<b$, and $(a,b]$ is the set of all real $x$ with $a<x\le b$.
 \end{itemize}
-A square bracket includes its endpoint, and a round bracket excludes it. So $1$ and $3$ belong to $[1,3]$ but not to $(1,3)$, while $2$ belongs to both. An interval may also have no endpoint on one side. For example, the notation $[0,\infty)$ means all real $x$ with $x\ge0$, and $(-\infty,-2)$ means all real $x$ with $x<-2$. The symbol $\infty$, read ``infinity,'' only says that there is no endpoint on that side. Infinity is not a real number, so it is never placed next to a square bracket. In this notation, $|x|\le2$ says that $x$ belongs to $[-2,2]$, and $x^2>4$ says that $x$ belongs to $(-\infty,-2)$ or to $(2,\infty)$.
-
-Round brackets are also used for an \emph{ordered pair}, such as $(1,3)$, which lists two entries in a definite order; Chapter~\ref{ch:maps} uses ordered pairs. The surrounding sentence tells you whether $(1,3)$ means an interval or a pair.
-
-The ideas of this chapter, from hypotheses and conclusions to the order of choices, combine into a routine worth following whenever a statement is proposed or changed.
+A square bracket includes its endpoint, and a round bracket excludes it: $1$ and $3$ belong to $[1,3]$ but not to $(1,3)$. An interval may also have no endpoint on one side: $[0,\infty)$ is the set of real $x$ with $x\ge0$, and $(-\infty,-2)$ the set of real $x$ with $x<-2$. The symbol $\infty$, read ``infinity,'' is not a real number; it only says that there is no endpoint on that side, so it never goes next to a square bracket. In this notation, $|x|\le2$ says that $x$ belongs to $[-2,2]$, and $x^2>4$ says that $x$ belongs to $(-\infty,-2)$ or to $(2,\infty)$. Round brackets are also used for an \emph{ordered pair}, such as $(1,3)$, which lists two entries in a definite order (Chapter~\ref{ch:maps}); the surrounding sentence tells you which is meant.
 
 \begin{principle}{Habit 2: keep a statement contract}
-Before working on a statement, write down its \emph{contract}: the domain of each variable, the hypotheses, the conclusion, and the order in which the quantities are chosen. Whenever the statement changes, for example when you or an assistant repair it or generalize it, compare the new version with the contract. Which hypothesis became weaker or stronger? Did the conclusion become weaker or stronger? A changed statement can be true and still fail to answer the original question. In Section~\ref{ch01:sec:pattern}, an assistant that replaced ``integers'' by ``positive integers'' gave a correct proof of a weaker statement, one that says nothing about a sum such as $-3+5$.
+Before working on a statement, write down its \emph{contract}: the domain of each variable, the hypotheses, the conclusion, and the order in which the quantities are chosen. Whenever the statement changes, for example when you or an assistant repair or generalize it, compare the new version with the contract: did a hypothesis or the conclusion become weaker or stronger? A changed statement can be true and still fail to answer the original question. In Section~\ref{ch01:sec:pattern}, an assistant that replaced ``integers'' by ``positive integers'' gave a correct proof of a weaker statement, one that says nothing about a sum such as $-3+5$.
 \end{principle}

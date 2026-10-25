@@ -1,36 +1,30 @@
 \section{Remove the hypotheses one at a time}\label{ch12:sec:hypotheses}
-Theorem~\ref{thm:banach} has four hypotheses: the space $X$ is nonempty, $X$ is complete, $T$ maps $X$ into itself, and $T$ satisfies the contraction inequality with a factor $q<1$. The proof used each of them at a definite place. A good way to understand why a hypothesis is there is to remove it, keep all the others, and look for an example in which the conclusion fails. This section does that for each hypothesis in turn.
+Theorem~\ref{thm:banach} has four hypotheses: $X$ is nonempty, $X$ is complete, $T$ maps $X$ into itself, and $T$ satisfies the contraction inequality with a factor $q<1$. A good way to understand why a hypothesis is there is to remove it, keep all the others, and look for an example in which the conclusion fails. Exercise~\ref{ex:12.4} asks you to check that each example in the first three groups below satisfies the hypotheses it keeps.
 
 \subsection*{Without completeness}
-Let $T(x)=x/2$ on the open interval $X=(0,1)$. This $T$ is a self-map, because $0<x<1$ gives $0<x/2<1/2$, and it is a contraction with factor $1/2$, because $|x/2-y/2|=|x-y|/2$. But it has no fixed point in $X$: the equation $x/2=x$ forces $x=0$, and $0$ does not belong to $(0,1)$.
-
-The proof breaks down at Step~3. Starting from $x_0=1/2$, the iterates are $x_n=2^{-(n+1)}$, that is, $\tfrac12,\tfrac14,\tfrac18,\ldots$. Steps~1 and~2 go through, and this is exactly the Cauchy sequence that Section~\ref{ch11:sec:complete} used to show that $(0,1)$ is not complete. Its only possible limit is $0$, which is missing from the space, so there is no point $x_*$ for Steps~4--6 to work with.
+Let $T(x)=x/2$ on the open interval $X=(0,1)$. This $T$ is a self-map and a contraction with factor $1/2$, but it has no fixed point in $X$: the equation $x/2=x$ forces $x=0$, which does not belong to $(0,1)$. The proof breaks down at Step~3. Starting from $x_0=1/2$, Steps~1 and~2 go through, and the iterates $x_n=2^{-(n+1)}$ form exactly the Cauchy sequence that Section~\ref{ch11:sec:complete} used to show that $(0,1)$ is not complete. Its only possible limit, $0$, is missing from the space, so there is no point $x_*$ for Steps~4--6 to work with.
 
 \subsection*{Without a factor below one}
-Suppose we allow $q=1$, so that the inequality only says $d(Tx,Ty)\le d(x,y)$: the map never increases distances. On $\RR$, the identity map $T(x)=x$ satisfies this with equality, and every real number is a fixed point, so uniqueness fails. The map $T(x)=x+1$ also satisfies $|T(x)-T(y)|=|x-y|$, but the equation $x+1=x$ has no solution, so existence fails. So the value $q=1$ does not merely make convergence slower; it can destroy existence or uniqueness. In the proof, Steps~2, 5 and~6 all need $1-q$ to be positive: Step~2 relies on the geometric tail bound $q^n/(1-q)$, and Steps~5 and~6 divide by $1-q$, which is now zero. In Step~5, for instance, the inequality $(1-q)\,d(x_*,y_*)\le0$ becomes $0\le0$ and says nothing.
+Suppose we allow $q=1$, so that the inequality only says $d(Tx,Ty)\le d(x,y)$. On $\RR$, the identity map $T(x)=x$ satisfies this with equality, and every real number is a fixed point, so uniqueness fails. The map $T(x)=x+1$ also satisfies $|T(x)-T(y)|=|x-y|$, but $x+1=x$ has no solution, so existence fails. So $q=1$ does not merely slow convergence down; it can destroy existence or uniqueness. In the proof, Step~2 relies on the geometric tail bound $q^n/(1-q)$, and Steps~5 and~6 divide by $1-q$, which is now zero.
 
-Even a map that brings every pair of different points strictly closer together can fail, if the shrinking gets weaker and weaker. This is the example promised in Section~\ref{ch12:sec:iteration}. Let $X=[1,\infty)$, the set of real numbers $x\ge1$, and let
+Even a map that brings every pair of different points strictly closer together can fail, if the shrinking gets weaker and weaker. Let $X=[1,\infty)$, the set of real numbers $x\ge1$, and let
 \[
 T(x)=x+\frac1x.
 \]
-For $x\ge1$ we have $T(x)>x\ge1$, so $T$ maps $X$ into itself. The set $[1,\infty)$ is complete; Exercise~\ref{ex:12.4} asks you to check this by adapting the argument given for $[0,1]$ in Section~\ref{ch11:sec:complete}. To compare two outputs, use $\frac1x-\frac1y=\frac{y-x}{xy}=-\frac{x-y}{xy}$:
+For $x\ge1$ we have $T(x)>x\ge1$, so $T$ maps $X$ into itself, and the set $[1,\infty)$ is complete, by an adaptation of the argument given for $[0,1]$ in Section~\ref{ch11:sec:complete}. Since $\frac1x-\frac1y=-\frac{x-y}{xy}$,
 \[
 T(x)-T(y)=(x-y)+\left(\frac1x-\frac1y\right)=(x-y)\left(1-\frac1{xy}\right).
 \]
-For $x,y\ge1$ with $x\ne y$, at least one of the two numbers is larger than $1$, so $xy>1$ and the factor $1-1/(xy)$ lies strictly between $0$ and $1$. Hence $|T(x)-T(y)|<|x-y|$: every pair of different points moves strictly closer together. But the factor depends on the pair, and for large points it is close to $1$. For $x=11$ and $y=10$, for instance, it is $1-1/110=109/110$, so this pair moves less than one percent closer.
-
-In fact no single factor $q<1$ works for all pairs. Let $q$ be any number with $0\le q<1$, and use the Archimedean property (Section~\ref{ch02:sec:quantifiers}) to choose an integer $k\ge1$ with $k>1/(1-q)$. For $x=k+1$ and $y=k$ the ratio $|T(x)-T(y)|/|x-y|$ is $1-1/(k(k+1))$. Since $k(k+1)=k^2+k>k>1/(1-q)$, taking reciprocals gives $1/(k(k+1))<1-q$, so the ratio is larger than $q$. In other words, $|T(k+1)-T(k)|>q\,|(k+1)-k|$, and $q$ is not a contraction factor.
-
-Finally, $T$ has no fixed point: $x+1/x=x$ would require $1/x=0$. Starting from $x_0=1$, the iterates $1,\,2,\,\tfrac52,\,\tfrac{29}{10},\,\ldots$ keep increasing. Their squares grow by more than $2$ at each step, because $(x+1/x)^2=x^2+2+1/x^2$. Since $x_0^2=1$, induction gives $x_n^2\ge1+2n$ for every $n$, so the iterates eventually pass any number we name: they grow without bound. The single steps $x_{n+1}-x_n=1/x_n$ do get smaller and smaller, but, as with the harmonic sums of Section~\ref{ch11:sec:cauchy}, small steps are not enough.
+For $x,y\ge1$ with $x\ne y$, at least one of the two numbers is larger than $1$, so $xy>1$ and the factor $1-1/(xy)$ lies strictly between $0$ and $1$. Hence $|T(x)-T(y)|<|x-y|$. But the factor depends on the pair, and no single $q<1$ works for all pairs. Indeed, let $0\le q<1$, and use the Archimedean property (Section~\ref{ch02:sec:quantifiers}) to choose an integer $k\ge1$ with $k>1/(1-q)$. For $x=k+1$ and $y=k$ the ratio $|T(x)-T(y)|/|x-y|$ is $1-1/(k(k+1))$. Since $k(k+1)=k^2+k>k>1/(1-q)$, taking reciprocals gives $1/(k(k+1))<1-q$, so the ratio is larger than $q$, and $q$ is not a contraction factor. Finally, $T$ has no fixed point: $x+1/x=x$ would require $1/x=0$.
 
 \subsection*{Without the self-map condition}
-Let $T(x)=x/2+1$, used only for inputs in $[0,1]$. The interval $[0,1]$ is nonempty and complete, and the contraction inequality holds with factor $1/2$, since $|T(x)-T(y)|=|x-y|/2$. But $T(1)=3/2$ lies outside $[0,1]$, so $T$ is not a map from $[0,1]$ to itself. The only real solution of $x/2+1=x$ is $x=2$, which lies outside $[0,1]$, so $T$ has no fixed point in the interval. The proof breaks down already in Step~1. Starting from $x_0=0$, we get $x_1=1$ and then $x_2=3/2$, which has left the space. Since $T$ is used only for inputs in $[0,1]$, the next iterate $T(x_2)$ is not even defined. If we ignore the interval and apply the formula on all of $\RR$, where it is a contraction with factor $1/2$, Theorem~\ref{thm:banach} says that the iterates approach $2$, a point outside $[0,1]$.
+Let $T(x)=x/2+1$, used only for inputs in the nonempty complete space $[0,1]$. The contraction inequality holds with factor $1/2$, but $T(1)=3/2$ lies outside $[0,1]$, so $T$ is not a map from $[0,1]$ to itself. The only real solution of $x/2+1=x$ is $x=2$, so $T$ has no fixed point in $[0,1]$. The proof breaks down already in Step~1: from $x_0=0$ we get $x_1=1$ and then $x_2=3/2$, which has left the space, so $T(x_2)$ is not even defined.
 
 \subsection*{Without nonemptiness}
-The last hypothesis is needed for a simpler reason. Suppose $X$ is the empty set, so that there are no points at all. There is still a map $T:X\to X$: it has no inputs, so there is nothing for it to assign. The requirements of a metric, of completeness and of the contraction inequality all hold vacuously, in the sense of Section~\ref{ch02:sec:contrapositive}, because there are no points to check them for. But there is no fixed point either, since there is no point. The proof uses nonemptiness only once, to choose the starting point $x_0$ in Step~1.
+If $X$ is the empty set, there is still a map $T:X\to X$: it has no inputs, so there is nothing to assign. The requirements of a metric, of completeness and of the contraction inequality all hold vacuously (Section~\ref{ch02:sec:contrapositive}), because there are no points to check them for. But there is no fixed point either. The proof uses nonemptiness only to choose $x_0$ in Step~1.
 
 \subsection*{Summary}
-The table records where the proof uses each hypothesis and an example showing that it cannot be dropped.
+The table records where the proof uses each hypothesis, and examples showing that it cannot be dropped.
 \begin{center}
 \begin{tabular}{@{}lll@{}}\toprule
 Hypothesis & Used in the proof & Examples without it\\\midrule
@@ -42,4 +36,3 @@ factor $q<1$ & Steps~2, 5 and~6 & $x\mapsto x$ and $x\mapsto x+1$ on $\RR$\\
 \bottomrule
 \end{tabular}
 \end{center}
-Each example keeps three of the four hypotheses and breaks the remaining one, and in each of them the conclusion of the theorem fails. So none of the hypotheses can be dropped.

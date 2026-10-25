@@ -1,51 +1,49 @@
 \section{Week 4}
-\sol{4.1}{Let $a$ and $b$ be even integers. By the definition of even, there are integers $k$ and $\ell$ with $a=2k$ and $b=2\ell$. We use two different letters because $a$ and $b$ may be different numbers. Then
+\sol{4.1}{Let $a$ and $b$ be even integers. By the definition of even, $a=2k$ and $b=2\ell$ for some integers $k$ and $\ell$; we use two letters because $a$ and $b$ may be different. Then
 \[
  ab=(2k)(2\ell)=4k\ell.
 \]
-Since $k\ell$ is a product of integers, it is an integer. So $ab$ is four times an integer, which is exactly what ``divisible by four'' means (Section~\ref{ch02:sec:implication}). For instance, $a=6$ and $b=10$ have witnesses $k=3$ and $\ell=5$, and indeed $ab=60=4\cdot15$, where $15=k\ell$.}
-\sol{4.2}{The statement to be proved has hypothesis ``$3n+1$ is even'' and conclusion ``$n$ is odd.'' Its contrapositive is: \emph{if $n$ is not odd, then $3n+1$ is not even.} We prove the contrapositive.
+Since $k\ell$ is an integer, $ab$ is four times an integer, which is what ``divisible by four'' means (Section~\ref{ch02:sec:implication}).}
+\sol{4.2}{The contrapositive of the statement is: \emph{if $n$ is not odd, then $3n+1$ is not even.} We prove it.
 
-Suppose the integer $n$ is not odd. By Lemma~\ref{ch04:lem:even-or-odd}, every integer is even or odd, so $n$ is even, and $n=2k$ for some integer $k$. Substitute this into the quantity $3n+1$:
+Suppose the integer $n$ is not odd. Since every integer is even or odd (Lemma~\ref{ch04:lem:even-or-odd}), $n$ is even, so $n=2k$ for some integer $k$. Then
 \[
  3n+1=3(2k)+1=6k+1=2(3k)+1.
 \]
-Since $3k$ is an integer, $3n+1$ is odd. By Lemma~\ref{ch04:lem:even-or-odd} again, no integer is both even and odd, so $3n+1$ is not even. This proves the contrapositive. An implication and its contrapositive are equivalent (Section~\ref{ch02:sec:contrapositive}), so the original statement is proved as well.}
-\sol{4.3}{Suppose, for contradiction, that the number $s=r+u$ is rational. Then $u=s-r$ is the difference of two rational numbers.
-
-Such a difference is always rational. Indeed, write $s=a/b$ and $r=c/d$ with integers $a,b,c,d$, where $b\ne0$ and $d\ne0$. Putting both fractions over the common denominator $bd$ gives
+Since $3k$ is an integer, $3n+1$ is odd, and since no integer is both even and odd (Lemma~\ref{ch04:lem:even-or-odd} again), $3n+1$ is not even. This proves the contrapositive, which is equivalent to the original statement (Section~\ref{ch02:sec:contrapositive}).}
+\sol{4.3}{Suppose, for contradiction, that $s=r+u$ is rational. Then $u=s-r$ is a difference of two rational numbers, and such a difference is always rational. Write $s=a/b$ and $r=c/d$ with integers $a,b,c,d$, where $b\ne0$ and $d\ne0$. Over the common denominator $bd$,
 \[
  s-r=\frac{a}{b}-\frac{c}{d}=\frac{ad}{bd}-\frac{bc}{bd}=\frac{ad-bc}{bd}.
 \]
-The numerator $ad-bc$ is an integer, and the denominator $bd$ is an integer that is not zero, because a product of two nonzero numbers is nonzero. So $s-r$ is rational.
+Here $ad-bc$ is an integer, and $bd$ is a nonzero integer, because a product of two nonzero numbers is nonzero. So $s-r$ is rational.
 
-Hence $u=s-r$ would be rational, which contradicts the hypothesis that $u$ is irrational. The supposition is therefore false, and $r+u$ is irrational. For example, with $r=1$ and $u=\sqrt2$, this shows that $1+\sqrt2$ is irrational.}
-\sol{4.4}{\emph{Existence.} The number $2$ is a solution: the right side is $3\cdot2-4=2$, which equals the left side.
+Hence $u$ would be rational, contradicting the hypothesis that $u$ is irrational. So $r+u$ is irrational.}
+\sol{4.4}{\emph{Existence.} The number $2$ is a solution, since $3\cdot2-4=2$.
 
-\emph{Uniqueness.} Suppose that $x$ and $y$ are both real solutions, so that $x=3x-4$ and $y=3y-4$. Subtracting the second equation from the first cancels the constant terms and gives $x-y=3x-3y=3(x-y)$. Subtracting $x-y$ from both sides gives $0=2(x-y)$, so $x-y=0$ and $x=y$. Thus any two solutions are equal.
+\emph{Uniqueness.} Suppose that $x$ and $y$ are real solutions, so $x=3x-4$ and $y=3y-4$. Subtracting the second equation from the first cancels the constants and gives $x-y=3(x-y)$, so $0=2(x-y)$, and $x=y$.
 
-Together the two parts show that the equation has exactly one real solution, namely $2$. Uniqueness can also be shown by rearranging: if $x=3x-4$, then subtracting $x$ from both sides gives $0=2x-4$, so $2x=4$ and $x=2$. This calculation proves only that a solution, if there is one, must equal $2$. The substitution check in the existence part is what shows that $2$ really is a solution.}
-\sol{4.5}{The assistant has missed the negative solution $-\sqrt2$. The symbol $\sqrt2$ denotes the \emph{nonnegative} number whose square is $2$, but a negative number can also have square $2$.
+So the equation has exactly one real solution, namely $2$. Rearranging also proves uniqueness: if $x=3x-4$, then $2x=4$, so $x=2$. But this shows only that a solution must equal $2$; the existence check shows that $2$ is one.}
+\sol{4.5}{The assistant has missed the negative solution $-\sqrt2$. The symbol $\sqrt2$ denotes only the \emph{nonnegative} number whose square is $2$.
 
-\emph{Both numbers are solutions.} By the definition of $\sqrt2$, we have $(\sqrt2)^2=2$. Also $(-\sqrt2)^2=(-1)^2(\sqrt2)^2=2$.
+\emph{Both numbers are solutions.} By definition $(\sqrt2)^2=2$, and $(-\sqrt2)^2=(-1)^2(\sqrt2)^2=2$.
 
-\emph{There are no others.} Let $x$ be any real number with $x^2=2$. Multiplying out one bracket at a time, and using $(\sqrt2)^2=2$, gives
+\emph{There are no others.} Let $x$ be a real number with $x^2=2$. Then
 \[
  (x-\sqrt2)(x+\sqrt2)=x^2+\sqrt2\,x-\sqrt2\,x-(\sqrt2)^2=x^2-2=0.
 \]
-A product of two real numbers is zero only when at least one of the factors is zero (the fact used for $x^2=1$ in Section~\ref{ch04:sec:unique}). So $x-\sqrt2=0$ or $x+\sqrt2=0$, that is, $x=\sqrt2$ or $x=-\sqrt2$.
+A product of two real numbers is zero only when a factor is zero (the fact used for $x^2=1$ in Section~\ref{ch04:sec:unique}), so $x=\sqrt2$ or $x=-\sqrt2$.
 
-Therefore the real solutions of $x^2=2$ are exactly $\sqrt2$ and $-\sqrt2$. The assistant's answer would be correct only under the extra assumption $x\ge0$, which selects the first of the two.}
-\sol{4.6}{\emph{First proof: using Theorem~\ref{thm:sqrt2}.} We begin by checking that $\sqrt8=2\sqrt2$. Indeed, $2\sqrt2$ is nonnegative and $(2\sqrt2)^2=4\cdot2=8$, and $\sqrt8$ is the only nonnegative number whose square is $8$ (Section~\ref{ch01:sec:notation}). Now suppose, for contradiction, that $\sqrt8$ is rational, say $\sqrt8=a/b$ with integers $a$ and $b$ and $b\ne0$. Then
+So the real solutions of $x^2=2$ are exactly $\sqrt2$ and $-\sqrt2$. The assistant's answer is correct only under the extra assumption $x\ge0$.}
+\sol{4.6}{\emph{First proof: using Theorem~\ref{thm:sqrt2}.} We have $\sqrt8=2\sqrt2$, because $2\sqrt2$ is nonnegative and $(2\sqrt2)^2=4\cdot2=8$, and $\sqrt8$ is the only nonnegative number whose square is $8$ (Section~\ref{ch01:sec:notation}). Now suppose, for contradiction, that $\sqrt8=a/b$ with integers $a$ and $b$ and $b\ne0$. Then
 \[
  \sqrt2=\frac{\sqrt8}{2}=\frac{a}{2b},
 \]
-and $2b$ is a nonzero integer, so $\sqrt2$ would be rational. This contradicts Theorem~\ref{thm:sqrt2}, so $\sqrt8$ is irrational.
+and $2b$ is a nonzero integer, so $\sqrt2$ would be rational, contradicting Theorem~\ref{thm:sqrt2}. So $\sqrt8$ is irrational.
 
-\emph{Second proof: adapting the argument.} Suppose, for contradiction, that $\sqrt8$ is rational. Exactly as in the proof of Theorem~\ref{thm:sqrt2}, we may write $\sqrt8=a/b$ with integers $a$ and $b$, where $b$ is positive and is the smallest positive denominator for which such a fraction exists. Squaring and multiplying by $b^2$ gives $a^2=8b^2=2(4b^2)$, so $a^2$ is even, and Lemma~\ref{thm:parity-square} shows that $a$ is even, say $a=2c$. Then $4c^2=8b^2$, so $c^2=2b^2$. This is the equation that the proof for $\sqrt2$ started from, with $c$ in place of $a$, so we continue in the same way. Since $c^2$ is even, Lemma~\ref{thm:parity-square} shows that $c$ is even, say $c=2e$. Then $4e^2=2b^2$, so $b^2=2e^2$. Thus $b^2$ is even, and the same lemma shows that $b$ is even, say $b=2d$. Since $b>0$, the integer $d$ satisfies $0<d<b$. Now
+\emph{Second proof: adapting the argument.} Suppose, for contradiction, that $\sqrt8$ is rational. Exactly as in the proof of Theorem~\ref{thm:sqrt2}, write $\sqrt8=a/b$ with integers $a$ and $b$, where $b$ is the smallest positive denominator for which such a fraction exists. Squaring and multiplying by $b^2$ gives $a^2=8b^2=2(4b^2)$, so $a^2$ is even, and Lemma~\ref{thm:parity-square} shows that $a$ is even, say $a=2c$. Then $4c^2=8b^2$, so $c^2=2b^2$, which is even; by the same lemma $c$ is even, say $c=2e$. Then $4e^2=2b^2$, so $b^2=2e^2$, which is even; so $b$ is even, say $b=2d$, and since $b>0$, we have $0<d<b$. Now
 \[
  \sqrt8=\frac{a}{b}=\frac{2c}{2d}=\frac{c}{d}
 \]
-is a fraction of integers with a positive denominator smaller than $b$, which contradicts the choice of $b$. Hence $\sqrt8$ is irrational.
+is a fraction of integers with a positive denominator smaller than $b$, contradicting the choice of $b$. Hence $\sqrt8$ is irrational.
 
-\emph{How the parity steps change.} In the proof for $\sqrt2$, a single halving of the numerator, $a=2c$, already produces the equation $b^2=2c^2$, which shows that $b$ is even. For $\sqrt8$, the first halving only turns $a^2=8b^2$ into $c^2=2b^2$. This is because $8=4\cdot2$, and replacing $a$ by $2c$ removes exactly one factor of $4$ from the equation. One extra halving, $c=2e$, is therefore needed before we can conclude that $b$ is even.}
+\emph{How the parity steps change.} For $\sqrt2$, one halving of the numerator, $a=2c$, already gives $b^2=2c^2$, so $b$ is even. For $\sqrt8$, since $8=4\cdot2$, replacing $a$ by $2c$ removes only one factor of $4$ and leaves $c^2=2b^2$. One extra halving, $c=2e$, is needed before we can conclude that $b$ is even.}

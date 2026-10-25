@@ -1,9 +1,9 @@
 \section{And, or, and not}\label{ch02:sec:connectives}
-Statements can be combined into longer statements. Throughout this section, $n$ is an integer, $P$ is the statement ``$n$ is even,'' and $Q$ is the statement ``$n$ is divisible by three.'' The letters $P$ and $Q$ stand for whole statements, not for numbers. Each of them becomes true or false once the value of $n$ is known.
+Statements can be combined into longer ones. Throughout this section, $n$ is an integer, $P$ is the statement ``$n$ is even,'' and $Q$ is the statement ``$n$ is divisible by three.'' The letters $P$ and $Q$ stand for whole statements, not for numbers.
 
-The statement $P\land Q$, read ``$P$ and $Q$,'' is true when both $P$ and $Q$ are true. It is called the \emph{conjunction} of $P$ and $Q$. The statement $P\lor Q$, read ``$P$ or $Q$,'' is true when at least one of $P$ and $Q$ is true. It is called the \emph{disjunction} of $P$ and $Q$. ``At least one'' includes the case in which both are true: $6$ is even and also divisible by three, so for $n=6$ the statement $P\lor Q$ is true. In everyday speech, ``tea or coffee'' often means one but not both. In mathematics, ``or'' allows both unless the author explicitly says otherwise. Finally, $\neg P$, read ``not $P$,'' is the \emph{negation} of $P$. It is true exactly when $P$ is false.
+The \emph{conjunction} $P\land Q$, read ``$P$ and $Q$,'' is true when both $P$ and $Q$ are true. The \emph{disjunction} $P\lor Q$, read ``$P$ or $Q$,'' is true when at least one of them is true, including when both are: for $n=6$, which is even and divisible by three, $P\lor Q$ is true. In everyday speech, ``tea or coffee'' often means one but not both; in mathematics, ``or'' allows both unless the author says otherwise. Finally, the \emph{negation} $\neg P$, read ``not $P$,'' is true exactly when $P$ is false.
 
-The table below works out these combinations for four integers. Each integer represents one of the four ways in which $P$ and $Q$ can be true (T) or false (F).
+The table works these out for four integers, one for each way in which $P$ and $Q$ can be true (T) or false (F).
 \begin{center}
 \begin{tabular}{@{}ccccccc@{}}
 \toprule
@@ -16,27 +16,25 @@ $5$ & F & F & F & F & T & T\\
 \bottomrule
 \end{tabular}
 \end{center}
-Read the table one row at a time. For $n=4$, the statement $P$ is true and $Q$ is false, so $P\lor Q$ is true but $P\land Q$ is false. For $n=5$, both $P$ and $Q$ are false, so $P\land Q$ and $P\lor Q$ are both false. The last two columns use the same rules on the results: $\neg(P\lor Q)$ is the opposite of the $P\lor Q$ column, and $(\neg P)\land(\neg Q)$ is true only in a row where $P$ and $Q$ are both false.
-
-These two columns agree in every row:
+The last two columns apply the same rules to the earlier columns: $\neg(P\lor Q)$ is the opposite of the $P\lor Q$ column, and $(\neg P)\land(\neg Q)$ is true only in a row where $P$ and $Q$ are both false. These two columns agree in every row:
 \[
 \neg(P\lor Q)\quad\Longleftrightarrow\quad (\neg P)\land(\neg Q).
 \]
-In words: an integer fails to be ``even or divisible by three'' exactly when it is not even \emph{and} not divisible by three. To show that $5$ lacks this property, it is not enough to show that $5$ is not even; we must also show that $5$ is not divisible by three.
+In words: an integer fails to be ``even or divisible by three'' exactly when it is not even \emph{and} not divisible by three. To show that $5$ lacks this property, it is not enough to show that $5$ is not even.
 
-By contrast, an integer fails to be ``even and divisible by three'' as soon as one of the two requirements fails. The number $4$ fails because it is not divisible by three, and the number $3$ fails because it is not even. In symbols,
+By contrast, an integer fails to be ``even and divisible by three'' as soon as one of the two requirements fails: $4$ fails because it is not divisible by three, and $3$ because it is not even. In symbols,
 \[
 \neg(P\land Q)\quad\Longleftrightarrow\quad (\neg P)\lor(\neg Q).
 \]
-These two rules are called \emph{De Morgan's laws}. The long arrow $\Longleftrightarrow$ is the same ``if and only if'' as $\Leftrightarrow$ in Section~\ref{ch02:sec:implication}: the statements on its two sides are true in exactly the same situations.
+These two rules are called \emph{De Morgan's laws}. The long arrow $\Longleftrightarrow$ is the ``if and only if'' of Section~\ref{ch02:sec:implication}: the statements on its two sides are true in exactly the same situations.
 
-The table proves the first law for \emph{any} two statements $P$ and $Q$, not only for these four integers. Its last two columns were filled in using only the truth values of $P$ and $Q$ in the same row. Each of $P$ and $Q$ is either true or false, so there are only four combinations, and the table has a row for each of them. The second law can be checked in the same way. Its left side, $\neg(P\land Q)$, is false only in the row where $P$ and $Q$ are both true. Its right side, $(\neg P)\lor(\neg Q)$, is false only in that row too, because there neither $\neg P$ nor $\neg Q$ is true. In the other three rows both sides are true.
+The table proves the first law for \emph{any} two statements $P$ and $Q$, not only for these four integers: its last two columns were filled in using only the truth values of $P$ and $Q$ in the same row, and there are only four combinations of these, one per row. The second law can be checked in the same way: each side is false only in the row where $P$ and $Q$ are both true, since only there are $\neg P$ and $\neg Q$ both false.
 
-The same kind of bookkeeping describes how an implication fails. Here $P$ and $Q$ may be any two statements, not only the two fixed at the start of this section. The implication $P\Rightarrow Q$ fails exactly when its hypothesis holds and its conclusion fails. Therefore
+The same bookkeeping describes how an implication fails, for any two statements $P$ and $Q$. The implication $P\Rightarrow Q$ fails exactly when its hypothesis holds and its conclusion fails:
 \[
 \neg(P\Rightarrow Q)\quad\Longleftrightarrow\quad P\land(\neg Q).
 \]
-This is precisely the description of a counterexample from Section~\ref{ch02:sec:implication}: an input that satisfies the hypothesis and violates the conclusion. In the other three situations the implication counts as true. The table lists all four:
+This is the description of a counterexample from Section~\ref{ch02:sec:implication}. In the other three situations the implication counts as true:
 \begin{center}
 \begin{tabular}{@{}ccc@{}}
 \toprule
@@ -49,7 +47,7 @@ F & F & T\\
 \bottomrule
 \end{tabular}
 \end{center}
-The last two rows surprise many people. Think of an everyday promise: ``if it rains, I will bring an umbrella.'' On a dry day the promise is not broken, whether I bring an umbrella or not. In the same way, the implication ``if $n$ is divisible by four, then $n$ is even'' is not broken by $n=6$, which is even, or by $n=7$, which is odd. Neither number is divisible by four, so the promise does not apply to them, and at both values the implication is true. Section~\ref{ch02:sec:contrapositive} looks at what this means when the hypothesis can never be true.
+The last two rows surprise many people. Think of the promise ``if it rains, I will bring an umbrella.'' On a dry day the promise is not broken, whether I bring an umbrella or not. Likewise, ``if $n$ is divisible by four, then $n$ is even'' is not broken by $n=6$ or by $n=7$: neither is divisible by four, so at both values the implication is true. Section~\ref{ch02:sec:contrapositive} looks at what this means when the hypothesis can never be true.
 
 \subsection*{Parentheses and grouping}
-Parentheses show which statements belong together, just as they group numbers in arithmetic, and moving them can change the meaning. Compare $\neg(P\land Q)$ with $(\neg P)\land Q$, where $P$ and $Q$ are again the statements ``$n$ is even'' and ``$n$ is divisible by three.'' For $n=5$, the first is true, because $5$ is not both even and divisible by three. The second is false, because it requires $5$ to be divisible by three. By convention, the symbol $\neg$ applies only to the statement immediately after it, so $\neg P\land Q$ means $(\neg P)\land Q$. In this book we usually write such parentheses anyway, to make the grouping easy to see.
+Parentheses show which statements belong together, and moving them can change the meaning. With $P$ and $Q$ as at the start of this section, take $n=5$: the statement $\neg(P\land Q)$ is true, because $5$ is not both even and divisible by three, but $(\neg P)\land Q$ is false, because $5$ is not divisible by three. By convention, $\neg$ applies only to the statement immediately after it, so $\neg P\land Q$ means $(\neg P)\land Q$; we usually write such parentheses anyway.

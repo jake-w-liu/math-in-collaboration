@@ -1,22 +1,22 @@
 \section{The sum of all correlations reveals a square}\label{ch14:sec:square}
-Which lengths $n$ allow a sign sequence whose periodic correlations at all nonzero shifts are zero? A first restriction comes from adding up all the periodic correlations at once, including $C_0$. The total turns out to depend only on the sum of the entries. Let
+Which lengths $n$ allow a sign sequence whose periodic correlations at all nonzero shifts are zero? A first restriction comes from adding up all the periodic correlations, including $C_0$: the total depends only on the sum of the entries,
 \[
-r=\sum_{j=0}^{n-1}a_j=a_0+a_1+\cdots+a_{n-1}
+r=\sum_{j=0}^{n-1}a_j=a_0+a_1+\cdots+a_{n-1}.
 \]
-be the sum of the entries of $a$. Each row of the circulant matrix contains every entry of $a$ once, so $r$ is also the sum of the entries in any row, and we call it the \emph{row sum}. For $(1,1,1,-1)$, the row sum is $r=2$.
+Each row of the circulant matrix contains every entry of $a$ once, so $r$ is also the sum of the entries in any row, and we call it the \emph{row sum}. For $(1,1,1,-1)$, the row sum is $r=2$.
 
-To find the total, look first at the case $n=3$, with unknown entries $a_0,a_1,a_2$. The three periodic correlations consist of these products:
+Look first at $n=3$, with unknown entries $a_0,a_1,a_2$:
 \begin{align*}
  C_0&=a_0a_0+a_1a_1+a_2a_2,\\
  C_1&=a_0a_1+a_1a_2+a_2a_0,\\
  C_2&=a_0a_2+a_1a_0+a_2a_1.
 \end{align*}
-Together they contain each of the nine products $a_ja_k$, with $j$ and $k$ between $0$ and $2$, exactly once. (Here $a_0a_1$ and $a_1a_0$ count as two different products, because they come from different pairs $(j,k)$.) Adding the display row by row gives $C_0+C_1+C_2$. Adding it column by column instead, the first column is $a_0a_0+a_0a_1+a_0a_2=a_0(a_0+a_1+a_2)$, and the other two columns are $a_1(a_0+a_1+a_2)$ and $a_2(a_0+a_1+a_2)$. Together the three columns give $(a_0+a_1+a_2)(a_0+a_1+a_2)$, so
+Together these contain each of the nine products $a_ja_k$, with $j,k$ between $0$ and $2$, exactly once (with $a_0a_1$ and $a_1a_0$ counted as different products). Adding the display row by row gives $C_0+C_1+C_2$. Adding it column by column instead, the first column is $a_0a_0+a_0a_1+a_0a_2=a_0(a_0+a_1+a_2)$, and the other two are $a_1(a_0+a_1+a_2)$ and $a_2(a_0+a_1+a_2)$. So
 \[
 C_0+C_1+C_2=(a_0+a_1+a_2)^2=r^2.
 \]
 
-The same idea works for every $n$. Each $C_s$ is itself a sum over $j$, so the total is a double sum of $n\cdot n=n^2$ products, which we can picture as a table with one row for each shift $s$ and one column for each position $j$. A finite sum may be added in any order, so instead of adding row by row we may add column by column:
+The same idea works for every $n$: the total is a table of $n^2$ products, one row for each shift $s$ and one column for each position $j$, and we may add it column by column instead of row by row:
 \begin{align*}
 \sum_{s=0}^{n-1}C_s
 &=\sum_{s=0}^{n-1}\sum_{j=0}^{n-1}a_j a_{(j+s)\bmod n}
@@ -25,21 +25,20 @@ The same idea works for every $n$. Each $C_s$ is itself a sum over $j$, so the t
 &=\sum_{j=0}^{n-1}a_j\left(\sum_{k=0}^{n-1}a_k\right)
  =\sum_{j=0}^{n-1}a_j\,r=r\sum_{j=0}^{n-1}a_j=r^2.
 \end{align*}
-Here is what happens at each step.
 \begin{itemize}
-\item The first line writes out each $C_s$ from its definition and then changes the order of summation, as just explained.
-\item In passing to the second line, notice that $a_j$ does not depend on $s$. So it is a common factor of all the terms in the inner sum and can be pulled out in front of it.
-\item Passing to the third line is the key step. Fix $j$. As $s$ runs through $0,1,\ldots,n-1$, the position $(j+s)\bmod n$ runs through $j,j+1,\ldots,n-1$ and then wraps around to $0,1,\ldots,j-1$. It visits every position exactly once. For example, with $n=4$ and $j=2$, the values $s=0,1,2,3$ give the positions $2,3,0,1$. So the inner sum is the sum of all the entries of $a$, added in a different order, and that is $r$.
-\item Finally, $r$ is the same number for every $j$, so it can be pulled out of the outer sum. What remains is $r$ times the sum of all the entries, that is, $r\cdot r$.
+\item The first line writes out each $C_s$ and changes the order of summation.
+\item The second pulls out $a_j$, which does not depend on $s$.
+\item The third is the key step. Fix $j$. As $s$ runs through $0,1,\ldots,n-1$, the position $(j+s)\bmod n$ runs through $j,\ldots,n-1$ and then wraps around to $0,\ldots,j-1$, visiting every position once. So the inner sum is the sum of all the entries in a different order, which is $r$.
+\item Finally, $r$ does not depend on $j$, so it comes out of the outer sum.
 \end{itemize}
-For $(1,1,1,-1)$ the identity says $4+0+0+0=2^2$. It holds for every sequence, not only for special ones. The sequence $(1,1,-1,-1)$ has row sum $r=0$ and periodic correlations $C_0=4$, $C_1=0$, $C_2=-4$, $C_3=0$, which add up to $0=0^2$.
+For $(1,1,1,-1)$ the identity says $4+0+0+0=2^2$. It holds for every sequence: $(1,1,-1,-1)$ has $r=0$ and $C_0=4$, $C_1=0$, $C_2=-4$, $C_3=0$, which add up to $0=0^2$.
 
-The identity does not use the fact that the entries are signs. The same rearrangement works for any real numbers $a_0,\ldots,a_{n-1}$. The signs are used only afterward, to know that $C_0=n$ and that the row sum is an integer. This is Habit~3 (Section~\ref{ch03:sec:images}) at work: keeping track of which hypothesis is used where tells us which parts of the argument would still work in a more general setting.
+The identity holds for any real numbers $a_0,\ldots,a_{n-1}$; the signs are used only afterward, to know that $C_0=n$ and that $r$ is an integer. Tracking which hypothesis is used where, as Habit~3 (Section~\ref{ch03:sec:images}) asks, shows which parts of an argument survive in a more general setting.
 
-Now suppose that $C_s=0$ for every shift $s$ with $1\le s\le n-1$. Then the left side of the identity is just $C_0=n$, and therefore
+Now suppose that $C_s=0$ for every shift $s$ with $1\le s\le n-1$. Then the left side is just $C_0=n$, so
 \begin{equation}
 n=r^2.\label{eq:squareorder}
 \end{equation}
-Since $r$ is a sum of signs, it is an integer. So the length $n$ must be a perfect square, that is, the square of an integer. By Proposition~\ref{ch14:prop:rows}(b), the first row of a circulant Hadamard matrix of order $n$ is a sequence of exactly this kind, so the order of every circulant Hadamard matrix is a perfect square. In the language of Section~\ref{ch02:sec:implication}, being a perfect square is a \emph{necessary} condition for a number $n$ to be the order of a circulant Hadamard matrix. Because the argument never used a particular value of $n$, it covers every length at once, which no list of computed examples could do.
+Since $r$ is a sum of signs, it is an integer, so $n$ must be a perfect square. By Proposition~\ref{ch14:prop:rows}(b), the first row of a circulant Hadamard matrix of order $n$ is such a sequence, so the order of every circulant Hadamard matrix is a perfect square: in the language of Section~\ref{ch02:sec:implication}, this is a \emph{necessary} condition, and it covers every length at once.
 
-\pauseq{The computer search of Section~\ref{ch14:sec:experiment} covers the lengths $1\le n\le13$. Which of these lengths pass the square test? Has one of them already been ruled out by another argument?}{The perfect squares in this range are $1$, $4$, and $9$. Length $9$ is odd, so by the pause at the end of Section~\ref{ch14:sec:periodic} no periodic correlation of a sequence of length $9$ can be zero. So passing the square test does not mean that a sequence of that length exists; it only means that this particular test cannot rule the length out. The other two lengths do have such sequences. For the sequence $(1)$ the condition holds vacuously, because there are no shifts $s$ with $1\le s\le 0$. For length four, $(1,1,1,-1)$ has $C_1=C_2=C_3=0$.}
+\pauseq{The computer search of Section~\ref{ch14:sec:experiment} covers the lengths $1\le n\le13$. Which of these lengths pass the square test? Has one of them already been ruled out by another argument?}{The perfect squares in this range are $1$, $4$, and $9$. Length $9$ is odd, so by the pause at the end of Section~\ref{ch14:sec:periodic} no periodic correlation there can be zero: passing the test only means that this test cannot rule the length out. Lengths $1$ and $4$ do have such sequences: $(1)$, vacuously, as there are no shifts $s$ with $1\le s\le 0$, and $(1,1,1,-1)$.}

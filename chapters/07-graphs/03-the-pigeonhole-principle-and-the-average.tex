@@ -1,5 +1,5 @@
 \section{The pigeonhole principle and the average}\label{ch07:sec:pigeonhole}
-If many objects are placed in a few boxes, some box must be crowded. Here is the precise statement, one of the most useful facts in counting.
+If many objects are placed in a few boxes, some box must be crowded. Here is the precise statement.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{proposition}[Pigeonhole principle]\label{ch07:prop:pigeonhole}
@@ -8,20 +8,18 @@ Let $n$, $r$, and $k$ be natural numbers. If $n$ objects are placed in $r$ boxes
 \end{minipage}\par
 
 \begin{proof}
-We prove the contrapositive (Section~\ref{ch02:sec:contrapositive}). By Section~\ref{ch02:sec:negation}, the negation of the conclusion is ``every box contains at most $k$ objects,'' and the negation of $n>rk$ is $n\le rk$. So suppose that every box contains at most $k$ objects. Each object lies in exactly one box, so $n$ is the sum of the numbers of objects in the $r$ boxes. Each of these $r$ numbers is at most $k$, so their sum is at most $rk$, that is, $n\le rk$.
+We prove the contrapositive (Section~\ref{ch02:sec:contrapositive}): suppose that every box contains at most $k$ objects, and show that $n\le rk$. Each object lies in exactly one box, so $n$ is the sum of the numbers of objects in the $r$ boxes. Each of these $r$ numbers is at most $k$, so their sum is at most $rk$.
 \end{proof}
 
-The name pictures pigeons settling into the holes of a pigeon house: if there are more pigeons than holes, some hole holds at least two pigeons. This is the case $k=1$, the one used most often. For example, among any $13$ people, two have their birthdays in the same month: the people are the objects, the $12$ months are the boxes, and $13>12\cdot1$. Larger values of $k$ work in the same way. Among any $25$ people, some month contains the birthdays of at least three of them, because $25>12\cdot2$. In each case the principle tells us that such a month \emph{exists}, but not which month it is.
+The name pictures pigeons in a pigeon house: if there are more pigeons than holes, some hole holds at least two. This is the case $k=1$, the one used most often. For example, among any $13$ people, two have their birthdays in the same month: the people are the objects, the $12$ months are the boxes, and $13>12\cdot1$. The principle tells us that such a month \emph{exists}, but not which month it is. Since placing objects in boxes defines a function from objects to boxes, the case $k=1$ is also the fact from Section~\ref{ch03:sec:injsurj} that a function from a finite set $A$ to a finite set $B$ with $|A|>|B|$ cannot be injective.
 
-The pigeonhole principle can also be stated in the language of functions from Chapter~\ref{ch:maps}. Placing each object in a box defines a function from the set of objects to the set of boxes. In that language, the case $k=1$ is the fact from Section~\ref{ch03:sec:injsurj} that a function from a finite set $A$ to a finite set $B$ with $|A|>|B|$ cannot be injective: two different inputs must share an output.
-
-\pauseq{A class has $30$ students. Must some month contain the birthdays of at least three of them? Of at least four?}{Take the $12$ months as boxes. Since $30>12\cdot2=24$, the pigeonhole principle with $k=2$ shows that some month contains more than two birthdays, that is, at least three. For four birthdays we would need $k=3$, but $30$ is not larger than $12\cdot3=36$, so the principle gives no guarantee. In fact no guarantee is possible: six months with three birthdays each and six months with two each account for $6\cdot3+6\cdot2=30$ students, and no month holds four.}
+\pauseq{A class has $30$ students. Must some month contain the birthdays of at least three of them? Of at least four?}{Take the $12$ months as boxes. Since $30>12\cdot2$, the principle with $k=2$ gives a month with more than two birthdays, that is, at least three. For four we would need $30>12\cdot3=36$, which is false. Indeed no guarantee is possible: six months with three birthdays and six with two account for all $6\cdot3+6\cdot2=30$ students, and no month holds four.}
 
 A closely related fact concerns averages. The \emph{average} of real numbers $a_1,\ldots,a_n$, where $n\ge1$, is
 \[
-\bar a=\frac{a_1+\cdots+a_n}{n}.
+\bar a=\frac{a_1+\cdots+a_n}{n},
 \]
-(The bar over the $a$ is part of the name; read $\bar a$ as ``$a$ bar.'')
+read ``$a$ bar.''
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{proposition}[Averaging principle]\label{ch07:prop:average}
@@ -34,13 +32,11 @@ Suppose, for contradiction, that every $a_i$ is strictly less than $\bar a$. Add
 \[
 a_1+\cdots+a_n<n\bar a.
 \]
-(Two strict inequalities $x<y$ and $x'<y'$ can be added: $x+x'<y+x'<y+y'$, by the rule for adding the same number to both sides from Section~\ref{ch02:sec:quantifiers}. Repeating this adds all $n$ of them. Since $n\ge1$, there is at least one inequality to add, so the result is strict.) But the definition of the average says exactly that $n\bar a=a_1+\cdots+a_n$, so this number would be strictly less than itself, which is impossible. Hence some $a_i$ satisfies $a_i\ge\bar a$.
-
-The same argument with every inequality reversed proves the second claim: if every $a_i$ were strictly greater than $\bar a$, adding would give $a_1+\cdots+a_n>n\bar a$, again impossible.
+(From $x<y$ and $x'<y'$ we get $x+x'<y+x'<y+y'$, by adding the same number to both sides as in Section~\ref{ch02:sec:quantifiers}; repeating this adds all $n$ inequalities. Since $n\ge1$, there is at least one inequality to add, so the sum is strict.) But $n\bar a=a_1+\cdots+a_n$ by the definition of the average, so this number would be strictly less than itself, which is impossible. Hence some $a_i$ satisfies $a_i\ge\bar a$. Reversing every inequality proves the second claim.
 \end{proof}
 
-For instance, the numbers $1,3,8$ have average $12/3=4$. The number $8$ is at least $4$, and the numbers $1$ and $3$ are at most $4$. The condition $n\ge1$ is needed for the average to make sense at all: with $n=0$ the formula would divide by zero, and there would be no number to choose.
+For instance, the numbers $1,3,8$ have average $12/3=4$; the number $8$ is at least $4$, and $1$ and $3$ are at most $4$. The condition $n\ge1$ is needed for the average to make sense at all: with $n=0$ the formula would divide by zero.
 
-The pigeonhole principle is a special case of the averaging principle. If $n$ objects lie in $r\ge1$ boxes, the numbers of objects in the boxes add up to $n$, so their average is $n/r$. When $n>rk$, this average is larger than $k$, and the averaging principle gives a box containing at least $n/r$ objects, which is more than $k$.
+The pigeonhole principle is a special case of the averaging principle: if $n$ objects lie in $r\ge1$ boxes, the box counts add up to $n$ and have average $n/r$, which is larger than $k$ when $n>rk$; so some box holds at least $n/r>k$ objects.
 
-The words ``at least one'' are essential: an average does not control every number. Apply the averaging principle to the degrees of a graph with $n\ge1$ vertices and $m$ edges. By the handshake theorem the degrees add up to $2m$, so their average is $2m/n$, and therefore some vertex has degree at least $2m/n$. In the example graph $G$, with $n=m=4$, the average degree is $2$, and the vertex $c$ has degree $3\ge2$, as promised. Nothing is promised about the other degrees; Exercise~\ref{ex:7.5} asks how far from the average they can be. Chapter~\ref{ch:probability} develops this observation into a method for proving that an object exists: compute an average over random choices, and conclude that some choice is at least as good as the average.
+Apply the averaging principle to the degrees of a graph with $n\ge1$ vertices and $m$ edges. By the handshake theorem the degrees add up to $2m$, so their average is $2m/n$, and some vertex has degree at least $2m/n$. In the example graph $G$, the average degree is $8/4=2$, and $c$ has degree $3$. The words ``at least one'' are essential: nothing is promised about the other degrees, and Exercise~\ref{ex:7.5} asks how far from the average they can be. Chapter~\ref{ch:probability} turns this into a method for proving existence: compute an average over random choices, and conclude that some choice is at least as good as the average.

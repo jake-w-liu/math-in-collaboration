@@ -1,5 +1,5 @@
 \section{Directed edges and a guaranteed sink}\label{ch07:sec:sink}
-Some connections have a direction: a one-way street, a link from one web page to another, a game that one player won against another. We record such a connection as an arrow.
+Some connections have a direction: a one-way street, a link from one web page to another, a game won by one player against another. We record such a connection as an arrow.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{definition}[Directed and oriented graphs]\label{ch07:def:directed}
@@ -7,13 +7,13 @@ A \emph{directed graph} consists of a set $V$ of vertices and a set of \emph{dir
 \end{definition}
 \end{minipage}\par
 
-Because the entries of an ordered pair come in a definite order (Section~\ref{ch03:sec:sets}), $u\to v$ and $v\to u$ are different directed edges. As with graphs, there are no loops: a directed edge always joins two different vertices. Some pairs of vertices may have no edge in either direction. Unlike the graphs of Definition~\ref{ch07:def:graph}, a directed graph is allowed to have infinitely many vertices, so we say ``finite'' explicitly whenever a result needs it.
+Because the entries of an ordered pair come in a definite order (Section~\ref{ch03:sec:sets}), $u\to v$ and $v\to u$ are different directed edges. As in a graph, there are no loops $u\to u$. Some pairs of vertices may have no edge in either direction. Unlike a graph, a directed graph may have infinitely many vertices, so we say ``finite'' explicitly whenever a result needs it.
 
-We also use $u\to w$ as a statement: it says that $(u,w)$ is a directed edge, and we say that $u\to w$ \emph{fails} when $(u,w)$ is not a directed edge. This arrow between two vertices is a different use of the symbol from the arrow in a function $f:A\to B$ (Chapter~\ref{ch:maps}), which points from a set of inputs to a set of outputs. If $u\to w$, we call $w$ an \emph{out-neighbor} of $u$. The \emph{outdegree} of $u$ is the number of its out-neighbors, that is, the number of arrows leaving $u$. A \emph{sink} is a vertex with outdegree $0$: no arrow leaves it.
+We also use $u\to w$ as a statement, saying that $(u,w)$ is a directed edge; $u\to w$ \emph{fails} when it is not. (This arrow joins two vertices; it is not the arrow of a function $f:A\to B$.) If $u\to w$, we call $w$ an \emph{out-neighbor} of $u$. The \emph{outdegree} of $u$ is the number of its out-neighbors, that is, the number of arrows leaving $u$. A \emph{sink} is a vertex with outdegree $0$: no arrow leaves it.
 
-Walks and paths now have to follow the arrows. A \emph{directed walk} from $v_0$ to $v_k$ is a sequence of vertices $v_0,v_1,\ldots,v_k$ with $v_{i-1}\to v_i$ for every $i=1,\ldots,k$; its length is $k$. A \emph{directed path} is a directed walk with no repeated vertex. A \emph{directed cycle} is a directed walk $v_0,v_1,\ldots,v_k$ with at least one step, $k\ge1$, that returns to its start, $v_k=v_0$, and has no other repetition: the vertices $v_0,v_1,\ldots,v_{k-1}$ are all different. A directed graph is \emph{acyclic} when it has no directed cycle. An acyclic directed graph can still look like a triangle when drawn. The directed graph with $a\to b$, $b\to c$, and $a\to c$ has no directed cycle: every arrow goes from a letter to a later letter of the alphabet, so no route along the arrows returns to its start.
+Walks and paths now have to follow the arrows. A \emph{directed walk} from $v_0$ to $v_k$ is a sequence of vertices $v_0,v_1,\ldots,v_k$ with $v_{i-1}\to v_i$ for every $i=1,\ldots,k$; its length is $k$. A \emph{directed path} is a directed walk with no repeated vertex. A \emph{directed cycle} is a directed walk $v_0,v_1,\ldots,v_k$ with at least one step, $k\ge1$, that returns to its start, $v_k=v_0$, and has no other repetition: the vertices $v_0,v_1,\ldots,v_{k-1}$ are all different. A directed graph is \emph{acyclic} when it has no directed cycle.
 
-In an oriented graph, every directed cycle passes through at least three vertices. A cycle with one step would be a loop $v_0\to v_0$, and a cycle with two steps would need both $v_0\to v_1$ and $v_1\to v_0$. Both are forbidden. Here are two oriented graphs, each with vertices $a$, $b$, $c$:
+In an oriented graph, a directed cycle passes through at least three vertices, because a cycle with one step would be a loop and a cycle with two steps would need arrows in both directions. Here are two oriented graphs, each with vertices $a$, $b$, $c$:
 \begin{center}
 \begin{tikzpicture}[>=Stealth,every node/.style={circle,draw=ink,minimum size=6mm,inner sep=1pt},line width=.7pt]
 \node(a)at(0,0){$a$};\node(b)at(1.7,0){$b$};\node(c)at(3.4,0){$c$};
@@ -22,9 +22,9 @@ In an oriented graph, every directed cycle passes through at least three vertice
 \draw[->](a2)--(b2);\draw[->](b2)--(c2);\draw[->](c2)--(a2);
 \end{tikzpicture}
 \end{center}
-On the left is the \emph{chain} $a\to b\to c$. It is acyclic: every arrow leads further along the chain, so no directed walk can come back. Its vertex $c$ is a sink, while $a$ and $b$ are not. On the right is the directed cycle $a\to b\to c\to a$.
+On the left is the \emph{chain} $a\to b\to c$. It is acyclic, since every arrow leads further along the chain, and its only sink is $c$. On the right is the directed cycle $a\to b\to c\to a$. Replacing its arrow $c\to a$ by $a\to c$ gives a triangle with no directed cycle, since then every arrow goes to a later letter.
 
-Does every directed graph have a sink? Not without some hypotheses. A directed graph with no vertices has no sink, simply because it has no vertices at all. An infinite directed graph can fail too. Take the natural numbers as vertices, with an edge $n\to n+1$ for every $n$. Every vertex points to the next one, so there is no sink. Yet this graph is acyclic, because the numbers strictly increase along any directed walk, so a walk can never return to its starting number. Exercise~\ref{ex:7.3} asks what can happen when the graph is finite but not acyclic. The next theorem shows that a sink must exist once the graph is nonempty, finite, and acyclic.
+Does every directed graph have a sink? A directed graph with no vertices has none. An infinite directed graph can fail too: take the natural numbers as vertices, with an edge $n\to n+1$ for every $n$. There is no sink, yet the graph is acyclic, because the numbers strictly increase along any directed walk. Exercise~\ref{ex:7.3} asks what can happen when the graph is finite but not acyclic.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{theorem}\label{thm:sink}
@@ -32,20 +32,18 @@ Every nonempty finite acyclic oriented graph has a sink.
 \end{theorem}
 \end{minipage}\par
 
-Here \emph{nonempty} means that there is at least one vertex. The theorem promises \emph{one} vertex with no outgoing edge; it does not say that every vertex has this property. In the chain, only $c$ is a sink. In a directed graph with a single vertex and no edges, that one vertex is a sink. The word ``oriented'' in the theorem does not exclude any acyclic directed graph: if a directed graph had both $u\to v$ and $v\to u$, then $u,v,u$ would be a directed cycle with two steps. So every acyclic directed graph is automatically oriented. We keep the word because the conjecture in Section~\ref{ch07:sec:seymour} is about oriented graphs.
+Here \emph{nonempty} means that there is at least one vertex. The theorem promises \emph{one} sink, not that every vertex is a sink; in the chain, only $c$ is. The word ``oriented'' excludes no acyclic directed graph: a directed graph with both $u\to v$ and $v\to u$ has the directed cycle $u,v,u$. We keep the word because the conjecture in Section~\ref{ch07:sec:seymour} is about oriented graphs.
 
 \noindent\textit{Plan.} Take a directed path that is as long as possible, and look at its last vertex. An arrow leaving that vertex would either reach a new vertex, which would give a longer path, or return to the path, which would close a directed cycle.
 \begin{proof}
-A directed path never repeats a vertex, so it has at most $|V|$ vertices and therefore length at most $|V|-1$. (This is the pigeonhole principle: a list of more than $|V|$ vertices must contain some vertex twice.) There is at least one directed path: since the graph is nonempty, we can pick a vertex, and a single vertex is a directed path of length $0$. So the lengths of the directed paths form a nonempty set of natural numbers, all at most $|V|-1$. This set is finite, because it is contained in $\{0,1,\ldots,|V|-1\}$, so it has a largest member. Choose a directed path of this greatest length, and write it $v_0\to v_1\to\cdots\to v_k$.
+A directed path never repeats a vertex, so it has at most $|V|$ vertices and therefore length at most $|V|-1$. (By the pigeonhole principle, a list of more than $|V|$ vertices contains some vertex twice.) Since the graph is nonempty, it has a vertex, and a single vertex is a directed path of length $0$. So the lengths of the directed paths form a nonempty subset of $\{0,1,\ldots,|V|-1\}$, which has a largest member. Choose a directed path of this greatest length, and write it $v_0\to v_1\to\cdots\to v_k$.
 
 Suppose, for contradiction, that its last vertex $v_k$ has an out-neighbor $w$.
 \begin{itemize}
-\item If $w$ is not on the path, then $v_0\to v_1\to\cdots\to v_k\to w$ is a directed walk with no repeated vertex, that is, a directed path. Its length is $k+1$, which contradicts the choice of a path of greatest length.
+\item If $w$ is not on the path, then $v_0\to v_1\to\cdots\to v_k\to w$ is a directed path of length $k+1$, which contradicts the choice of a path of greatest length.
 \item If $w$ is on the path, say $w=v_j$, then $j\ne k$, because $v_k\to v_k$ would be a loop. So $j<k$. Then $v_j\to v_{j+1}\to\cdots\to v_k\to v_j$ is a directed walk with $k-j+1$ steps that returns to its start, and its vertices $v_j,\ldots,v_k$ before the return are all different. It is a directed cycle, which contradicts acyclicity.
 \end{itemize}
 Both cases are impossible. Hence $v_k$ has no out-neighbor, so it is a sink.
 \end{proof}
 
-Each hypothesis has a visible job in this proof. Nonemptiness supplies at least one path to choose from. Finiteness guarantees a directed path of greatest length; in the infinite directed graph on the natural numbers, every directed path can be extended by one more step. Acyclicity rules out an arrow from the last vertex back into the path.
-
-The proof also suggests a way to find a sink. Start at any vertex and keep following arrows, choosing any outgoing arrow at each step, for as long as possible. In an acyclic directed graph the walk never returns to a vertex it has already visited: the first time it did so, the stretch of the walk between the two visits would be a directed cycle. So the walk reaches a new vertex at every step. If the graph is also finite, the walk can visit at most $|V|$ different vertices, so it must stop after at most $|V|-1$ steps. It can stop only at a vertex with no outgoing arrow, that is, at a sink.
+Each hypothesis has a visible job in this proof. Nonemptiness supplies a path to choose from. Finiteness guarantees a directed path of greatest length; in the directed graph on the natural numbers, every directed path can be extended. Acyclicity rules out an arrow from the last vertex back into the path.

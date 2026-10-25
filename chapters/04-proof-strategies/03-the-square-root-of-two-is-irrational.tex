@@ -1,5 +1,5 @@
 \section{The square root of two is irrational}\label{ch04:sec:sqrt2}
-Recall from Section~\ref{ch01:sec:notation} that a \emph{rational number} is a number that can be written as a fraction $a/b$, where $a$ and $b$ are integers and $b\ne0$. A real number that is not rational is called \emph{irrational}. The symbol $\sqrt2$ denotes the nonnegative real number whose square is $2$. We now prove that $\sqrt2$ is irrational.
+Recall from Section~\ref{ch01:sec:notation} that a \emph{rational number} can be written as a fraction $a/b$ of integers with $b\ne0$; a real number that is not rational is called \emph{irrational}. The symbol $\sqrt2$ denotes the nonnegative real number whose square is $2$.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{theorem}\label{thm:sqrt2}
@@ -7,27 +7,27 @@ The number $\sqrt2$ is irrational.
 \end{theorem}
 \end{minipage}\par
 
-Why argue by contradiction? The word ``irrational'' means ``not rational,'' so the theorem says what $\sqrt2$ is \emph{not}. A direct proof would have to deal with every possible fraction at once and show that none of them equals $\sqrt2$, and it is hard to see where such a proof would begin. Supposing the opposite, that $\sqrt2$ is rational, hands us a fraction of integers that equals $\sqrt2$, and with its numerator and denominator we can calculate. This is the same difficulty that the hypothesis ``$n$ is not even'' caused in Section~\ref{ch04:sec:contrapositive}. Statements saying that something is impossible, or that no object of some kind exists, are often proved by contradiction for this reason.
+Why argue by contradiction? The theorem says what $\sqrt2$ is \emph{not}, and a direct proof would have to rule out every fraction at once. Supposing the opposite hands us one fraction of integers equal to $\sqrt2$, with a numerator and denominator to calculate with. Statements that no object of some kind exists are often proved by contradiction for this reason.
 
-The proof chooses a fraction for $\sqrt2$ with the smallest possible positive denominator, so it helps to see what such a choice looks like for an ordinary rational number. The number $0.75$ can be written as $3/4$, $6/8$, $9/12$, and in infinitely many other ways. The positive integers $j$ for which $0.75=a/j$ with an integer $a$ are $4,8,12,16,\ldots$, and the smallest of them is $4$. Choosing the smallest denominator picks out the fraction $3/4$, which cannot be reduced any further.
+The proof chooses a fraction for $\sqrt2$ with the smallest possible positive denominator. For an ordinary rational number such as $0.75=3/4=6/8=9/12=\cdots$, the possible positive denominators are $4,8,12,\ldots$, and choosing the smallest picks out $3/4$, which cannot be reduced further.
 
 \noindent\textit{Plan.} Suppose $\sqrt2=a/b$ with $b$ as small as possible. Squaring will force both $a$ and $b$ to be even. Then cancelling a factor of two gives a fraction for $\sqrt2$ with a smaller positive denominator, which contradicts the choice of $b$.
 \begin{proof}
-Suppose, for contradiction, that $\sqrt2$ is rational. Then $\sqrt2=p/q$ for some integers $p$ and $q$ with $q\ne0$. If $q$ is positive, this fraction already has a positive denominator. If $q$ is negative, then $p/q=(-p)/(-q)$, and $-q$ is positive. So in either case $\sqrt2$ can be written as a fraction of integers with a positive denominator. In other words, the set of positive integers $j$ for which $\sqrt2=a/j$ with some integer $a$ is nonempty. By the well-ordering property (Section~\ref{ch04:sec:contrapositive}), this set has a smallest member; call it $b$, and let $a$ be an integer with $\sqrt2=a/b$.
+Suppose, for contradiction, that $\sqrt2$ is rational: $\sqrt2=p/q$ for some integers $p$ and $q$ with $q\ne0$. If $q$ is negative, we may rewrite $p/q$ as $(-p)/(-q)$, whose denominator is positive. So the set of positive integers $j$ for which $\sqrt2=a/j$ with some integer $a$ is nonempty. By the well-ordering property (Section~\ref{ch04:sec:contrapositive}), it has a smallest member; call it $b$, and let $a$ be an integer with $\sqrt2=a/b$.
 
-Squaring both sides of $\sqrt2=a/b$ gives $2=a^2/b^2$, because $(\sqrt2)^2=2$ and, by the rule for multiplying fractions, $(a/b)(a/b)=(a\cdot a)/(b\cdot b)$. Multiplying by $b^2$ gives $a^2=2b^2$. Since $b^2$ is an integer, $a^2$ is even. By Lemma~\ref{thm:parity-square}, $a$ is even, so $a=2c$ for some integer $c$. Substituting this into $a^2=2b^2$ gives
+Squaring gives $2=a^2/b^2$, and multiplying by $b^2$ gives $a^2=2b^2$. Since $b^2$ is an integer, $a^2$ is even, so $a$ is even by Lemma~\ref{thm:parity-square}; write $a=2c$ with $c$ an integer. Substituting into $a^2=2b^2$ gives
 \[
 (2c)^2=2b^2,\qquad\text{that is,}\qquad 4c^2=2b^2,\qquad\text{so}\qquad b^2=2c^2.
 \]
-Thus $b^2$ is even, and Lemma~\ref{thm:parity-square} shows that $b$ is even. Write $b=2d$ with $d$ an integer. Since $b$ is positive, $d=b/2$ is positive, and $d<b$ because $b=d+d$ and $d>0$. Cancelling the common factor $2$ gives
+Thus $b^2$ is even, and Lemma~\ref{thm:parity-square} shows that $b$ is even; write $b=2d$ with $d$ an integer. Since $b$ is positive, so is $d=b/2$, and $d<b$ because $b=d+d$. Cancelling the common factor $2$ gives
 \[
 \sqrt2=\frac{a}{b}=\frac{2c}{2d}=\frac{c}{d}.
 \]
-So $d$ is a positive integer for which $\sqrt2=c/d$ with $c$ an integer, and $d$ is smaller than $b$. This contradicts the choice of $b$ as the smallest such denominator. Therefore $\sqrt2$ is not rational; it is irrational.
+So $\sqrt2=c/d$ with $c$ an integer and $d$ a positive integer smaller than $b$, contradicting the choice of $b$. Therefore $\sqrt2$ is irrational.
 \end{proof}
 
-Parity alone gives no contradiction: fractions whose numerator and denominator are both even certainly exist, such as $6/8$. The contradiction comes from parity together with the choice of $b$. A fraction chosen with the smallest possible positive denominator turned out to be reducible to one with a smaller positive denominator.
+Parity alone gives no contradiction: fractions with even numerator and denominator, such as $6/8$, certainly exist. The contradiction comes from parity together with the choice of $b$.
 
-Could a computer settle the question instead? A calculator shows $\sqrt2\approx1.41421356$, and computers have produced billions of further digits. But any finite list of digits is the beginning of some fraction: $1.41421356$ is exactly the fraction $141421356/100000000$. So no number of computed digits can prove that $\sqrt2$ is irrational. The proof above succeeds because it shows that \emph{no} fraction of integers, however large its numerator and denominator, is equal to $\sqrt2$.
+No computation could replace this proof. Computers have produced billions of digits of $\sqrt2\approx1.41421356$, but any finite list of digits is a fraction, such as $141421356/100000000$. Only a proof can show that \emph{no} fraction of integers, however large, equals $\sqrt2$.
 
-\pauseq{Where did the proof use the fact that the denominator $b$ is positive?}{In two places. First, the well-ordering property applies only to sets of \emph{positive} integers. If negative denominators were allowed, there would be no smallest one: from $\sqrt2=a/b$ with $b>0$ we also get $\sqrt2=(-a)/(-b)=(-2a)/(-2b)=(-3a)/(-3b)=\cdots$, and the denominators $-b,-2b,-3b,\ldots$ become more and more negative without end. Second, at the end we needed $d=b/2$ to be a positive denominator smaller than $b$. For a negative $b$ this fails; for example, if $b=-4$, then $b/2=-2$, which is larger than $b$, not smaller.}
+\pauseq{Where did the proof use the fact that the denominator $b$ is positive?}{In two places. First, the well-ordering property applies only to sets of \emph{positive} integers, and negative denominators have no smallest one: from $\sqrt2=a/b$ with $b>0$ we also get $\sqrt2=(-a)/(-b)=(-2a)/(-2b)=\cdots$, with denominators $-b,-2b,\ldots$ decreasing without end. Second, we needed $d=b/2$ to be smaller than $b$, which fails for negative $b$: if $b=-4$, then $b/2=-2>b$.}

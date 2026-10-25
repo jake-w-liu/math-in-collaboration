@@ -1,5 +1,5 @@
 \section{Order is a different structure}\label{ch06:sec:order}
-Equivalence relations describe sameness. A different kind of relation describes \emph{comparison}: one object is smaller than another, or lies below it, or is contained in it. Write $x\preceq y$ for such a relation on a set $A$, and read it as ``$x$ is below $y$.''
+Equivalence relations describe sameness. Other relations describe \emph{comparison}: one object is smaller than another, or lies below it, or is contained in it. Write $x\preceq y$ for such a relation on a set $A$, and read it as ``$x$ is below $y$.''
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{definition}[Partial order]\label{ch06:def:partial-order}
@@ -12,26 +12,26 @@ A relation $\preceq$ on a set $A$ is a \emph{partial order} if it has the follow
 \end{definition}
 \end{minipage}\par
 
-Reflexivity and transitivity are the same requirements as for an equivalence relation, but symmetry has been replaced by antisymmetry. Symmetry says that whenever the relation holds in one direction, it also holds in the other. Antisymmetry says that it holds in both directions only between an object and itself. The usual order $\le$ on the real numbers is a partial order: $x\le x$; if $x\le y$ and $y\le x$, then $x=y$; and if $x\le y$ and $y\le z$, then $x\le z$. The strict order $<$ is not a partial order in this sense, because it is not reflexive: $1<1$ is false.
+Reflexivity and transitivity are as for an equivalence relation, but symmetry has been replaced by antisymmetry. Symmetry says that whenever the relation holds in one direction, it also holds in the other; antisymmetry says that it holds in both directions only between an object and itself. The usual order $\le$ on the real numbers is a partial order. The strict order $<$ is not, because it is not reflexive: $1<1$ is false.
 
-Set inclusion $\subseteq$ is also a partial order on any collection of sets. Every set is a subset of itself. If $X\subseteq Y$ and $Y\subseteq X$, then $X=Y$, because two sets are equal exactly when each is contained in the other (Section~\ref{ch03:sec:sets}). And if $X\subseteq Y$ and $Y\subseteq Z$, then every member of $X$ lies in $Y$ and hence in $Z$, so $X\subseteq Z$.
+Set inclusion $\subseteq$ is also a partial order on any collection of sets. Every set is a subset of itself; if $X\subseteq Y$ and $Y\subseteq X$, then $X=Y$ (Section~\ref{ch03:sec:sets}); and if $X\subseteq Y$ and $Y\subseteq Z$, then every member of $X$ lies in $Y$ and hence in $Z$, so $X\subseteq Z$.
 
-Two elements $x$ and $y$ are \emph{comparable} if $x\preceq y$ or $y\preceq x$. Under $\le$, any two real numbers are comparable. Under inclusion, this can fail: neither of $\{1\}$ and $\{2\}$ contains the other. The word \emph{partial} in the name signals this: a partial order need not compare every pair, although some, such as $\le$, do.
+Two elements $x$ and $y$ are \emph{comparable} if $x\preceq y$ or $y\preceq x$. Any two real numbers are comparable under $\le$, but under inclusion neither of $\{1\}$ and $\{2\}$ contains the other. The word \emph{partial} signals that a partial order need not compare every pair.
 
 \subsection*{Maximal and maximum}
-Because some pairs may be incomparable, there are two different notions of a ``largest'' element of a collection, and they must not be confused. Let $\mathcal C$ be a subset of $A$. We call it a \emph{collection}, because in the main examples its members are themselves sets. Let $x$ belong to $\mathcal C$.
+Because some pairs may be incomparable, there are two different notions of a ``largest'' element. Let $\mathcal C$ be a subset of $A$, called a \emph{collection} because in the main examples its members are themselves sets, and let $x$ belong to $\mathcal C$.
 \begin{itemize}
 \item The element $x$ is \emph{maximal} in $\mathcal C$ if nothing in $\mathcal C$ lies strictly above it: there is no $y$ in $\mathcal C$ with $x\preceq y$ and $y\ne x$.
 \item The element $x$ is a \emph{maximum} of $\mathcal C$ if everything in $\mathcal C$ lies below it: $y\preceq x$ for every $y$ in $\mathcal C$.
 \end{itemize}
-A maximum is always maximal. To see this, let $x$ be a maximum, and suppose $y$ is in $\mathcal C$ with $x\preceq y$. Since $x$ is a maximum, also $y\preceq x$, and antisymmetry gives $y=x$. So nothing in $\mathcal C$ lies strictly above $x$. The same use of antisymmetry shows that a collection has at most one maximum: if $x$ and $x'$ are both maxima, then $x'\preceq x$ and $x\preceq x'$, so $x=x'$.
+A maximum is always maximal. Indeed, let $x$ be a maximum, and suppose $y$ is in $\mathcal C$ with $x\preceq y$. Since $x$ is a maximum, also $y\preceq x$, and antisymmetry gives $y=x$. The same use of antisymmetry shows that a collection has at most one maximum: if $x$ and $x'$ are both maxima, then $x'\preceq x$ and $x\preceq x'$, so $x=x'$.
 
-The converse fails. Take the collection $\{\{1\},\{2\}\}$, ordered by inclusion. Both members are maximal, because neither lies inside the other. Neither member is a maximum, for the same reason. A collection can therefore have several maximal elements and no maximum. It can also have no maximal element at all. The integers under $\le$ are an example: for every integer $n$, the integer $n+1$ lies strictly above it.
+The converse fails. In the collection $\{\{1\},\{2\}\}$, ordered by inclusion, both members are maximal, because neither lies inside the other, and for the same reason neither is a maximum. So a collection can have several maximal elements and no maximum. It can also have no maximal element at all: in the integers under $\le$, every integer $n$ has $n+1$ strictly above it.
 
-With numbers ordered by $\le$ we never see the difference between maximal and maximum. When every two elements are comparable, a maximal element $x$ is automatically a maximum. Indeed, take any $y$ in the collection. Either $y\preceq x$, which is what we want, or $x\preceq y$; in the second case maximality forces $y=x$, and then $y\preceq x$ by reflexivity. So the distinction between maximal and maximum is new precisely because inclusion, and many other natural orders, leave some pairs incomparable.
+With numbers ordered by $\le$ we never see this difference, because when every two elements are comparable, a maximal element $x$ is automatically a maximum. Indeed, take any $y$ in the collection. Either $y\preceq x$, which is what we want, or $x\preceq y$, and then maximality forces $y=x$, so $y\preceq x$ by reflexivity. The distinction matters because inclusion, and many other natural orders, leave some pairs incomparable.
 
-Chapter~\ref{ch:matching} meets the same contrast in a slightly different form. There, a matching assigns tasks to people, with at most one task for each person and at most one person for each task. A matching is \emph{maximal} when no new person--task pair can be added to it, and \emph{maximum} when it has the largest possible number of pairs. A matching can be maximal without being maximum. In both settings, being impossible to improve by one obvious step is weaker than being best overall.
+Chapter~\ref{ch:matching} meets a similar contrast for matchings: there too, being impossible to improve by one obvious step is weaker than being best overall.
 
 \begin{principle}{Habit 6: ask what a change of description preserves}
-Before you treat different objects as the same, or replace an object by a convenient standard form, say exactly which relation you are using and which property the change preserves. Before you apply a formula to equivalence classes, check that the result does not depend on the representatives. When an argument, yours or an assistant's, says ``without loss of generality,'' ask which symmetry justifies it and whether every case can be brought into the assumed form. A short check of this kind can keep a whole argument from being about the wrong object.
+Before you treat different objects as the same, or replace an object by a standard form, say exactly which relation you are using and which property the change preserves. Before you apply a formula to equivalence classes, check that the result does not depend on the representatives. When an argument, yours or an assistant's, says ``without loss of generality,'' ask which symmetry justifies it and whether every case can be brought into the assumed form.
 \end{principle}

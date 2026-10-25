@@ -1,19 +1,19 @@
 \section{A sequence defined by a recurrence}\label{ch05:sec:recurrence}
-A \emph{sequence} is an endless list of numbers $x_0,x_1,x_2,\ldots$, one for each natural number. Each $x_n$ is called a \emph{term} of the sequence. The subscript $n$ gives its position in the list, counting from $0$: $x_0$ is the first term, $x_1$ the second, and in general $x_n$ is the term in position $n$. A \emph{recurrence} defines a sequence step by step: it gives the first term and a rule that computes each later term from the earlier ones. Let
+A \emph{sequence} is an endless list of numbers $x_0,x_1,x_2,\ldots$, one for each natural number. Each $x_n$ is a \emph{term} of the sequence, and the subscript $n$ is its position, counting from $0$. A \emph{recurrence} defines a sequence step by step: it gives the first term and a rule that computes each later term from the earlier ones. Let
 \[
 x_0=0\qquad\text{and}\qquad x_{n+1}=\frac{x_n+1}{2}\quad\text{for every } n\in\NN.
 \]
-Read the notation carefully: $x_{n+1}$ is the name of the term after $x_n$, whereas $x_n+1$ means one added to the current term. In words, the rule says: to get the next term, add one to the current term and halve the result. Starting from $x_0=0$,
+Read the notation carefully: $x_{n+1}$ is the term after $x_n$, whereas $x_n+1$ is the current term plus one. So the rule says: add one to the current term and halve the result. Starting from $x_0=0$,
 \[
 x_1=\frac{0+1}{2}=\frac12,\qquad x_2=\frac{\frac12+1}{2}=\frac34,\qquad x_3=\frac{\frac34+1}{2}=\frac78.
 \]
-The terms seem to approach $1$. They fall short of $1$ by $1$, $\tfrac12$, $\tfrac14$ and $\tfrac18$, each gap half the one before. This suggests the formula
+The terms fall short of $1$ by $1$, $\tfrac12$, $\tfrac14$ and $\tfrac18$, each gap half the one before. This suggests the formula
 \[
 x_n=1-2^{-n},
 \]
 where $2^{-n}=1/2^n$ as in Section~\ref{ch01:sec:algebra}. We prove it by induction on $n$.
 
-For the base case, take $n=0$. The formula gives $1-2^{-0}=1-2^{0}=1-1=0$, which is $x_0$. For the induction step, let $n$ be a natural number and assume that $x_n=1-2^{-n}$. (Here the letter $n$ plays the role that $k$ played in Section~\ref{ch05:sec:first-induction}; the name of the letter does not matter.) Substitute the induction hypothesis into the rule for the next term:
+For the base case, $n=0$, the formula gives $1-2^{0}=1-1=0$, which is $x_0$. For the induction step, let $n$ be a natural number and assume that $x_n=1-2^{-n}$. (The letter $n$ now plays the role of $k$; the name does not matter.) Substitute the induction hypothesis into the rule:
 \begin{align*}
  x_{n+1}
  &=\frac{x_n+1}{2} &&\text{the rule for the next term}\\
@@ -22,21 +22,21 @@ For the base case, take $n=0$. The formula gives $1-2^{-0}=1-2^{0}=1-1=0$, which
  &=1-\frac{2^{-n}}2\\
  &=1-2^{-(n+1)}.
 \end{align*}
-The last equality uses $2^{-n}/2=1/(2^n\cdot2)=1/2^{n+1}=2^{-(n+1)}$. This is the formula at $n+1$, so by induction it holds for every natural number $n$.
+The last equality uses $2^{-n}/2=1/(2^n\cdot2)=2^{-(n+1)}$. This is the formula at $n+1$, so by induction it holds for every natural number $n$.
 
-The formula tells us more than the first few terms did. The gap between $x_n$ and $1$ is exactly $1-x_n=2^{-n}$. This gap halves at every step, so the terms come as close to $1$ as we like. For instance, $x_{10}=1-1/1024$, which is within $0.001$ of $1$, and $x_{20}=1-1/2^{20}$ is within one millionth of $1$, since $2^{20}=1048576$. Yet the gap is never zero, so no term ever equals $1$.
+The gap between $x_n$ and $1$ is exactly $1-x_n=2^{-n}$, which halves at every step, so the terms come as close to $1$ as we like; for instance, $x_{10}=1-1/1024$ is within $0.001$ of $1$. Yet the gap is never zero, so no term ever equals $1$.
 
 \subsection*{Tracking the error instead}
-Why is $1$ the right number to compare with? If some term were exactly $1$, the next term would be $(1+1)/2=1$ again: the rule leaves $1$ unchanged. A number that an update rule leaves unchanged is called a \emph{fixed point} of the rule. Section~\ref{ch04:sec:unique} showed that $1$ is the only real number $x$ with $x=(x+1)/2$, so $1$ is the only fixed point of this rule.
+Why is $1$ the right number to compare with? If some term were exactly $1$, the next term would be $(1+1)/2=1$ again. A number that an update rule leaves unchanged is called a \emph{fixed point} of the rule, and by Section~\ref{ch04:sec:unique}, $1$ is the only real number $x$ with $x=(x+1)/2$, so it is the only fixed point of this rule.
 
-This suggests a more revealing way to organize the calculation. Instead of tracking $x_n$ itself, track its \emph{error} $x_n-1$, the difference between the current term and the fixed point. The error is the gap $1-x_n$ studied above, with its sign reversed: it is negative when $x_n<1$, and its absolute value $\abs{x_n-1}$ is the distance from $x_n$ to $1$. Subtract $1$ from both sides of the rule:
+So instead of tracking $x_n$ itself, track its \emph{error} $x_n-1$, the difference between the current term and the fixed point; its absolute value $\abs{x_n-1}$ is the distance from $x_n$ to $1$. Subtract $1$ from both sides of the rule:
 \[
 x_{n+1}-1=\frac{x_n+1}{2}-1=\frac{x_n+1-2}{2}=\frac{x_n-1}{2}.
 \]
-In words: each update exactly halves the error. Nothing in this calculation used the starting value $x_0=0$. So if we keep the same rule but allow \emph{any} real starting value $x_0$, induction gives
+Each update exactly halves the error, and this calculation never used the starting value $x_0=0$. So for the same rule with \emph{any} real starting value $x_0$, induction gives
 \[
 x_n-1=2^{-n}(x_0-1)\qquad\text{for every } n\in\NN.
 \]
-At $n=0$ both sides equal $x_0-1$, because $2^0=1$. If the formula holds at $n$, halving both sides and using the rule $x_{n+1}-1=(x_n-1)/2$ gives it at $n+1$. Exercise~\ref{ex:5.5} asks you to write out this induction in full. With $x_0=0$ the formula becomes $x_n-1=-2^{-n}$, which is the formula $x_n=1-2^{-n}$ proved above.
+At $n=0$ both sides equal $x_0-1$, and if the formula holds at $n$, halving both sides gives it at $n+1$, by the rule just found; Exercise~\ref{ex:5.5} asks you to write out this induction in full. With $x_0=0$ the formula becomes $x_n-1=-2^{-n}$, that is, $x_n=1-2^{-n}$ again.
 
-This more general statement covers every starting value at once, yet its induction step is shorter than the one for $x_n=1-2^{-n}$. It records only what each step does, namely halve the error, while the first formula mixed that fact with the particular starting value $0$. So when an induction proof gets tangled, try proving a more general statement instead; its induction step can be simpler. We will meet the same idea in the contraction theorem of Chapter~\ref{ch:contraction}, where the distance to a fixed point shrinks at every step by at least a fixed factor.
+This more general statement covers every starting value at once, yet its induction step is shorter than the one above, because it records only what each step does, namely halve the error, and leaves out the starting value $0$. So when an induction proof gets tangled, try proving a more general statement; its induction step can be simpler. The contraction theorem of Chapter~\ref{ch:contraction} uses the same idea.

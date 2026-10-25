@@ -1,5 +1,5 @@
 \section{Conjunction means two obligations}\label{ch15:sec:conjunction}
-To prove a conjunction $P\land Q$ you must prove two things, $P$ and $Q$ (Section~\ref{ch02:sec:connectives}). To use a hypothesis $P\land Q$, you may take either half of it. The next theorem does both. From $P\land Q$ it proves $Q\land P$, by taking the two halves apart and putting them back together in the opposite order. On paper: assume that $P$ and $Q$ both hold; then $Q$ holds and $P$ holds, so $Q\land P$.
+To prove a conjunction $P\land Q$ you must prove both $P$ and $Q$, and from a hypothesis $P\land Q$ you may take either half (Section~\ref{ch02:sec:connectives}). The next theorem does both: it proves $Q\land P$ from $P\land Q$ by taking the two halves apart and putting them back together in the opposite order. On paper: if $P$ and $Q$ both hold, then $Q$ holds and $P$ holds, so $Q\land P$.
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 theorem and_swap (P Q : Prop) : And P Q -> And Q P := by
@@ -8,11 +8,9 @@ theorem and_swap (P Q : Prop) : And P Q -> And Q P := by
 \end{lstlisting}
 \end{minipage}\par
 
-Lean's name for the conjunction $P\land Q$ is \code{And P Q}, and the infoview displays it as $P\land Q$. In the editor you may also type the symbol $\land$ directly, as \code{\textbackslash and} followed by a space. After \code{intro h}, the fact \code{h : And P Q} is available and the goal is \code{And Q P}. A proof of a conjunction is a pair of proofs, one for each half, and each half can be taken out of the pair: \code{h.left} is a proof of $P$, the first component, and \code{h.right} is a proof of $Q$, the second.
+Lean's name for $P\land Q$ is \code{And P Q}; the infoview displays it as $P\land Q$, and in the editor \code{\textbackslash and} followed by a space produces $\land$. After \code{intro h}, the fact \code{h : And P Q} is available and the goal is \code{And Q P}. A proof of a conjunction is a pair of proofs, one for each half: \code{h.left}, the first component, is a proof of $P$, and \code{h.right} is a proof of $Q$. In the other direction, \code{And.intro} builds a pair: if \code{a} is a proof of $R$ and \code{b} is a proof of $S$, then \code{And.intro a b} is a proof of \code{And R S}. The order of the inputs must match the conjunction being built: \code{And Q P} needs a proof of $Q$ first, hence \code{And.intro h.right h.left}.
 
-In the other direction, \code{And.intro} builds a pair: if \code{a} is a proof of $R$ and \code{b} is a proof of $S$, then \code{And.intro a b} is a proof of \code{And R S}. The order of the two inputs must match the conjunction being built. The goal \code{And Q P} needs a proof of $Q$ first and a proof of $P$ second, so the last line of the proof uses \code{And.intro h.right h.left}.
-
-The proof above supplies both halves at once. A second version makes the two obligations visible as two separate goals:
+A second version makes the two obligations visible as two separate goals:
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 theorem and_swap_two_goals (P Q : Prop) :
@@ -23,6 +21,6 @@ theorem and_swap_two_goals (P Q : Prop) :
   exact h.left
 \end{lstlisting}
 \end{minipage}\par
-The tactic \code{constructor} applies \code{And.intro} without supplying its two inputs, and each missing input becomes a goal of its own. So the goal \code{And Q P} is replaced by two goals, $Q$ and $P$, which the infoview labels \code{case left} and \code{case right}. Each \code{exact} closes the first goal that is still open, so the first one proves $Q$ and the second proves $P$. If the last line is left out, Lean reports the error ``unsolved goals'' at the word \code{by}, where the proof begins, and it displays the goal $P$ that is still open.
+The tactic \code{constructor} applies \code{And.intro} without supplying its inputs, and each missing input becomes a goal of its own: \code{And Q P} is replaced by the goals $Q$ and $P$, which the infoview labels \code{case left} and \code{case right}. Each \code{exact} closes the first goal still open. Without the last line, Lean reports the error ``unsolved goals'' at the word \code{by}, where the proof begins, and displays the open goal $P$.
 
-This is the formal counterpart of a paper proof that must establish two set containments (Section~\ref{ch03:sec:sets}), or both directions of an ``if and only if'' (Section~\ref{ch02:sec:implication}). After a long first half it is easy to feel that the proof is finished. Lean keeps track of every open goal, so it does not let that mistake pass, and on paper we must keep the same list ourselves.
+This is the formal counterpart of a paper proof that must establish two set containments (Section~\ref{ch03:sec:sets}), or both directions of an ``if and only if'' (Section~\ref{ch02:sec:implication}). After a long first half it is easy to feel finished. Lean tracks every open goal; on paper we must keep that list ourselves.

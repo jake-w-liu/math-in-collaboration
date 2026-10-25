@@ -3,41 +3,33 @@ Add up the odd positive integers, one at a time:
 \[
 1=1,\qquad 1+3=4,\qquad 1+3+5=9,\qquad 1+3+5+7=16.
 \]
-The totals $1,4,9,16$ are the squares $1^2,2^2,3^2,4^2$. The $n$th odd positive integer is $2n-1$ (for $n=1,2,3$ this gives $1,3,5$), so the pattern suggests that
+The totals are the squares $1^2,2^2,3^2,4^2$. The $n$th odd positive integer is $2n-1$, so the pattern suggests that
 \[
 1+3+\cdots+(2n-1)=n^2\qquad\text{for every } n\ge1.
 \]
-Section~\ref{ch01:sec:notation} noticed this pattern and asked whether it always holds. As Section~\ref{ch01:sec:pattern} explained, a few examples cannot settle that. Even a computer check of the first thousand values of $n$ would tell us only about those thousand values. What we need is a reason why the pattern can never break.
-
-Here is the reason. Compare the statement for $n$ with the statement for $n+1$. The left side gains one new term, the next odd number, which is $2(n+1)-1=2n+1$. The right side changes from $n^2$ to $(n+1)^2$, an increase of
-\[
-(n+1)^2-n^2=n^2+2n+1-n^2=2n+1.
-\]
-So both sides increase by exactly the same amount, $2n+1$. If the two sides are equal for some value of $n$, they are still equal for the next value. They are equal for $n=1$, so they are equal for $n=2$, hence for $n=3$, and so on forever. This way of reasoning is called \emph{induction}.
+Section~\ref{ch01:sec:notation} asked whether this always holds, and as Section~\ref{ch01:sec:pattern} explained, examples cannot settle it: even a computer check of the first thousand values of $n$ tells us only about those values. We need a reason why the pattern can never break. The idea is to show that whenever the formula holds for one value of $n$, it also holds for the next; since it holds for $n=1$, it then holds for $n=2$, hence for $n=3$, and so on forever. This way of reasoning is called \emph{induction}.
 
 \subsection*{The principle of induction}
-Let $P(n)$ be a statement about a natural number $n$ that becomes true or false once a value of $n$ is chosen, as in Section~\ref{ch02:sec:negation}. For instance, $P(n)$ might be the statement ``$1+3+\cdots+(2n-1)=n^2$.'' (What the left side means when $n=0$ is explained below.) To prove that $P(n)$ is true for every natural number $n$, it is enough to prove two things:
+Let $P(n)$ be a statement about a natural number $n$ that becomes true or false once a value of $n$ is chosen, as in Section~\ref{ch02:sec:negation}; for instance, ``$1+3+\cdots+(2n-1)=n^2$,'' whose meaning at $n=0$ is explained below. To prove that $P(n)$ is true for every natural number $n$, it is enough to prove two things:
 \begin{enumerate}
 \item the \emph{base case}: $P(0)$ is true;
 \item the \emph{induction step}: for every natural number $k$, if $P(k)$ is true, then $P(k+1)$ is true.
 \end{enumerate}
-In the induction step we let $k$ stand for a natural number but do not say which one, and we assume that $P(k)$ is true. This temporary assumption is called the \emph{induction hypothesis}. From it we must deduce $P(k+1)$. Because the argument never uses a particular value of $k$, it works for every value of $k$ at once.
+In the induction step, $k$ stands for a natural number, but we do not say which one, and we assume that $P(k)$ is true. This temporary assumption is the \emph{induction hypothesis}, and from it we must deduce $P(k+1)$. Because the argument never uses a particular value of $k$, it works for every $k$ at once.
 
-Why do these two facts give $P(n)$ for every $n$? The base case gives $P(0)$. The induction step with $k=0$ turns $P(0)$ into $P(1)$; with $k=1$ it turns $P(1)$ into $P(2)$; and so on. To reach $P(5)$, for example, we use the induction step five times, with $k=0,1,2,3,4$. In the same way, every natural number $n$ is reached after $n$ uses of the step. Section~\ref{ch05:sec:not-circular} gives a more careful version of this argument and explains why assuming $P(k)$ is not the same as assuming what we want to prove.
+These two facts give $P(n)$ for every $n$: the base case gives $P(0)$, and $n$ uses of the induction step, with $k=0,1,\ldots,n-1$, carry it on to $P(1),P(2),\ldots,P(n)$. Section~\ref{ch05:sec:not-circular} makes this argument more careful.
 
-Induction does not have to start at $0$. If a statement is claimed only for $n\ge1$, prove $P(1)$ as the base case and prove the induction step for every $k\ge1$. The same chain then reaches $1,2,3,\ldots$. Any other starting point works the same way: to prove $P(n)$ for every integer $n\ge2$, say, prove $P(2)$ and prove the induction step for every $k\ge2$.
+Induction does not have to start at $0$. To prove $P(n)$ for every integer $n\ge1$, prove $P(1)$ as the base case and the induction step for every $k\ge1$; the chain then reaches $1,2,3,\ldots$. Any other starting point works the same way.
 
 \subsection*{Starting at zero}
-We could prove the formula by an induction that starts at $n=1$, where the base case is $1=1^2$. But zero is a natural number in this book, and the formula also makes sense at $n=0$ once we agree what a sum with no terms means; this agreement is used throughout the book. In sigma notation the left side is $\sum_{j=1}^{n}(2j-1)$. For $n=0$ this is $\sum_{j=1}^{0}(2j-1)$, where the index $j$ is supposed to run from $1$ up to $0$. There are no such values of $j$, so this sum has no terms at all. A sum with no terms is called an \emph{empty sum}, and its value is defined to be $0$. This is the only sensible choice: adding no numbers to a running total should leave the total unchanged, and the only number whose addition changes nothing is $0$.
-
-The agreement also keeps the rule ``the sum of the first $k+1$ terms is the sum of the first $k$ terms plus the last term'' true when $k=0$: the one-term sum $\sum_{j=1}^{1}(2j-1)$ equals $0+1=1$. The proof of Theorem~\ref{thm:odds} uses this rule in its induction step, including the step from $0$ to $1$.
+Our formula also makes sense at $n=0$, which is a natural number in this book. In sigma notation its left side is $\sum_{j=1}^{n}(2j-1)$, and for $n=0$ the index $j$ would run from $1$ up to $0$: there are no such $j$, so the sum has no terms. A sum with no terms is called an \emph{empty sum}, and its value is defined to be $0$, since adding no numbers to a running total leaves it unchanged. The book uses this agreement throughout. It keeps the rule ``the sum of the first $k+1$ terms is the sum of the first $k$ terms plus the last term'' true when $k=0$: the one-term sum $\sum_{j=1}^{1}(2j-1)$ equals $0+1=1$.
 
 \subsection*{Watching one induction step}
 Before writing the general step, watch it happen at $k=3$. The formula at $3$ says $1+3+5=3^2=9$. The next sum is the old sum plus the next odd number, $7$:
 \[
 1+3+5+7=(1+3+5)+7=9+7=16=4^2.
 \]
-The induction step in the proof below does exactly the same thing with $k$ in place of $3$.
+The induction step below does exactly the same thing with $k$ in place of $3$. When an induction argument puzzles you, rewrite its step like this with a specific number.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{theorem}\label{thm:odds}
@@ -68,5 +60,3 @@ We must show that $\sum_{j=1}^{k+1}(2j-1)=(k+1)^2$. Split the sum for $k+1$ into
 \end{align*}
 This is the formula with $k+1$ in place of $n$. By induction, the formula holds for every natural number $n$.
 \end{proof}
-
-If an induction argument puzzles you, do what we did above for $k=3$: rewrite its induction step with a specific number, then return to the general $k$ and check that each line would work just as well for any other value.

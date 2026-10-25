@@ -2,7 +2,7 @@
 The proof follows the six steps of Section~\ref{ch12:sec:theorem}.
 
 \begin{proof}
-\textbf{Step 1: the steps shrink geometrically.} Since $X$ is nonempty, we can choose a starting point $x_0\in X$; it may be any point at all. Define $x_{n+1}=T(x_n)$ for every $n\in\NN$. Because $T$ maps $X$ into $X$, each iterate is again a point of $X$, so $T$ can be applied to it. This is where the self-map hypothesis is used. Write
+\textbf{Step 1: the steps shrink geometrically.} Since $X$ is nonempty, we can choose a starting point $x_0\in X$, any point at all. Define $x_{n+1}=T(x_n)$ for every $n\in\NN$; because $T$ maps $X$ into $X$, each iterate is again a point of $X$, so $T$ can be applied to it. Write
 \[
 D=d(x_1,x_0)
 \]
@@ -10,50 +10,48 @@ for the length of the first step. We prove by induction on $n$ that
 \[
 d(x_{n+1},x_n)\le q^nD\qquad\text{for every }n\in\NN.
 \]
-For $n=0$ both sides equal $D$, because $q^0=1$. Now suppose the inequality holds for some $n$. Since $x_{n+2}=T(x_{n+1})$ and $x_{n+1}=T(x_n)$, the contraction inequality applied to the two points $x_{n+1}$ and $x_n$ gives
+For $n=0$ both sides equal $D$, because $q^0=1$. If the inequality holds for some $n$, then, since $x_{n+2}=T(x_{n+1})$ and $x_{n+1}=T(x_n)$, the contraction inequality for the points $x_{n+1}$ and $x_n$ gives
 \[
 d(x_{n+2},x_{n+1})=d(Tx_{n+1},Tx_n)
-\le q\,d(x_{n+1},x_n)\le q\cdot q^nD=q^{n+1}D.
+\le q\,d(x_{n+1},x_n)\le q\cdot q^nD=q^{n+1}D,
 \]
-The last inequality multiplies the induction hypothesis by $q$, which is not negative. This is the claim for $n+1$, which completes the induction.
+where the last inequality multiplies the induction hypothesis by $q\ge0$. This is the claim for $n+1$, which completes the induction.
 
-\textbf{Step 2: the iterates form a Cauchy sequence.} Step~1 is exactly the hypothesis $d(x_{j+1},x_j)\le Dq^j$ of Proposition~\ref{ch11:prop:geometric-cauchy}, with $D=d(x_1,x_0)$, which is not negative because it is a distance. The proposition assumes $0<q<1$. If $q=0$, use the factor $1/2$ instead: $q^j\le(1/2)^j$ for every $j$ (both sides equal $1$ when $j=0$, and the left side is $0$ when $j\ge1$), so multiplying by $D\ge0$ gives $d(x_{j+1},x_j)\le D(1/2)^j$. Either way, the proposition shows that the iterates form a Cauchy sequence. Recall the idea: by the triangle inequality, $d(x_m,x_n)$ is at most the total length of the single steps from $x_n$ to $x_m$, and Step~1 together with the geometric sum keeps that total small once $n$ is large.
+\textbf{Step 2: the iterates form a Cauchy sequence.} Step~1 is exactly the hypothesis $d(x_{j+1},x_j)\le Dq^j$ of Proposition~\ref{ch11:prop:geometric-cauchy}, with $D=d(x_1,x_0)\ge0$. The proposition assumes $0<q<1$. If $q=0$, then $T$ is also a contraction with factor $1/2$ (Section~\ref{ch12:sec:iteration}), so Step~1 with $1/2$ in place of $q$ gives $d(x_{j+1},x_j)\le D(1/2)^j$. Either way, the proposition shows that the iterates form a Cauchy sequence.
 
-\textbf{Step 3: completeness supplies a limit.} The space $X$ is complete, so the Cauchy sequence $x_0,x_1,x_2,\ldots$ converges to some point of $X$. Call this point $x_*$. This is the only place in the proof where completeness is used. It cannot be skipped: Section~\ref{ch12:sec:hypotheses} gives a contraction of the incomplete space $(0,1)$ whose iterates form a Cauchy sequence with no limit in the space.
+\textbf{Step 3: completeness supplies a limit.} Since $X$ is complete, the Cauchy sequence $x_0,x_1,x_2,\ldots$ converges to some point $x_*$ of $X$. This is the only place in the proof where completeness is used.
 
-\textbf{Step 4: the limit is a fixed point.} We show that the number $d(Tx_*,x_*)$ is zero. For every natural number $n$, use the triangle inequality with the point $Tx_n$ as a stop on the way, then the contraction inequality for the pair $x_*,x_n$, and finally $Tx_n=x_{n+1}$:
+\textbf{Step 4: the limit is a fixed point.} We show that $d(Tx_*,x_*)=0$. For every $n\in\NN$, the triangle inequality with $Tx_n$ as a stop on the way, the contraction inequality for the pair $x_*,x_n$, and $Tx_n=x_{n+1}$ give
 \[
 d(Tx_*,x_*)\le d(Tx_*,Tx_n)+d(Tx_n,x_*)
 \le q\,d(x_*,x_n)+d(x_{n+1},x_*).
 \]
-Both distances on the right become small when $n$ is large. To make this precise, let $\eps>0$. Because $x_n\to x_*$, the definition of convergence with tolerance $\eps/2$ supplies a threshold $N$ such that $d(x_k,x_*)<\eps/2$ for every $k\ge N$. Now take $n=N$ in the display. Then both $n$ and $n+1$ are at least $N$. Since $q<1$, we have $q\,d(x_*,x_n)\le d(x_*,x_n)=d(x_n,x_*)<\eps/2$, and also $d(x_{n+1},x_*)<\eps/2$. Hence
+Both distances on the right become small when $n$ is large. To make this precise, let $\eps>0$. Because $x_n\to x_*$, the definition of convergence with tolerance $\eps/2$ gives a threshold $N$ such that $d(x_k,x_*)<\eps/2$ for every $k\ge N$. Take $n=N$ in the display; then both $n$ and $n+1$ are at least $N$. Since $q<1$, we have $q\,d(x_*,x_n)\le d(x_n,x_*)<\eps/2$, and also $d(x_{n+1},x_*)<\eps/2$. Hence
 \[
 d(Tx_*,x_*)<\frac\eps2+\frac\eps2=\eps.
 \]
-The number $r=d(Tx_*,x_*)$ does not depend on $n$ or on $\eps$, and we have shown that it is smaller than every positive $\eps$. Such a number must be zero. Indeed, $r\ge0$, and if $r$ were positive, we could take $\eps=r$ and obtain $r<r$, which is impossible. So $d(Tx_*,x_*)=0$, and by the first requirement of a metric, $Tx_*=x_*$.
-
-The argument never needs an iterate to equal $x_*$, and it could not rely on one: the iterates of $(x+1)/2$ from $x_0=0$ never reach $1$.
+So the number $r=d(Tx_*,x_*)$, which does not depend on $n$ or on $\eps$, is smaller than every positive $\eps$. Such a number must be zero: $r\ge0$, and if $r$ were positive, taking $\eps=r$ would give $r<r$. So $d(Tx_*,x_*)=0$, and by the first requirement of a metric, $Tx_*=x_*$.
 
 \textbf{Step 5: there is only one fixed point.} Suppose $y_*$ is also a fixed point of $T$. Since $x_*=Tx_*$ and $y_*=Ty_*$, the contraction inequality gives
 \[
 d(x_*,y_*)=d(Tx_*,Ty_*)\le q\,d(x_*,y_*).
 \]
-Subtracting $q\,d(x_*,y_*)$ from both sides gives $(1-q)\,d(x_*,y_*)\le0$. Dividing by the positive number $1-q$ gives $d(x_*,y_*)\le0$. Distances are never negative, so $d(x_*,y_*)=0$, and therefore $y_*=x_*$. As in Section~\ref{ch04:sec:unique}, this argument compares two hypothetical solutions and never needs to find one.
+Subtracting $q\,d(x_*,y_*)$ from both sides gives $(1-q)\,d(x_*,y_*)\le0$, and dividing by the positive number $1-q$ gives $d(x_*,y_*)\le0$. Distances are never negative, so $d(x_*,y_*)=0$, and therefore $y_*=x_*$.
 
-Steps~1--5 also prove the convergence claim for \emph{every} starting point. The starting point $x_0$ in Step~1 was arbitrary, and Steps~1--4 showed that its iterates converge to a fixed point of $T$. By Step~5, $T$ has only one fixed point. So, whatever the starting point, the iterates converge to the same point $x_*$.
+This also proves convergence from \emph{every} starting point: $x_0$ in Step~1 was arbitrary, Steps~1--4 showed that its iterates converge to a fixed point of $T$, and by Step~5 that fixed point can only be $x_*$.
 
-\textbf{Step 6: the error bounds.} We prove the residual estimate first, because the a priori estimate follows from it. Let $z$ be any point of $X$. Use the triangle inequality with $Tz$ as a stop, then $x_*=Tx_*$ from Step~4, then the contraction inequality:
+\textbf{Step 6: the error bounds.} We prove the residual estimate first. Let $z$ be any point of $X$. Use the triangle inequality with $Tz$ as a stop, then $x_*=Tx_*$, then the contraction inequality:
 \[
 d(z,x_*)\le d(z,Tz)+d(Tz,x_*)=d(z,Tz)+d(Tz,Tx_*)
 \le d(z,Tz)+q\,d(z,x_*).
 \]
-Subtracting $q\,d(z,x_*)$ from both sides gives $(1-q)\,d(z,x_*)\le d(z,Tz)$, and dividing by the positive number $1-q$ gives \eqref{eq:residual}.
+Subtracting $q\,d(z,x_*)$ gives $(1-q)\,d(z,x_*)\le d(z,Tz)$, and dividing by $1-q>0$ gives \eqref{eq:residual}.
 
-For the a priori estimate, fix $n$ and take $z$ to be the iterate $x_n$. Its residual is $d(x_n,Tx_n)=d(x_n,x_{n+1})=d(x_{n+1},x_n)$, which Step~1 bounds by $q^nD$. So the residual estimate gives
+For the a priori estimate, fix $n$ and take $z=x_n$. Its residual is $d(x_n,Tx_n)=d(x_n,x_{n+1})=d(x_{n+1},x_n)$, which Step~1 bounds by $q^nD$. So the residual estimate gives
 \[
 d(x_n,x_*)\le\frac{d(x_n,x_{n+1})}{1-q}\le\frac{q^nD}{1-q}=\frac{q^n}{1-q}\,d(x_1,x_0),
 \]
 which is \eqref{eq:apriori}. This completes the proof.
 \end{proof}
 
-\pauseq{Use the residual estimate \eqref{eq:residual} to give a second, one-line proof that $T$ has at most one fixed point.}{If $z$ is any fixed point, then $Tz=z$, so its residual $d(z,Tz)$ is $0$. The residual estimate gives $d(z,x_*)\le0/(1-q)=0$, so $z=x_*$. Every fixed point equals $x_*$.}
+\pauseq{Use the residual estimate \eqref{eq:residual} to give a second, one-line proof that $T$ has at most one fixed point.}{If $z$ is any fixed point, then $Tz=z$, so its residual $d(z,Tz)$ is $0$, and the residual estimate gives $d(z,x_*)\le0/(1-q)=0$. So $z=x_*$.}

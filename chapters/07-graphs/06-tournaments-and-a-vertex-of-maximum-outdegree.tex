@@ -7,16 +7,16 @@ A \emph{tournament} is an oriented graph in which every pair of different vertic
 \end{definition}
 \end{minipage}\par
 
-In a tournament, the outdegree of a vertex is the number of players it beat. Here is a tournament with four players $p$, $q$, $r$, $s$ and the six results $p\to q$, $p\to r$, $q\to r$, $q\to s$, $r\to s$, and $s\to p$:
+Here is a tournament with four players $p$, $q$, $r$, $s$ and the six results $p\to q$, $p\to r$, $q\to r$, $q\to s$, $r\to s$, and $s\to p$, one for each pair:
 \begin{center}
 \begin{tikzpicture}[>=Stealth,every node/.style={circle,draw=ink,minimum size=6mm,inner sep=1pt},line width=.7pt]
 \node(p)at(0,1.8){$p$};\node(q)at(2.4,1.8){$q$};\node(r)at(2.4,0){$r$};\node(s)at(0,0){$s$};
 \draw[->](p)--(q);\draw[->](p)--(r);\draw[->](q)--(r);\draw[->](q)--(s);\draw[->](r)--(s);\draw[->](s)--(p);
 \end{tikzpicture}
 \end{center}
-Each of the six pairs of players appears exactly once, as a tournament requires. The outdegrees are $2$ for $p$, $2$ for $q$, $1$ for $r$, and $1$ for $s$. The two diagonal arrows cross in the middle of the picture, but, as in Section~\ref{ch07:sec:graph}, the crossing point is not a vertex.
+The outdegrees, the numbers of games won, are $2$ for $p$ and $q$, and $1$ for $r$ and $s$.
 
-Call a vertex $v$ a \emph{king} if it can reach every other vertex by a directed path of length at most two. In the language of the competition, for every other player $u$, either $v$ beat $u$, or $v$ beat someone who beat $u$. In the example, $p$ is a king: it beat $q$ and $r$ directly, and it reaches $s$ through $p\to q\to s$. So is $q$: it beat $r$ and $s$, and it reaches $p$ through $q\to s\to p$. The player $r$ is not a king. Its only win was against $s$, and $s$ beat only $p$, so within two steps $r$ reaches only $s$ and $p$, not $q$. Must every nonempty finite tournament have a king? An extremal choice answers this question.
+Call a vertex $v$ a \emph{king} if it can reach every other vertex by a directed path of length at most two: for every other player $u$, either $v$ beat $u$, or $v$ beat someone who beat $u$. In the example, $p$ is a king: it beat $q$ and $r$, and it reaches $s$ through $p\to q\to s$. So is $q$, which beat $r$ and $s$ and reaches $p$ through $q\to s\to p$. The player $r$ is not a king: its only win was against $s$, and $s$ beat only $p$, so within two steps $r$ does not reach $q$. Must every nonempty finite tournament have a king? An extremal choice answers this question.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{proposition}\label{thm:king}
@@ -24,7 +24,7 @@ In a nonempty finite tournament, every vertex of maximum outdegree is a king: it
 \end{proposition}
 \end{minipage}\par
 
-A vertex of maximum outdegree always exists. The tournament is finite and nonempty, so its outdegrees form a nonempty finite set of natural numbers, which has a largest member. So the proposition shows in particular that every nonempty finite tournament has a king.
+A vertex of maximum outdegree always exists, because the outdegrees form a nonempty finite set of natural numbers, which has a largest member. So the proposition shows that every nonempty finite tournament has a king.
 
 \begin{proof}
 Let $v$ be any vertex of maximum outdegree, and let $A$ be the set of its out-neighbors, so that the outdegree of $v$ is $|A|$. Let $u$ be any vertex other than $v$. There are two ways in which $u$ might be reached quickly.
@@ -32,11 +32,7 @@ Let $v$ be any vertex of maximum outdegree, and let $A$ be the set of its out-ne
 \item If $v\to u$, then $u$ is reached in one step.
 \item If some $a\in A$ satisfies $a\to u$, then $u$ is reached in two steps by $v\to a\to u$. This is a directed path, because its three vertices are different: $a\ne v$ because $v\to a$ and there are no loops, $u\ne v$ by the choice of $u$, and $a\ne u$ because $a\to u$.
 \end{itemize}
-Suppose, for contradiction, that neither happens. Since $v\to u$ fails and $u\ne v$, the tournament condition gives $u\to v$. Also $u\notin A$, because $v\to u$ fails, so $u$ is different from every $a\in A$. For each $a\in A$, the tournament condition gives $a\to u$ or $u\to a$, and $a\to u$ has been excluded, so $u\to a$. Thus $u$ beat every member of $A$, and it also beat $v$, which is not a member of $A$ because a vertex is never its own out-neighbor. So $u$ has at least $|A|+1$ out-neighbors, while $v$ has exactly $|A|$. This contradicts the assumption that $v$ has maximum outdegree. Therefore one of the two ways always occurs, and $v$ is a king.
+Suppose, for contradiction, that neither happens. Since $v\to u$ fails and $u\ne v$, the tournament condition gives $u\to v$. Also $u\notin A$, because $v\to u$ fails, so $u$ is different from every $a\in A$. For each $a\in A$, the tournament condition gives $a\to u$ or $u\to a$, and $a\to u$ has been excluded, so $u\to a$. Thus $u$ beat every member of $A$, and it also beat $v$, which is not in $A$ because a vertex is never its own out-neighbor. So $u$ has at least $|A|+1$ out-neighbors, while $v$ has exactly $|A|$. This contradicts the choice of $v$ as a vertex of maximum outdegree. Therefore one of the two ways always occurs, and $v$ is a king.
 \end{proof}
 
-The proof looked only at the games of $u$ against $v$ and against the members of $A$. If neither way of reaching $u$ works, those $|A|+1$ games alone give $u$ more wins than $v$, and the extremal property of $v$, having as many wins as anyone, rules that out.
-
-\pauseq{In the example tournament, $s$ won only one game, so it does not have maximum outdegree. Is $s$ a king? What does your answer say about the converse of Proposition~\ref{thm:king}?}{Yes, $s$ is a king. It beat $p$, and $p$ beat $q$ and $r$, so $s\to p$, $s\to p\to q$, and $s\to p\to r$ reach all three other players within two steps. So a king need not have maximum outdegree. The proposition gives a sufficient condition for being a king, not a necessary one. Its converse, ``every king has maximum outdegree,'' is false, and $s$ is a counterexample. So the kings of the example tournament are $p$, $q$, and $s$.}
-
-The next section studies a different and much harder question about two steps in a directed graph: how does the number of vertices reached for the first time in the second step compare with the number reached in the first step? Being a king does not settle that comparison (Exercise~\ref{ex:7.6}).
+\pauseq{In the example tournament, $s$ won only one game, so it does not have maximum outdegree. Is $s$ a king? What does your answer say about the converse of Proposition~\ref{thm:king}?}{Yes: $s\to p$, $s\to p\to q$, and $s\to p\to r$ reach all three other players within two steps. So the converse, ``every king has maximum outdegree,'' is false, with $s$ as a counterexample: the proposition gives a sufficient condition for being a king, not a necessary one. The kings of the example are $p$, $q$, and $s$.}

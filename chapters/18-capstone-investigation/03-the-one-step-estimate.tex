@@ -3,7 +3,7 @@ Write
 \[
  e_n=d(y_n,x_*)
 \]
-for the distance from the $n$th point to the fixed point. We call $e_n$ the \emph{error} at step~$n$. Keep the two kinds of error apart: $e_n$ measures how far the point $y_n$ is from $x_*$, while the update error $\eps_n$ measures how badly a single update went wrong.
+for the distance from the $n$th point to the fixed point, and call it the \emph{error} at step~$n$. Keep the two kinds of error apart: $e_n$ measures how far $y_n$ is from $x_*$, while the update error $\eps_n$ measures how badly a single update went wrong.
 
 To compare $e_{n+1}$ with $e_n$, insert the exact update $T(y_n)$ as a stop between $y_{n+1}$ and $x_*$:
 \begin{align*}
@@ -21,10 +21,10 @@ So for every $n\in\NN$ we have the \emph{one-step estimate}
 \[
  e_{n+1}\le qe_n+\eps_n.
 \]
-The computation uses four facts, each of them once: the triangle inequality of the metric, the fixed-point equation $T(x_*)=x_*$, the bound on the update error, and the contraction inequality. Completeness enters only indirectly, through the existence of $x_*$. Habit~3 (Section~\ref{ch03:sec:images}) asks which information an argument actually uses. Here the list is short, and that shows how far the estimate reaches: $X$ need not be a set of numbers, and the update errors need not follow any pattern.
+In the spirit of Habit~3 (Section~\ref{ch03:sec:images}), notice how little the argument uses: the triangle inequality, the fixed-point equation, the bound on the update error and the contraction inequality; completeness enters only through the existence of $x_*$. So $X$ need not be a set of numbers, and the update errors need not follow any pattern.
 
 \subsection*{Unfolding the estimate three times}
-The one-step estimate compares each error only with the one just before it. To see how an update error made early on affects later steps, apply the estimate repeatedly, substituting each bound into the next. Every substitution multiplies an inequality by $q$, which keeps the direction of the inequality because $q>0$:
+To see how an early update error affects later steps, substitute each bound into the next. Every substitution multiplies an inequality by $q$, which keeps its direction because $q>0$:
 \begin{align*}
  e_1&\le qe_0+\eps_0,\\
  e_2&\le qe_1+\eps_1
@@ -34,16 +34,10 @@ The one-step estimate compares each error only with the one just before it. To s
        \le q(q^2e_0+q\eps_0+\eps_1)+\eps_2
        =q^3e_0+q^2\eps_0+q\eps_1+\eps_2.
 \end{align*}
-At step three, the starting error $e_0$ has been multiplied by $q$ three times, once for each update. The update error $\eps_0$, made in the first update, has been multiplied by $q$ twice, once for each of the two updates that came after it. The most recent update error $\eps_2$ has not yet been reduced by any later update, so its coefficient is one.
-
-The same counting works at every step. The update error $\eps_j$ is made while producing $y_{j+1}$. After that, the updates that produce $y_{j+2},\ldots,y_n$ follow, and there are $n-(j+1)=n-1-j$ of them. Each multiplies the effect of $\eps_j$ by $q$, so in the bound for $e_n$ the error $\eps_j$ carries the weight $q^{n-1-j}$. With $n=3$ this gives the weights $q^2$, $q$ and $1$ found above. The earliest error, $\eps_0$, has weight $q^{n-1}$, and the latest, $\eps_{n-1}$, has weight $q^0=1$; the sum in the theorem below runs between these two ends, from $j=0$ to $j=n-1$.
+Each term has been multiplied by $q$ once for every update that came after it: $e_0$ three times, $\eps_0$ twice, and the latest error $\eps_2$ not at all. The same count works at every step: $\eps_j$ is made while producing $y_{j+1}$, and after it come the $n-(j+1)=n-1-j$ updates that produce $y_{j+2},\ldots,y_n$. So in the bound for $e_n$, $\eps_j$ carries the weight $q^{n-1-j}$, from $q^{n-1}$ for $\eps_0$ down to $q^0=1$ for $\eps_{n-1}$.
 
 \subsection*{Two assumptions about the update errors}
-The theorem makes two different assumptions about the update errors. The first is that they are \emph{bounded}: there is a fixed number $\eta\ge0$ with $\eps_j\le\eta$ for every $j$. Such errors may stay the same size forever, like the constant bias of Section~\ref{ch18:sec:guess}. The second assumption is that they \emph{tend to zero}: $\eps_j\to0$ in the sense of Definition~\ref{ch11:def:convergence}, which here means that for every tolerance $\delta>0$, all the update errors from some index onward are smaller than $\delta$. (We write $\delta$ for the tolerance because the letter $\eps$ already names the update errors.)
-
-Errors that tend to zero are automatically bounded, so the second assumption is the stronger one. To see this, take the tolerance $1$: from some index $J$ on, every update error is below $1$. Only the finitely many errors $\eps_0,\ldots,\eps_{J-1}$ come before $J$, so the largest of the numbers $1,\eps_0,\ldots,\eps_{J-1}$ is a bound for all the update errors. In particular, part~2 of the theorem below applies to such errors as well.
-
-Even so, errors that tend to zero can add up to a lot. For example, $\eps_j=1/(j+1)$ tends to zero by Section~\ref{ch11:sec:convergence}, but the total $\eps_0+\eps_1+\cdots+\eps_{n-1}=1+\frac12+\cdots+\frac1n$ is a harmonic sum, and Section~\ref{ch11:sec:cauchy} showed that these sums do not converge. We will see that $y_n\to x_*$ all the same. Bounded errors give a bound on the distance to $x_*$; errors that tend to zero give convergence.
+Parts~2 and~3 of the theorem below make different assumptions. Part~2 assumes that the update errors are \emph{bounded}: $\eps_j\le\eta$ for every $j$, for a fixed number $\eta\ge0$, as for the constant bias. Part~3 assumes that they \emph{tend to zero} in the sense of Definition~\ref{ch11:def:convergence}: for every tolerance $\delta>0$, all the update errors from some index onward are smaller than $\delta$. (We write $\delta$ because $\eps$ already names the update errors.) This is the stronger assumption, because errors that tend to zero are bounded: with the tolerance $1$, every update error from some index $J$ on is below $1$, so the largest of $1,\eps_0,\ldots,\eps_{J-1}$ bounds them all. Yet such errors can add up to a lot: $\eps_j=1/(j+1)$ tends to zero (Section~\ref{ch11:sec:convergence}), but $\eps_0+\cdots+\eps_{n-1}=1+\frac12+\cdots+\frac1n$ is a harmonic sum, which does not converge (Section~\ref{ch11:sec:cauchy}). We will see that $y_n\to x_*$ all the same.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{theorem}[Iteration with update errors]\label{thm:inexact}
@@ -62,10 +56,10 @@ Let $(X,d)$ be a nonempty complete metric space, let $T:X\to X$ be a contraction
 \end{theorem}
 \end{minipage}\par
 
-Before the proof, here is how to read part~2. The first term, $q^ne_0$, is what remains of the starting error, and it tends to zero as $n$ grows. The second term is the combined effect of all the update errors so far. Since $1-q^n<1$, it is never larger than $\eta/(1-q)$, and it approaches $\eta/(1-q)$ as $n$ grows. So after many steps the error is at most a little more than $\eta/(1-q)$. Section~\ref{ch18:sec:sharp} shows that the factor $1/(1-q)$ cannot be lowered.
+In part~2, the term $q^ne_0$, what remains of the starting error, tends to zero, while the second term, the combined effect of the update errors, never exceeds $\eta/(1-q)$ and approaches it as $n$ grows. So after many steps the error is at most a little more than $\eta/(1-q)$.
 
 \begin{proof}
-\textbf{Part 1.} We use induction on $n$. For $n=1$, the sum has the single term $j=0$, whose weight is $q^0=1$, so the claim reads $e_1\le qe_0+\eps_0$. This is the one-step estimate with $n=0$. Now suppose the claim holds for some $n\ge1$. Apply the one-step estimate, and then the induction hypothesis multiplied by the positive number $q$:
+\textbf{Part 1.} We use induction on $n$. For $n=1$, the sum has the single term $j=0$, with weight $q^0=1$, so the claim is the one-step estimate $e_1\le qe_0+\eps_0$. Now suppose the claim holds for some $n\ge1$. Apply the one-step estimate, and then the induction hypothesis multiplied by $q>0$:
 \begin{align*}
  e_{n+1}
  &\le qe_n+\eps_n\\
@@ -73,28 +67,24 @@ Before the proof, here is how to read part~2. The first term, $q^ne_0$, is what 
  &=q^{n+1}e_0+\sum_{j=0}^{n-1}q^{n-j}\eps_j+q^0\eps_n\\
  &=q^{n+1}e_0+\sum_{j=0}^{n}q^{n-j}\eps_j.
 \end{align*}
-In the third line, $q\cdot q^{n-1-j}=q^{n-j}$, and the last term $\eps_n$ is written as $q^0\eps_n$ so that it becomes the term $j=n$ of the new sum. Since $n-j=(n+1)-1-j$, the last line is the claim with $n+1$ in place of $n$. By induction, the claim holds for every $n\ge1$.
+In the third line, $q\cdot q^{n-1-j}=q^{n-j}$, and $\eps_n$ is written as $q^0\eps_n$ so that it becomes the term $j=n$ of the new sum. Since $n-j=(n+1)-1-j$, the last line is the claim for $n+1$, which completes the induction.
 
-\textbf{Part 2.} Suppose $\eps_j\le\eta$ for every $j$. Every weight $q^{n-1-j}$ is positive, so replacing each $\eps_j$ by the number $\eta$, which is at least as large, cannot make the sum smaller. Then put $k=n-1-j$. As $j$ runs from $0$ up to $n-1$, the exponent $k$ runs from $n-1$ down to $0$, so the same powers of $q$ appear in the opposite order:
+\textbf{Part 2.} Suppose $\eps_j\le\eta$ for every $j$. Every weight is positive, so replacing each $\eps_j$ by the larger number $\eta$ cannot make the sum smaller. Then put $k=n-1-j$; as $j$ runs from $0$ up to $n-1$, the exponent $k$ runs from $n-1$ down to $0$:
 \[
  \sum_{j=0}^{n-1}q^{n-1-j}\eps_j
  \le\eta\sum_{j=0}^{n-1}q^{n-1-j}
  =\eta\sum_{k=0}^{n-1}q^k
- =\eta\,\frac{1-q^n}{1-q}.
+ =\eta\,\frac{1-q^n}{1-q},
 \]
-The last equality is the finite geometric sum $1+q+\cdots+q^{r-1}=(1-q^r)/(1-q)$ of Section~\ref{ch11:sec:geometric}, with $r=n$ terms. Together with part~1, this proves part~2.
+by the finite geometric sum of Section~\ref{ch11:sec:geometric}. Together with part~1, this proves part~2.
 
-\textbf{Part 3: the plan.} Now suppose $\eps_n\to0$. We must show that for every tolerance $\delta>0$ there is a threshold $N$ such that $e_n<\delta$ for every $n\ge N$.
+\textbf{Part 3: the plan.} Now suppose $\eps_n\to0$. We must find, for every $\delta>0$, a threshold $N$ with $e_n<\delta$ for every $n\ge N$. The early update errors in the sum of part~1 may be large, but they are finitely many, and each later update multiplies their effect by another factor $q$. The late ones may be many, but each is small, and their weights add up to less than $1/(1-q)$. So we split the sum at an index $J$. First $\delta$ is given, then $J$ is chosen depending on $\delta$, and only then $N$. The index $J$ must not change with $n$, so that the early part is one fixed collection of finitely many terms, which a single $N$ can make small for every $n\ge N$ at once.
 
-The sum in part~1 mixes two kinds of update errors. The early ones may be large, but there are only finitely many of them, and every later update multiplies their effect by another factor $q$. The late ones may be very many, but each of them is small, and their weights $q^{n-1-j}$ add up to less than $1/(1-q)$. This suggests splitting the sum at some index $J$. Before $J$ we rely on the shrinking powers of $q$; from $J$ onward we rely on the update errors being small.
-
-The order of the choices matters. First the tolerance $\delta$ is given. Then we choose $J$, depending on $\delta$, so that every update error from index $J$ onward is small. Only after $J$ is fixed do we choose the threshold $N$, large enough to shrink the early part. The index $J$ must not change with $n$: the early part has to be one fixed collection of finitely many terms, so that a single threshold $N$ can make it small for every $n\ge N$ at once.
-
-\textbf{Part 3: choosing $J$.} Let $\delta>0$. The number $(1-q)\delta/2$ is positive, and $\eps_j\to0$, so the definition of convergence, applied with this tolerance and with the distance $|\eps_j-0|=\eps_j$, gives an index $J$ such that
+\textbf{Part 3: choosing $J$.} Let $\delta>0$. The number $(1-q)\delta/2$ is positive, and $\eps_j\to0$, so the definition of convergence, with this tolerance and the distance $|\eps_j-0|=\eps_j$, gives an index $J$ such that
 \[
  \eps_j<\frac{(1-q)\delta}{2}\qquad\text{for every }j\ge J.
 \]
-A larger index works as well, so we may take $J\ge1$. Then the early part below contains at least one update error, $\eps_0$, and the formulas written out for it make sense. For every $n>J$, split the sum of part~1 into the terms with $j<J$ and the terms with $j\ge J$:
+A larger index works as well, so we may take $J\ge1$; then the early part below contains at least $\eps_0$. For every $n>J$, split the sum of part~1 into the terms with $j<J$ and those with $j\ge J$:
 \[
  e_n\le\left(q^ne_0+\sum_{j=0}^{J-1}q^{n-1-j}\eps_j\right)+\sum_{j=J}^{n-1}q^{n-1-j}\eps_j.
 \]
@@ -103,37 +93,32 @@ A larger index works as well, so we may take $J\ge1$. Then the early part below 
 \[
  q^ne_0+q^{n-1}\eps_0+q^{n-2}\eps_1+\cdots+q^{n-J}\eps_{J-1}.
 \]
-The smallest exponent among these terms is $n-J$. Factoring out $q^{n-J}$ leaves
+The smallest exponent is $n-J$, and factoring out $q^{n-J}$ leaves
 \[
  C_J=q^Je_0+q^{J-1}\eps_0+q^{J-2}\eps_1+\cdots+\eps_{J-1},
 \]
-so the early part equals $q^{n-J}C_J$. The number $C_J$ is a sum of finitely many fixed nonnegative numbers. It depends on $J$, but not on $n$.
+so the early part equals $q^{n-J}C_J$, where $C_J\ge0$ depends on $J$ but not on $n$.
 
-\textbf{Part 3: the late part.} Every $\eps_j$ with $j\ge J$ is less than $(1-q)\delta/2$, the weights are positive, and the sum has at least one term, $j=n-1$, because $n>J$. So
+\textbf{Part 3: the late part.} Every $\eps_j$ with $j\ge J$ is less than $(1-q)\delta/2$, the weights are positive, and the sum has at least the term $j=n-1$, because $n>J$. Substituting $k=n-1-j$ again,
 \[
  \sum_{j=J}^{n-1}q^{n-1-j}\eps_j
- <\frac{(1-q)\delta}{2}\sum_{j=J}^{n-1}q^{n-1-j}
- =\frac{(1-q)\delta}{2}\sum_{k=0}^{n-1-J}q^k.
+ <\frac{(1-q)\delta}{2}\sum_{k=0}^{n-1-J}q^k
+ =\frac{(1-q)\delta}{2}\cdot\frac{1-q^{n-J}}{1-q}
+ <\frac{(1-q)\delta}{2}\cdot\frac1{1-q}=\frac\delta2.
 \]
-Here we substituted $k=n-1-j$ again: as $j$ runs from $J$ up to $n-1$, the exponent $k$ runs from $n-1-J$ down to $0$. By the finite geometric sum, $\sum_{k=0}^{n-1-J}q^k=(1-q^{n-J})/(1-q)$, which is less than $1/(1-q)$. Hence the late part is less than
-\[
- \frac{(1-q)\delta}{2}\cdot\frac1{1-q}=\frac\delta2.
-\]
-This explains the tolerance we asked of the update errors. The factor $1-q$ in it cancels the factor $1/(1-q)$ that comes from adding up the weights, and what is left is half of $\delta$. The other half is kept for the early part.
+This is why we asked for the tolerance $(1-q)\delta/2$: its factor $1-q$ cancels the $1/(1-q)$ that comes from adding up the weights, leaving half of $\delta$. The other half is kept for the early part.
 
 \textbf{Part 3: choosing $N$.} So far, for every $n>J$,
 \[
  e_n<q^{n-J}C_J+\frac\delta2.
 \]
-If $C_J=0$, this says $e_n<\delta/2<\delta$ for every $n>J$, and $N=J+1$ will do. If $C_J>0$, recall from Section~\ref{ch11:sec:geometric} that $q^m\to0$. With the tolerance $\delta/(2C_J)$, this gives a threshold $M$ such that $q^m<\delta/(2C_J)$ for every $m\ge M$, and we may take $M\ge1$. Put $N=J+M$. For every $n\ge N$ we have $n>J$ and $n-J\ge M$, so $q^{n-J}C_J<\delta/2$, and therefore
+If $C_J=0$, this gives $e_n<\delta$ for every $n>J$, and $N=J+1$ will do. If $C_J>0$, then $q^m\to0$ (Section~\ref{ch11:sec:geometric}) gives a threshold $M\ge1$ such that $q^m<\delta/(2C_J)$ for every $m\ge M$. Put $N=J+M$. For every $n\ge N$ we have $n>J$ and $n-J\ge M$, so $q^{n-J}C_J<\delta/2$, and therefore
 \[
  e_n<\frac\delta2+\frac\delta2=\delta.
 \]
-In both cases $d(y_n,x_*)=e_n<\delta$ for every $n\ge N$. Since $\delta>0$ was arbitrary, this proves $y_n\to x_*$.
+In both cases $d(y_n,x_*)=e_n<\delta$ for every $n\ge N$. Since $\delta>0$ was arbitrary, $y_n\to x_*$.
 \end{proof}
 
-Splitting off finitely many early terms is a technique worth remembering: the powers of $q$ eventually damp the early terms, and the late terms are all small. It is the same idea as splitting a tolerance into two halves in Section~\ref{ch11:sec:cauchy}, now combined with a split of the sum.
+Splitting a sum into finitely many early terms, damped by the powers of $q$, and late terms that are all small is a technique worth remembering; it combines the split of a tolerance into halves (Section~\ref{ch11:sec:cauchy}) with a split of the sum. In particular, the proof covers $\eps_j=1/(j+1)$, whose total is unbounded: it controls only the weighted sum, in which older errors carry smaller powers of $q$.
 
-As promised, the proof never needed the total $\eps_0+\cdots+\eps_{n-1}$ to stay bounded, so it covers $\eps_j=1/(j+1)$. What it controls is the weighted sum, in which older update errors carry smaller powers of $q$.
-
-\pauseq{Part~3 of Theorem~\ref{thm:inexact} assumes only that $\eps_n\to0$. Does it tell us how many steps are needed to get within $0.001$ of $x_*$?}{No. The proof produces a threshold $N$ for each tolerance, but $N$ depends on the index $J$, and $J$ depends on how quickly the update errors shrink, which part~3 does not specify. If the update errors shrink very slowly, the points may approach $x_*$ very slowly too. For example, take $T(x)=qx$, whose fixed point is $0$, and let $y_0=1$ and $y_{n+1}=qy_n+\eps_n$. Each update multiplies by the positive number $q$ and adds a nonnegative number, so every $y_n$ is nonnegative, and the error $e_n$ is $y_n$ itself. For $n\ge1$ this gives $e_n=qy_{n-1}+\eps_{n-1}\ge\eps_{n-1}$: the error is never smaller than the latest update error. With $\eps_j=1/(j+1)$ we get $e_n\ge1/n$, so the error is still at least $0.001$ after $1000$ steps. When more is known about the update errors, more can be said: Exercise~\ref{ex:18.4} gives an explicit bound when they shrink at least as fast as the powers of the contraction factor, that is, when $\eps_j\le aq^j$ for some fixed number $a\ge0$.}
+\pauseq{Part~3 of Theorem~\ref{thm:inexact} assumes only that $\eps_n\to0$. Does it tell us how many steps are needed to get within $0.001$ of $x_*$?}{No. The threshold $N$ depends on $J$, and $J$ on how quickly the update errors shrink, which part~3 does not specify; slowly shrinking errors can mean slow convergence. Take $T(x)=qx$, with fixed point $0$, $y_0=1$ and $y_{n+1}=qy_n+\eps_n$. Each update multiplies by $q>0$ and adds $\eps_n\ge0$, so every $y_n$ is nonnegative, and for $n\ge1$ the error is $e_n=y_n=qy_{n-1}+\eps_{n-1}\ge\eps_{n-1}$. With $\eps_j=1/(j+1)$ this gives $e_n\ge1/n$, so the error is still at least $0.001$ after $1000$ steps. Exercise~\ref{ex:18.4} gives an explicit bound when $\eps_j\le aq^j$ for some fixed $a\ge0$.}

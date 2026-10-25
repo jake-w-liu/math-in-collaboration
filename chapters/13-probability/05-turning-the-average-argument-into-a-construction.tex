@@ -1,29 +1,27 @@
 \section{Turning the average argument into a construction}\label{ch13:sec:construction}
-The proof of Theorem~\ref{thm:cut} shows that a good labeling exists, but it does not tell us how to find one, and trying all $2^n$ labelings is out of the question for large graphs. Instead, we can build a good labeling one vertex at a time. At each step we choose a side so that a certain score never goes down. The score is the expected final size of the cut, computed as if the remaining vertices were going to be placed by tossing coins.
+The proof of Theorem~\ref{thm:cut} does not tell us how to find a good labeling. Instead of searching through all $2^n$ labelings, we can build one a vertex at a time, choosing each side so that a certain score never goes down: the expected final size of the cut if the remaining vertices were placed at random.
 
 \subsection*{The score of a partial placement}
-Suppose some of the vertices have already been placed on the left or on the right, and the others have not been placed yet. Call an edge \emph{settled} when both of its endpoints have been placed, and \emph{unsettled} otherwise. Let $C$ be the number of settled edges that cross (that is, whose endpoints were placed on different sides), and let $U$ be the number of unsettled edges. Define
+Suppose some of the vertices have been placed on the left or on the right, and the others not yet. Call an edge \emph{settled} when both of its endpoints have been placed, and \emph{unsettled} otherwise. Let $C$ be the number of settled edges that cross, let $U$ be the number of unsettled edges, and define
 \[
 F=C+\frac U2.
 \]
-Equivalently, $F$ is a sum with one term for each edge: a settled edge that crosses contributes $1$, a settled edge that does not cross contributes $0$, and an unsettled edge contributes $\tfrac12$.
+So $F$ has one term for each edge: $1$ for a settled edge that crosses, $0$ for a settled edge that does not, and $\tfrac12$ for an unsettled edge.
 
-Here is where this formula comes from. Imagine that each vertex not yet placed were now put on the left or on the right by tossing a fair coin, independently for different vertices. A settled edge already crosses or already does not, whatever the coins show. An unsettled edge would cross with probability $1/2$. If one endpoint has been placed, the edge crosses exactly when the coin for the other endpoint sends it to the opposite side, which happens with probability $1/2$. If neither endpoint has been placed, the edge crosses exactly when the two coins disagree, which happens with probability $1/2$, as in the proof of Theorem~\ref{thm:cut}. By linearity of expectation, the expected size of the final cut would be $C+U/2=F$.
-
-We will never actually toss any coins. The construction only needs the formula $F=C+U/2$, which we can compute at every stage. Before any vertex is placed, every edge is unsettled, so $C=0$, $U=m$, and $F=m/2$. After every vertex has been placed, every edge is settled, so $U=0$ and $F=C$ is the size of the cut we have built. So if we can place the vertices one at a time without ever decreasing $F$, the final cut will have size at least $m/2$.
+To see where this formula comes from, imagine that each vertex not yet placed were now placed by tossing a fair coin, independently. A settled edge crosses or not, whatever the coins show, while an unsettled edge would cross with probability $1/2$: if one endpoint has been placed, it crosses when the coin sends the other endpoint to the opposite side, and if neither has, when the two coins disagree, as in the proof of Theorem~\ref{thm:cut}. By linearity, the expected size of the final cut would be $C+U/2=F$. We never actually toss these coins; we only compute $F$.
 
 \subsection*{Placing one vertex}
-Let $v$ be the next vertex to be placed. Suppose $v$ has $\ell$ neighbors that have already been placed on the left and $r$ neighbors that have already been placed on the right. Sort the edges that have $v$ as an endpoint into three kinds, and see how the contribution of each one to $F$ changes if we place $v$ on the left.
+Let $v$ be the next vertex to be placed, with $\ell$ neighbors already placed on the left and $r$ on the right. If we place $v$ on the left, the edges at $v$ change their contributions to $F$ as follows.
 \begin{itemize}
-\item The $\ell$ edges joining $v$ to placed neighbors on the left were unsettled, so each contributed $1/2$. Afterwards they are settled, with both endpoints on the left, so they do not cross and contribute $0$.
-\item The $r$ edges joining $v$ to placed neighbors on the right also contributed $1/2$ each. Afterwards they are settled and cross, so each contributes $1$.
-\item The edges joining $v$ to vertices that have not been placed remain unsettled, and still contribute $1/2$ each.
+\item The $\ell$ edges to placed neighbors on the left go from $1/2$ to $0$: they become settled and do not cross.
+\item The $r$ edges to placed neighbors on the right go from $1/2$ to $1$: they become settled and cross.
+\item The edges to vertices not yet placed stay unsettled, and still contribute $1/2$ each.
 \end{itemize}
-Edges that do not have $v$ as an endpoint are not affected at all. So placing $v$ on the left changes $F$ by
+Other edges are not affected. So placing $v$ on the left changes $F$ by
 \[
-r\cdot\Bigl(1-\frac12\Bigr)+\ell\cdot\Bigl(0-\frac12\Bigr)=\frac{r-\ell}{2}.
+r\cdot\Bigl(1-\frac12\Bigr)+\ell\cdot\Bigl(0-\frac12\Bigr)=\frac{r-\ell}{2},
 \]
-In the same way, placing $v$ on the right changes $F$ by $(\ell-r)/2$. These two changes are negatives of each other, so at least one of them is nonnegative. This gives a simple rule: \emph{put $v$ on the side opposite to the majority of its placed neighbors}, that is, on the right if $\ell>r$ and on the left if $r>\ell$; if $\ell=r$, either side will do. With this choice $F$ changes by $|\ell-r|/2\ge0$, so it never decreases.
+and, in the same way, placing $v$ on the right changes $F$ by $(\ell-r)/2$. These two changes are negatives of each other, so one of them is nonnegative. This gives a simple rule: \emph{put $v$ on the side opposite to the majority of its placed neighbors}, that is, on the right if $\ell>r$ and on the left if $r>\ell$; if $\ell=r$, either side will do. With this choice $F$ changes by $|\ell-r|/2\ge0$.
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{proposition}\label{ch13:prop:greedy}
@@ -32,19 +30,19 @@ Place the vertices of a graph with $m$ edges one at a time, in any order, puttin
 \end{minipage}\par
 
 \begin{proof}
-Before any vertex is placed, $F=m/2$. By the calculation above, each placement made according to the rule changes $F$ by $|\ell-r|/2\ge0$, so $F$ never decreases, and after the last placement $F\ge m/2$. At that point every edge is settled, so $U=0$ and $F=C$ is the size of the cut. Hence the cut has size at least $m/2$.
+Before any vertex is placed, every edge is unsettled, so $F=m/2$. By the calculation above, each placement made according to the rule changes $F$ by $|\ell-r|/2\ge0$, so after the last placement $F\ge m/2$. At that point every edge is settled, so the size of the cut is $C=F\ge m/2$.
 \end{proof}
 
-This is a deterministic construction: it makes no random choices, and it always produces a cut of size at least $m/2$. It is also fast. To place $v$, we only need to look at the $\deg(v)$ neighbors of $v$, and by the handshake theorem (Theorem~\ref{thm:handshake}) these numbers add up to $2m$ over all the vertices. For a large graph this is far less work than checking $2^n$ labelings. The idea of keeping track of the expected value while the choices are made one at a time is called the \emph{method of conditional expectations}. An expected value computed with the choices made so far held fixed, and only the remaining choices left to chance, is called a \emph{conditional expectation}; here it is simply $F$.
+This construction makes no random choices, and it is fast: placing $v$ needs only its $\deg(v)$ neighbors, and by the handshake theorem (Theorem~\ref{thm:handshake}) these numbers add up to $2m$, far less work than checking $2^n$ labelings. An expected value computed with the choices made so far held fixed, and only the remaining choices left to chance, is called a \emph{conditional expectation}; here it is $F$. Keeping it from decreasing while the choices are made one at a time is the \emph{method of conditional expectations}.
 
 \subsection*{A full trace on the triangle}
-Take the triangle with vertices $a$, $b$, $c$ and edges $ab$, $bc$, $ca$, and place the vertices in the order $a$, $b$, $c$. Initially nothing is placed, so $C=0$, $U=3$, and $F=3/2$.
-
-Vertex $a$ has no placed neighbors, so $\ell=r=0$, and either side will do; put $a$ on the left. No edge has both endpoints placed yet, so $C=0$, $U=3$, and $F$ stays $3/2$.
-
-Vertex $b$ has one placed neighbor on the left, namely $a$, and none on the right: $\ell=1$, $r=0$. Put $b$ on the right. Edge $ab$ is now settled and crosses, while $bc$ and $ca$ remain unsettled. Thus $C=1$, $U=2$, and $F=1+2/2=2$. The increase is $(\ell-r)/2=1/2$, as predicted.
-
-Vertex $c$ has one placed neighbor on each side, $a$ on the left and $b$ on the right, so $\ell=r=1$, and either choice changes $F$ by $0$. Put $c$ on the left. Now $bc$ crosses and $ca$ does not, so $C=2$, $U=0$, and $F=2$. The final cut is $L=\{a,c\}$, $R=\{b\}$, of size $2$, which by Section~\ref{ch13:sec:cut} is the largest possible size for a cut of the triangle.
+Place the vertices of the triangle in the order $a$, $b$, $c$. Initially $C=0$, $U=3$, and $F=3/2$.
+\begin{itemize}
+\item Vertex $a$ has no placed neighbors, so $\ell=r=0$; put $a$ on the left. No edge is settled yet, so $F$ stays $3/2$.
+\item Vertex $b$ has $a$ on the left, so $\ell=1$ and $r=0$; put $b$ on the right. Now $ab$ is settled and crosses, so $C=1$, $U=2$, and $F=2$, an increase of $(\ell-r)/2=1/2$, as predicted.
+\item Vertex $c$ has $a$ on the left and $b$ on the right, so $\ell=r=1$, and either side leaves $F$ unchanged; put $c$ on the left. Now $bc$ crosses and $ca$ does not, so $C=2$, $U=0$, and $F=2$.
+\end{itemize}
+The final cut $L=\{a,c\}$, $R=\{b\}$ has size $2$, which by Section~\ref{ch13:sec:cut} is the largest possible for the triangle.
 
 \subsection*{The construction need not find a largest cut}
-On the triangle the construction found a largest cut, but it does not always do so. Take the graph with vertices $a,b,c,d$ and edges $ab$, $bc$, $cd$, whose three edges form the path $a,b,c,d$. Place the vertices in the order $a,d,b,c$, and break ties by choosing the left side. Neither $a$ nor $d$ has a placed neighbor when its turn comes, so both go to the left. Then $b$ has its placed neighbor $a$ on the left, so it goes to the right. Finally $c$ has one placed neighbor on each side, $b$ on the right and $d$ on the left, so it goes to the left. The result is $L=\{a,c,d\}$ and $R=\{b\}$, a cut of size $2$, since $ab$ and $bc$ cross and $cd$ does not. The cut $L=\{a,c\}$, $R=\{b,d\}$ is better: all three edges cross it.
+Take the path with vertices $a,b,c,d$ and edges $ab$, $bc$, $cd$, place the vertices in the order $a,d,b,c$, and break ties by choosing the left side. Neither $a$ nor $d$ has a placed neighbor, so both go to the left; then $b$ has $a$ on the left, so it goes to the right; finally $c$ has one placed neighbor on each side, so it goes to the left. The resulting cut $L=\{a,c,d\}$, $R=\{b\}$ has size $2$, since $cd$ does not cross, while all three edges cross the cut $L=\{a,c\}$, $R=\{b,d\}$.

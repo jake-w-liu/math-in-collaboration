@@ -4,78 +4,67 @@
  T(x)-T(y)=\frac{3x+1}{4}-\frac{3y+1}{4}=\frac{3(x-y)}{4},
  \qquad\text{so}\qquad |T(x)-T(y)|=\frac34|x-y|.
 \]
-Hence $T$ is a contraction of $\RR$ with factor $3/4$. No smaller factor works: if $q<3/4$, the pair $x=1$, $y=0$ gives $|T(1)-T(0)|=3/4>q=q\,|1-0|$. So the smallest contraction factor is $3/4$.
+Hence $T$ is a contraction of $\RR$ with factor $3/4$. No smaller factor works: if $q<3/4$, the pair $x=1$, $y=0$ gives $|T(1)-T(0)|=3/4>q\,|1-0|$. So the smallest contraction factor is $3/4$.
 
-\emph{Fixed point.} The equation $(3x+1)/4=x$ becomes $3x+1=4x$, so $x=1$. Indeed $T(1)=4/4=1$.
+\emph{Fixed point.} The equation $(3x+1)/4=x$ becomes $3x+1=4x$, so $x=1$.
 
-\emph{Iterates.} From $x_0=0$ we get $x_1=1/4$, $x_2=7/16$ and $x_3=37/64$. The gaps to the fixed point are $1-x_n=1,\ 3/4,\ 9/16,\ 27/64$, each three quarters of the one before, which suggests $x_n=1-(3/4)^n$. We prove this by induction on $n$. For $n=0$, the formula gives $1-1=0=x_0$. Suppose $x_n=1-(3/4)^n$ for some $n$. Then
+\emph{Iterates.} From $x_0=0$ we get $x_1=1/4$, $x_2=7/16$ and $x_3=37/64$. The gaps $1-x_n$ are $1,\ 3/4,\ 9/16,\ 27/64$, each three quarters of the one before, which suggests $x_n=1-(3/4)^n$. We prove this by induction on $n$. For $n=0$, the formula gives $1-1=0=x_0$. If $x_n=1-(3/4)^n$ for some $n$, then
 \[
  x_{n+1}=\frac{3x_n+1}{4}=\frac{3-3(3/4)^n+1}{4}=\frac{4-3(3/4)^n}{4}=1-\frac34\Bigl(\frac34\Bigr)^n=1-\Bigl(\frac34\Bigr)^{n+1},
 \]
-which is the formula for $n+1$. So $x_n=1-(3/4)^n$ for every $n\in\NN$.
-
-For comparison, the a priori estimate \eqref{eq:apriori} with $q=3/4$ and $D=1/4$ gives $|x_n-1|\le(3/4)^n\cdot4\cdot\frac14=(3/4)^n$. By the formula, this is exactly the true error, so here the a priori estimate is attained for every $n$.}
+which is the formula for $n+1$.}
 \sol{12.2}{By the residual estimate \eqref{eq:residual},
 \[
  d(z,x_*)\le\frac{d(z,Tz)}{1-q}
  \le\frac{0.002}{1-3/4}=4\cdot0.002=0.008.
 \]
-So the theorem guarantees $d(z,x_*)\le0.008$.
-
-The residual bound $0.002$ is not itself an upper bound on the error in every case. For example, $T(x)=3x/4$ is a contraction of the nonempty complete space $\RR$ with factor $3/4$, and its fixed point is $0$. The point $z=0.008$ has $Tz=0.006$, so its residual is exactly $0.002$, while its distance to the fixed point is $0.008$, four times larger. This example also shows that the bound $0.008$ cannot be improved using only the information given.}
-\sol{12.3}{\emph{Self-map.} Let $1/3\le x\le2/3$. Squaring nonnegative numbers preserves their order, so $1/9\le x^2\le4/9$. Adding $1$ gives $10/9\le x^2+1\le13/9$, and dividing by $3$ gives $10/27\le T(x)\le13/27$. Since $1/3=9/27\le10/27$ and $13/27\le18/27=2/3$, the output $T(x)$ lies in $[1/3,2/3]$.
+The residual bound $0.002$ is not always an upper bound on the error. For example, $T(x)=3x/4$ is a contraction of the nonempty complete space $\RR$ with factor $3/4$ and fixed point $0$. The point $z=0.008$ has $Tz=0.006$, so its residual is exactly $0.002$, while its distance to the fixed point is $0.008$, four times larger.}
+\sol{12.3}{\emph{Self-map.} Let $1/3\le x\le2/3$. Squaring nonnegative numbers preserves their order, so $1/9\le x^2\le4/9$. Hence $10/9\le x^2+1\le13/9$ and $10/27\le T(x)\le13/27$. Since $1/3=9/27$ and $2/3=18/27$, the output $T(x)$ lies in $[1/3,2/3]$.
 
 \emph{Contraction factor.} For $x,y\in[1/3,2/3]$ we have $0\le x+y\le4/3$, so
 \[
  |T(x)-T(y)|=\frac{|x-y|\,|x+y|}{3}
  \le\frac{4/3}{3}\,|x-y|=\frac49|x-y|.
 \]
-So $4/9$ is a contraction factor on this interval, smaller than the factor $2/3$ used on $[0,1]$.
 
-\emph{Where the iterates lie.} The first iterate is $x_1=T(0)=1/3$, which lies in $[1/3,2/3]$. If some $x_n$ lies in $[1/3,2/3]$, then so does $x_{n+1}=T(x_n)$, by the self-map property just proved. By induction, every iterate from $x_1$ on lies in $[1/3,2/3]$. The starting point $x_0=0$ does not, which is why the smaller factor becomes available only after the first step.
+\emph{Where the iterates lie.} The first iterate $x_1=T(0)=1/3$ lies in $[1/3,2/3]$, and if $x_n$ does, then so does $x_{n+1}=T(x_n)$, by the self-map property. By induction, every iterate from $x_1$ on lies in $[1/3,2/3]$. The starting point $x_0=0$ does not, so the smaller factor becomes available only after the first step.
 
-\emph{The improved certificate.} The interval $[1/3,2/3]$ is nonempty, and it is complete, because Section~\ref{ch11:sec:complete} showed that every closed interval $[a,b]$ is complete. So Theorem~\ref{thm:banach} applies to $T$ on $[1/3,2/3]$ with $q=4/9$. It gives a fixed point in $[1/3,2/3]$. Since $[1/3,2/3]$ is part of $[0,1]$ and $T$ has only one fixed point in $[0,1]$, this is the same point $x_*$ as in Section~\ref{ch12:sec:example}. The point $z=x_2=10/27$ lies in $[1/3,2/3]$, and its residual is $19/2187$, as computed in Section~\ref{ch12:sec:example}. Since $1/(1-4/9)=9/5$, the residual estimate gives
+\emph{The improved certificate and why it is justified.} The interval $[1/3,2/3]$ is nonempty and complete, because Section~\ref{ch11:sec:complete} showed that every closed interval $[a,b]$ is complete. With the two facts above, Theorem~\ref{thm:banach} applies to $T$ on $[1/3,2/3]$ with $q=4/9$ and gives a fixed point there. Since $[1/3,2/3]$ is part of $[0,1]$ and $T$ has only one fixed point in $[0,1]$, this is the same point $x_*$ as in Section~\ref{ch12:sec:example}. The point $z=x_2=10/27$ also lies in $[1/3,2/3]$, with residual $19/2187$ (Section~\ref{ch12:sec:example}). So the residual estimate in the space $[1/3,2/3]$, where $1/(1-4/9)=9/5$, gives
 \[
- d(x_2,x_*)\le\frac95\cdot\frac{19}{2187}=\frac{171}{10935}=\frac{19}{1215}=0.01563\ldots,
+ d(x_2,x_*)\le\frac95\cdot\frac{19}{2187}=\frac{19}{5\cdot243}=\frac{19}{1215}=0.01563\ldots,
 \]
-which improves the earlier certificate $19/729=0.02606\ldots$. (The true error, found in Section~\ref{ch12:sec:example}, is about $0.0116$.)
+which improves the earlier certificate $19/729=0.02606\ldots$; the true error is about $0.0116$.}
+\sol{12.4}{\emph{The map $x\mapsto x/2$ on $(0,1)$: completeness fails.} The space is nonempty, since it contains $1/2$. It is a self-map, because $0<x<1$ gives $0<x/2<1/2$. The contraction inequality holds with factor $1/2$, because $|x/2-y/2|=|x-y|/2$. Completeness fails: by Section~\ref{ch11:sec:complete}, the sequence $2^{-(n+1)}$ is a Cauchy sequence in $(0,1)$ whose only possible limit, $0$, does not belong to $(0,1)$.
 
-The improvement is justified because the residual estimate was applied in the space $[1/3,2/3]$, where everything it needs holds: $T$ maps $[1/3,2/3]$ into itself, the factor $4/9$ works for all pairs of points of that interval, and both $x_2$ and $x_*$ lie in it. Using the factor $4/9$ for a point outside the interval, such as $x_0=0$, would not be justified.}
-\sol{12.4}{\emph{The map $x\mapsto x/2$ on $(0,1)$: completeness fails.} The space is nonempty, since it contains $1/2$. It is a self-map, because $0<x<1$ gives $0<x/2<1/2<1$. The contraction inequality holds with factor $1/2$, because $|x/2-y/2|=|x-y|/2$. Completeness fails: as Section~\ref{ch11:sec:complete} showed, the sequence $2^{-(n+1)}$ is a Cauchy sequence in $(0,1)$ whose only possible limit, $0$, does not belong to $(0,1)$.
+\emph{The maps $x\mapsto x$ and $x\mapsto x+1$ on $\RR$: no factor below one.} The space $\RR$ is nonempty and complete (Section~\ref{ch11:sec:complete}), and both maps send real numbers to real numbers. For both, $|T(x)-T(y)|=|x-y|$, so the inequality holds with $q=1$ but with no $q<1$: for $x=1$ and $y=0$ we would need $1\le q$.
 
-\emph{The maps $x\mapsto x$ and $x\mapsto x+1$ on $\RR$: no factor below one.} The space $\RR$ is nonempty and complete (Section~\ref{ch11:sec:complete}). Both maps send real numbers to real numbers, so both are self-maps of $\RR$. For both, $|T(x)-T(y)|=|x-y|$ for all $x$ and $y$. So the inequality holds with $q=1$, but with no $q<1$: for $x=1$ and $y=0$ we would need $1\le q$. The failed hypothesis is the requirement $q<1$.
-
-\emph{The map $x\mapsto x+1/x$ on $[1,\infty)$: no factor below one.} The space is nonempty, since it contains $1$. It is a self-map, because $x\ge1$ gives $x+1/x>x\ge1$. Section~\ref{ch12:sec:hypotheses} showed that every pair of different points moves strictly closer, so the inequality holds with $q=1$, but that no single factor $q<1$ works. It remains to prove that $[1,\infty)$ is complete. We show that it is closed in $\RR$, exactly as Section~\ref{ch11:sec:complete} did for $[0,1]$. Suppose that numbers $x_n\ge1$ converge in $\RR$ to a number $L$, and suppose $L<1$. The tolerance $(1-L)/2$ is positive, so for a late enough index $|x_n-L|<(1-L)/2$, and then
+\emph{The map $x\mapsto x+1/x$ on $[1,\infty)$: no factor below one.} The space is nonempty, since it contains $1$, and $T$ is a self-map, because $x\ge1$ gives $x+1/x>x\ge1$. Section~\ref{ch12:sec:hypotheses} showed that every pair of different points moves strictly closer, so the inequality holds with $q=1$, but that no single factor $q<1$ works. It remains to prove that $[1,\infty)$ is complete. As Section~\ref{ch11:sec:complete} did for $[0,1]$, we show that it is closed in $\RR$. Suppose that numbers $x_n\ge1$ converge in $\RR$ to a number $L$, and suppose $L<1$. The tolerance $(1-L)/2$ is positive, so for a late enough index $|x_n-L|<(1-L)/2$, and then
 \[
  x_n<L+\frac{1-L}{2}=\frac{1+L}{2}<1,
 \]
-which contradicts $x_n\ge1$. So $L\ge1$, that is, $L\in[1,\infty)$. Thus $[1,\infty)$ is closed in the complete space $\RR$, and by Proposition~\ref{ch11:prop:closed-complete} it is complete.
+which contradicts $x_n\ge1$. So $L\ge1$. Thus $[1,\infty)$ is closed in the complete space $\RR$, and by Proposition~\ref{ch11:prop:closed-complete} it is complete.
 
-\emph{The map $x\mapsto x/2+1$ on $[0,1]$: the self-map condition fails.} The interval $[0,1]$ is nonempty and complete (Section~\ref{ch11:sec:complete}). For all $x,y\in[0,1]$, $|T(x)-T(y)|=|x-y|/2$, so the contraction inequality holds with factor $1/2$. But $T(1)=3/2$ does not lie in $[0,1]$, so $T$ is not a map from $[0,1]$ to itself.}
-\sol{12.5}{\emph{Fixed point.} The equation $x=ax+b$ becomes $(1-a)x=b$. Since $|a|<1$, we have $a\ne1$, so $1-a\ne0$ and we may divide: $x_*=b/(1-a)$. (Also, $|T(x)-T(y)|=|a|\,|x-y|$, so $T$ is a contraction of $\RR$ with factor $|a|$, and Theorem~\ref{thm:banach} confirms that this is the only fixed point.)
+\emph{The map $x\mapsto x/2+1$ on $[0,1]$: the self-map condition fails.} The interval $[0,1]$ is nonempty and complete (Section~\ref{ch11:sec:complete}), and $|T(x)-T(y)|=|x-y|/2$, so the contraction inequality holds with factor $1/2$. But $T(1)=3/2$ does not lie in $[0,1]$.}
+\sol{12.5}{\emph{Fixed point.} The equation $x=ax+b$ becomes $(1-a)x=b$. Since $|a|<1$, we have $a\ne1$, so we may divide: $x_*=b/(1-a)$.
 
-\emph{The error formula.} Subtract the equation $x_*=ax_*+b$ from the recurrence $x_{n+1}=ax_n+b$. The constants $b$ cancel, leaving
+\emph{The error formula.} Subtracting $x_*=ax_*+b$ from $x_{n+1}=ax_n+b$ cancels the constants $b$:
 \[
  x_{n+1}-x_*=a(x_n-x_*).
 \]
-Now induct on $n$. For $n=0$ the formula reads $x_0-x_*=a^0(x_0-x_*)$, which is true because $a^0=1$ (when $a=0$, read $a^0$ as $1$, as we agreed after Theorem~\ref{thm:banach}). If $x_n-x_*=a^n(x_0-x_*)$ for some $n$, then
+Now induct on $n$. For $n=0$ the formula reads $x_0-x_*=a^0(x_0-x_*)$, which is true because $a^0=1$ (when $a=0$, read $a^0$ as $1$, as agreed after Theorem~\ref{thm:banach}). If $x_n-x_*=a^n(x_0-x_*)$ for some $n$, then
 \[
  x_{n+1}-x_*=a(x_n-x_*)=a\cdot a^n(x_0-x_*)=a^{n+1}(x_0-x_*),
 \]
 which is the formula for $n+1$.
 
-\emph{How the iterates move.} In every case $|x_n-x_*|=|a|^n\,|x_0-x_*|$, so the distance to the fixed point shrinks by the factor $|a|$ at each step. If $x_0=x_*$, every iterate equals $x_*$, and if $a=0$, every iterate from $x_1$ on equals $x_*$. Otherwise the sign of $a^n$ decides on which side of $x_*$ the iterate $x_n$ lies. If $0<a<1$, every power $a^n$ is positive, so all iterates lie on the same side of $x_*$ as $x_0$ and approach it from that side. If $a<0$, then $a^n$ is positive for even $n$ and negative for odd $n$, so the iterates jump from one side of $x_*$ to the other at every step, while the jumps get shorter. For example, $a=-1/2$ and $b=3/2$ give the fixed point $1$, and the iterates from $x_0=0$ are $0,\ 3/2,\ 3/4,\ 9/8,\ 15/16,\ldots$, alternately below and above $1$.}
-\sol{12.6}{By Theorem~\ref{thm:banach}, applied to each map separately, $T$ and $S$ have fixed points $x_T$ and $x_S$, so $T(x_T)=x_T$ and $S(x_S)=x_S$.
-
-We must compare points that come from two different maps, while the contraction inequality compares two outputs of the \emph{same} map. So insert the intermediate point $T(x_S)$, which separates the change of input from the change of map:
+\emph{How the iterates move.} The distance $|x_n-x_*|=|a|^n\,|x_0-x_*|$ shrinks by the factor $|a|$ at each step, and for $x_0\ne x_*$ the sign of $a^n$ decides on which side of $x_*$ the iterate $x_n$ lies. If $0<a<1$, every $a^n$ is positive, so all iterates lie on the same side of $x_*$ as $x_0$ and approach it from that side. If $a<0$, then $a^n$ is positive for even $n$ and negative for odd $n$, so the iterates jump from one side of $x_*$ to the other at every step, with ever shorter jumps. For example, $a=-1/2$ and $b=3/2$ give the fixed point $1$, and the iterates from $x_0=0$ are $0,\ 3/2,\ 3/4,\ 9/8,\ 15/16,\ldots$, alternately below and above $1$.}
+\sol{12.6}{By Theorem~\ref{thm:banach}, applied to each map separately, the fixed points exist: $T(x_T)=x_T$ and $S(x_S)=x_S$. The contraction inequality compares two outputs of the \emph{same} map, so insert the intermediate point $T(x_S)$:
 \begin{align*}
  d(x_T,x_S)
  &=d(T(x_T),S(x_S))\\
  &\le d(T(x_T),T(x_S))+d(T(x_S),S(x_S))\\
  &\le q\,d(x_T,x_S)+\eta.
 \end{align*}
-The first term is bounded by the contraction inequality for $T$. The second is bounded by the hypothesis $d(Tx,Sx)\le\eta$ with $x=x_S$. Write $r=d(x_T,x_S)$. Then $r\le qr+\eta$. Subtracting $qr$ gives $(1-q)r\le\eta$, and dividing by the positive number $1-q$ gives $r\le\eta/(1-q)$. Thus $d(x_T,x_S)\le\eta/(1-q)$.
+The first term is bounded by the contraction inequality for $T$, the second by the hypothesis $d(Tx,Sx)\le\eta$ with $x=x_S$. Write $r=d(x_T,x_S)$. Then $r\le qr+\eta$, so $(1-q)r\le\eta$, and dividing by $1-q>0$ gives $r\le\eta/(1-q)$.
 
-The residual estimate gives the same result in one line. Apply \eqref{eq:residual} to the map $T$ and the point $z=x_S$. Since $x_S=S(x_S)$, the residual of $x_S$ for $T$ is $d(x_S,T(x_S))=d(S(x_S),T(x_S))\le\eta$, so $d(x_S,x_T)\le\eta/(1-q)$. In words, the fixed point of $S$ is an approximate fixed point of $T$.
-
-Notice that the contraction property of $S$ is used only to guarantee that $x_S$ exists. The result says that if two contractions with the same factor differ by at most $\eta$ at every point, then their fixed points differ by at most $\eta/(1-q)$: a small change in the map causes only a small change in the fixed point, as long as $q$ is not close to $1$.}
+So a small change in the map causes only a small change in the fixed point, as long as $q$ is not close to $1$.}

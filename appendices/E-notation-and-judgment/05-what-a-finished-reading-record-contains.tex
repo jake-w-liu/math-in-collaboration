@@ -1,20 +1,19 @@
 \section{What a finished reading record contains}\label{appE:sec:record}
-Section~\ref{ch17:sec:research} introduced the \emph{reading record}: a written account of a proof you are studying, saying what you have read, what you have understood, and what remains open. While you work, the record grows piece by piece. A finished record contains at least the following.
+A \emph{reading record} (Section~\ref{ch17:sec:research}) is a written account of a proof you are studying: what you have read, what you have understood, and what remains open. A finished record contains at least:
 \begin{itemize}
-\item The exact statement of the result, copied from a named source. Note which version you read, by its date or version number, because a preprint or a repository can change.
-\item The same statement in your own words, in plain language.
-\item The objects that the statement is about, and the hypotheses on them.
-\item A map of the proof's dependencies. It can be a table like the prerequisite map of Section~\ref{ch17:sec:map}, a diagram, or a paragraph.
-\item One delicate step of the proof, written out in full detail.
+\item the exact statement of the result, copied from a named source, with the date or version number of what you read, because a preprint or a repository can change;
+\item the same statement in your own words;
+\item the objects that the statement is about, and the hypotheses on them;
+\item a map of the proof's dependencies: a table like the prerequisite map of Section~\ref{ch17:sec:map}, a diagram, or a paragraph;
+\item one delicate step of the proof, written out in full detail.
 \end{itemize}
-
 Some entries need a note beside them:
 \begin{itemize}
 \item for a result you use without having read its proof: its hypotheses, and why they hold in your situation;
 \item for a computer calculation: the range of cases it covered, and whether it used exact arithmetic or rounded decimals (Section~\ref{appD:sec:fractions});
-\item for a result checked by Lean: exactly which statement Lean checked, which axioms its proof depends on (Section~\ref{ch16:sec:axioms}), and whether you ran the check yourself or are reporting what a source says about it (Section~\ref{ch17:sec:research}).
+\item for a result checked by Lean: exactly which statement Lean checked, which axioms its proof depends on (Section~\ref{ch16:sec:axioms}), and whether you ran the check yourself or are reporting what a source says (Section~\ref{ch17:sec:research}).
 \end{itemize}
 
-In addition, give every entry two labels, as in the section ``Keeping track of evidence'' of \emph{To the reader}. The first says how well you understand the entry: \emph{understood}, \emph{can follow}, \emph{borrowed}, or still \emph{open}. Section~\ref{ch17:sec:map} explains these labels, and Section~\ref{ch17:sec:research} uses them for a research proof. The second label says what supports the entry: proved, cited from another source, checked by computer for finitely many cases, or not established. An entry that rests on one of the four starting facts listed in \emph{To the reader} can say so, since those facts are recorded as assumptions.
+Give every entry the two labels of ``Keeping track of evidence'' in \emph{To the reader}: how well you understand it (\emph{understood}, \emph{can follow}, \emph{borrowed}, or \emph{open}; see also Section~\ref{ch17:sec:map}), and what supports it (proved, cited from another source, checked by computer for finitely many cases, or not established). An entry that rests on one of the four starting facts listed there can say so, since those facts are recorded as assumptions.
 
-The record ends with your own explanation of the proof and with one variation that you have worked out yourself, such as a hypothesis removed or a conclusion strengthened, together with your reasons for what happens in the new case. A saved conversation with an assistant cannot take the place of this record. A conversation mixes guesses, corrections and results, and it does not mark which statements survived checking. The record should let another reader rebuild the final argument without having to read the whole conversation.
+The record ends with your own explanation of the proof and one variation you have worked out yourself, such as a hypothesis removed or a conclusion strengthened, with your reasons for what happens. A saved conversation with an assistant cannot replace this record: a conversation mixes guesses, corrections and results without marking which statements survived checking. The record should let another reader rebuild the final argument without reading the conversation.

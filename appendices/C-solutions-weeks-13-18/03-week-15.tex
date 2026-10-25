@@ -1,6 +1,6 @@
 \section{Week 15}
-The Lean solutions for Weeks~15 and~16 use the definitions from Chapters~\ref{ch:lean1} and~\ref{ch:lean2}, such as \code{Inj}, \code{preimage}, and \code{Second}. To run them, put them in the same file as those definitions, after the definitions and inside \code{namespace MathCourse}, as described in Section~\ref{appD:sec:lean}. Like the examples in the chapters, they are written for Lean~4.19.0. Read each one alongside its ordinary mathematical argument.
-\sol{15.1}{Here \code{P} and \code{Q} are propositions, and \code{P -> Q} is the proposition ``if $P$, then $Q$.'' The name \code{h} denotes a proof of that implication. Such a proof works as a function: it turns any proof of $P$ into a proof of $Q$. So when \code{hp : P}, the application \code{h hp} is a proof of $Q$, that is, \code{h hp : Q}. In words, it carries out the inference ``$P$ holds, and $P$ implies $Q$; therefore $Q$ holds.''}
+To run the Lean solutions for Weeks~15 and~16, add them to the file of Section~\ref{appD:sec:lean}, after the definitions they use from Chapters~\ref{ch:lean1} and~\ref{ch:lean2}, such as \code{Inj}, \code{preimage}, and \code{Second}.
+\sol{15.1}{Here \code{P} and \code{Q} are propositions, and \code{h} is a proof of the implication \code{P -> Q}, that is, a function that turns any proof of $P$ into a proof of $Q$. So when \code{hp : P}, the application \code{h hp} is a proof of $Q$: it carries out the inference ``$P$ holds, and $P$ implies $Q$; therefore $Q$ holds.''}
 \sol{15.2}{A proof of a conjunction is a pair of proofs, so we take the first component:
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
@@ -10,8 +10,8 @@ theorem and_left (P Q : Prop) : And P Q -> P := by
 \end{lstlisting}
 \end{minipage}\par
 
-After \code{intro h}, the hypothesis is \code{h : And P Q} and the goal is \code{P}. The term \code{h.left} is the first component of the pair, a proof of $P$, and \code{exact} closes the goal with it. That is the only inference: if $P$ and $Q$ both hold, then in particular $P$ holds. The theorem does not claim that $P$ is true on its own; it claims that $P$ is true whenever $P\land Q$ is.}
-\sol{15.3}{Offer the witness $5$ and check its property:
+After \code{intro h}, the hypothesis is \code{h : And P Q} and the goal is \code{P}, which \code{h.left} proves. The only inference is: if $P$ and $Q$ both hold, then in particular $P$ holds. The theorem does not claim that $P$ is true on its own, only that it is true whenever $P\land Q$ is.}
+\sol{15.3}{Offer the witness $5$:
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
 theorem witness_five : Exists (fun n : Nat => n + 2 = 7) := by
@@ -19,8 +19,8 @@ theorem witness_five : Exists (fun n : Nat => n + 2 = 7) := by
 \end{lstlisting}
 \end{minipage}\par
 
-The statement is the Lean form of $\exists n\in\NN:\ n+2=7$. The first input of \code{Exists.intro} is the witness $5$. The second must be a proof of \code{5 + 2 = 7}, and the proof object \code{rfl} supplies it, because \code{5 + 2} reduces to \code{7}. Since \code{n} is declared to be a \code{Nat}, the witness must be a natural number; in fact $5$ is the only one that works.}
-\sol{15.4}{Applying a function to equal inputs gives equal outputs, but equal outputs need not come from equal inputs. The term \code{congrArg g h} applies $g$ once more to both sides of \code{h : g x = g y}. This makes sense only when $g$ can be applied to its own outputs, that is, when its codomain is also its domain, as for \code{g : Nat -> Nat}. Then the result is a proof of \code{g (g x) = g (g y)}. In every case \code{congrArg} moves forward through a function, never backward, so it cannot remove $g$ from both sides. The missing hypothesis is injectivity of $g$, which says precisely that equal outputs come from equal inputs: with \code{hg : Inj g}, the term \code{hg x y h} is a proof of \code{x = y}. Without that hypothesis the conclusion can be false. The constant function $g:\NN\to\NN$ with $g(n)=0$ for every $n$ satisfies $g(1)=g(2)$, yet $1\ne2$.}
+The statement is the Lean form of $\exists n\in\NN:\ n+2=7$. The first input of \code{Exists.intro} is the witness $5$; the second must be a proof of \code{5 + 2 = 7}, and \code{rfl} supplies it, because \code{5 + 2} reduces to \code{7}. Since \code{n} is declared a \code{Nat}, the witness must be a natural number; $5$ is the only one that works.}
+\sol{15.4}{Equal inputs give equal outputs, but equal outputs need not come from equal inputs. The term \code{congrArg g h} applies $g$ once more to both sides of \code{h : g x = g y}. This makes sense only when $g$ can be applied to its own outputs, as for \code{g : Nat -> Nat}, and then it proves \code{g (g x) = g (g y)}. Since \code{congrArg} moves forward through a function, never backward, it cannot remove $g$ from both sides. The missing hypothesis is injectivity of $g$: with \code{hg : Inj g}, the term \code{hg x y h} proves \code{x = y}. Without it the conclusion can be false: the constant function $g:\NN\to\NN$ with $g(n)=0$ satisfies $g(1)=g(2)$, yet $1\ne2$.}
 \sol{15.5}{Given $f(x)=f(y)$, apply $g$ to both sides and then use injectivity of the composition:
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}
@@ -32,7 +32,7 @@ theorem inj_of_comp {A B C : Type}
 \end{lstlisting}
 \end{minipage}\par
 
-After \code{intro x y hxy}, we have \code{hxy : f x = f y} and the goal \code{x = y}. The term \code{congrArg g hxy} proves \code{g (f x) = g (f y)}. Lean accepts it as evidence that the composition takes equal values at \code{x} and \code{y}, because \code{(fun x => g (f x)) x} beta-reduces to \code{g (f x)} (Section~\ref{ch15:sec:injcomp}). Then \code{hcomp x y} turns that evidence into a proof of \code{x = y}. This is the first part of the proof of Proposition~\ref{thm:compconverse}, written in Lean.
+After \code{intro x y hxy}, we have \code{hxy : f x = f y} and the goal \code{x = y}. The term \code{congrArg g hxy} proves \code{g (f x) = g (f y)}, which Lean accepts as evidence that the composition takes equal values at \code{x} and \code{y}, because \code{(fun x => g (f x)) x} beta-reduces to \code{g (f x)} (Section~\ref{ch15:sec:injcomp}). Then \code{hcomp x y} turns that evidence into a proof of \code{x = y}.
 
-The only hypothesis is about the composition; the proof never uses injectivity of $g$. That is as it should be, because the second part of Proposition~\ref{thm:compconverse} shows that $g$ need not be injective. In the example given there, the maps $f$ and $g\circ f$ are injective, but $g$ sends $1$ and $2$ to the same point; the point $2$ lies outside the image of $f$, so the composition never detects the collision.}
-\sol{15.6}{Natural-number subtraction is truncated at zero: when the usual answer would be negative, the result is $0$. So \code{(7 - 10 : Nat)} computes to $0$. The integers contain negative numbers, so \code{(7 - 10 : Int)} computes to $-3$. The same symbols therefore name two different operations, and the type decides which one is meant. The lesson is that changing the domain of a theorem can change the meaning of its operations, not only the set of values its variables may take. Before translating a statement about integers into one about natural numbers, check every subtraction. For instance, the law $(a-b)+b=a$ holds for all integers, but in \code{Nat} it fails whenever $a<b$: \code{(7 - 10) + 10} is $10$, not $7$.}
+The only hypothesis is about the composition; nothing is assumed about $g$, and rightly so, because by the second part of Proposition~\ref{thm:compconverse}, $g$ need not be injective. In the example there, $g(1)=g(2)$, but $2$ lies outside the image of $f$, so the composition never detects the collision.}
+\sol{15.6}{Natural-number subtraction is truncated at zero, so \code{(7 - 10 : Nat)} computes to $0$, while \code{(7 - 10 : Int)} computes to $-3$, because the integers contain negative numbers. The same symbols name two different operations, chosen by the type. The lesson: changing the domain of a theorem can change the meaning of its operations, not only the values its variables may take, so check every subtraction before translating a statement about integers into one about natural numbers. For instance, the law $(a-b)+b=a$ fails in \code{Nat} whenever $a<b$: \code{(7 - 10) + 10} is $10$, not $7$.}

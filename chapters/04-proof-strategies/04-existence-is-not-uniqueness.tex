@@ -1,31 +1,31 @@
 \section{Existence is not uniqueness}\label{ch04:sec:unique}
-The equation $x^2=1$ has real solutions, but it does not have a \emph{unique} real solution, that is, exactly one. It has exactly two, $1$ and $-1$. Both of them square to $1$, and there are no others: a solution makes $x^2-1=(x-1)(x+1)$ equal to zero, and a product of real numbers is zero only when at least one factor is zero, so $x=1$ or $x=-1$. In general, the statement ``there is a unique solution'' makes two separate claims:
+The equation $x^2=1$ has real solutions, but not a \emph{unique} one, that is, exactly one. It has exactly two, $1$ and $-1$: both square to $1$, and there are no others, because a solution makes $x^2-1=(x-1)(x+1)$ equal to zero, and a product of real numbers is zero only when at least one factor is zero. In general, ``there is a unique solution'' makes two separate claims:
 \begin{itemize}
 \item \emph{existence}: at least one number satisfies the condition;
 \item \emph{uniqueness}: any two numbers that satisfy the condition are equal, so there is at most one.
 \end{itemize}
-This is the same split we met in Section~\ref{ch03:sec:injsurj}, where surjectivity gave every element of the codomain at least one preimage and injectivity gave it at most one. Each claim needs its own argument.
+This is the split of Section~\ref{ch03:sec:injsurj}, where surjectivity gave every element of the codomain at least one preimage and injectivity at most one. Each claim needs its own argument.
 
 Consider the equation
 \[
 x=\frac{x+1}{2},
 \]
-where $x$ is a real number. \emph{Existence} is settled by a witness: the number $1$ satisfies the equation, because $(1+1)/2=2/2=1$.
+where $x$ is a real number. \emph{Existence} is settled by a witness: $1$ is a solution, because $(1+1)/2=1$.
 
-For \emph{uniqueness}, suppose that two real numbers $x$ and $y$ both satisfy the equation, so that
+For \emph{uniqueness}, suppose that real numbers $x$ and $y$ both satisfy the equation:
 \[
 x=\frac{x+1}{2}\qquad\text{and}\qquad y=\frac{y+1}{2}.
 \]
-Subtract the second equation from the first. On the right, the numerators give $(x+1)-(y+1)=x-y$, because the two constant terms $1$ cancel. So
+Subtract the second equation from the first. The constant terms $1$ cancel, leaving
 \[
 x-y=\frac{x-y}{2}.
 \]
-Multiplying both sides by two gives $2(x-y)=x-y$, and subtracting $x-y$ from both sides gives $x-y=0$. Hence $x=y$. Together, the two parts show that the equation has exactly one real solution, namely $1$.
+Multiplying by two gives $2(x-y)=x-y$, and subtracting $x-y$ gives $x-y=0$, so $x=y$. Together, the two parts show that the equation has exactly one real solution, namely $1$.
 
-Notice that the uniqueness argument never solves the equation. It takes two hypothetical solutions and shows that they cannot differ. Comparing two solutions can be simpler than solving, because whatever the two equations share, such as the constant terms here, cancels when they are subtracted. Chapter~\ref{ch:contraction} turns this comparison into the uniqueness part of the contraction theorem, a general result about repeating a map until the output settles down; that chapter begins with the same equation $x=(x+1)/2$.
+The uniqueness argument never solves the equation: it takes two hypothetical solutions and shows that they cannot differ. This can be simpler than solving, because whatever the two equations share, such as the constant terms here, cancels on subtraction. Chapter~\ref{ch:contraction} turns this comparison into the uniqueness part of the contraction theorem, starting from the same equation $x=(x+1)/2$.
 
-A uniqueness argument on its own proves only that there is \emph{at most one} solution, and that is also true of an equation with no solutions at all. For example, consider the equation $2x=1$, where $x$ is required to be an integer. If $x$ and $y$ are integers with $2x=1$ and $2y=1$, then subtracting gives $2(x-y)=0$, so $x=y$. This argument is correct, yet the equation has no integer solution: the only number with $2x=1$ is $x=1/2$, which is not an integer. That is why the existence check for $x=(x+1)/2$, substituting $x=1$, cannot be skipped.
+A uniqueness argument on its own proves only that there is \emph{at most one} solution, which is also true of an equation with no solutions. Take the equation $2x=1$, where $x$ must be an integer. If integers $x$ and $y$ satisfy $2x=1$ and $2y=1$, then $2(x-y)=0$, so $x=y$. The argument is correct, yet there is no integer solution: the only real solution, $1/2$, is not an integer. That is why the existence check cannot be skipped.
 
-Be careful, too, with the phrase ``the solution.'' The word ``the'' quietly claims that there is exactly one. A proof that begins ``let $x$ be the solution of $x^2=1$'' has already gone wrong, because there are two solutions; any conclusion it reaches, such as ``so $x$ is positive,'' may be true of one solution and false of the other. Before writing ``let $x$ be the solution,'' make sure that existence and uniqueness have both been established. If they have not, say what you are really assuming, for example ``suppose $x$ is a solution'' or ``if a solution exists, then \ldots.'' Otherwise the main difficulty of the problem can slip unnoticed into the first sentence of the proof.
+Be careful, too, with the phrase ``the solution'': the word ``the'' claims that there is exactly one. A proof that begins ``let $x$ be the solution of $x^2=1$'' has already gone wrong, since a conclusion such as ``so $x$ is positive'' may hold for one solution and fail for the other. Until existence and uniqueness are both established, say what you are really assuming, for example ``suppose $x$ is a solution'' or ``if a solution exists, then \ldots.''
 
-\pauseq{Try the comparison argument on the equation $x=x$, where $x$ is a real number. What happens, and why is that the right outcome?}{If $x=x$ and $y=y$, subtracting gives $x-y=x-y$. This is true for all real numbers $x$ and $y$, so it gives no information about whether $x=y$. That is as it should be: every real number solves $x=x$, so uniqueness is false, and no correct argument could prove it.}
+\pauseq{Try the comparison argument on the equation $x=x$, where $x$ is a real number. What happens, and why is that the right outcome?}{Subtracting $y=y$ from $x=x$ gives $x-y=x-y$, which is true for all real $x$ and $y$ and says nothing about whether $x=y$. That is as it should be: every real number solves $x=x$, so uniqueness is false, and no correct argument could prove it.}
