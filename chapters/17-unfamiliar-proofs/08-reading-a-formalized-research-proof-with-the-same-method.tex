@@ -27,13 +27,13 @@ The proof is in another file~\cite{oaimain}, which imports three further files, 
 The reduction theorem~\cite{oaireduction} says that from any counterexample one can build, for some positive integer $n$, an oriented graph whose vertices are the pairs $(i,j)$ of natural numbers with $i<n$ and $j\le n$, and which has two further properties, named \code{PositiveIndegree} and \code{StrictSubsetGrowth}. The reduction file imports three more files, so the map keeps branching. The name \code{PositiveIndegree} suggests that every vertex has an incoming edge, but Lean accepts any name for any statement (Section~\ref{ch15:sec:symbols}): to understand these properties, you must read their definitions.
 
 \subsection*{Keeping a reading record}
-A \emph{reading record} is a written account of a proof you are studying: what you have read, what you have understood, and what remains open (Section~\ref{appE:sec:record} describes a finished one). So far, a reading record of the Seymour proof has entries of three kinds.
+A \emph{reading record} is a written account of a proof you are studying: what you have read, what you have understood, and what remains open (Section~\ref{appC:sec:record} describes a finished one). So far, a reading record of the Seymour proof has entries of three kinds.
 \begin{itemize}
 \item \emph{Understood:} the final statement has been decoded, and its definitions match the informal conjecture.
 \item \emph{Borrowed:} the logical role of the reduction is clear, since it turns a counterexample into a graph with extra properties, but its proof has not been read.
 \item \emph{Open:} the meaning of \code{PositiveIndegree} and \code{StrictSubsetGrowth}, and the mathematics of the pruning step and of the final contradiction.
 \end{itemize}
-A sketch like this one is a way into the proof, which uses ideas well beyond this course, not a replacement for it.
+A sketch like this one is a way into the proof, which uses ideas well beyond this book, not a replacement for it.
 
 \subsection*{What the formal check compares}
 A configuration file~\cite{oaiconfig} lists what the repository's formal check compares: the file containing the official statement, the file containing the proof, the name of the theorem, and the permitted axioms, which are \code{propext}, \code{Quot.sound} and \code{Classical.choice}, the three standard axioms of Section~\ref{ch16:sec:axioms}. The check is designed to confirm that the proof file proves exactly the official statement using no other axioms. It compares the statements, not just their names: a theorem in the proof file with the official name would, by itself, say nothing about whether the two statements agree.

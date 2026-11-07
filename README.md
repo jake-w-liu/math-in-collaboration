@@ -1,19 +1,21 @@
 # Mathematics in Collaboration
 
-A one-semester course text that starts from ordinary arithmetic and leads to complete
-proofs (Hall's matching theorem, the contraction theorem), small exact experiments, an
-introduction to the Lean proof assistant, and a careful first reading of current research.
+A book that starts from ordinary arithmetic and leads to complete proofs (Hall's
+matching theorem, the contraction theorem), small exact experiments, an introduction
+to the Lean proof assistant, and a careful first reading of current research.
 
 ## Layout
 
 ```
 main.tex                  driver: loads the preamble and \input's every part in order
 preamble.tex              packages, colours, theorem environments, macros
-frontmatter/              title page, "To the reader", semester plan
+frontmatter/              title page and "To the reader"
 chapters/NN-topic/        one folder per chapter
-    chapter.tex           \chapter heading, weekly goal, and the list of sections
+    chapter.tex           \chapter heading, chapter overview, and the list of sections
     NN-section-title.tex  one file per section (exercises are the last sections)
-appendices/X-topic/       solutions (A-C), running the examples (D), notation guide (E)
+appendices/A-solutions/   complete solutions to every exercise, grouped by chapter
+appendices/B-computation-and-lean/  running the examples on a computer
+appendices/C-notation-and-judgment/ notation guide and reading records
 backmatter/references.tex bibliography
 ```
 
@@ -30,5 +32,5 @@ latexmk -pdf main.tex
 
 or run `pdflatex main.tex` two or three times until cross-references settle.
 
-The Python programs in Appendix D use only the standard library. The Lean examples in
+The Python programs in Appendix B use only the standard library. The Lean examples in
 Chapters 15-16 and their solutions compile with Lean 4.19.0 without Mathlib.

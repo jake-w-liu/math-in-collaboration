@@ -1,0 +1,38 @@
+\section{Chapter 15}\label{app:sol:15}
+To run the Lean solutions for Chapters~15 and~16, add them to the file of Section~\ref{appB:sec:lean}, after the definitions they use from Chapters~\ref{ch:lean1} and~\ref{ch:lean2}, such as \code{Inj}, \code{preimage}, and \code{Second}.
+\sol{15.1}{Here \code{P} and \code{Q} are propositions, and \code{h} is a proof of the implication \code{P -> Q}, that is, a function that turns any proof of $P$ into a proof of $Q$. So when \code{hp : P}, the application \code{h hp} is a proof of $Q$: it carries out the inference ``$P$ holds, and $P$ implies $Q$; therefore $Q$ holds.''}
+\sol{15.2}{A proof of a conjunction is a pair of proofs, so we take the first component:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+theorem and_left (P Q : Prop) : And P Q -> P := by
+  intro h
+  exact h.left
+\end{lstlisting}
+\end{minipage}\par
+
+After \code{intro h}, the hypothesis is \code{h : And P Q} and the goal is \code{P}, which \code{h.left} proves. The only inference is: if $P$ and $Q$ both hold, then in particular $P$ holds. The theorem does not claim that $P$ is true on its own, only that it is true whenever $P\land Q$ is.}
+\sol{15.3}{Offer the witness $5$:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+theorem witness_five : Exists (fun n : Nat => n + 2 = 7) := by
+  exact Exists.intro 5 rfl
+\end{lstlisting}
+\end{minipage}\par
+
+The statement is the Lean form of $\exists n\in\NN:\ n+2=7$. The first input of \code{Exists.intro} is the witness $5$; the second must be a proof of \code{5 + 2 = 7}, and \code{rfl} supplies it, because \code{5 + 2} reduces to \code{7}. Since \code{n} is declared a \code{Nat}, the witness must be a natural number; $5$ is the only one that works.}
+\sol{15.4}{Equal inputs give equal outputs, but equal outputs need not come from equal inputs. The term \code{congrArg g h} applies $g$ once more to both sides of \code{h : g x = g y}. This makes sense only when $g$ can be applied to its own outputs, as for \code{g : Nat -> Nat}, and then it proves \code{g (g x) = g (g y)}. Since \code{congrArg} moves forward through a function, never backward, it cannot remove $g$ from both sides. The missing hypothesis is injectivity of $g$: with \code{hg : Inj g}, the term \code{hg x y h} proves \code{x = y}. Without it the conclusion can be false: the constant function $g:\NN\to\NN$ with $g(n)=0$ satisfies $g(1)=g(2)$, yet $1\ne2$.}
+\sol{15.5}{Given $f(x)=f(y)$, apply $g$ to both sides and then use injectivity of the composition:
+\par\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}
+theorem inj_of_comp {A B C : Type}
+    (f : A -> B) (g : B -> C)
+    (hcomp : Inj (fun x => g (f x))) : Inj f := by
+  intro x y hxy
+  exact hcomp x y (congrArg g hxy)
+\end{lstlisting}
+\end{minipage}\par
+
+After \code{intro x y hxy}, we have \code{hxy : f x = f y} and the goal \code{x = y}. The term \code{congrArg g hxy} proves \code{g (f x) = g (f y)}, which Lean accepts as evidence that the composition takes equal values at \code{x} and \code{y}, because \code{(fun x => g (f x)) x} beta-reduces to \code{g (f x)} (Section~\ref{ch15:sec:injcomp}). Then \code{hcomp x y} turns that evidence into a proof of \code{x = y}.
+
+The only hypothesis is about the composition; nothing is assumed about $g$, and rightly so, because by the second part of Proposition~\ref{thm:compconverse}, $g$ need not be injective. In the example there, $g(1)=g(2)$, but $2$ lies outside the image of $f$, so the composition never detects the collision.}
+\sol{15.6}{Natural-number subtraction is truncated at zero, so \code{(7 - 10 : Nat)} computes to $0$, while \code{(7 - 10 : Int)} computes to $-3$, because the integers contain negative numbers. The same symbols name two different operations, chosen by the type. The lesson: changing the domain of a theorem can change the meaning of its operations, not only the values its variables may take, so check every subtraction before translating a statement about integers into one about natural numbers. For instance, the law $(a-b)+b=a$ fails in \code{Nat} whenever $a<b$: \code{(7 - 10) + 10} is $10$, not $7$.}

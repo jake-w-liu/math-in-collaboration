@@ -33,7 +33,7 @@ print the three lines
 'MathCourse.preimage_meet' does not depend on any axioms
 \end{lstlisting}
 \end{minipage}\par
-So these proofs use only the rules of Lean's logic and our own definitions. (Appendix~\ref{appD:sec:lean} explains where such commands go in the file.)
+So these proofs use only the rules of Lean's logic and our own definitions. (Appendix~\ref{appB:sec:lean} explains where such commands go in the file.)
 
 An axiom list is no substitute for reading the statement. The theorems \code{impossible\_context} and \code{surj\_comp\_assumed} of Section~\ref{ch16:sec:irrelevant} depend on no axioms at all, yet the first assumes \code{False} and the second its own conclusion. To trust a theorem, you need to know both the assumptions in its statement and the axioms its proof depends on.
 
@@ -42,7 +42,7 @@ When you check a file, read everything Lean reports, warnings included, and the 
 \subsection*{How far a check reaches}
 A different question is how many cases a check covers, even when it finishes without any problem. Compare three kinds of check.
 \begin{itemize}
-\item A Python program, such as the one in Section~\ref{appD:sec:experiments}, can run through all $2^4=16$ sign sequences of length $4$ and report that exactly $8$ of them have $C_1=C_2=C_3=0$ (Section~\ref{ch14:sec:experiment}). This covers $16$ cases and says nothing about other lengths, and no checker compares the code with the definition of $C_s$.
+\item A Python program, such as the one in Section~\ref{appB:sec:experiments}, can run through all $2^4=16$ sign sequences of length $4$ and report that exactly $8$ of them have $C_1=C_2=C_3=0$ (Section~\ref{ch14:sec:experiment}). This covers $16$ cases and says nothing about other lengths, and no checker compares the code with the definition of $C_s$.
 \item A Lean proof about specific objects, such as \code{twice\_two} in Section~\ref{ch15:sec:symbols}, is checked step by step, but it covers only the case it states: \code{twice 2 = 4}, and nothing about \code{twice 3}.
 \item A Lean proof of a universal statement, such as \code{surj\_comp}, covers every case at once: all types $A$, $B$, $C$ and all surjective functions between them, infinitely many cases that no program could test.
 \end{itemize}

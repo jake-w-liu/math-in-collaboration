@@ -1,0 +1,55 @@
+\section{Chapter 10}\label{app:sol:10}
+\sol{10.1}{The row rule gives
+\[
+ \begin{pmatrix}2&1\\0&3\end{pmatrix}
+ \begin{pmatrix}1\\-2\end{pmatrix}
+ =\begin{pmatrix}2\cdot1+1\cdot(-2)\\0\cdot1+3\cdot(-2)\end{pmatrix}
+ =\begin{pmatrix}0\\-6\end{pmatrix}.
+\]
+The columns of $A$ are $Ae_1=(2,0)$ and $Ae_2=(1,3)$, and $x=1e_1-2e_2$. By linearity,
+\[
+Ax=Ae_1-2Ae_2=(2,0)+(-2,-6)=(0,-6),
+\]
+the same answer: the coordinates of $x$ say how much of each column to take.}
+\sol{10.2}{The kernel consists of the pairs with $x+y=0$, that is, with $y=-x$, so
+\[
+\ker T=\{(t,-t):t\in\RR\}.
+\]
+Similarly, $x+y=5$ exactly when $y=5-x$, so the solutions of $T(x,y)=5$ are the pairs $(t,5-t)$ with $t\in\RR$. As Section~\ref{ch10:sec:kernel} predicts, this is one particular solution plus a vector in the kernel:
+\[
+(t,5-t)=(0,5)+(t,-t).
+\]}
+\sol{10.3}{Write $U(s,t)=\bigl((s+t)/2,(s-t)/2\bigr)$. By the definition of an inverse in Section~\ref{ch03:sec:functions}, we must check that $U(T(x,y))=(x,y)$ and $T(U(s,t))=(s,t)$ for all real $x,y,s,t$. For the first, apply $U$ with $s=x+y$ and $t=x-y$:
+\[
+ U(T(x,y))=\left(\frac{(x+y)+(x-y)}{2},\ \frac{(x+y)-(x-y)}{2}\right)=\left(\frac{2x}{2},\ \frac{2y}{2}\right)=(x,y).
+\]
+For the second,
+\[
+ T(U(s,t))=\left(\frac{s+t}{2}+\frac{s-t}{2},\ \frac{s+t}{2}-\frac{s-t}{2}\right)=\left(\frac{2s}{2},\ \frac{2t}{2}\right)=(s,t).
+\]
+Both compositions are identity maps, so $U$ is the inverse of $T$.}
+\sol{10.4}{The dot product is $u\cdot v=1\cdot2+2\cdot(-1)=0$. The squared lengths are $1^2+2^2=5$ and $2^2+(-1)^2=5$, so both lengths equal $\sqrt5$. The Cauchy--Schwarz inequality reads $|0|\le\sqrt5\cdot\sqrt5=5$, which is true and strict. This agrees with the equality case of Section~\ref{ch10:sec:cs}: since $v\ne0$, equality would require $u$ to be a multiple of $v$, but $(1,2)=c(2,-1)$ would need both $2c=1$ and $-c=2$, which is impossible.}
+\sol{10.5}{Both sides of $\norm{u+v}_2=\norm{u}_2+\norm{v}_2$ are nonnegative, and nonnegative numbers are equal exactly when their squares are, so we must decide when $\norm{u+v}_2^2=(\norm{u}_2+\norm{v}_2)^2$. The proof in Section~\ref{ch10:sec:cs} gives the chain
+\begin{align*}
+ \norm{u+v}_2^2&=\norm{u}_2^2+2(u\cdot v)+\norm{v}_2^2\\
+ &\le\norm{u}_2^2+2|u\cdot v|+\norm{v}_2^2\\
+ &\le\norm{u}_2^2+2\norm{u}_2\norm{v}_2+\norm{v}_2^2=(\norm{u}_2+\norm{v}_2)^2.
+\end{align*}
+If either inequality were strict, the first number would be strictly smaller than the last, so the two ends are equal exactly when both inequalities are equalities.
+
+The first inequality is an equality exactly when $u\cdot v=|u\cdot v|$, that is, when $u\cdot v\ge0$. The second is an equality exactly when $|u\cdot v|=\norm{u}_2\norm{v}_2$, which by the equality case of the Cauchy--Schwarz inequality happens exactly when $v=0$ or $u$ is a multiple of $v$.
+
+Now combine the two conditions. If $v=0$, both hold, since then $u\cdot v=0$. If $v\ne0$ and $u=sv$, then $u\cdot v=s(v\cdot v)$, and since $v\cdot v>0$ this is nonnegative exactly when $s\ge0$. So equality holds exactly when $v=0$ or $u=sv$ with $s\ge0$.
+
+For a strict example, take $v=(1,1)$ and $u=-v$. Then $u+v=0$, so $\norm{u+v}_2=0$, while $\norm{u}_2+\norm{v}_2=2\sqrt2$; here $u$ is a multiple of $v$, but with the negative factor $s=-1$.}
+\sol{10.6}{Assume that $a_1u_1+\cdots+a_ku_k=0$, pick any index $j$, and take the dot product of both sides with $u_j$. By linearity in the first argument, applied one term at a time as in Section~\ref{ch10:sec:linearmaps}, the left side becomes
+\[
+ a_1(u_1\cdot u_j)+\cdots+a_k(u_k\cdot u_j),
+\]
+and the right side becomes $0\cdot u_j=0$. For every $i\ne j$, orthogonality gives $u_i\cdot u_j=0$, so only the term with $i=j$ remains:
+\[
+ a_j(u_j\cdot u_j)=a_j\norm{u_j}_2^2=0.
+\]
+The vector $u_j$ is nonzero, so its squared length is positive, and dividing by it gives $a_j=0$. Because $j$ was arbitrary, every coefficient is zero, which is the definition of linear independence in Section~\ref{ch10:sec:vectors}.
+
+The word ``nonzero'' cannot be left out: $u_1=(1,0)$ and $u_2=(0,0)$ are orthogonal, yet $0u_1+1u_2=(0,0)$ is a combination equal to zero with a nonzero coefficient, so the list is not linearly independent. In the proof, this is where dividing by $\norm{u_2}_2^2=0$ would be impossible.}

@@ -1,0 +1,89 @@
+\section{Chapter 18}\label{app:sol:18}
+\sol{18.1}{Section~\ref{ch18:sec:onestep} applied the one-step estimate with $n=0,1,2$, each time substituting the bound already found, multiplied by $q>0$, and reached $e_3\le q^3e_0+q^2\eps_0+q\eps_1+\eps_2$. One more step, with $n=3$, gives
+\begin{align*}
+ e_4&\le qe_3+\eps_3\le q(q^3e_0+q^2\eps_0+q\eps_1+\eps_2)+\eps_3\\
+    &=q^4e_0+q^3\eps_0+q^2\eps_1+q\eps_2+\eps_3.
+\end{align*}
+Part~1 of Theorem~\ref{thm:inexact} with $n=4$ reads $e_4\le q^4e_0+\sum_{j=0}^{3}q^{3-j}\eps_j$, and writing out the sum for $j=0,1,2,3$ gives $q^3\eps_0+q^2\eps_1+q\eps_2+q^0\eps_3$, so the two bounds are the same.
+
+In the bound for $e_{10}$, the update error $\eps_6$ carries the weight $q^{10-1-6}=q^3$. Indeed, $\eps_6$ is made in the update that produces $y_7$, and after it come the three updates that produce $y_8$, $y_9$ and $y_{10}$, each of which multiplies its effect by $q$.}
+
+\sol{18.2}{\emph{The formula.} At $n=0$ the formula gives $q^0a+\eta(1-q^0)/(1-q)=a=y_0$. If it holds for some $n$, then
+\[
+ y_{n+1}=q\Bigl(q^na+\eta\,\frac{1-q^n}{1-q}\Bigr)+\eta
+ =q^{n+1}a+\eta\,\frac{q-q^{n+1}+1-q}{1-q}
+ =q^{n+1}a+\eta\,\frac{1-q^{n+1}}{1-q},
+\]
+which is the formula for $n+1$. By induction it holds for every $n\in\NN$.
+
+\emph{Equality in part~2.} The map $T(x)=qx$ is a contraction of $\RR$ with factor $q$ and fixed point $0$ (Section~\ref{ch18:sec:guess}), and every update error is $|y_{n+1}-qy_n|=\eta$, so part~2 of Theorem~\ref{thm:inexact} applies. The starting error is $e_0=a$. Since $a,\eta\ge0$ and $0<q^n\le1$, every $y_n$ is nonnegative, so
+\[
+ e_n=y_n=q^ne_0+\eta\,\frac{1-q^n}{1-q},
+\]
+which is exactly the bound of part~2, for every $n\ge1$.
+
+\emph{Sharpness.} With $a=0$ and $\eta>0$ this is the example of Section~\ref{ch18:sec:sharp}. If the factor $1/(1-q)$ could be replaced by some $K<1/(1-q)$, we would have $\eta(1-q^n)/(1-q)\le K\eta$ for every $n\ge1$; dividing by $\eta>0$ and multiplying by $1-q>0$ gives $1-q^n\le K(1-q)$, that is, $q^n\ge1-K(1-q)$. The right side is positive, because $K(1-q)<1$, and $q^n\to0$, so this fails for every large $n$. Hence no smaller factor works for every iteration satisfying the hypotheses: $1/(1-q)$ is sharp.}
+
+\sol{18.3}{\emph{The hypotheses.} The real line with the distance $|x-y|$ is a nonempty complete metric space (Chapter~\ref{ch:limits}). The map $T(x)=0$ maps $\RR$ into itself, and $|T(x)-T(y)|=0\le q|x-y|$ for every $q$ with $0<q<1$, so $T$ is a contraction with factor $q$; its fixed point is $0$. Every $y_n$ lies in $\RR$, and $|y_{n+1}-T(y_n)|=|(-1)^{n+1}\eta|=\eta$, so the update errors are $\eps_n=\eta\ge0$, and the hypothesis of part~2 holds with this same $\eta$.
+
+\emph{The bound of part~2.} Every error is $e_n=|(-1)^n\eta|=\eta$. For $n\ge1$, the bound of part~2 is $q^n\eta+\eta\left(1+q+\cdots+q^{n-1}\right)$, a sum of nonnegative terms that includes $\eta\cdot1$, so it is at least $\eta=e_n$.
+
+\emph{No convergence.} Consecutive terms are always $2\eta$ apart: $|y_{n+1}-y_n|=|{-2}(-1)^n\eta|=2\eta$. Take the tolerance $\eta>0$. For every proposed threshold $N$, the indices $N$ and $N+1$ are both at least $N$, and $|y_{N+1}-y_N|=2\eta\ge\eta$. So the sequence is not a Cauchy sequence, and by Proposition~\ref{ch11:prop:convergent-cauchy} it does not converge.
+
+\emph{Why the bound does not settle convergence.} The bound controls only the distance from $y_n$ to $x_*$, and different points, here $\eta$ and $-\eta$, can lie at the same distance, so the points may keep jumping between them. Distances to $x_*$ force convergence only when they tend to zero, which the bound of part~2 does not do when the update errors stay at $\eta$. That is why part~3 needs the hypothesis $\eps_n\to0$.}
+
+\sol{18.4}{\emph{The bound.} Every weight $q^{n-1-j}$ in part~1 of Theorem~\ref{thm:inexact} is positive, so we may replace each $\eps_j$ by the larger number $aq^j$:
+\begin{align*}
+ \sum_{j=0}^{n-1}q^{n-1-j}\eps_j
+ &\le\sum_{j=0}^{n-1}a q^{n-1-j}q^j\\
+ &=\sum_{j=0}^{n-1}a q^{n-1}\\
+ &=a n q^{n-1},
+\end{align*}
+because every term has the exponent $n-1-j+j=n-1$, and there are $n$ terms. Part~1 therefore gives $e_n\le q^n e_0+a n q^{n-1}$ for every $n\ge1$.
+
+\emph{The factor $n$.} It is not enough that $q^{n-1}\to0$, because it is multiplied by the growing number $n$. Put $r=(1+q)/2$. Since $q<1$, we have $q=\frac{q+q}2<\frac{1+q}2=r<\frac{1+1}2=1$. Put $t=q/r$; then $0<t<1$. The powers $1,t,\ldots,t^{n-1}$ decrease, so each of these $n$ numbers is at least $t^{n-1}$, and adding them up gives
+\[
+ n t^{n-1}\le1+t+\cdots+t^{n-1}=\frac{1-t^n}{1-t}\le\frac1{1-t}.
+\]
+Multiply by the positive number $r^{n-1}$ and use $q^{n-1}=r^{n-1}t^{n-1}$:
+\[
+ 0\le n q^{n-1}=r^{n-1}\,n t^{n-1}
+ \le\frac{r^{n-1}}{1-t}.
+\]
+Here $1-t$ is fixed and positive, and $r^{n-1}$ becomes as small as we like, because $0<r<1$.
+
+\emph{The whole bound tends to zero.} Write $b_n=q^ne_0+anq^{n-1}$ and let $\delta>0$; we make each term less than $\delta/2$.
+\begin{itemize}
+\item If $e_0=0$, put $N_1=1$. Otherwise, $q^n\to0$ (Section~\ref{ch11:sec:geometric}) gives $N_1$ with $q^n<\delta/(2e_0)$, so $q^ne_0<\delta/2$, for every $n\ge N_1$.
+\item If $a=0$, put $N_2=1$. Otherwise, $r^m\to0$ gives $M$ with $r^m<(1-t)\delta/(2a)$ for every $m\ge M$; put $N_2=M+1$. For $n\ge N_2$ we have $n-1\ge M$, so $anq^{n-1}\le ar^{n-1}/(1-t)<\delta/2$.
+\end{itemize}
+For every $n$ that is at least both $N_1$ and $N_2$, we get $0\le e_n\le b_n<\delta$. So $b_n\to0$ and $e_n\to0$, that is, $y_n\to x_*$. This also follows from part~3, because $aq^j\to0$; what the bound $b_n$ adds is how small the error is after a given number of steps.}
+
+\sol{18.5}{Since several students may receive the same task, an assignment with capacities is not a matching; we reduce the problem to matchings by giving every unit of capacity its own vertex, called a \emph{slot}.
+
+\emph{The condition is necessary.} Suppose an assignment with capacities exists, and let $S\subseteq L$. Every student in $S$ receives a task they accept, which lies in $N(S)$. If $m_r$ students of $S$ receive the task $r$, then $m_r\le c_r$, and every student of $S$ is counted in exactly one of the numbers $m_r$, so
+\[
+ |S|=\sum_{r\in N(S)}m_r\le\sum_{r\in N(S)}c_r.
+\]
+
+\emph{The condition is sufficient: a new graph.} Now suppose the inequality holds for every $S\subseteq L$. Build a new bipartite graph with the same students and, in place of each task $r$, the $c_r$ slots $(r,1),\ldots,(r,c_r)$ (none if $c_r=0$); a student $s$ is joined to $(r,i)$ exactly when $s$ accepts $r$. For example, if task~$1$ has capacity $2$ and task~$2$ capacity $1$, the slots are $(1,1)$, $(1,2)$ and $(2,1)$, and a student who accepts task~$1$ is joined to both $(1,1)$ and $(1,2)$. The new graph is finite, because $L$ and $R$ are finite and the capacities are integers.
+
+\emph{Hall's condition in the new graph.} Let $S\subseteq L$. A slot $(r,i)$ is joined to some student of $S$ exactly when $r\in N(S)$, so the neighbors of $S$ in the new graph are the slots of the tasks in $N(S)$. Slots of different tasks are different, and task $r$ has $c_r$ slots, so $S$ has exactly $\sum_{r\in N(S)}c_r\ge|S|$ neighbors: Hall's condition~\eqref{eq:hall} holds for the new graph.
+
+\emph{Back to tasks.} By Hall's theorem (Theorem~\ref{thm:hall}), the new graph has a matching that saturates $L$: every student receives a slot they are joined to, and no slot goes to two students. Give each student the task $r$ of their slot $(r,i)$. The student accepts $r$, and task $r$ goes to at most $c_r$ students, because different students received different slots and $r$ has only $c_r$ slots. So this is an assignment with capacities. (When every capacity equals $1$, the new graph is the original one, and the condition reads $|S|\le|N(S)|$.)}
+
+\sol{18.6}{Here is one possible record.
+
+\emph{Question.} The map $T(x)=(3x+1)/4$ is a contraction of $\RR$ with factor $3/4$ and fixed point $1$. If every update is computed with an error of at most $1/100$, do the points still converge to $1$? If not, how far from $1$ can they be?
+
+\emph{Background.} Arithmetic with fractions; induction (Chapter~\ref{ch:induction}); distance, the triangle inequality, convergence, and the finite geometric sum (Chapter~\ref{ch:limits}); the contraction theorem (Chapter~\ref{ch:contraction}).
+
+\emph{Outline of the proof.} (1) Insert $T(y_n)$ between $y_{n+1}$ and the fixed point; the triangle inequality, $T(1)=1$ and the contraction inequality give $e_{n+1}\le qe_n+\eps_n$. (2) Unfold this by induction to $e_n\le q^ne_0+\sum_{j=0}^{n-1}q^{n-1-j}\eps_j$. (3) Bound every update error by $\eta$ and add up the geometric weights, which here gives $|y_n-1|\le(3/4)^n+\frac1{25}\bigl(1-(3/4)^n\bigr)$.
+
+\emph{Counterexample to the first guess.} With the constant bias $1/100$, the points are $y_n=\frac{26}{25}\bigl(1-(3/4)^n\bigr)$ (proved in Section~\ref{ch18:sec:experiment}), which converge to $26/25$, not to the fixed point $1$.
+
+\emph{An exact check.} At $n=1$, $y_1=\frac{3\cdot0+1}4+\frac1{100}=\frac{13}{50}$, in agreement with the closed form $\frac{26}{25}\bigl(1-\frac34\bigr)=\frac{26}{100}$. The true error is $\bigl|\frac{13}{50}-1\bigr|=\frac{37}{50}$, and the certificate is $\frac34+\frac1{25}\cdot\frac14=\frac{19}{25}=\frac{38}{50}$, so $\frac{37}{50}\le\frac{38}{50}$, computed exactly. This confirms the formulas at one index only; they hold for every $n$ because they were proved.
+
+\emph{What is new.} The project reconstructs a standard bound for contractions whose updates are computed with errors, with exact examples; it establishes no new theorem compared with the published literature.
+
+\emph{A further question.} Let $T(x)=qx+b$ on $\RR$, with $0<q<1$, and let the update errors $y_{n+1}-T(y_n)$ be $\eta,-\eta,\eta,-\eta,\ldots$ in turn. How far from the fixed point do the points end up? For $q=3/4$ and $\eta=1/100$, Section~\ref{ch18:sec:experiment} suggests $1/175=\eta/(1+q)$, much less than the $\eta/(1-q)$ of part~2 of Theorem~\ref{thm:inexact}, so a natural guess is $\eta/(1+q)$ for every such map. (The restriction $q>0$ matters: for $T(x)=-qx$, alternating errors do not cancel at all.) The proofs in this chapter cannot answer the question, because the triangle inequality ignores the signs of the update errors and so cannot exploit their cancellation.}

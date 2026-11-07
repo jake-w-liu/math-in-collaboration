@@ -1,0 +1,63 @@
+\section{Chapter 9}\label{app:sol:9}
+\sol{9.1}{Let
+\[
+N(a)=N(b)=N(c)=\{1,2\},\qquad N(d)=\{3,4\}.
+\]
+Every student accepts two tasks, and $N(L)=\{1,2,3,4\}$, so $|N(L)|=4=|L|$. The group $S=\{a,b,c\}$ has $N(S)=\{1,2\}$, so $|N(S)|=2<3=|S|$. A full assignment would give $a$, $b$ and $c$ three different tasks, all lying in $N(S)$, which has only two members. So no matching saturates $L$.
+
+The tests for single students read $2\ge1$, and the test for the whole class reads $4\ge4$, so all of them pass. The shortage lies in the group of three students who compete for the same two tasks, and only the test for that group detects it.}
+\sol{9.2}{The complete check is
+\begin{center}
+\begin{tabular}{@{}lll@{}}\toprule
+$S$ & $N(S)$ & $|N(S)|\ge|S|$\\\midrule
+$\varnothing$ & $\varnothing$ & $0\ge0$\\
+$\{a\}$ & $\{1\}$ & $1\ge1$\\
+$\{b\}$ & $\{1,2\}$ & $2\ge1$\\
+$\{c\}$ & $\{2,3\}$ & $2\ge1$\\
+$\{a,b\}$ & $\{1,2\}$ & $2\ge2$\\
+$\{a,c\}$ & $\{1,2,3\}$ & $3\ge2$\\
+$\{b,c\}$ & $\{1,2,3\}$ & $3\ge2$\\
+$\{a,b,c\}$ & $\{1,2,3\}$ & $3\ge3$\\\bottomrule
+\end{tabular}
+\end{center}
+Every inequality holds, so the graph satisfies Hall's condition. The tight groups, where the two sides are equal, are $\varnothing$, $\{a\}$, $\{a,b\}$ and $\{a,b,c\}$. Leaving out the empty group and the whole class, the nonempty proper tight subsets are $\{a\}$ and $\{a,b\}$.
+
+A matching that saturates $L$ is $a$--$1$, $b$--$2$, $c$--$3$: each pair is an edge, because $1\in N(a)$, $2\in N(b)$ and $3\in N(c)$, and the three tasks are different. Once this matching is known, the necessary direction of Hall's theorem (Section~\ref{ch09:sec:necessary}) guarantees all eight inequalities without the table.}
+\sol{9.3}{Write $X=N(S)$ and $Y=N(T)\setminus N(S)$. We show that $N(S)\cup N(T)=X\cup Y$ and that $X$ and $Y$ are disjoint.
+
+First, $X\cup Y\subseteq N(S)\cup N(T)$, because $X=N(S)$ and $Y\subseteq N(T)$. Conversely, let $t\in N(S)\cup N(T)$. If $t\in N(S)$, then $t\in X$. If $t\notin N(S)$, then $t\in N(T)$, because it lies in the union, so $t\in Y$. Hence $N(S)\cup N(T)=X\cup Y$. Moreover, every member of $Y$ lies outside $N(S)=X$, so $X$ and $Y$ are disjoint.
+
+For disjoint finite sets, the size of the union is the sum of the sizes (Section~\ref{ch03:sec:sets}). Therefore
+\[
+|N(S)\cup N(T)|=|X|+|Y|=|N(S)|+|N(T)\setminus N(S)|.
+\]
+Nowhere did we assume that $N(S)$ and $N(T)$ are disjoint: a common task is counted once, as a member of $N(S)$. In the example of Section~\ref{ch09:sec:inductive}, $N(S)=\{1,2\}$ and $N(\{c\})=\{2,3\}$ share task~$2$, and their union $\{1,2,3\}$ has $3=2+|\{3\}|$ members.}
+\sol{9.4}{The sizes $|N(S)|$ and $|S|$ are natural numbers, so $k=|N(S)|-|S|$ is an integer, and $k>0$ because $|N(S)|>|S|$. There is no integer strictly between $0$ and $1$, so $k\ge1$, that is, $|N(S)|\ge|S|+1$.
+
+For arbitrary real numbers the step is not valid, because a positive real number can be smaller than $1$: for example, $1.2>1$, but $1.2\ge1+1$ is false. The extra unit in Case~2 comes from the fact that the sizes of finite sets are integers.}
+\sol{9.5}{By Hall's theorem, it is enough to show that $|N(S)|\ge|S|$ for every set $S$ of students. Fix such a set $S$, let $E_S$ be the set of edges whose student endpoint lies in $S$, and count $E_S$ in two ways.
+
+\emph{By students.} Each student of $S$ lies on exactly $d$ edges, and each edge has only one student endpoint, so $|E_S|=d|S|$.
+
+\emph{By tasks.} The task endpoint of each edge in $E_S$ is acceptable to a member of $S$, so it lies in $N(S)$. Group the edges of $E_S$ by their task endpoint, one group for each of the $|N(S)|$ tasks of $N(S)$; every edge lies in exactly one group. Each task is acceptable to at most $d$ students, so its group has at most $d$ edges. Hence $|E_S|\le d|N(S)|$.
+
+Comparing the two counts gives $d|S|\le d|N(S)|$. Since $d>0$, dividing by $d$ keeps the direction of the inequality and gives $|S|\le|N(S)|$. This holds for every $S\subseteq L$, including $S=\varnothing$, so the graph satisfies Hall's condition, and Hall's theorem gives a full assignment.
+
+The proof uses $d>0$ at exactly one point, the division. If $d=0$, the inequality reads $0\le0$ and says nothing about $|S|$ and $|N(S)|$. The conclusion fails too: when $d=0$, no student accepts any task, so there is no full assignment unless there are no students at all.}
+\sol{9.6}{Here is a model portfolio.
+
+\textbf{(a) An assignment certificate.} For the graph of Exercise~\ref{ex:9.2}, with $N(a)=\{1\}$, $N(b)=\{1,2\}$ and $N(c)=\{2,3\}$, the matching $a$--$1$, $b$--$2$, $c$--$3$ saturates $L$. A reader checks that each pair is an edge ($1\in N(a)$, $2\in N(b)$, $3\in N(c)$), that each student appears in exactly one pair, and that the three tasks are different.
+
+\textbf{(b) A shortage certificate.} For the graph of Exercise~\ref{ex:9.1}, with $N(a)=N(b)=N(c)=\{1,2\}$ and $N(d)=\{3,4\}$, take $S=\{a,b,c\}$. A reader checks it by collecting the tasks that the members of $S$ accept: $N(S)=\{1,2\}$, so $|N(S)|=2<3=|S|$. This proves that no full assignment exists, because such an assignment would give the three students of $S$ three different tasks, all in $N(S)$, which has only two members. This is the necessary direction of Hall's theorem (Section~\ref{ch09:sec:necessary}).
+
+\textbf{(c) A proof of sufficiency.} \emph{Claim: let $G$ be a finite bipartite graph with parts $L$ and $R$ such that $|N(S)|\ge|S|$ for every $S\subseteq L$. Then $G$ has a matching that saturates $L$.}
+
+The proof follows Section~\ref{ch09:sec:constructive} and quotes results of Chapter~\ref{ch:matching}.
+
+\emph{Proof.} Start with the empty matching $M$. As long as some student $u$ is unmatched, carry out a round: run the complete search of Section~\ref{ch08:sec:search} from $u$. The graph is finite, so the search ends, either by reaching an unused task or by inspecting every reached student without finding one.
+
+Suppose the search fails, and let $A$ and $B$ be the sets of students and tasks it reached. Proposition~\ref{ch08:prop:shortage} says that then $N(A)=B$ and $|N(A)|=|A|-1$. So $|N(A)|<|A|$, contradicting Hall's condition for $A$. Hence the search reaches an unused task. Following the predecessors back to $u$ then gives an augmenting path (Section~\ref{ch08:sec:search}), and by Lemma~\ref{thm:augment}, flipping $M$ along an augmenting path gives a matching with one more edge.
+
+Each edge of a matching contains exactly one student, and different edges contain different students, so $M$ never has more than $|L|$ edges. Since $M$ starts with no edges and gains one in every round, there are at most $|L|$ rounds. The rounds stop only when every student is matched, so the final matching saturates $L$. (If $L=\varnothing$, there are no rounds, and the empty matching saturates $L$.) This completes the proof.
+
+\textbf{(d) Maximal and maximum matchings.} A matching is \emph{maximal} if no edge of the graph can be added to it without creating a shared endpoint, and \emph{maximum} if no matching in the graph has more edges. Every maximum matching is maximal (an edge that could be added would give a larger matching), but not conversely. If Ada accepts tasks $1$ and $2$ and Ben accepts only task~$1$, the matching $\{\text{Ada--}1\}$ is maximal, since adding Ada--$2$ or Ben--$1$ would create a shared endpoint, but it is not maximum, because $\{\text{Ada--}2,\ \text{Ben--}1\}$ has two edges (Exercise~\ref{ex:8.1}). A greedy procedure hands out tasks one at a time and never takes one back. When it finishes, each student left without a task finds every acceptable task already taken, so its matching is maximal, but it need not be maximum: if it starts by giving Ada task~$1$, it leaves Ben without a task, although a full assignment exists. So getting stuck proves nothing about impossibility; an augmenting-path repair, here along Ben--$1$--Ada--$2$, revises earlier choices. Only a shortage certificate, as in part~(b), proves that no full assignment exists.}
