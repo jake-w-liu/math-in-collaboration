@@ -102,6 +102,7 @@ We show that $s$ is an upper bound for $A$. If not, some $x\in A$ satisfies $x>s
 Finally, let $b$ be any upper bound for $A$. We show that $s\le b$. If $b<s$, then, since $a_n\to s$, there is an $n$ with $a_n>b$. But $a_n$ is not an upper bound for $A$, so some $x\in A$ satisfies $x>a_n>b$. This contradicts the assumption that $b$ is an upper bound. Hence every upper bound $b$ satisfies $s\le b$, and $s$ is the least upper bound of $A$.
 \end{proof}
 
+\needspace{6\baselineskip}
 \par\noindent\begin{minipage}{\linewidth}
 \begin{corollary}\label{ch11:cor:glb}
 Every nonempty set $A\subseteq\RR$ that is bounded below has an infimum.
@@ -115,3 +116,69 @@ Apply Theorem~\ref{ch11:thm:lub} to $-A=\{-a:a\in A\}$. This set is nonempty and
 Theorem~\ref{ch11:thm:lub} is called the \emph{least-upper-bound property} of the real line. Some books take it as the starting fact about $\RR$; we took the Cauchy form of completeness in Section~\ref{ch11:sec:complete}, so here it is a theorem. The order form says that a nonempty set that does not run off to infinity has a first number above it, and that this number may or may not belong to the set.
 
 The rational numbers do not have the property. The set $\{q\in\QQ:q^2<2\}$ is nonempty and bounded above in $\QQ$, but it has no supremum in $\QQ$: on the real line its least upper bound is $\sqrt2$, which is not rational (Theorem~\ref{thm:sqrt2}). This is the same gap that Section~\ref{ch11:sec:complete} exposed with a Cauchy sequence.
+
+\subsection*{Monotone sequences}
+A sequence $x_0,x_1,x_2,\ldots$ of real numbers is \emph{nondecreasing} if $x_n\le x_{n+1}$ for every $n$, and \emph{nonincreasing} if $x_n\ge x_{n+1}$ for every $n$. It is \emph{strictly increasing} if $x_n<x_{n+1}$ for every $n$, and \emph{strictly decreasing} if $x_n>x_{n+1}$ for every $n$. A sequence that is either nondecreasing or nonincreasing is called \emph{monotone}. It is \emph{bounded above} if its set of terms is bounded above, and \emph{bounded below} if that set is bounded below; it is \emph{bounded} if it is both.
+
+For example, $1-2^{-n}$ is strictly increasing, $1/(n+1)$ is strictly decreasing, and $(-1)^n$ is neither. A monotone sequence cannot return to an earlier value, so its terms have only one direction to travel. The next theorem says that a bound in that direction is enough to guarantee a limit.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{theorem}[Monotone convergence]\label{ch11:thm:monotone}
+Every nondecreasing sequence of real numbers that is bounded above converges, and its limit is the supremum of the set of its terms. Every nonincreasing sequence that is bounded below converges, and its limit is the infimum of the set of its terms.
+\end{theorem}
+\end{minipage}\par
+
+\begin{proof}
+Let $x_0,x_1,\ldots$ be nondecreasing and bounded above, and let $A=\{x_n:n\in\NN\}$. The set $A$ is nonempty and bounded above, so it has a supremum $s$ by Theorem~\ref{ch11:thm:lub}. Let $\eps>0$. Since $s-\eps$ is smaller than the least upper bound, it is not an upper bound for $A$; hence $x_N>s-\eps$ for some $N$. For every $n\ge N$, monotonicity gives $x_N\le x_n\le s$, so $|x_n-s|<\eps$. Therefore $x_n\to s$.
+
+For a nonincreasing sequence bounded below, apply the first part to $-x_0,-x_1,\ldots$, which is nondecreasing and bounded above; or repeat the argument with infima and the inequalities reversed.
+\end{proof}
+
+\pauseq{Is every bounded sequence convergent?}{No. The sequence $0,1,0,1,\ldots$ is bounded, but it does not converge (Section~\ref{ch11:sec:convergence}). Monotonicity is what turns a bound into a limit.}
+
+\needspace{10\baselineskip}
+\subsection*{Limits superior and inferior}
+A bounded sequence need not converge, but its tails still have upper and lower edges. Let $x_0,x_1,\ldots$ be a bounded sequence of real numbers. For each $N$, the tail set $\{x_n:n\ge N\}$ is nonempty and bounded, so it has a supremum and an infimum. Write
+\[
+U_N=\sup\{x_n:n\ge N\},\qquad L_N=\inf\{x_n:n\ge N\}.
+\]
+The tail loses terms as $N$ grows, so $U_N$ cannot increase and $L_N$ cannot decrease. The \emph{limit superior} and \emph{limit inferior} of the sequence are
+\[
+\limsup_{n\to\infty}x_n=\inf_{N\ge0}U_N,\qquad
+\liminf_{n\to\infty}x_n=\sup_{N\ge0}L_N.
+\]
+By the monotone convergence theorem, $U_N$ decreases to $\limsup x_n$ and $L_N$ increases to $\liminf x_n$.
+
+The names record the order of the two operations: the limit superior takes the infimum of the tail suprema, and the limit inferior the supremum of the tail infima. Both numbers exist for a bounded sequence. For an unbounded sequence the same formulas make sense with the conventions $\sup=\infty$ or $\inf=-\infty$, but we keep to bounded sequences here so that every supremum and infimum is a real number.
+
+For $x_n=(-1)^n$, every tail has supremum $1$ and infimum $-1$, so $\limsup x_n=1$ and $\liminf x_n=-1$. For $x_n=1/(n+1)$, the tail starting at $N$ has supremum $1/(N+1)$ and infimum $0$, so both limits are $0$. The sequence converges in the second example and not in the first. The next theorem says that this is exactly the distinction.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{theorem}\label{ch11:thm:limsup}
+Let $x_0,x_1,\ldots$ be a bounded sequence of real numbers. Then
+\[
+\liminf_{n\to\infty}x_n\le\limsup_{n\to\infty}x_n.
+\]
+The sequence converges if and only if the two numbers are equal, and then its limit is their common value.
+\end{theorem}
+\end{minipage}\par
+
+\begin{proof}
+For the inequality, let $M,N\ge0$ and put $K=\max(M,N)$. The tail from $K$ lies inside both earlier tails, so
+\[
+L_M\le L_K\le U_K\le U_N.
+\]
+Since this holds for all $M$ and $N$, taking the supremum over $M$ and then the infimum over $N$ gives $\liminf x_n\le\limsup x_n$.
+
+Now suppose $x_n\to L$. Let $\eps>0$. Eventually $L-\eps<x_n<L+\eps$. Hence, for all sufficiently large $N$, the whole tail lies between $L-\eps$ and $L+\eps$, so $L-\eps\le L_N\le U_N\le L+\eps$. It follows that
+\[
+L-\eps\le\liminf x_n\le\limsup x_n\le L+\eps.
+\]
+Since $\eps>0$ was arbitrary, both limits equal $L$.
+
+Conversely, suppose $\liminf x_n=\limsup x_n=L$. Let $\eps>0$. Since $U_N$ decreases to $L$, there is $N_1$ with $U_N<L+\eps$ for every $N\ge N_1$. Since $L_N$ increases to $L$, there is $N_2$ with $L_N>L-\eps$ for every $N\ge N_2$. Let $N=\max(N_1,N_2)$. For every $n\ge N$,
+\[
+L-\eps<L_N\le x_n\le U_N<L+\eps,
+\]
+so $|x_n-L|<\eps$. Hence $x_n\to L$.
+\end{proof}
