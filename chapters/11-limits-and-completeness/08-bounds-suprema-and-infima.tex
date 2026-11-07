@@ -1,0 +1,117 @@
+\section{The edge of a set: bounds, suprema, and infima}\label{ch11:sec:bounds}
+Section~\ref{ch11:sec:complete} showed that the interval $(0,1)$ is missing the point $0$: the terms $\tfrac12,\tfrac14,\tfrac18,\ldots$ crowd together in the interval but have no limit there. The missing point is an edge of the set. This section describes such edges with inequalities rather than sequences, and proves that every nonempty set of real numbers that is bounded above has a least upper bound.
+
+\subsection*{Upper and lower bounds}
+Let $A$ be a set of real numbers. An \emph{upper bound} for $A$ is a number that lies above every member of $A$, and a \emph{lower bound} lies below every member. A set with an upper bound is \emph{bounded above}, and a set with a lower bound is \emph{bounded below}.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}[Upper and lower bounds]\label{ch11:def:bounds}
+Let $A\subseteq\RR$. A real number $b$ is an \emph{upper bound} for $A$ if $a\le b$ for every $a\in A$; then $A$ is \emph{bounded above}. A real number $c$ is a \emph{lower bound} for $A$ if $c\le a$ for every $a\in A$; then $A$ is \emph{bounded below}. A set that is both bounded above and bounded below is \emph{bounded}.
+\end{definition}
+\end{minipage}\par
+
+For $A=[0,1]$, the upper bounds are exactly the numbers $b\ge1$, and the lower bounds are exactly the numbers $c\le0$. For $A=(0,1)$, the upper and lower bounds are the same, but neither $1$ nor $0$ belongs to $A$. For $A=\{1/n:n\ge1\}$, every upper bound satisfies $b\ge1$ and every lower bound satisfies $c\le0$; the number $1$ belongs to $A$, while $0$ does not.
+
+\subsection*{Suprema and infima}
+Two bounds deserve special names. A \emph{maximum} is an upper bound that belongs to the set, and a \emph{minimum} is a lower bound that belongs to the set.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}[Maximum and minimum]\label{ch11:def:maxmin}
+Let $A\subseteq\RR$. A \emph{maximum} of $A$ is a member $M\in A$ that is an upper bound for $A$. A \emph{minimum} of $A$ is a member $m\in A$ that is a lower bound for $A$.
+\end{definition}
+\end{minipage}\par
+
+Thus $[0,1]$ has maximum $1$ and minimum $0$. The interval $(0,1)$ has neither: for every $x\in(0,1)$, the numbers $x/2$ and $(x+1)/2$ lie in $(0,1)$, one below $x$ and one above it. The set $\{1/n:n\ge1\}$ has maximum $1$ but no minimum, because no member is smallest. Chapter~\ref{ch:structure} introduced a maximum for a partial order; for the usual order on $\RR$, this is the same notion.
+
+The empty set is bounded: every real number is vacuously both an upper bound and a lower bound. It has no maximum and no minimum, and the definitions below give it no supremum or infimum either. This is why the existence theorem below assumes a nonempty set.
+
+The maximum, when it exists, is the most obvious upper bound: it belongs to the set. Many sets, such as $(0,1)$, have no maximum but still have a smallest upper bound. That smallest upper bound is the supremum.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}[Supremum and infimum]\label{ch11:def:supinf}
+Let $A\subseteq\RR$. A \emph{supremum} of $A$ is an upper bound $s$ for $A$ such that $s\le b$ for every upper bound $b$ for $A$. An \emph{infimum} of $A$ is a lower bound $t$ for $A$ such that $c\le t$ for every lower bound $c$ for $A$.
+\end{definition}
+\end{minipage}\par
+
+In words, the supremum is the least upper bound, and the infimum is the greatest lower bound. We write $\sup A$ and $\inf A$ when they exist. The words are worth keeping alongside the symbols: ``least upper bound'' says exactly what the symbol means.
+
+For $[0,1]$, $\sup A=1$ and $\inf A=0$, and both belong to $A$. For $(0,1)$, $\sup A=1$ and $\inf A=0$, but neither belongs to $A$; this is why the set has no maximum or minimum. For $A=\{1/n:n\ge1\}$, $\sup A=1$ and $\inf A=0$; the supremum is the maximum, while the infimum is not a member. The empty set has no supremum and no infimum: every real number is an upper bound, so there is no least one, and every real number is a lower bound, so there is no greatest one.
+
+Here is a proof in the definition's language that $\sup [0,1]=1$. Every $a\in[0,1]$ satisfies $a\le1$, so $1$ is an upper bound. If $b$ is any upper bound, then $1\le b$, because $1\in[0,1]$. Hence $1$ is the least upper bound. The same argument with the inequalities reversed gives $\inf [0,1]=0$.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{proposition}\label{ch11:prop:sup-unique}
+A set $A\subseteq\RR$ has at most one supremum and at most one infimum.
+\end{proposition}
+\end{minipage}\par
+
+\begin{proof}
+Suppose that $s$ and $s'$ are both suprema of $A$. Since $s$ is an upper bound and $s'$ is the least upper bound, $s'\le s$. Since $s'$ is an upper bound and $s$ is the least upper bound, $s\le s'$. Hence $s=s'$. The argument for infima is the same with the inequalities reversed. Thus the notation $\sup A$ and $\inf A$ is unambiguous when the supremum or infimum exists.
+\end{proof}
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{proposition}\label{ch11:prop:max-sup}
+If $A$ has a maximum $M$, then $\sup A=M$. If $A$ has a minimum $m$, then $\inf A=m$.
+\end{proposition}
+\end{minipage}\par
+
+\begin{proof}
+The member $M$ is an upper bound by definition, and every upper bound $b$ satisfies $M\le b$ because $M\in A$. So $M$ is the least upper bound. The minimum case is analogous.
+\end{proof}
+
+\pauseq{If a set has a supremum, must it have a maximum?}{No. The interval $(0,1)$ has supremum $1$, but no member is a maximum: for every $x\in(0,1)$, the number $(x+1)/2$ is a larger member. The supremum is an upper bound that need not belong to the set.}
+
+\subsection*{The least-upper-bound property}
+The examples above had suprema that were easy to name. The next theorem says that, on the real line, a supremum exists whenever the set is nonempty and bounded above, even when no formula for it is known. The idea of the proof is to trap the edge between two numbers: one that is not an upper bound, and one that is. At every step we halve the distance between them, keeping the left number below some member of the set and the right number above every member. The two numbers crowd together, and completeness supplies the point they approach.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{theorem}[Least-upper-bound property]\label{ch11:thm:lub}
+Every nonempty set $A\subseteq\RR$ that is bounded above has a supremum.
+\end{theorem}
+\end{minipage}\par
+
+\begin{proof}
+If $A$ has a maximum, Proposition~\ref{ch11:prop:max-sup} gives its supremum. So suppose that $A$ has no maximum. Choose $a_0\in A$ and an upper bound $b_0$ for $A$. Since $a_0$ belongs to $A$ but is not a maximum, it is not an upper bound; hence $a_0<b_0$.
+
+We construct sequences $a_0,a_1,\ldots$ and $b_0,b_1,\ldots$ with the following properties for every $n$:
+\[
+a_n\ \text{is not an upper bound for }A,\qquad b_n\ \text{is an upper bound for }A,
+\]
+and
+\[
+0\le b_n-a_n\le\frac{b_0-a_0}{2^n}.
+\]
+Suppose $a_n$ and $b_n$ have been chosen, and let $m=(a_n+b_n)/2$. If $m$ is an upper bound for $A$, set $a_{n+1}=a_n$ and $b_{n+1}=m$. If $m$ is not an upper bound, choose $a_{n+1}\in A$ with $a_{n+1}>m$, and set $b_{n+1}=b_n$. In the first case,
+\[
+b_{n+1}-a_{n+1}=m-a_n=\frac{b_n-a_n}{2},
+\]
+and in the second,
+\[
+b_{n+1}-a_{n+1}=b_n-a_{n+1}<b_n-m=\frac{b_n-a_n}{2}.
+\]
+Thus the displayed bound holds by induction. In both cases $a_{n+1}\ge a_n$ and $b_{n+1}\le b_n$, so the intervals $[a_n,b_n]$ are nested.
+
+The lengths $b_n-a_n$ tend to $0$, because they are at most $(b_0-a_0)/2^n$ and $2^{-n}\to0$ (Section~\ref{ch11:sec:geometric}). Both sequences are Cauchy. Indeed, if $m\ge n$, then
+\[
+a_n\le a_m\le b_m\le b_n,
+\]
+so $0\le a_m-a_n\le b_n-a_n$ and $0\le b_n-b_m\le b_n-a_n$. Given $\eps>0$, choose $N$ with $b_n-a_n<\eps$ for every $n\ge N$; the same $N$ works for both sequences, after exchanging the two indices if necessary. Since $\RR$ is complete, they converge. Their limits are equal, because $b_n-a_n\to0$; call the common limit $s$.
+
+We show that $s$ is an upper bound for $A$. If not, some $x\in A$ satisfies $x>s$. Since $b_n\to s$, there is an $n$ with $b_n<x$. But $b_n$ is an upper bound for $A$, and $x\in A$, a contradiction.
+
+Finally, let $b$ be any upper bound for $A$. We show that $s\le b$. If $b<s$, then, since $a_n\to s$, there is an $n$ with $a_n>b$. But $a_n$ is not an upper bound for $A$, so some $x\in A$ satisfies $x>a_n>b$. This contradicts the assumption that $b$ is an upper bound. Hence every upper bound $b$ satisfies $s\le b$, and $s$ is the least upper bound of $A$.
+\end{proof}
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{corollary}\label{ch11:cor:glb}
+Every nonempty set $A\subseteq\RR$ that is bounded below has an infimum.
+\end{corollary}
+\end{minipage}\par
+
+\begin{proof}
+Apply Theorem~\ref{ch11:thm:lub} to $-A=\{-a:a\in A\}$. This set is nonempty and bounded above. A number $d$ is an upper bound for $-A$ exactly when $-d$ is a lower bound for $A$. If $s$ is the least upper bound of $-A$, then $-s$ is the greatest lower bound of $A$.
+\end{proof}
+
+Theorem~\ref{ch11:thm:lub} is called the \emph{least-upper-bound property} of the real line. Some books take it as the starting fact about $\RR$; we took the Cauchy form of completeness in Section~\ref{ch11:sec:complete}, so here it is a theorem. The order form says that a nonempty set that does not run off to infinity has a first number above it, and that this number may or may not belong to the set.
+
+The rational numbers do not have the property. The set $\{q\in\QQ:q^2<2\}$ is nonempty and bounded above in $\QQ$, but it has no supremum in $\QQ$: on the real line its least upper bound is $\sqrt2$, which is not rational (Theorem~\ref{thm:sqrt2}). This is the same gap that Section~\ref{ch11:sec:complete} exposed with a Cauchy sequence.
