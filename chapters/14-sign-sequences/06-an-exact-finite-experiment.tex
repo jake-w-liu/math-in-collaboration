@@ -7,8 +7,10 @@ A sign sequence of length $n$ is fixed by $n$ independent choices of sign, so th
 Each sequence is counted separately: a sequence, its negative, its reversal (the same entries in the opposite order), and its rotations all count as different sequences whenever they are different lists.
 
 \begin{center}
+\small
+\renewcommand{\arraystretch}{0.92}
 \begin{tabular}{@{}r rr@{}}\toprule
-Length $n$ & Barker sequences & Sequences with $C_s=0$ for $1\le s\le n-1$\\\midrule
+Length $n$ & Barker sequences & \shortstack{Sequences with $C_s=0$\\ for $1\le s\le n-1$}\\\midrule
 1&2&2\\2&4&0\\3&4&0\\4&8&8\\5&4&0\\6&0&0\\7&4&0\\8&0&0\\9&0&0\\10&0&0\\11&4&0\\12&0&0\\13&4&0\\\bottomrule
 \end{tabular}
 \end{center}
