@@ -10,7 +10,7 @@ are natural numbers.
 \end{definition}
 \end{minipage}\par
 
-In words: we may skip terms, but the terms we keep must stay in their original order, and no index may be used twice. For $x_n=(-1)^n$, the indices $n_k=2k$ give the subsequence $x_2,x_4,x_6,\ldots$, which is the constant sequence $1,1,1,\ldots$. By contrast, $x_1,x_0,x_3,x_2,\ldots$ is not a subsequence, because its indices do not increase, and neither is $x_0,x_0,x_0,\ldots$, which uses the index $0$ again and again.
+In words: we may skip terms, but the terms we keep must stay in their original order, and no index may be used twice. For $x_n=(-1)^n$, the indices $n_k=2k$ give the subsequence $x_2,x_4,x_6,\ldots$, which is the constant sequence $1,1,1,\ldots$. By contrast, for the sequence $y_n=n$, neither $y_1,y_0,y_3,y_2,\ldots$ nor $y_0,y_0,y_0,\ldots$ is a subsequence: every value occurs at just one original index, so no strictly increasing sequence of indices can produce either list.
 
 Keep the two counters apart: $k$ is the position in the subsequence, while $n_k$ is the position of the same term in the original sequence; in the example, the third term of the subsequence is $x_6$. We number the terms of a subsequence from $k=1$, not $0$. This makes no difference: with $y_k=x_{n_k}$, the definitions of convergence and of Cauchy sequences apply to $y_1,y_2,y_3,\ldots$ as before, with thresholds that are at least $1$.
 

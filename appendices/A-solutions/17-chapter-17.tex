@@ -3,7 +3,7 @@
 
 The proof does not need different values. Lemma~\ref{ch17:lem:pigeonhole} counts indices, not values, and Step~2 needs infinitely many indices only to choose ever larger ones. For a constant sequence, every subsequence is constant and converges at once to its value.}
 
-\sol{17.2}{Without the requirement $n_k>n_{k-1}$, the chosen indices need not increase, so the terms $x_{n_1},x_{n_2},\ldots$ need not form a subsequence. For example, for a constant sequence $x_n=c$, each chosen ball must contain $c$ to give an infinite set $S_k$ (a ball without $c$ contains no term), and then $S_k=\NN$ for every $k$. The rule ``take the smallest member of $S_k$'' then gives $n_k=0$ for every $k$, and $x_0,x_0,x_0,\ldots$ is not a subsequence. The distance estimates of Steps~3 and~4 still hold, because they use only $n_k\in S_k$; what fails is the subsequence that the theorem promises.
+\sol{17.2}{Choosing an arbitrary $n_k\in S_k$ does not by itself ensure $n_1<n_2<\cdots$, so the choices do not yet exhibit a subsequence as required by Definition~\ref{ch17:def:subsequence}. The distance estimates of Steps~3 and~4 still hold because they use only $n_k\in S_k$; the missing step is to choose the indices in strictly increasing order.
 
 The repair: after choosing $n_{k-1}$, choose $n_k$ from $S_k\setminus\set{0,1,\ldots,n_{k-1}}$, whose members lie in $S_k$ and are larger than $n_{k-1}$. This set is never empty: otherwise $S_k$ would lie inside the finite set $\set{0,1,\ldots,n_{k-1}}$ and be finite, but $S_k$ is infinite by Step~1.}
 
