@@ -35,7 +35,7 @@ print the three lines
 \end{minipage}\par
 So these proofs use only the rules of Lean's logic and our own definitions. (Appendix~\ref{appB:sec:lean} explains where such commands go in the file.)
 
-An axiom list is no substitute for reading the statement. The theorems \code{impossible\_context} and \code{surj\_comp\_assumed} of Section~\ref{ch16:sec:irrelevant} depend on no axioms at all, yet the first assumes \code{False} and the second its own conclusion. To trust a theorem, you need to know both the assumptions in its statement and the axioms its proof depends on.
+An axiom list is no substitute for reading the statement. The two theorems of Section~\ref{ch16:sec:irrelevant} that we just examined depend on no axioms at all, yet the first assumes \code{False} and the second its own conclusion. To trust a theorem, you need to know both the assumptions in its statement and the axioms its proof depends on.
 
 When you check a file, read everything Lean reports, warnings included, and the output of any \code{\#print axioms} commands; and wait until Lean has finished the whole file, since a line it has not yet reached shows no error. Proofs from sources you do not trust call for the stronger procedures in the official documentation~\cite{leanvalidate}; Section~\ref{ch17:sec:research} describes the check used for Seymour's conjecture.
 
