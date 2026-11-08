@@ -1,0 +1,40 @@
+\section{Continuity: controlled input variation}\label{ch11:sec:continuity}
+A map between metric spaces is \emph{continuous} when small changes in the input cannot produce an uncontrolled change in the output. The sequence definition is the shortest: convergent inputs must produce convergent outputs, with the correct limit.
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{definition}[Continuity]\label{ch11:def:continuity}
+Let $(X,d_X)$ and $(Y,d_Y)$ be metric spaces, and let $f:X\to Y$. The map $f$ is \emph{continuous at} $a\in X$ if, for every $\eps>0$, there is a $\delta>0$ such that
+\[
+d_X(x,a)<\delta\quad\Longrightarrow\quad d_Y(f(x),f(a))<\eps.
+\]
+It is \emph{continuous} if it is continuous at every point of $X$.
+\end{definition}
+\end{minipage}\par
+
+Equivalently, $f$ is continuous at $a$ exactly when every sequence $x_n\to a$ in $X$ satisfies $f(x_n)\to f(a)$ in $Y$. To see the equivalence, suppose first that the tolerance condition holds. Given $\eps>0$, choose $\delta>0$ as in the definition; if $x_n\to a$, then $x_n$ lies within $\delta$ of $a$ from some threshold on, so $f(x_n)$ lies within $\eps$ of $f(a)$ from that threshold on. Conversely, suppose the tolerance condition fails for some $\eps>0$. Then for every $n$ there is a point $x_n$ with $d_X(x_n,a)<1/(n+1)$ but $d_Y(f(x_n),f(a))\ge\eps$. The sequence $x_n$ converges to $a$, while $f(x_n)$ does not converge to $f(a)$. The two formulations are used interchangeably; the sequence form is convenient for proofs, and the tolerance form is convenient for estimates.
+
+For $f:\RR\to\RR$ given by $f(x)=3x+2$, continuity at $a$ follows from $\delta=\eps/3$:
+\[
+|f(x)-f(a)|=3|x-a|<3\delta=\eps.
+\]
+The square map $f(x)=x^2$ is continuous at every $a$: if $|x-a|<1$, then $|x+a|\le2|a|+1$, so choosing $\delta=\min\{1,\eps/(2|a|+1)\}$ gives
+\[
+|x^2-a^2|=|x-a|\,|x+a|\le(2|a|+1)|x-a|<\eps.
+\]
+A constant map is continuous. The identity map of a metric space is continuous. Composition preserves continuity: if $f:X\to Y$ and $g:Y\to Z$ are continuous, then $g\circ f$ is continuous, because $x_n\to x$ gives $f(x_n)\to f(x)$, and then $g(f(x_n))\to g(f(x))$.
+
+\pauseq{Show directly from the definition that $f(x)=x^2$ is continuous at $a=2$.}{Given $\eps>0$, if $|x-2|<1$, then $|x+2|\le5$. Choose $\delta=\min\{1,\eps/5\}$. For $|x-2|<\delta$,
+\[
+|x^2-4|=|x-2|\,|x+2|<5\delta\le\eps.
+\]
+}
+
+Continuity can fail at a single point. Define $f:\RR\to\RR$ by $f(x)=0$ for $x<0$ and $f(x)=1$ for $x\ge0$. The sequence $-1/(n+1)$ converges to $0$, but its images are all $0$, while $f(0)=1$. So $f$ is not continuous at $0$, although it is continuous at every other point.
+
+Continuity is a \emph{local} property: it depends only on the values of $f$ near $a$. The step function above is continuous at every point except $0$. The map $x\mapsto1/x$ is continuous on $(0,\infty)$; its domain simply does not include $0$. When a theorem says that a map is continuous, ask on which space, with which distance, and at which points.
+
+A stronger condition is \emph{uniform continuity}: for every $\eps>0$ there is one $\delta>0$ that works for every pair of points $x,a$ in the domain, not just near a fixed $a$. The map $x\mapsto x^2$ is continuous on $\RR$ but not uniformly continuous there: with $\eps=1$ and any $\delta>0$, take $a=n$ and $x=n+\delta/2$; then $|x-a|<\delta$ while
+\[
+|x^2-a^2|=\delta\left(n+\frac{\delta}{4}\right),
+\]
+which exceeds $1$ for large $n$. Uniform continuity is developed in analysis; the word \emph{uniform} is the same one that appears in ``uniformly in $n$'' and is discussed in Appendix~\ref{app:guide}.

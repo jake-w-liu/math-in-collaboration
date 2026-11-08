@@ -34,3 +34,10 @@ Two vectors $u$ and $v$ are \emph{orthogonal} when $u\cdot v=0$. In the plane, t
 by expanding each square. By Pythagoras' theorem and its converse, the angle at the origin is a right angle exactly when the squared length of the opposite side is the sum of the other two, that is, when $2(u_1v_1+u_2v_2)=0$, or $u\cdot v=0$. This needs a genuine triangle, so one case remains: if $u$ and $v$ lie on one line through the origin, then $v=cu$ for some $c\ne0$, and $u\cdot v=c(u\cdot u)\ne0$ by positivity; such arrows are not perpendicular either.
 
 For example, a quarter turn counterclockwise takes $(a,b)$ to $(-b,a)$ (so $(1,0)$ to $(0,1)$), so a nonzero $(a,b)$ is perpendicular to $(-b,a)$; and indeed $(a,b)\cdot(-b,a)=-ab+ba=0$. The algebraic definition makes sense in $\RR^n$ for every $n$, even when we can no longer draw a picture. The zero vector is orthogonal to every vector, since $0\cdot v=0$.
+
+\subsection*{The dual viewpoint}
+A linear map $T:\RR^n\to\RR$ is determined by its values on the standard basis. Let $u_j=T(e_j)$. For $x=x_1e_1+\cdots+x_ne_n$, linearity gives
+\[
+T(x)=x_1T(e_1)+\cdots+x_nT(e_n)=u_1x_1+\cdots+u_nx_n=u\cdot x.
+\]
+So every linear map from $\RR^n$ to $\RR$ is the dot product with a unique vector $u$, and different vectors give different maps. The set of these maps is called the \emph{dual space} of $\RR^n$, and this calculation identifies it with $\RR^n$ itself. In matrix language, a linear map to $\RR$ is a row vector, and applying it is the dot product of that row with the input. The dual viewpoint is used throughout analysis and geometry when a linear measurement is represented by a vector.

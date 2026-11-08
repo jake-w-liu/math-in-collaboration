@@ -1,0 +1,72 @@
+\section{Working with an AI assistant}\label{appC:sec:ai}
+An AI response is a proposal, not a certificate. It can expand a definition, suggest an example, propose a proof, translate notation, write code, or attempt a formal proof. None of these outputs is evidence until it has been checked in a way appropriate to the claim. This section records a compact protocol for using such tools without surrendering the mathematics.
+
+\subsection*{The five passes}
+The protocol has five passes. They apply equally to a proof, a computation, a translation, or a literature claim.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}p{0.15\textwidth}X@{}}
+\toprule
+Pass & What to record\\\midrule
+Parse & The exact claim, its objects and types, its hypotheses, its quantifiers, the definitions in force, and the one step that is unclear.\\
+Expand & A request for atomic steps, the theorem used at each step, and why that theorem's hypotheses hold.\\
+Attack & Attempted counterexamples, boundary and empty cases, changed quantifiers, type errors, circularity, and unjustified limit operations.\\
+Verify & An independent check: a hand proof, a source, an exact computation, a second implementation, Lean, or expert review. State which kind of failure the check can detect.\\
+Compress & A one-sentence mechanism, a short dependency outline, the verified conclusion, and what remains uncertain.\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+The passes are deliberately separate. A single prompt such as ``Is this proof correct?'' invites a verdict without an argument. A request to expand one transition, followed by an independent check of that expansion, produces something a reader can audit.
+
+\subsection*{What tends to go wrong}
+AI output fails in recurring ways. A definition may be plausible but nonstandard, or may change midway. A variable may silently move from the integers to the reals, or a real square root may be taken of a negative number. Quantifiers may be reversed: ``for every input there is a solution'' is not ``there is one solution that works for every input.'' A proof may reach a true conclusion through an invalid step, or may prove a weaker statement than the one requested. A finite computation may be presented as evidence for an infinite claim. A limiting operation may be interchanged with an integral, a derivative, a maximum, or an expectation without its hypotheses. A citation may be invented, or may support a different statement from the one attached to it.
+
+These failures are not a reason to reject AI output. They are a list of checks. The first response to a suspicious step is to ask for the definition, the exact theorem, its hypotheses, and a counterexample search, not to ask for a more confident restatement.
+
+\needspace{10\baselineskip}
+\subsection*{What different checks establish}
+The word ``verified'' covers several different achievements. The following ladder separates them.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}p{0.08\textwidth}p{0.30\textwidth}X@{}}
+\toprule
+Level & Check & What it establishes\\\midrule
+1 & Linguistic plausibility & The response is readable and resembles mathematical prose.\\
+2 & Type and definition check & The expressions are meaningful and the terms are defined.\\
+3 & Examples and boundary tests & Small, singular, empty, and adversarial cases have been tried.\\
+4 & Hypothesis and dependency audit & Each invoked theorem applies, and each proof step is linked to what it uses.\\
+5 & Independent proof or derivation & A human-readable argument supports the claim.\\
+6 & Formal verification & The encoded proposition has a kernel-checked proof in the stated system.\\
+7 & Source or expert comparison & The statement and its context agree with independent literature or review.\\
+8 & Interpretation and relevance & The result answers the intended question and has the claimed significance.\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Higher levels do not erase lower ones. A formal proof at level 6 does not show that the encoded statement is the intended one; a citation at level 7 does not verify a new application whose hypotheses differ; and a numerical agreement at level 3 does not prove a universal claim. The ladder is a reminder to say which question a check answers, not a score to maximize.
+
+The ladder checks evidence; it does not by itself check meaning or relevance. Before accepting a checked claim, ask six questions: What exactly is claimed, with which objects, definitions, and quantifiers? Which assumptions are in force, including those imported from cited theorems? What do small, boundary, and adversarial cases show? What is the mechanism, in one sentence? Does the conclusion answer the intended question? What supports each part, and what remains uncertain? A claim can pass every formal check and still fail one of these questions.
+
+\subsection*{Requests that work}
+A bounded request is easier to check than a global one. Compare:
+
+\begin{itemize}
+\item Instead of ``Prove this and make sure it is correct,'' ask ``Expand only the transition from line A to line B. Number the steps. For each step, name the definition or theorem used and check its hypotheses.''
+\item Instead of ``Explain everything about this field,'' ask ``Define this one term, give one example, one nonexample, and the structure-preserving maps involved.''
+\item Instead of ``Verify this paper,'' ask ``State the theorem, its hypotheses, and the exact place where the proof uses each hypothesis. Mark anything you cannot check.''
+\item Instead of ``Formalize this,'' first ask for the theorem signature and compare it with the informal statement. Formalize only after the statement is fixed.
+\end{itemize}
+
+A good request names the object, the allowed background, the desired granularity, and the evidence that would count as an answer.
+
+\subsection*{Auditing a source or citation}
+A citation is part of an argument, not a decoration. Locate the source independently by title, author, DOI, arXiv identifier, or official page. Confirm that it contains the claimed statement, with the same hypotheses and conclusion. Distinguish a primary source from a survey or a secondary summary. Record the version and the date when the source can change. A citation supports only the sentence it actually supports; a paper's presence in a repository does not vouch for every claim in it.
+
+\subsection*{What Lean and computation certify}
+Lean checks that a proof term has the type of the stated proposition, using the stated imports and axioms. It does not check that the proposition is the one you meant. A numerical computation checks finitely many cases, with the arithmetic and the program that were actually used. It does not prove a statement about every case. Both are valuable when their scope is stated. Neither replaces the human decisions about the intended statement, the model, and the meaning of the result.
+
+\subsection*{A record worth keeping}
+For each substantial AI-assisted claim, keep a short record: the claim, the prompt, the output retained, the independent check, the corrections made, and the remaining uncertainty. The record need not preserve the whole conversation. It should preserve enough that another reader can see what was assumed, what was checked, and what was not. In a course or a publication, disclose AI use at the level required by the institution or venue, and do not upload confidential material without permission.
+
+The aim is not to use AI less. It is to use it in a way that increases scrutiny: generate alternatives, attack the claim, translate it, and formalize a bounded part, while the human keeps control of the statement and the evidence.

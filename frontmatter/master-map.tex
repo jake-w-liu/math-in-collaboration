@@ -1,0 +1,25 @@
+\chapter*{A map of the ideas}
+\addcontentsline{toc}{chapter}{A map of the ideas}
+The chapters look like different subjects, but the same questions return. What are the objects? Which maps preserve their structure? When should two objects count as the same? How are new objects built from old ones? What survives the allowed transformations? These questions form a map that can be carried into any mathematical subject.
+
+\begin{center}
+\begin{tikzpicture}[
+  box/.style={draw,rounded corners,minimum height=0.75cm,minimum width=1.55cm,align=center,fill=papergray},
+  >=Stealth,node distance=0.42cm]
+\node[box] (objects) {objects};
+\node[box,right=of objects] (maps) {maps};
+\node[box,right=of maps] (equiv) {equivalences};
+\node[box,right=of equiv] (constr) {constructions};
+\node[box,right=of constr] (inv) {invariants};
+\draw[->,thick] (objects)--(maps);
+\draw[->,thick] (maps)--(equiv);
+\draw[->,thick] (equiv)--(constr);
+\draw[->,thick] (constr)--(inv);
+\end{tikzpicture}
+\end{center}
+
+The integers, the residue classes of Chapter~\ref{ch:structure}, the functions of Chapter~\ref{ch:maps}, the graphs of Chapter~\ref{ch:graphs}, the metric spaces of Chapter~\ref{ch:limits}, and the finite probability spaces of Chapter~\ref{ch:probability} are all examples of \emph{objects}. A map that preserves the relevant structure---addition, adjacency, or distance---is the next question. An \emph{equivalence} says which differences are being ignored, as a residue class ignores multiples of $m$ and an isomorphism ignores the names of elements. A \emph{construction} builds a new object: a product, a quotient, a kernel, a completion, or a space of functions. An \emph{invariant} is what the allowed transformations cannot change, such as parity, the number of edges of a graph, or the product of a row of signs under the legal flips.
+
+Three further contrasts run through the book. A question may be \emph{local} or \emph{global}: continuity at one point is local, while completeness describes a whole space. It may be \emph{exact} or \emph{approximate}: a residue class is exact, while an error bound controls an approximation. It may be \emph{finite} or \emph{infinite}: counting proves a finite statement, while induction, limits, and compactness control an infinite one. When a new idea appears, ask where it sits on these axes.
+
+The map is not a substitute for the chapters. It is a way to keep the chapters connected: every definition names an object, every theorem relates objects through maps or constructions, and every proof is a route between them.
