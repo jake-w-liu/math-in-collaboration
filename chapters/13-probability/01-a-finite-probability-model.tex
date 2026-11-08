@@ -25,18 +25,18 @@ In the simplest models, called \emph{uniform}, every outcome has the same probab
 because the sum defining $\Prob(A)$ has $|A|$ terms, each equal to $1/|\Omega|$. A member of a finite set is chosen \emph{uniformly at random} when that set is the sample space and the model is uniform; for example, if one student is chosen uniformly at random from a class of $30$, each student is chosen with probability $1/30$.
 
 \subsection*{Two coins}
-Toss two fair coins and record each result as $1$ (heads) or $0$ (tails). Write an outcome as two digits, the result of the first coin followed by the result of the second. The sample space is
+Toss two fair coins independently and record each result as $1$ (heads) or $0$ (tails). Write an outcome as two digits, the result of the first coin followed by the result of the second. The sample space is
 \[
 \Omega=\{00,\,01,\,10,\,11\}.
 \]
-Because the coins are fair, we use the uniform model: each outcome has probability $1/4$. For example, the event ``the two results differ'' is $\{01,10\}$, with probability $2/4=1/2$.
+Because the tosses are independent and each coin is fair, we use the uniform model: each outcome has probability $1/4$. For example, the event ``the two results differ'' is $\{01,10\}$, with probability $2/4=1/2$.
 
 \subsection*{Which outcomes are equally likely?}
 The outcomes $01$ and $10$ are different. It is tempting to merge them into ``one of each'' and to give each possible number $0$, $1$, $2$ of coins showing $1$ the probability $1/3$, but this is a mistake: ``one of each'' covers two of the four equally likely outcomes. We may still use the three counts as outcomes, with the right weights: the sample space $\{0,1,2\}$ with
 \[
 p(0)=\tfrac14,\qquad p(1)=\tfrac12,\qquad p(2)=\tfrac14,
 \]
-describes the same two tosses, and is a finite probability space that is not uniform. Giving each count the probability $1/3$ also produces a finite probability space, but not one that describes two fair coins. A probability model is a piece of mathematics, and whether it fits a real experiment is a separate question, which no calculation inside the model can answer.
+describes the same two tosses, and is a finite probability space that is not uniform. Giving each count the probability $1/3$ also produces a finite probability space, but not one that describes two independent fair coin tosses. A probability model is a piece of mathematics, and whether it fits a real experiment is a separate question, which no calculation inside the model can answer.
 
 \subsection*{Disjoint events and complements}
 Recall from Section~\ref{ch03:sec:sets} that two sets are \emph{disjoint} when they have no member in common. If two events $A$ and $B$ are disjoint, every outcome of $A\cup B$ lies in exactly one of them, so the sum defining $\Prob(A\cup B)$ splits into a sum over $A$ and a sum over $B$:
