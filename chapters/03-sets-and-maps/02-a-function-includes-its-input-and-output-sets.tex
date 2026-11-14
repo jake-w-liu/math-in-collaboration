@@ -37,7 +37,7 @@ the two expressions compared in Section~\ref{ch01:sec:letters}.
 When the codomain of $f$ is not the domain of $g$, the composition can fail to make sense. Let $f:\RR\to\RR$ be $f(x)=x-1$, and let $g:[0,\infty)\to\RR$ be $g(t)=\sqrt t$. Then $g(f(5))=g(4)=2$, but $g(f(0))$ makes no sense, because $f(0)=-1$ is not an allowed input of $g$; so $g\circ f$ is not defined. Using the same rule $x\mapsto x-1$ as a function from $[1,\infty)$ to $[0,\infty)$ fixes this: the composition $x\mapsto\sqrt{x-1}$ is defined on $[1,\infty)$.
 
 \subsection*{Spaces of functions}
-The set of all functions from $A$ to $B$ is written $B^A$. Its members are functions, not values: an element of $B^A$ is a whole rule $A\to B$. For finite sets, $|B^A|=|B|^{|A|}$, because each of the $|A|$ inputs independently chooses one of the $|B|$ outputs. This notation turns functions themselves into objects, and it is common in algebra, topology, and computer science.
+The set of all functions from $A$ to $B$ is written $B^A$. Its members are functions, not values: an element of $B^A$ is a whole rule $A\to B$. For finite sets, $|B^A|=|B|^{|A|}$, because each of the $|A|$ inputs independently chooses one of the $|B|$ outputs. Here we use the combinatorial convention $0^0=1$: there is exactly one function from the empty set to itself. This notation turns functions themselves into objects, and it is common in algebra, topology, and computer science.
 
 \subsection*{Undoing a function}
 A function $f:A\to B$ is \emph{reversible}, or \emph{invertible}, if some function $h:B\to A$ undoes it from both sides:

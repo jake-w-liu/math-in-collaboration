@@ -40,7 +40,7 @@ For each length $n$ from $1$ to $13$, the main loop counts in \code{barker} and 
 To go further, raise the limit \code{14} in the line \code{for n in range(1, 14):}. Each additional length doubles the number of sequences, each a little longer to check, so the running time slightly more than doubles and the memory doubles, since \code{seqs} holds all $2^n$ sequences of one length at once. With the limit \code{21} (lengths up to $20$, about a million sequences) the program finishes well within a minute on an ordinary computer, but at length $25$ the list alone has more than $33$ million entries and needs several gigabytes.
 
 \subsection*{An assignment search that returns a certificate}
-The next function carries out the procedure of Section~\ref{ch08:sec:search}. Students are numbered $0,1,2,\ldots$, and \code{options[s]} is the set $N(s)$ of tasks acceptable to student \code{s}.
+The next function carries out the procedure of Section~\ref{ch08:sec:search}. The input \code{options} is a finite list of finite sets of integer task IDs; students are numbered $0,1,2,\ldots$ by their positions in the list, and \code{options[s]} is the set $N(s)$ of tasks acceptable to student \code{s}.
 \begin{lstlisting}
 def assign(options):
     # options[s] is the set of tasks acceptable to student s.
